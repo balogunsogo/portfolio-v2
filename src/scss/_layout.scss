@@ -11,7 +11,7 @@
 
   // Short phones (iPhone SE and similar): tighten so the page still fits one screen.
   @media (max-height: 700px) and (max-width: #{$bp-desktop - 1px}) {
-    gap: 32px;
+    gap: 24px;
     padding-top: 24px;
     padding-bottom: 24px;
   }
@@ -78,7 +78,16 @@
 
 .intro__role-line {
   display: block;
-  margin-left: -$lsb-stem-medium; // "Frontend…" (F) and, on mobile, "Digital…" (D)
+
+  // "Software…" starts on a round S.
+  &:first-child {
+    margin-left: -$lsb-s-medium;
+  }
+
+  // On mobile "Digital…" starts its own line on a D stem.
+  &:last-child {
+    margin-left: -$lsb-stem-medium;
+  }
 
   @include desktop {
     display: inline;

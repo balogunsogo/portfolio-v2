@@ -8,7 +8,7 @@ Balogun Oluwasogo's personal portfolio: a single page, built from the "Neue Mont
 
 - **Top:** the name as display type, with the role line under it at about a third of the name's size.
 - **Bottom of the viewport, left half:** "Featured work" and the project list, flush left under the name (columns 1–6).
-- **Bottom of the viewport, right half:** an aside in columns 9–12 acts as the counterweight. It holds the time and "Lagos, Nigeria" beside the links (LinkedIn, GitHub, Contra, in that order), and sits on the last project's line.
+- **Bottom of the viewport, right half:** an aside in columns 9–12 acts as the counterweight. It holds the time and "Lagos, Nigeria" beside the links (LinkedIn, GitHub, Contra, Email, in that order), and sits on the last project's line.
 - **Hover preview:** columns 9–12. It is hidden until a project is hovered or focused. While it shows, the aside fades out, using `.index:has(.preview.is-visible)` with no JS. It only exists on desktop pointers (`min-width: 1024px` with `hover: hover` and `pointer: fine`).
 - **Project links:** open in a new tab (`target="_blank" rel="noopener"`), with a visually hidden "(opens in a new tab)" for screen readers. The preview label reads `[data-work-title]`, so that suffix never shows.
 - **Mobile:** stacks the name, role and list. The aside sits below them: time and location on the left, links right-aligned on the right. There is no preview.
@@ -29,7 +29,7 @@ Balogun Oluwasogo's personal portfolio: a single page, built from the "Neue Mont
 - **Fluid sizes:** implemented with `clamp()` in `_layout.scss` and `_index.scss`.
 - **Alignment rules that must hold on desktop:**
   - The GMT+1 line, the "Featured work" label and the top of the preview frame share one top edge (grid row 1).
-  - The list's left edge matches the name's left edge, measured on the ink rather than the box. Lines are pulled left by their first glyph's side bearing (`$lsb-*` in `_tokens.scss`), so the B of the name, the F of the role and the F of "Featured work" sit on the same pixel column. A new line or project title that starts on a straight stem (B, D, F, N…) needs the same correction; use `.work__link--stem` for projects.
+  - The list's left edge matches the name's left edge, measured on the ink rather than the box. Lines are pulled left by their first glyph's side bearing (`$lsb-*` in `_tokens.scss`), so the B of the name, the S of the role and the F of "Featured work" sit on the same pixel column. A new line or project title that starts on a straight stem (B, D, F, N…) needs the same correction; use `.work__link--stem` for projects.
   - The aside's last line (the location and Contra) sits level with the last project. This is driven by `$work-pad-desktop`.
   - The project list hugs its longest title (`justify-self: start`).
 - **Brand mark:** the `b.` wordmark from the Artifacts project (`balo.svg` / `public/favicon.svg` there). Copy it exactly and never redraw it. The favicon and touch icon are white on `#262626`. The share image is `#262626` on white.

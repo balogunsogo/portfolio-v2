@@ -65,4 +65,4 @@ scripts/                build + dev server (Node only, no dependencies)
 ## Content
 
 - **Projects:** each project link in `index.html` points to its live site and opens in a new tab.
-- **Links:** LinkedIn, GitHub and Contra.
+- **Links:** LinkedIn, GitHub, Contra and Email (`mailto:balogunoluwasogo@gmail.com`).

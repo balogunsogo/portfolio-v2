@@ -95,7 +95,7 @@ $work-pad-desktop: 9px;
     visibility 0s linear 0s;
 
   @media (max-height: 700px) {
-    --meta-gap: 28px;
+    --meta-gap: 20px;
   }
 
   @include desktop {
@@ -136,6 +136,11 @@ $work-pad-desktop: 9px;
   a {
     display: inline-block;
     padding: 6px 0;
+
+    // Short phones: slightly tighter so four links still fit one screen.
+    @media (max-height: 700px) and (max-width: #{$bp-desktop - 1px}) {
+      padding: 5px 0;
+    }
   }
 
   @include desktop {
