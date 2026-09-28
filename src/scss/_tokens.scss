@@ -1,0 +1,40 @@
+// Design tokens — values taken from the "Neue Montreal" board on the design canvas.
+
+// Colour
+$color-ground: #fafaf8;
+$color-ink: #111110;
+$color-muted: #65635d; // 5.9:1 on ground
+
+// Type
+$font-sans: 'PP Neue Montreal', 'Neue Montreal', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$weight-regular: 400;
+$weight-medium: 500;
+
+// Optical left alignment. Every glyph carries a left side bearing (empty space before
+// the stem) that scales with font size, so at display sizes the name visibly starts to
+// the right of smaller text set on the same edge. Pulling each line left by its first
+// glyph's side bearing puts every stem on the grid line. Values are from PP Neue Montreal
+// (units per em = 1000).
+$lsb-stem-medium: 0.071em; // B, D, F, N… (straight stems) in Medium
+$lsb-round-medium: 0.036em; // O in Medium
+$lsb-stem-book: 0.076em; // F in Book
+
+// Layout
+$columns: 12;
+$gutter: 24px;
+
+// Breakpoints (min-width)
+$bp-desktop: 1024px;
+
+@mixin desktop {
+  @media (min-width: $bp-desktop) {
+    @content;
+  }
+}
+
+// The hover preview only exists where hovering is a real interaction.
+@mixin hover-desktop {
+  @media (min-width: $bp-desktop) and (hover: hover) and (pointer: fine) {
+    @content;
+  }
+}

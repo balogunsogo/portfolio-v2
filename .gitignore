@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.DS_Store
+Thumbs.db
+*.log
+
+# Licensed typeface (PP Neue Montreal) — keep out of any public repo.
+src/assets/fonts/*
+!src/assets/fonts/.gitkeep
+
+# Full-size image exports; the site ships the optimised .webp versions.
+src/assets/images/**/*.png

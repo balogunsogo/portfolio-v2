@@ -1,0 +1,90 @@
+@use 'tokens' as *;
+
+// Page shell: intro at the top, index pinned to the bottom of the viewport.
+.page {
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+  padding: 28px 20px 32px;
+
+  // Short phones (iPhone SE and similar): tighten so the page still fits one screen.
+  @media (max-height: 700px) and (max-width: #{$bp-desktop - 1px}) {
+    gap: 32px;
+    padding-top: 24px;
+    padding-bottom: 24px;
+  }
+
+  @include desktop {
+    gap: 56px;
+    padding: 48px 64px 56px;
+  }
+}
+
+.intro {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+
+  @include desktop {
+    gap: 20px;
+  }
+}
+
+// 64px at 390 wide (mobile board) → 136px at 1440 wide (desktop board).
+.intro__name {
+  font-size: clamp(3.5rem, 16.4vw, 7rem);
+  font-weight: $weight-medium;
+  line-height: 0.9;
+  letter-spacing: -0.045em;
+
+  @include desktop {
+    font-size: clamp(6rem, 9.45vw, 11.5rem);
+    line-height: 0.88;
+    white-space: nowrap;
+  }
+}
+
+.intro__name-line {
+  display: block;
+
+  // "Balogun" starts on a B stem.
+  &:first-child {
+    margin-left: -$lsb-stem-medium;
+  }
+
+  // On mobile "Oluwasogo" starts its own line on a round O.
+  &:last-child {
+    margin-left: -$lsb-round-medium;
+  }
+
+  @include desktop {
+    display: inline;
+
+    &:last-child {
+      margin-left: 0;
+    }
+  }
+}
+
+// 24px on mobile → 48px at 1440.
+.intro__role {
+  font-size: clamp(1.5rem, 1rem + 2.28vw, 3.5rem);
+  font-weight: $weight-medium;
+  line-height: 1.12;
+  letter-spacing: -0.022em;
+}
+
+.intro__role-line {
+  display: block;
+  margin-left: -$lsb-stem-medium; // "Frontend…" (F) and, on mobile, "Digital…" (D)
+
+  @include desktop {
+    display: inline;
+
+    &:last-child {
+      margin-left: 0;
+    }
+  }
+}

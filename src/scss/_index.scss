@@ -1,0 +1,211 @@
+@use 'tokens' as *;
+
+// Bottom block: featured work, hover preview, and an aside with time, location and links.
+//
+// Layout "Two halves" from the design canvas.
+//
+// Mobile (single column):
+//   heading
+//   work
+//   aside → 2 columns: time + location on the left, links right-aligned on the right
+//
+// Desktop (12 columns, 2 rows):
+//   cols 1–6   row 1: heading     row 2: work list, flush left under the name
+//   cols 9–12  row 2: aside, sitting on the last project's line (the counterweight)
+//   cols 9–12  rows 1–2: hover preview. While it shows, the aside fades out.
+
+// Vertical padding on each project link. The aside reuses it so its last line sits
+// level with the last project.
+$work-pad-mobile: 7px;
+$work-pad-desktop: 9px;
+
+.index {
+  display: flex;
+  flex-direction: column;
+  margin-top: auto;
+  font-size: 0.9375rem;
+
+  @include desktop {
+    display: grid;
+    grid-template-columns: repeat($columns, minmax(0, 1fr));
+    grid-template-rows: auto auto;
+    column-gap: $gutter;
+    row-gap: 16px;
+    align-items: start;
+    font-size: 1rem;
+  }
+}
+
+.index__heading {
+  margin-left: -$lsb-stem-book; // optical edge for the F, see _tokens.scss
+  font-size: inherit;
+  font-weight: $weight-regular;
+  color: $color-muted;
+
+  @include desktop {
+    grid-column: 1 / span 6;
+    grid-row: 1;
+  }
+}
+
+.work {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 8px;
+
+  @include desktop {
+    grid-column: 1 / span 6;
+    grid-row: 2;
+    justify-self: start; // the list hugs its longest title
+    margin-top: 0;
+  }
+}
+
+.work__link {
+  position: relative;
+  display: block;
+  padding: $work-pad-mobile 0; // 28px type + padding keeps each tap target above 44px
+  font-size: 1.75rem;
+  font-weight: $weight-medium;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+
+  @include desktop {
+    padding: $work-pad-desktop 0;
+    font-size: 1.875rem;
+    line-height: 1.4;
+  }
+}
+
+// Titles that start on a straight stem (N, B, F…) get pulled onto the optical edge.
+// Round or open letters (A, J) need no correction at this size.
+.work__link--stem {
+  margin-left: -$lsb-stem-medium;
+}
+
+// Aside: time + location beside the links. Same two-column block on every size.
+.index__aside {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 16px;
+  margin-top: var(--meta-gap, 40px);
+  transition:
+    opacity 0.2s ease,
+    visibility 0s linear 0s;
+
+  @media (max-height: 700px) {
+    --meta-gap: 28px;
+  }
+
+  @include desktop {
+    grid-column: 9 / span 4;
+    grid-row: 2;
+    align-self: end;
+    align-items: end;
+    column-gap: $gutter;
+    margin-top: 0;
+    padding-bottom: $work-pad-desktop;
+  }
+}
+
+.index__meta {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 6px 0; // matches the links' tap padding so first and last lines align
+  color: $color-muted;
+
+  @include desktop {
+    justify-content: flex-end;
+    gap: 4px;
+    padding: 0;
+  }
+}
+
+.index__time {
+  font-variant-numeric: tabular-nums;
+}
+
+.links {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  text-align: right;
+
+  a {
+    display: inline-block;
+    padding: 6px 0;
+  }
+
+  @include desktop {
+    gap: 4px;
+
+    a {
+      padding: 0;
+    }
+  }
+}
+
+// While a preview is showing, it takes over the right side and the aside steps back.
+.index:has(.preview.is-visible) .index__aside {
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.2s ease,
+    visibility 0s linear 0.2s;
+}
+
+// Hover preview frame. Hidden until a project is hovered or focused.
+.preview {
+  display: none;
+
+  @include hover-desktop {
+    display: block;
+    grid-column: 9 / span 4;
+    grid-row: 1 / span 2;
+    align-self: stretch;
+    position: relative;
+    overflow: hidden;
+    background: var(--preview-tone, transparent);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition:
+      opacity 0.2s ease,
+      visibility 0s linear 0.2s;
+
+    &.is-visible {
+      opacity: 1;
+      visibility: visible;
+      transition:
+        opacity 0.2s ease,
+        visibility 0s;
+    }
+  }
+}
+
+.preview__image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+
+  &:not([src]),
+  &[src=''] {
+    display: none;
+  }
+}
+
+.preview__label {
+  position: absolute;
+  left: 20px;
+  bottom: 20px;
+  font-size: 0.875rem;
+  color: var(--preview-ink, #{$color-ink});
+}
+
+.preview.has-image .preview__label {
+  display: none;
+}

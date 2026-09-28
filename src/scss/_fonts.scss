@@ -1,0 +1,19 @@
+// PP Neue Montreal is a licensed typeface (Pangram Pangram) and is not committed to the repo.
+// Drop the .woff2 files into src/assets/fonts/ with these names and they load automatically.
+// Until then the stack in $font-sans falls back to Helvetica Neue / Arial.
+
+@font-face {
+  font-family: 'PP Neue Montreal';
+  src: url('../fonts/PPNeueMontreal-Book.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'PP Neue Montreal';
+  src: url('../fonts/PPNeueMontreal-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
