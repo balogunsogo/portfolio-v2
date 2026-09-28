@@ -58,7 +58,8 @@ Balogun Oluwasogo's personal portfolio: a single page, built from the "Neue Mont
 
 - **Only web formats ship.** Fonts are served as `.woff2`, and preview images as 1200px WebP.
 - **Raw sources stay in `src/assets` but are never deployed.** That means the `.otf` fonts and the full-size `.png` exports. They're filtered out by `SOURCE_ONLY` in `scripts/shared.mjs` and git-ignored.
-- **Font licence:** the PP Neue Montreal files must stay out of any public repo.
+- **Fonts in the repo:** the two PP Neue Montreal `.woff2` files are committed (Oluwasogo's call) so the Vercel build includes them. The `.otf` originals stay git-ignored.
+- **Deploy:** Vercel builds `main` using `vercel.json` (`npm ci`, `npm run build`, output `dist`). Don't add a framework preset.
 
 ## Open items
 
