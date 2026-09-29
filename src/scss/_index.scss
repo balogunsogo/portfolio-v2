@@ -401,6 +401,24 @@ $sheet-duration: 0.42s; // keep in sync with TRANSITION_MS in ts/modal.ts
   padding-left: 12px;
 }
 
+// Keyboard focus only, drawn like the site's links instead of the browser's blue ring.
+.sheet__close,
+.sheet__next {
+  &:focus {
+    outline: none;
+  }
+
+  &:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 3px;
+  }
+}
+
+// The panel takes focus when opened by touch; it never shows a ring.
+.sheet__panel:focus {
+  outline: none;
+}
+
 .sheet__next {
   color: $color-muted;
   text-align: right;

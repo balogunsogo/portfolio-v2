@@ -4,6 +4,12 @@
 // title, type, image, description, a "Visit site" link and "Next" to move through
 // the list without closing. It slides up over a light scrim, and closes with the
 // Close button, a tap on the scrim, Escape, or a downward drag on its header.
+//
+// Focus follows the input: opened from the keyboard, focus goes to Close and
+// returns to the project afterwards. Opened by touch, focus goes to the panel
+// itself (no outline) and is released on close, so no focus ring is painted.
+// Programmatic focus after a tap would otherwise match :focus-visible in
+// WebKit/Chrome and draw rings on Close and then on the project link.
 
 import type { Project } from './projects.js';
 
@@ -41,6 +47,7 @@ export function initProjectSheet(el: SheetElements): void {
   let opener: HTMLElement | null = null;
   let closeTimer = 0;
   let previousOverflow = '';
+  let keyboardMode = false;
 
   const duration = (): number => (reducedMotion.matches ? 0 : TRANSITION_MS);
 
@@ -66,7 +73,7 @@ export function initProjectSheet(el: SheetElements): void {
   const onKeydown = (event: KeyboardEvent): void => {
     if (event.key === 'Escape') {
       event.preventDefault();
-      close();
+      close(true);
       return;
     }
     if (event.key !== 'Tab') return;
@@ -83,9 +90,10 @@ export function initProjectSheet(el: SheetElements): void {
     }
   };
 
-  const open = (index: number, source: HTMLElement): void => {
+  const open = (index: number, source: HTMLElement, fromKeyboard: boolean): void => {
     window.clearTimeout(closeTimer);
     opener = source;
+    keyboardMode = fromKeyboard;
     fill(index);
     panel.scrollTop = 0;
     panel.style.transform = '';
@@ -99,10 +107,10 @@ export function initProjectSheet(el: SheetElements): void {
     }
     root.classList.add('is-open');
     document.addEventListener('keydown', onKeydown);
-    el.closeButton.focus({ preventScroll: true });
+    (keyboardMode ? el.closeButton : panel).focus({ preventScroll: true });
   };
 
-  function close(): void {
+  function close(fromKeyboard = false): void {
     if (root.hidden || !root.classList.contains('is-open')) return;
     root.classList.remove('is-open');
     panel.style.transform = '';
@@ -112,7 +120,11 @@ export function initProjectSheet(el: SheetElements): void {
       document.body.style.overflow = previousOverflow;
       current = -1;
     }, duration());
-    opener?.focus({ preventScroll: true });
+    if (keyboardMode || fromKeyboard) {
+      opener?.focus({ preventScroll: true });
+    } else if (document.activeElement instanceof HTMLElement && panel.contains(document.activeElement)) {
+      document.activeElement.blur();
+    }
     opener = null;
   }
 
@@ -182,11 +194,12 @@ export function initProjectSheet(el: SheetElements): void {
     const index = Number(link.dataset.projectIndex);
     if (!projects[index]) return;
     event.preventDefault();
-    open(index, link);
+    // A click with detail 0 came from Enter/Space rather than a pointer.
+    open(index, link, event.detail === 0);
   });
 
-  scrim.addEventListener('click', close);
-  el.closeButton.addEventListener('click', close);
+  scrim.addEventListener('click', () => close());
+  el.closeButton.addEventListener('click', (event: MouseEvent) => close(event.detail === 0));
   el.nextButton.addEventListener('click', next);
 
   // Warm the image cache once the list is first touched.
