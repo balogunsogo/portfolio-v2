@@ -10,7 +10,8 @@
 //   aside → 2 columns: time + location on the left, links right-aligned on the right
 //
 // Desktop (12 columns, 2 rows):
-//   cols 1–6   row 1: heading     row 2: work list, flush left under the name
+//   cols 1–4   row 1: heading     row 2: work list, flush left under the name
+//   cols 5–8   row 1: project type row 2: description (hover / focus only)
 //   cols 9–12  row 2: aside, sitting on the last project's line (the counterweight)
 //   cols 9–12  rows 1–2: hover preview. While it shows, the aside fades out.
 
@@ -43,7 +44,7 @@ $work-pad-desktop: 9px;
   color: $color-muted;
 
   @include desktop {
-    grid-column: 1 / span 6;
+    grid-column: 1 / span 4;
     grid-row: 1;
   }
 }
@@ -55,7 +56,7 @@ $work-pad-desktop: 9px;
   margin-top: 8px;
 
   @include desktop {
-    grid-column: 1 / span 6;
+    grid-column: 1 / span 4;
     grid-row: 2;
     justify-self: start; // the list hugs its longest title
     margin-top: 0;
@@ -82,6 +83,66 @@ $work-pad-desktop: 9px;
 // Round or open letters (A, J) need no correction at this size.
 .work__link--stem {
   margin-left: -$lsb-stem-medium;
+}
+
+// Description column (desktop, "Description in its own column" on the canvas).
+// The type/role line sits on the "Featured work" line (row 1) and the description
+// starts level with the first project (row 2), in columns 5–8 between the list and
+// the image. 20px sits between the 16px labels and the 30px titles in the type scale.
+$preview-ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+.preview-meta,
+.preview-text {
+  display: none;
+
+  @include hover-desktop {
+    display: block;
+    grid-column: 5 / span 4;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition:
+      opacity 0.24s ease,
+      transform 0.32s $preview-ease,
+      visibility 0s linear 0.24s;
+
+    &.is-visible {
+      opacity: 1;
+      visibility: visible;
+      transform: none;
+      transition:
+        opacity 0.24s ease,
+        transform 0.32s $preview-ease,
+        visibility 0s;
+    }
+  }
+}
+
+.preview-meta {
+  @include hover-desktop {
+    grid-row: 1;
+    color: $color-muted;
+  }
+}
+
+.preview-text {
+  @include hover-desktop {
+    grid-row: 2;
+    max-width: 26ch;
+    // Puts the first line's cap height level with the first project title's.
+    padding-top: 12px;
+    font-size: 1.25rem;
+    line-height: 1.35;
+    letter-spacing: -0.008em;
+    transform: translateY(8px);
+  }
+}
+
+// While a project is active, the other titles step back to the muted colour.
+.work.has-active .work__link:not(.is-active) {
+  @include hover-desktop {
+    color: $color-muted;
+  }
 }
 
 // Aside: time + location beside the links. Same two-column block on every size.
@@ -213,4 +274,171 @@ $work-pad-desktop: 9px;
 
 .preview.has-image .preview__label {
   display: none;
+}
+
+@keyframes preview-image-swap {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes preview-copy-swap {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+.preview.is-switching .preview__image {
+  animation: preview-image-swap 0.18s ease;
+}
+
+.preview-meta.is-switching,
+.preview-text.is-switching {
+  animation: preview-copy-swap 0.32s $preview-ease;
+}
+
+// Small screens: project bottom sheet ("Bottom sheet" on the canvas).
+// Slides up over a light scrim; closes via Close, the scrim, Escape or a downward drag.
+$sheet-duration: 0.42s; // keep in sync with TRANSITION_MS in ts/modal.ts
+
+.sheet {
+  position: fixed;
+  z-index: 10;
+  inset: 0;
+
+  &[hidden] {
+    display: none;
+  }
+
+  @include desktop {
+    display: none;
+  }
+}
+
+.sheet__scrim {
+  position: absolute;
+  inset: 0;
+  background: rgba($color-ink, 0.32);
+  opacity: 0;
+  transition: opacity 0.28s ease;
+
+  .sheet.is-open & {
+    opacity: 1;
+  }
+}
+
+.sheet__panel {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  max-width: 36rem;
+  max-height: 88svh;
+  margin: 0 auto;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 20px 20px calc(24px + env(safe-area-inset-bottom));
+  background: $color-ground;
+  color: $color-ink;
+  transform: translateY(100%);
+  transition: transform $sheet-duration $preview-ease;
+
+  .sheet.is-open & {
+    transform: translateY(0);
+  }
+
+  // Follows the finger while dragging; the transition returns on release.
+  &.is-dragging {
+    transition: none;
+  }
+}
+
+.sheet__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  touch-action: none; // the header is the drag handle
+}
+
+.sheet__heading {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sheet__title {
+  margin: 0;
+  font-size: 1.75rem;
+  font-weight: $weight-medium;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.sheet__meta {
+  font-size: 0.875rem;
+  color: $color-muted;
+}
+
+.sheet__close,
+.sheet__next {
+  min-height: 44px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  font-size: 0.9375rem;
+  cursor: pointer;
+}
+
+.sheet__close {
+  flex: 0 0 auto;
+  padding-left: 12px;
+}
+
+.sheet__next {
+  color: $color-muted;
+  text-align: right;
+}
+
+.sheet__image {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  max-height: 34svh;
+  object-fit: cover;
+}
+
+.sheet__text {
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.sheet__foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  font-size: 0.9375rem;
+}
+
+.sheet__visit {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25em;
+  min-height: 44px;
+  font-weight: $weight-medium;
+}
+
+// "Next" crossfades the content without re-running the slide.
+[data-sheet-swap] {
+  transition: opacity 0.14s ease;
+
+  &.is-swapping {
+    opacity: 0;
+  }
 }

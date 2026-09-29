@@ -7,11 +7,13 @@ Context and rules for anyone (human or AI) working in this repo.
 Balogun Oluwasogo's personal portfolio: a single page, built from the "Neue Montreal" board and the "Two halves" direction of the design canvas "iudoh.me Layout Variations". The layout is a restrained, lineless 12-column grid.
 
 - **Top:** the name as display type, with the role line under it at about a third of the name's size.
-- **Bottom of the viewport, left half:** "Featured work" and the project list, flush left under the name (columns 1–6).
+- **Bottom of the viewport, left half:** "Featured work" and the project list, flush left under the name (columns 1–4).
 - **Bottom of the viewport, right half:** an aside in columns 9–12 acts as the counterweight. It holds the time and "Lagos, Nigeria" beside the links (LinkedIn, GitHub, Contra, Email, in that order), and sits on the last project's line.
 - **Hover preview:** columns 9–12. It is hidden until a project is hovered or focused. While it shows, the aside fades out, using `.index:has(.preview.is-visible)` with no JS. It only exists on desktop pointers (`min-width: 1024px` with `hover: hover` and `pointer: fine`).
 - **Project links:** open in a new tab (`target="_blank" rel="noopener"`), with a visually hidden "(opens in a new tab)" for screen readers. The preview label reads `[data-work-title]`, so that suffix never shows.
-- **Mobile:** stacks the name, role and list. The aside sits below them: time and location on the left, links right-aligned on the right. There is no preview.
+- **Description column (desktop):** columns 5–8, beside the list. On hover or focus it shows the project's type (muted, on the "Featured work" line) and a short description underneath, fading with the preview. Other list items dim to muted while one is active.
+- **Mobile:** stacks the name, role and list. The aside sits below them: time and location on the left, links right-aligned on the right. Tapping a project opens a bottom sheet (`src/ts/modal.ts`) with title, type, image, description, "Visit site ↗" and "Next: <project>". It closes via Close, the scrim, Escape or dragging the header down; focus is trapped inside and returns to the project afterwards.
+- **Project data:** lives in `src/ts/projects.ts` (title, `meta` type line, description, image, URL). The list, preview, description column and sheet all read from it.
 
 ## Stack (do not change without asking)
 

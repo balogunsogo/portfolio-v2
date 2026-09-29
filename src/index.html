@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Balogun Oluwasogo — Software Engineer &amp; Digital Designer</title>
   <meta name="description" content="Balogun Oluwasogo is a software engineer and digital designer based in Lagos, Nigeria.">
   <meta name="theme-color" content="#FAFAF8">
@@ -42,19 +42,10 @@
     <section class="index" aria-labelledby="featured-heading">
       <h2 class="index__heading" id="featured-heading">Featured work</h2>
 
-      <!--
-        Each project link can carry:
-          data-preview-src   image shown in the hover frame (1200px-wide WebP; leave empty to show the tone)
-          data-preview-tone  background colour of the frame while the image loads or if none is set
-          data-preview-ink   text colour of the fallback label on that tone
-      -->
-      <ul class="work" data-work-list>
-        <li><a class="work__link" href="https://jobtrackr.balogunoluwasogo.com/" target="_blank" rel="noopener" data-preview-src="assets/images/projects/jobtrackr.webp" data-preview-tone="#DCD8CF" data-preview-ink="#4A4843"><span data-work-title>Jobtrackr</span><span class="visually-hidden"> (opens in a new tab)</span></a></li>
-        <li><a class="work__link" href="https://acetrailtutors.com/" target="_blank" rel="noopener" data-preview-src="assets/images/projects/acetrail.webp" data-preview-tone="#C9CFC6" data-preview-ink="#3E443C"><span data-work-title>Acetrail</span><span class="visually-hidden"> (opens in a new tab)</span></a></li>
-        <li><a class="work__link" href="https://allthatiskim.com/" target="_blank" rel="noopener" data-preview-src="assets/images/projects/all-that-is-kim.webp" data-preview-tone="#D8CCC6" data-preview-ink="#4A3F3A"><span data-work-title>All That Is Kim</span><span class="visually-hidden"> (opens in a new tab)</span></a></li>
-        <li><a class="work__link" href="https://artifacts.balogunoluwasogo.com/" target="_blank" rel="noopener" data-preview-src="assets/images/projects/artifacts.webp" data-preview-tone="#C8CCD4" data-preview-ink="#3C4049"><span data-work-title>Artifacts</span><span class="visually-hidden"> (opens in a new tab)</span></a></li>
-        <li><a class="work__link work__link--stem" href="https://now-playing.balogunoluwasogo.com/" target="_blank" rel="noopener" data-preview-src="assets/images/projects/now-playing.webp" data-preview-tone="#2A2A27" data-preview-ink="#C9C6BE"><span data-work-title>Now Playing</span><span class="visually-hidden"> (opens in a new tab)</span></a></li>
-      </ul>
+      <ul class="work" data-work-list></ul>
+
+      <p class="preview-meta" data-preview-meta aria-hidden="true"></p>
+      <p class="preview-text" data-preview-description aria-hidden="true"></p>
 
       <div class="preview" data-preview aria-hidden="true">
         <img class="preview__image" data-preview-image alt="" decoding="async">
@@ -78,5 +69,25 @@
       </div>
     </section>
   </main>
+
+  <!-- Small screens: tapping a project opens this bottom sheet instead of leaving the page. -->
+  <div class="sheet" data-sheet hidden>
+    <div class="sheet__scrim" data-sheet-scrim></div>
+    <div class="sheet__panel" data-sheet-panel role="dialog" aria-modal="true" aria-labelledby="sheet-title">
+      <div class="sheet__head" data-sheet-handle>
+        <div class="sheet__heading" data-sheet-swap>
+          <h3 class="sheet__title" id="sheet-title" data-sheet-title></h3>
+          <p class="sheet__meta" data-sheet-meta></p>
+        </div>
+        <button class="sheet__close" type="button" data-sheet-close>Close</button>
+      </div>
+      <img class="sheet__image" data-sheet-image data-sheet-swap alt="" decoding="async">
+      <p class="sheet__text" data-sheet-description data-sheet-swap></p>
+      <div class="sheet__foot">
+        <a class="sheet__visit" data-sheet-link href="#" target="_blank" rel="noopener">Visit site <span aria-hidden="true">↗</span><span class="visually-hidden"> (opens in a new tab)</span></a>
+        <button class="sheet__next" type="button" data-sheet-next>Next: <span data-sheet-next-title></span></button>
+      </div>
+    </div>
+  </div>
 </body>
 </html>

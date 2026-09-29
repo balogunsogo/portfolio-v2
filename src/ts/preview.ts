@@ -1,6 +1,4 @@
-// Hover / focus preview for the featured work list (desktop pointers only).
-// The frame stays hidden until a project is hovered or focused, and hides again when the
-// pointer leaves the list or focus moves outside it.
+import type { Project } from './projects.js';
 
 const canHover = window.matchMedia('(min-width: 1024px) and (hover: hover) and (pointer: fine)');
 
@@ -9,48 +7,66 @@ interface PreviewElements {
   frame: HTMLElement;
   image: HTMLImageElement;
   label: HTMLElement;
+  meta: HTMLElement;
+  description: HTMLElement;
+  projects: readonly Project[];
 }
 
-export function initPreview({ list, frame, image, label }: PreviewElements): void {
+export function initPreview({ list, frame, image, label, meta, description, projects }: PreviewElements): void {
   const links = Array.from(list.querySelectorAll<HTMLAnchorElement>('a'));
-  let active: HTMLAnchorElement | null = null;
+  let activeIndex: number | null = null;
   let preloaded = false;
 
   // Warm the cache for every preview image the first time the list is approached.
   const preload = (): void => {
     if (preloaded) return;
     preloaded = true;
-    for (const link of links) {
-      const src = link.dataset.previewSrc;
-      if (src) new Image().src = src;
+    for (const project of projects) {
+      new Image().src = project.image;
     }
   };
 
   const show = (link: HTMLAnchorElement): void => {
-    if (!canHover.matches || link === active) return;
-    active = link;
+    const index = Number(link.dataset.projectIndex);
+    const project = projects[index];
+    if (!canHover.matches || !project || index === activeIndex) return;
+    const isSwitch = activeIndex !== null;
+    activeIndex = index;
 
-    const src = link.dataset.previewSrc ?? '';
-    frame.style.setProperty('--preview-tone', link.dataset.previewTone ?? 'transparent');
-    frame.style.setProperty('--preview-ink', link.dataset.previewInk ?? 'inherit');
-    // Use only the visible title, not the screen-reader "(opens in a new tab)" suffix.
-    const title = link.querySelector('[data-work-title]') ?? link;
-    label.textContent = title.textContent?.trim() ?? '';
+    frame.style.setProperty('--preview-tone', project.previewTone);
+    frame.style.setProperty('--preview-ink', project.previewInk);
+    label.textContent = project.title;
+    meta.textContent = project.meta;
+    description.textContent = project.description;
 
-    if (src) {
-      image.src = src;
-      frame.classList.add('has-image');
-    } else {
-      image.removeAttribute('src');
-      frame.classList.remove('has-image');
+    // Dim the other titles so it's clear which project the copy belongs to.
+    list.classList.add('has-active');
+    links.forEach((item) => item.classList.toggle('is-active', item === link));
+    image.src = project.image;
+    frame.classList.add('has-image');
+
+    if (isSwitch) {
+      frame.classList.remove('is-switching');
+      meta.classList.remove('is-switching');
+      description.classList.remove('is-switching');
+      void frame.offsetWidth;
+      frame.classList.add('is-switching');
+      meta.classList.add('is-switching');
+      description.classList.add('is-switching');
     }
 
     frame.classList.add('is-visible');
+    meta.classList.add('is-visible');
+    description.classList.add('is-visible');
   };
 
   const hide = (): void => {
-    active = null;
-    frame.classList.remove('is-visible');
+    activeIndex = null;
+    frame.classList.remove('is-visible', 'is-switching');
+    meta.classList.remove('is-visible', 'is-switching');
+    description.classList.remove('is-visible', 'is-switching');
+    list.classList.remove('has-active');
+    links.forEach((item) => item.classList.remove('is-active'));
   };
 
   image.addEventListener('error', () => {

@@ -37,7 +37,7 @@ src/
     favicon.svg / .ico  b. wordmark (white on #262626, from the Artifacts project)
     apple-touch-icon.png
     og-image.png        1200×630 share image, b. wordmark
-    fonts/              PP Neue Montreal .woff2 files go here (not committed)
+    fonts/              PP Neue Montreal .woff2 files (committed)
     images/projects/    featured-work preview images
   scss/
     main.scss           entry, only @use statements
@@ -45,19 +45,21 @@ src/
     _fonts.scss         @font-face for PP Neue Montreal
     _base.scss          reset, body, links, reduced motion
     _layout.scss        page shell and intro (name + role)
-    _index.scss         featured work, hover preview, time, links
+    _index.scss         featured work, hover preview, description column, bottom sheet, time, links
   ts/
     main.ts             entry, wires up the modules
     clock.ts            live Lagos time (GMT+1)
-    preview.ts          hover / focus preview for featured work
+    projects.ts         project data (title, type, description, image, URL) and list rendering
+    preview.ts          desktop hover / focus preview and description column
+    modal.ts            mobile bottom sheet (initProjectSheet)
 scripts/                build + dev server (Node only, no dependencies)
 ```
 
 ## Assets
 
 - **Fonts:** `src/assets/fonts/` holds the licensed PP Neue Montreal files. The site loads `PPNeueMontreal-Book.woff2` (400) and `PPNeueMontreal-Medium.woff2` (500). The `.otf` originals stay in the folder but are not deployed.
-- **Project images:** `src/assets/images/projects/` keeps the full-size PNG exports for editing. The site loads 1200px-wide WebP versions (`<slug>.webp`, 20–180KB each) through `data-preview-src` in `index.html`. The PNGs are not deployed.
-- **Adding or replacing an image:** export a 1200px-wide WebP at quality 80, name it in lowercase kebab-case, and point the project's `data-preview-src` at it.
+- **Project images:** `src/assets/images/projects/` keeps the full-size PNG exports for editing. The site loads 1200px-wide WebP versions (`<slug>.webp`, 20–180KB each) through each project's `image` in `src/ts/projects.ts`. The PNGs are not deployed.
+- **Adding or replacing an image:** export a 1200px-wide WebP at quality 80, name it in lowercase kebab-case, and point the project's `image` in `projects.ts` at it.
 - **Excluded from the build:** `.otf`, `.ttf`, `.psd`, `.fig` and `.gitkeep` files, plus the `.png` exports under `images/`, are never copied to `dist/` (see `SOURCE_ONLY` in `scripts/shared.mjs`). PNGs at the assets root (the share image and touch icon) do ship.
 - **Wordmark:** the `b.` in the favicon, touch icon and share image is the exact mark from the Artifacts project (`balo.svg`). Don't redraw it.
 - **Git:** the `.woff2` fonts are committed so Vercel can build with them; the `.otf` originals and the PNG exports are git-ignored.
