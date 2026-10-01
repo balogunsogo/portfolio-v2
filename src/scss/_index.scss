@@ -188,6 +188,47 @@ $preview-ease: cubic-bezier(0.22, 1, 0.36, 1);
   font-variant-numeric: tabular-nums;
 }
 
+// Experiment: a minimal analog clock in place of the time and location lines.
+// A thin ring, a short heavy hour hand, a long fine minute hand, a hollow pivot and
+// the digital time (left) and its zone (right) on either side of the pivot.
+.index__clock {
+  display: block;
+  width: $clock-size;
+  height: $clock-size;
+  margin-top: auto;
+  fill: none;
+  stroke-linecap: round;
+}
+
+.index__clock-face {
+  stroke: currentColor;
+  stroke-width: 1;
+}
+
+.index__clock-readout {
+  fill: currentColor;
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+  // Each label is centred in its half of the face, on the pivot's horizontal line.
+  text-anchor: middle;
+  dominant-baseline: central;
+}
+
+.index__clock-hand {
+  stroke: $color-ink;
+  stroke-width: 1;
+}
+
+.index__clock-hand--hour {
+  stroke-width: 2.25;
+}
+
+.index__clock-pivot {
+  fill: $color-ground;
+  stroke: $color-ink;
+  stroke-width: 1;
+}
+
 .links {
   display: flex;
   flex-direction: column;
@@ -434,6 +475,23 @@ $sheet-duration: 0.42s; // keep in sync with TRANSITION_MS in ts/modal.ts
 .sheet__text {
   font-size: 1rem;
   line-height: 1.45;
+}
+
+// Every project's copy shares one cell per slot (see ts/modal.ts), so the tallest
+// sets the height and the sheet never resizes between projects.
+.sheet__title,
+.sheet__meta,
+.sheet__text {
+  display: grid;
+
+  > span {
+    grid-area: 1 / 1;
+    visibility: hidden;
+  }
+
+  > [data-active] {
+    visibility: visible;
+  }
 }
 
 .sheet__foot {

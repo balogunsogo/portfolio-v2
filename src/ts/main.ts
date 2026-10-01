@@ -6,7 +6,12 @@ import { projects, renderProjects } from './projects.js';
 const $ = <T extends Element>(selector: string): T | null => document.querySelector<T>(selector);
 
 const clock = $<HTMLTimeElement>('[data-clock]');
-if (clock) initClock(clock);
+const hourHand = $<SVGElement>('[data-clock-hour]');
+const minuteHand = $<SVGElement>('[data-clock-minute]');
+const readout = $<SVGElement>('[data-clock-readout]');
+if (clock) {
+  initClock(clock, hourHand && minuteHand ? { hour: hourHand, minute: minuteHand, readout } : undefined);
+}
 
 const list = $<HTMLElement>('[data-work-list]');
 if (list) renderProjects(list);

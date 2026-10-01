@@ -43,6 +43,24 @@ export function initProjectSheet(el: SheetElements): void {
   const { list, root, scrim, panel, handle, projects } = el;
   const swapTargets = Array.from(panel.querySelectorAll<HTMLElement>('[data-sheet-swap]'));
 
+  // Every project's title, type and description is rendered and stacked in one grid
+  // cell per slot, with only the current one visible, so the sheet keeps the height
+  // of the longest (wrapped lines included) at any width.
+  const stack = (slot: HTMLElement, texts: readonly string[]): HTMLElement[] => {
+    const nodes = texts.map((text) => {
+      const node = document.createElement('span');
+      node.textContent = text;
+      return node;
+    });
+    slot.replaceChildren(...nodes);
+    return nodes;
+  };
+  const stacks = [
+    stack(el.title, projects.map((project) => project.title)),
+    stack(el.meta, projects.map((project) => project.meta)),
+    stack(el.description, projects.map((project) => project.description)),
+  ];
+
   let current = -1;
   let opener: HTMLElement | null = null;
   let closeTimer = 0;
@@ -55,12 +73,12 @@ export function initProjectSheet(el: SheetElements): void {
     const project = projects[index];
     if (!project) return;
     current = index;
-    el.title.textContent = project.title;
-    el.meta.textContent = project.meta;
+    stacks.forEach((nodes) =>
+      nodes.forEach((node, i) => node.toggleAttribute('data-active', i === index)),
+    );
     el.image.src = project.image;
     el.image.alt = `${project.title} preview`;
     el.image.style.background = project.previewTone;
-    el.description.textContent = project.description;
     el.link.href = project.href;
     el.link.target = project.external ? '_blank' : '_self';
     el.link.rel = project.external ? 'noopener' : '';
