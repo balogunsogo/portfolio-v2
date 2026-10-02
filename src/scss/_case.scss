@@ -1,0 +1,1207 @@
+@use 'sass:list';
+@use 'tokens' as *;
+
+// Case study page (/work/jobtrackr).
+//
+// Pixel targets: docs/handoff/jobtrackr/reference/desktop.html at 1440 and mobile.html
+// at 390. Below 1024px everything is one column; from 1024px sections sit on the same
+// 12-column grid as the home page. Only display and heading sizes are fluid: body copy,
+// labels, captions and all spacing stay fixed.
+//
+// The footer reuses the home page's clock and links (.index__clock, .links).
+
+// Same page padding as .page on the home page.
+$case-pad-mobile: 28px 20px 32px;
+$case-pad-desktop: 48px 64px 56px;
+
+// Space between sections, and between the top bar and the hero.
+$case-gap-mobile: 104px;
+$case-gap-desktop: 160px;
+$case-top-gap-mobile: 56px;
+$case-top-gap-desktop: 104px;
+
+// Space between a section's text block and its media: (mobile, desktop).
+// A section without a modifier uses the first pair.
+$case-section-gap: 36px 64px;
+$case-section-gaps: (
+  'structure': 64px 96px,
+  'applications': 40px 64px,
+  'interviews': 40px 64px,
+  'architecture': 48px 120px,
+  'data': 40px 80px,
+  'process': 40px 80px,
+  'authentication': 40px 64px,
+  'security': 64px 104px,
+  'stack': 28px 56px,
+  'outcome': 24px 48px,
+);
+
+// The tall diagrams and the layers image stop growing here on tablet widths.
+$case-art-max: 440px;
+$case-diagram-wide-max: 1312px;
+
+@mixin case-grid {
+  display: grid;
+  grid-template-columns: repeat($columns, minmax(0, 1fr));
+  column-gap: $gutter;
+}
+
+@mixin case-type-body {
+  font-size: 1.0625rem;
+  font-weight: $weight-regular;
+  line-height: 1.45;
+  letter-spacing: -0.005em;
+  text-wrap: pretty;
+
+  @include desktop {
+    font-size: 1.25rem;
+    line-height: 1.4;
+    letter-spacing: -0.008em;
+  }
+}
+
+@mixin case-type-small {
+  font-size: 0.9375rem;
+  font-weight: $weight-regular;
+  line-height: 1.45;
+  letter-spacing: 0;
+
+  @include desktop {
+    font-size: 1rem;
+  }
+}
+
+// Shell
+
+.case {
+  display: flex;
+  flex-direction: column;
+  padding: $case-pad-mobile;
+
+  @include desktop {
+    padding: $case-pad-desktop;
+  }
+
+  // :where() keeps these resets from outranking the single-class rules below.
+  :where(figure, ol, dl, dd) {
+    margin: 0;
+  }
+
+  :where(ol) {
+    padding: 0;
+    list-style: none;
+  }
+}
+
+.case__main {
+  display: flex;
+  flex-direction: column;
+  gap: $case-gap-mobile;
+
+  @include desktop {
+    gap: $case-gap-desktop;
+  }
+}
+
+.case-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: $case-top-gap-mobile;
+  font-size: 0.9375rem;
+  line-height: 1.4;
+
+  @include desktop {
+    margin-bottom: $case-top-gap-desktop;
+    font-size: 1rem;
+  }
+}
+
+.case-top__name {
+  font-weight: $weight-medium;
+}
+
+// One line of text is a 21px target; this widens the hit area without moving anything.
+.case-top__name,
+.case-top__link,
+.case-meta__link {
+  @include below-desktop {
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      inset: -12px 0;
+    }
+  }
+}
+
+.case-section {
+  display: flex;
+  flex-direction: column;
+  gap: list.nth($case-section-gap, 1);
+
+  @include desktop {
+    gap: list.nth($case-section-gap, 2);
+  }
+}
+
+@each $name, $gaps in $case-section-gaps {
+  .case-section--#{$name} {
+    gap: list.nth($gaps, 1);
+
+    @include desktop {
+      gap: list.nth($gaps, 2);
+    }
+  }
+}
+
+// Type
+
+// Fluid sizes use the clamps from the handoff, with each slope written as an exact
+// fraction so the size lands on the board's whole pixel at 390 and 1440 (3.3333vw gives
+// 47.9995px, and Chrome then spaces the glyphs differently from the board).
+
+// 64px at 390 → 136px at 1440, within the same bounds as .intro__name.
+.case-display {
+  font-size: clamp(3.5rem, calc(640vw / 39), 7rem);
+  font-weight: $weight-medium;
+  line-height: 0.9;
+  letter-spacing: -0.045em;
+
+  @include desktop {
+    font-size: clamp(6rem, calc(85vw / 9), 11.5rem);
+    line-height: 0.88;
+  }
+}
+
+// 24px at 390 → 48px at 1440.
+.case-subtitle {
+  font-size: clamp(1.5rem, calc(80vw / 13), 2.25rem);
+  font-weight: $weight-medium;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+
+  @include desktop {
+    font-size: clamp(2.25rem, calc(10vw / 3), 3.5rem);
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+  }
+}
+
+// Section headings and the three statements. 28px at 390 → 48px at 1440.
+.case-h {
+  font-size: clamp(1.75rem, calc(280vw / 39), 2.5rem);
+  font-weight: $weight-medium;
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+
+  @include desktop {
+    font-size: clamp(2.25rem, calc(10vw / 3), 3.5rem);
+    line-height: 1.08;
+    letter-spacing: -0.025em;
+  }
+}
+
+// Names in the two-column lists (five areas, defence in depth).
+.case-item {
+  font-size: 1.5rem;
+  font-weight: $weight-medium;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+
+  @include desktop {
+    font-size: 1.875rem;
+    line-height: 1.3;
+  }
+}
+
+.case-body {
+  @include case-type-body;
+}
+
+.case-small {
+  @include case-type-small;
+}
+
+// The small muted line above a heading or list, and captions under media.
+.case-label,
+.case-caption {
+  font-size: 0.9375rem;
+  font-weight: $weight-regular;
+  line-height: 1.4;
+  color: $color-muted;
+
+  @include desktop {
+    font-size: 1rem;
+  }
+}
+
+.case-caption {
+  text-wrap: pretty;
+}
+
+.case-nowrap {
+  white-space: nowrap;
+}
+
+// Line breaks that only exist on the desktop board.
+.case-break {
+  @include below-desktop {
+    display: none;
+  }
+}
+
+// Optical left edge, as on the home page (see $lsb-* in _tokens.scss). CSS can't read a
+// line's first letter or weight, so each line carries the modifier for its first glyph:
+// stem (B D E F H I L N P R), round (O C), s, j, t, w. Lines starting on A need none.
+$case-lsb-medium: (
+  'stem': $lsb-stem-medium,
+  'round': $lsb-round-medium,
+  's': $lsb-s-medium,
+  'j': $lsb-j-medium,
+  't': $lsb-t,
+  'w': $lsb-w-medium,
+);
+$case-lsb-book: (
+  'stem': $lsb-stem-book,
+  'round': $lsb-round-book,
+  's': $lsb-s-book,
+  't': $lsb-t,
+);
+
+@each $glyph, $bearing in $case-lsb-medium {
+  .case-display--#{$glyph},
+  .case-h--#{$glyph},
+  .case-item--#{$glyph} {
+    margin-left: -$bearing;
+  }
+}
+
+@each $glyph, $bearing in $case-lsb-book {
+  .case-label--#{$glyph} {
+    margin-left: -$bearing;
+  }
+}
+
+// Tablet widths use the single-column layout; this keeps lines from running past
+// about 80 characters there. It has no effect at phone widths.
+@include below-desktop {
+  .case-subtitle,
+  .case-h,
+  .case-body,
+  .case-caption,
+  .case-list__text,
+  .case-process__text,
+  .case-art {
+    max-width: $measure;
+  }
+}
+
+// Hero
+
+.case-hero {
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+
+  @include desktop {
+    gap: 56px;
+  }
+}
+
+.case-hero__head {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+
+  @include desktop {
+    gap: 20px;
+  }
+}
+
+.case-meta {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 16px;
+  row-gap: 20px;
+  // Room for the site link, which sits 20px below the grid on its own line.
+  padding-bottom: calc(20px + 1.4em);
+  font-size: 0.9375rem;
+  line-height: 1.4;
+
+  @include desktop {
+    @include case-grid;
+    margin-top: 16px; // 72px under the subtitle
+    padding-bottom: 0;
+    font-size: 1rem;
+  }
+}
+
+.case-meta__group {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+
+  @include desktop {
+    grid-column: span 3;
+    gap: 4px;
+  }
+}
+
+.case-meta__label {
+  color: $color-muted;
+}
+
+.case-meta__link {
+  overflow-wrap: anywhere;
+
+  @include below-desktop {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+  }
+}
+
+// Media
+
+.case-media {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.case-media--hero {
+  aspect-ratio: 4 / 5;
+
+  @include desktop {
+    aspect-ratio: 3 / 2;
+  }
+}
+
+.case-media--laptop {
+  aspect-ratio: 4 / 3;
+
+  @include desktop {
+    aspect-ratio: 3 / 2;
+  }
+}
+
+.case-media--square {
+  aspect-ratio: 1 / 1;
+}
+
+.case-media--photo {
+  aspect-ratio: 4 / 3;
+}
+
+.case-media--layers {
+  aspect-ratio: 650 / 880;
+
+  @include below-desktop {
+    max-width: $case-art-max;
+  }
+}
+
+.case-video {
+  position: relative;
+}
+
+.case-video__media {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  background: $plate-video; // the black plate shows before the first frame
+  cursor: pointer;
+}
+
+.case-video__media--square {
+  aspect-ratio: 1 / 1;
+}
+
+.case-video__media--login {
+  aspect-ratio: 4 / 3;
+}
+
+.case-video__media--clip {
+  aspect-ratio: 109 / 60;
+}
+
+// Pause / play toggle: only visible while it has keyboard focus, over the video's
+// bottom-left corner. The ground-coloured halo keeps the focus ring readable on the plate.
+.case-video__toggle {
+  position: absolute;
+  left: 16px;
+  bottom: 16px;
+  padding: 8px 12px;
+  border: 0;
+  background: $color-ground;
+  box-shadow: 0 0 0 5px $color-ground;
+  color: $color-ink;
+  font: inherit;
+  font-size: 0.9375rem;
+  cursor: pointer;
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+
+  &:not(:focus) {
+    @include visually-hidden;
+  }
+}
+
+// The screen recording sits on a plate.
+.case-plate {
+  padding: 16px;
+  background: $plate-clip;
+
+  @include desktop {
+    padding: 64px;
+  }
+}
+
+// Media with a caption. Mobile: stacked. Desktop: full width, caption in columns 1–6.
+.case-figure {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  @include desktop {
+    @include case-grid;
+    row-gap: 16px;
+
+    > * {
+      grid-column: 1 / -1;
+    }
+  }
+}
+
+.case-figure__caption {
+  @include desktop {
+    grid-column: 1 / span 6;
+  }
+}
+
+// Overview: on desktop the caption sits to the left of the video, on its bottom edge.
+.case-figure--side {
+  @include desktop {
+    .case-figure__media {
+      grid-column: 5 / span 8;
+      grid-row: 1;
+    }
+
+    .case-figure__caption {
+      grid-column: 1 / span 4;
+      grid-row: 1;
+      align-self: end;
+    }
+  }
+}
+
+// Applications: video and phone side by side on desktop, the caption under the video.
+.case-figure--pair {
+  @include desktop {
+    row-gap: 12px;
+
+    > * {
+      grid-column: span 6;
+    }
+  }
+}
+
+.case-figure--diagram {
+  gap: 20px;
+
+  @include desktop {
+    row-gap: 32px;
+  }
+}
+
+// Diagrams (inlined from docs/handoff/jobtrackr/diagrams). The wide version shows from
+// 1280px, the tall one below; display: none also hides the other from assistive tech.
+.case-art--wide {
+  display: none;
+}
+
+.case-art--tall {
+  max-width: $case-art-max;
+}
+
+@media (min-width: $bp-diagram-wide) {
+  .case-art--wide {
+    display: block;
+    max-width: $case-diagram-wide-max;
+  }
+
+  .case-art--tall {
+    display: none;
+  }
+}
+
+.dg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  font-family: inherit;
+}
+
+.dg-band {
+  fill: $diagram-band;
+}
+
+.dg-card {
+  fill: $diagram-card;
+}
+
+.dg-line {
+  fill: none;
+  stroke: $diagram-line;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.dg-head {
+  fill: $diagram-line;
+}
+
+.dg-name {
+  fill: $color-ink;
+  font-weight: $weight-medium;
+}
+
+.dg-desc,
+.dg-tag {
+  fill: $color-muted;
+  font-weight: $weight-regular;
+}
+
+// Shared text block: label, heading and body.
+// Mobile: stacked. Desktop: label in columns 1–4, heading in 1–6, body beside it in 7–11.
+.case-text {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  row-gap: 14px;
+
+  @include desktop {
+    @include case-grid;
+    row-gap: 20px;
+  }
+}
+
+.case-text__label {
+  @include desktop {
+    grid-column: 1 / span 4;
+    grid-row: 1;
+  }
+}
+
+.case-text__heading {
+  @include desktop {
+    grid-column: 1 / span 6;
+    grid-row: 2;
+  }
+}
+
+.case-text__statement {
+  @include desktop {
+    grid-column: 1 / span 10;
+    grid-row: 2;
+  }
+}
+
+.case-text__body {
+  padding-top: 6px;
+
+  @include desktop {
+    grid-column: 7 / span 5;
+    grid-row: 2;
+    padding-top: 0;
+  }
+}
+
+// Architecture: on desktop the whole block stays in one column beside the layers image.
+.case-text--stack {
+  @include desktop {
+    grid-template-columns: minmax(0, 1fr);
+    align-content: start; // the layers image is taller; the rows must not stretch to it
+
+    .case-text__label,
+    .case-text__heading,
+    .case-text__body {
+      grid-column: auto;
+      grid-row: auto;
+    }
+
+    .case-text__body {
+      padding-top: 20px;
+    }
+  }
+}
+
+// "The decision" sits a little further from the media above it.
+.case-text--inset {
+  padding-top: 16px;
+
+  @include desktop {
+    padding-top: 32px;
+  }
+}
+
+.case-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  @include desktop {
+    gap: 20px;
+  }
+}
+
+// A single element placed on the desktop grid.
+.case-cols {
+  @include desktop {
+    @include case-grid;
+  }
+}
+
+.case-cols__span-1-9 {
+  @include desktop {
+    grid-column: 1 / span 9;
+  }
+}
+
+.case-cols__span-1-10 {
+  @include desktop {
+    grid-column: 1 / span 10;
+  }
+}
+
+.case-cols__span-7-11 {
+  @include desktop {
+    grid-column: 7 / span 5;
+  }
+}
+
+// Media beside a block of text on desktop (Interviews, Authentication). On mobile the
+// wrapper steps aside, so both become direct children of the section and take its gap.
+.case-split {
+  display: contents;
+
+  @include desktop {
+    @include case-grid;
+  }
+}
+
+.case-split__media {
+  @include desktop {
+    grid-column: 1 / span 8;
+    grid-row: 1;
+  }
+}
+
+.case-split__side {
+  @include desktop {
+    grid-column: 9 / span 4;
+    grid-row: 1;
+    align-self: end;
+  }
+}
+
+.case-split--flip {
+  @include desktop {
+    .case-split__media {
+      grid-column: 5 / span 8;
+    }
+
+    .case-split__side {
+      grid-column: 1 / span 4;
+    }
+  }
+}
+
+// A label over its content: the lifecycle, the lists, the Documents note.
+.case-block {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  @include desktop {
+    gap: 20px;
+  }
+}
+
+.case-block--note {
+  gap: 10px;
+
+  @include desktop {
+    gap: 14px;
+  }
+}
+
+// Status dot. Always next to the status name, never on its own.
+.case-dot {
+  display: inline-block;
+  flex: none;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+
+  @include desktop {
+    width: 10px;
+    height: 10px;
+  }
+}
+
+.case-dot--stage {
+  width: 10px;
+  height: 10px;
+
+  @include desktop {
+    width: 12px;
+    height: 12px;
+  }
+}
+
+$case-statuses: (
+  'saved': $status-saved,
+  'applied': $status-applied,
+  'assessment': $status-assessment,
+  'interviewing': $status-interviewing,
+  'offer': $status-offer,
+  'refused': $status-refused,
+);
+
+@each $status, $colour in $case-statuses {
+  .case-dot--#{$status} {
+    background: $colour;
+  }
+}
+
+// The lifecycle. Mobile: a vertical list with a down arrow between stages.
+// Desktop: one row with right arrows; it wraps below about 1200px.
+.case-flow {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 1.5rem;
+  font-weight: $weight-medium;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+
+  @include desktop {
+    flex-flow: row wrap;
+    align-items: center;
+    gap: 0 28px;
+    font-size: 1.875rem;
+    line-height: 1.3;
+  }
+}
+
+.case-flow__stage {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  @include desktop {
+    flex-direction: row;
+    align-items: center;
+    gap: 28px;
+  }
+
+  // The arrow before every stage but the first. The empty alt text keeps it unread.
+  &:not(:first-child)::before {
+    content: '\2193';
+    content: '\2193' / '';
+    padding-left: 1px;
+    color: $color-muted;
+    font-size: 1.0625rem;
+    font-weight: $weight-regular;
+    line-height: 1;
+
+    @include desktop {
+      content: '\2192';
+      content: '\2192' / '';
+      padding-left: 0;
+      font-size: inherit;
+      line-height: inherit;
+    }
+  }
+}
+
+.case-flow__name {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  @include desktop {
+    gap: 14px;
+  }
+}
+
+// Name and description pairs (five areas, defence in depth).
+// Mobile: description under the name. Desktop: names in columns 1–4, descriptions in 5–10.
+.case-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  @include desktop {
+    gap: 14px;
+  }
+}
+
+.case-list__row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  @include desktop {
+    @include case-grid;
+    align-items: baseline;
+  }
+}
+
+.case-list__name {
+  @include desktop {
+    grid-column: 1 / span 4;
+  }
+}
+
+.case-list__text {
+  @include case-type-small;
+  color: $color-muted;
+
+  @include desktop {
+    grid-column: 5 / span 6;
+    font-size: 1.25rem;
+    line-height: 1.4;
+    letter-spacing: -0.008em;
+    text-wrap: pretty;
+  }
+}
+
+// Analytics: on desktop the phone image fills the row the laptop image sets.
+.case-analytics {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  @include desktop {
+    @include case-grid;
+  }
+}
+
+.case-analytics__laptop {
+  aspect-ratio: 3 / 2;
+
+  @include desktop {
+    grid-column: 1 / span 7;
+    // 3:2 over seven columns is 755.33 × 503.56 at 1440; the board sets it at 504.
+    aspect-ratio: 2266 / 1512;
+  }
+}
+
+.case-analytics__phone {
+  @include desktop {
+    position: relative;
+    grid-column: 8 / span 5;
+  }
+}
+
+.case-analytics__phone-image {
+  aspect-ratio: 1 / 1;
+
+  @include desktop {
+    position: absolute;
+    inset: 0;
+    height: 100%;
+    aspect-ratio: auto;
+  }
+}
+
+// Architecture: text beside the layers image on desktop.
+.case-arch {
+  display: contents;
+
+  @include desktop {
+    @include case-grid;
+  }
+}
+
+.case-arch__text {
+  @include desktop {
+    grid-column: 1 / span 6;
+  }
+}
+
+.case-arch__layers {
+  padding: 0 40px;
+
+  @include desktop {
+    grid-column: 8 / span 5;
+    padding: 0;
+  }
+}
+
+// Process: five steps, stacked on mobile and side by side on desktop.
+.case-process {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  @include desktop {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    column-gap: $gutter;
+  }
+}
+
+.case-process__step {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  @include desktop {
+    gap: 12px;
+  }
+}
+
+.case-process__name {
+  font-size: 1.0625rem;
+  font-weight: $weight-medium;
+  line-height: 1.35;
+
+  @include desktop {
+    font-size: 1.25rem;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+  }
+}
+
+.case-process__arrow {
+  display: none;
+  color: $color-muted;
+  font-weight: $weight-regular;
+
+  @include desktop {
+    display: inline;
+  }
+}
+
+.case-process__text {
+  @include case-type-small;
+}
+
+// Authentication: what happens on every request.
+.case-request,
+.case-request__list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+
+  @include desktop {
+    gap: 20px;
+  }
+}
+
+.case-request__item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.case-request__name {
+  font-size: 1.0625rem;
+  font-weight: $weight-medium;
+  line-height: 1.35;
+
+  @include desktop {
+    font-size: 1.25rem;
+  }
+}
+
+.case-request__text {
+  @include case-type-small;
+  color: $color-muted;
+}
+
+// Security: the two-account test. Mobile: each case stacks under a sentence
+// ("Signed in as User A, asks for"). Desktop: three columns under a header row; the
+// sentence's extra words stay for screen readers, and the header row is aria-hidden.
+.case-test {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  @include desktop {
+    gap: 14px;
+  }
+}
+
+.case-test__title {
+  @include desktop {
+    padding-bottom: 6px;
+  }
+}
+
+.case-test__head {
+  display: none;
+
+  @include desktop {
+    @include case-grid;
+    align-items: baseline;
+  }
+}
+
+.case-test__row {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+
+  @include desktop {
+    @include case-grid;
+    align-items: baseline;
+  }
+}
+
+.case-test__who {
+  @include desktop {
+    grid-column: 1 / span 3;
+  }
+}
+
+.case-test__what {
+  @include desktop {
+    grid-column: 4 / span 5;
+  }
+}
+
+.case-test__result {
+  display: flex;
+
+  @include desktop {
+    display: block;
+    grid-column: 9 / span 4;
+  }
+}
+
+.case-test__subject {
+  @include case-type-small;
+  color: $color-muted;
+
+  @include desktop {
+    color: inherit;
+    font-size: 1.25rem;
+    line-height: 1.4;
+    letter-spacing: -0.008em;
+  }
+}
+
+.case-test__lead {
+  @include desktop {
+    @include visually-hidden;
+  }
+}
+
+.case-result {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  @include desktop {
+    display: inline-flex;
+    gap: 12px;
+  }
+}
+
+// Stack: groups of tools.
+.case-stack {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 16px;
+  row-gap: 28px;
+
+  @include desktop {
+    @include case-grid;
+    row-gap: 48px;
+  }
+}
+
+.case-stack__group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  @include desktop {
+    grid-column: span 3;
+    gap: 6px;
+  }
+}
+
+// Footer: next project, clock and links.
+.case-foot {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+  margin-top: $case-gap-mobile;
+  font-size: 0.9375rem;
+  line-height: 1.4;
+
+  @include desktop {
+    @include case-grid;
+    margin-top: $case-gap-desktop;
+    font-size: 1rem;
+  }
+}
+
+.case-foot__next {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  @include desktop {
+    grid-column: 1 / span 8;
+    gap: 20px;
+  }
+}
+
+.case-foot__aside {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 16px;
+  align-items: end;
+
+  @include desktop {
+    grid-column: 9 / span 4;
+    align-self: end;
+    column-gap: $gutter;
+  }
+
+  // The board sets the readout in proportional figures; tabular ones crowd the pivot.
+  .index__clock-readout {
+    font-variant-numeric: normal;
+  }
+
+  @include below-desktop {
+    .index__clock {
+      width: $clock-size-case-mobile;
+      height: $clock-size-case-mobile;
+    }
+
+    // The board sets the links 4px apart. Each keeps the home page's 6px tap padding,
+    // pulled back in so the lines land where the board puts them.
+    .links {
+      gap: 4px;
+
+      a {
+        margin: -6px 0;
+        padding: 6px 0;
+      }
+    }
+  }
+}

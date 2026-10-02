@@ -1,5 +1,5 @@
 // Shared build helpers used by build.mjs and dev.mjs. No dependencies beyond Node.
-import { cpSync, existsSync, mkdirSync, rmSync } from 'node:fs';
+import { cpSync, existsSync, mkdirSync, readdirSync, rmSync } from 'node:fs';
 import { spawn } from 'node:child_process';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -26,10 +26,23 @@ export function clean() {
 // .webp versions). PNGs at the assets root — og-image, touch icon — do ship.
 const SOURCE_ONLY = /(\.(otf|ttf|psd|fig)|\.gitkeep|[\\/]images[\\/].*\.png)$/i;
 
-/** Copies web-ready static files (HTML, woff2 fonts, webp/svg images) from src/ into dist/. */
+/** Copies every .html file under `from` into `to`, keeping the folder structure. */
+function copyPages(from, to) {
+  for (const entry of readdirSync(from, { withFileTypes: true })) {
+    const source = join(from, entry.name);
+    if (entry.isDirectory()) {
+      copyPages(source, join(to, entry.name));
+    } else if (entry.name.endsWith('.html')) {
+      mkdirSync(to, { recursive: true });
+      cpSync(source, join(to, entry.name));
+    }
+  }
+}
+
+/** Copies web-ready static files (HTML pages, woff2 fonts, webp/svg images, mp4 video) from src/ into dist/. */
 export function copyStatic() {
   mkdirSync(dist, { recursive: true });
-  cpSync(join(src, 'index.html'), join(dist, 'index.html'));
+  copyPages(src, dist);
   const assets = join(src, 'assets');
   if (existsSync(assets)) {
     cpSync(assets, join(dist, 'assets'), {

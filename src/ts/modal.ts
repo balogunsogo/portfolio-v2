@@ -33,6 +33,10 @@ interface SheetElements {
   image: HTMLImageElement;
   description: HTMLElement;
   link: HTMLAnchorElement;
+  /** Visible text of the link: "Visit site" or "Read case study". */
+  linkLabel: HTMLElement;
+  /** Visually hidden "(opens in a new tab)". */
+  linkSuffix: HTMLElement;
   closeButton: HTMLButtonElement;
   nextButton: HTMLButtonElement;
   nextTitle: HTMLElement;
@@ -79,9 +83,13 @@ export function initProjectSheet(el: SheetElements): void {
     el.image.src = project.image;
     el.image.alt = `${project.title} preview`;
     el.image.style.background = project.previewTone;
-    el.link.href = project.href;
-    el.link.target = project.external ? '_blank' : '_self';
-    el.link.rel = project.external ? 'noopener' : '';
+    // A project with a case study links to it in the same tab; the rest go to their live site.
+    const newTab = Boolean(project.external) && !project.caseStudy;
+    el.link.href = project.caseStudy ?? project.href;
+    el.link.target = newTab ? '_blank' : '_self';
+    el.link.rel = newTab ? 'noopener' : '';
+    el.linkLabel.textContent = project.caseStudy ? 'Read case study' : 'Visit site';
+    el.linkSuffix.hidden = !newTab;
     el.nextTitle.textContent = projects[(index + 1) % projects.length]?.title ?? '';
   };
 

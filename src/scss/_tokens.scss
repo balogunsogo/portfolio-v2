@@ -19,19 +19,64 @@ $lsb-stem-medium: 0.071em; // B, D, F, N… (straight stems) in Medium
 $lsb-round-medium: 0.036em; // O in Medium
 $lsb-s-medium: 0.024em; // S in Medium
 $lsb-stem-book: 0.076em; // F in Book
+$lsb-round-book: 0.04em; // O, C in Book
+$lsb-s-book: 0.027em; // S in Book
+$lsb-j-medium: 0.018em; // J in Medium
+$lsb-t: 0.015em; // T in Medium and Book
+$lsb-w-medium: 0.014em; // W in Medium
 
 // Layout
 $columns: 12;
 $gutter: 24px;
 $clock-size: 96px; // analog clock in the aside
+$clock-size-case-mobile: 88px; // the same clock in the case-study footer below desktop
+$measure: 36rem; // longest line of text in the single-column layout (tablet widths)
+
+// JobTrackr status colours, sampled from the product. Used only for the small dots.
+$status-saved: $color-ink;
+$status-applied: #3e83ee;
+$status-assessment: #d9a145;
+$status-interviewing: #8b68e8;
+$status-offer: #36996a;
+$status-refused: #c8463d;
+
+// Diagrams
+$diagram-line: #8a877f;
+$diagram-band: #f3f2ee;
+$diagram-card: #ebeae5;
+
+// Media plates
+$plate-video: #000000; // behind the three motion videos (they were exported on black)
+$plate-clip: #ecebe6; // around the screen recording
 
 // Breakpoints (min-width)
 $bp-desktop: 1024px;
+$bp-diagram-wide: 1280px; // below this the wide diagrams' text would get too small
 
 @mixin desktop {
   @media (min-width: $bp-desktop) {
     @content;
   }
+}
+
+// The single-column layout: phones and tablets.
+@mixin below-desktop {
+  @media (max-width: #{$bp-desktop - 1px}) {
+    @content;
+  }
+}
+
+// Same declarations as .visually-hidden, for elements that are only hidden in one state.
+@mixin visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 // The hover preview only exists where hovering is a real interaction.

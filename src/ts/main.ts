@@ -1,4 +1,5 @@
 import { initClock } from './clock.js';
+import { initMedia } from './media.js';
 import { initProjectSheet } from './modal.js';
 import { initPreview } from './preview.js';
 import { projects, renderProjects } from './projects.js';
@@ -12,6 +13,10 @@ const readout = $<SVGElement>('[data-clock-readout]');
 if (clock) {
   initClock(clock, hourHand && minuteHand ? { hour: hourHand, minute: minuteHand, readout } : undefined);
 }
+
+// Case study: videos play only while they're in view.
+const videos = Array.from(document.querySelectorAll<HTMLVideoElement>('[data-case-video]'));
+if (videos.length > 0) initMedia(videos);
 
 const list = $<HTMLElement>('[data-work-list]');
 if (list) renderProjects(list);
@@ -38,6 +43,8 @@ const sheet = {
   image: $<HTMLImageElement>('[data-sheet-image]'),
   description: $<HTMLElement>('[data-sheet-description]'),
   link: $<HTMLAnchorElement>('[data-sheet-link]'),
+  linkLabel: $<HTMLElement>('[data-sheet-link-label]'),
+  linkSuffix: $<HTMLElement>('[data-sheet-link-suffix]'),
   closeButton: $<HTMLButtonElement>('[data-sheet-close]'),
   nextButton: $<HTMLButtonElement>('[data-sheet-next]'),
   nextTitle: $<HTMLElement>('[data-sheet-next-title]'),

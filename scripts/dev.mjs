@@ -24,6 +24,7 @@ const types = {
   '.ico': 'image/x-icon',
   '.woff2': 'font/woff2',
   '.woff': 'font/woff',
+  '.mp4': 'video/mp4',
 };
 
 clean();
@@ -55,15 +56,42 @@ createServer((request, response) => {
     return;
   }
   if (existsSync(filePath) && statSync(filePath).isDirectory()) filePath = join(filePath, 'index.html');
+  // Extensionless paths resolve to their .html file, like Vercel's cleanUrls (/work/jobtrackr).
+  if (!existsSync(filePath) && !extname(filePath) && existsSync(`${filePath}.html`)) filePath = `${filePath}.html`;
   if (!existsSync(filePath)) {
     response.writeHead(404, { 'Content-Type': 'text/plain' }).end('Not found');
     return;
   }
-  response.writeHead(200, {
+  const headers = {
     'Content-Type': types[extname(filePath).toLowerCase()] ?? 'application/octet-stream',
     'Cache-Control': 'no-store',
-  });
-  createReadStream(filePath).pipe(response);
+    'Accept-Ranges': 'bytes',
+  };
+  const { size } = statSync(filePath);
+
+  // Byte ranges: Safari won't play a video from a server that ignores them.
+  const range = /^bytes=(\d*)-(\d*)$/.exec(request.headers.range ?? '');
+  if (range && (range[1] || range[2])) {
+    // "bytes=-500" asks for the last 500 bytes; otherwise the end is optional.
+    const start = range[1] ? Number(range[1]) : Math.max(0, size - Number(range[2]));
+    const end = range[1] && range[2] ? Math.min(Number(range[2]), size - 1) : size - 1;
+    if (start > end || start >= size) {
+      response.writeHead(416, { ...headers, 'Content-Range': `bytes */${size}` }).end();
+      return;
+    }
+    response.writeHead(206, {
+      ...headers,
+      'Content-Range': `bytes ${start}-${end}/${size}`,
+      'Content-Length': end - start + 1,
+    });
+    if (request.method === 'HEAD') response.end();
+    else createReadStream(filePath, { start, end }).pipe(response);
+    return;
+  }
+
+  response.writeHead(200, { ...headers, 'Content-Length': size });
+  if (request.method === 'HEAD') response.end();
+  else createReadStream(filePath).pipe(response);
 }).listen(PORT, () => {
   console.log(`\nServing dist/ at http://localhost:${PORT}${shouldWatch ? ' (watching src/)' : ''}\n`);
 });

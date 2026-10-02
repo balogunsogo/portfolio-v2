@@ -6,6 +6,8 @@ export interface Project {
   image: string;
   href: string;
   external?: boolean;
+  /** Root-absolute path of the project's case study. When set, the list and the sheet link to it instead of `href`. */
+  caseStudy?: string;
   previewTone: string;
   previewInk: string;
   stemAligned?: boolean;
@@ -20,6 +22,7 @@ export const projects: readonly Project[] = [
     image: 'assets/images/projects/jobtrackr.webp',
     href: 'https://jobtrackr.balogunoluwasogo.com/',
     external: true,
+    caseStudy: '/work/jobtrackr',
     previewTone: '#DCD8CF',
     previewInk: '#4A4843',
   },
@@ -79,9 +82,11 @@ export function renderProjects(list: HTMLElement): void {
     const title = document.createElement('span');
 
     link.className = `work__link${project.stemAligned ? ' work__link--stem' : ''}`;
-    link.href = project.href;
+    // A project with a case study links to it in the same tab; the rest go to their live site.
+    const newTab = Boolean(project.external) && !project.caseStudy;
+    link.href = project.caseStudy ?? project.href;
     link.dataset.projectIndex = String(index);
-    if (project.external) {
+    if (newTab) {
       link.target = '_blank';
       link.rel = 'noopener';
     }
@@ -90,7 +95,7 @@ export function renderProjects(list: HTMLElement): void {
     title.textContent = project.title;
     link.append(title);
 
-    if (project.external) {
+    if (newTab) {
       const suffix = document.createElement('span');
       suffix.className = 'visually-hidden';
       suffix.textContent = ' (opens in a new tab)';
