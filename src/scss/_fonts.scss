@@ -17,3 +17,13 @@
   font-style: normal;
   font-display: swap;
 }
+
+// Ace Trail's own typeface (SIL Open Font License), used only for the type specimen on the
+// Acetrail case study. Browsers download it only when that specimen renders.
+@font-face {
+  font-family: 'Figtree';
+  src: url('../fonts/figtree-latin-wght.woff2') format('woff2');
+  font-weight: 300 900;
+  font-style: normal;
+  font-display: swap;
+}

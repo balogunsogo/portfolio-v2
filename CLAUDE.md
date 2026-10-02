@@ -4,7 +4,7 @@ Context and rules for anyone (human or AI) working in this repo.
 
 ## What this is
 
-Balogun Oluwasogo's personal portfolio: a home page and one case study (`/work/jobtrackr`, see "Case study" below). The home page is a single screen, built from the "Neue Montreal" board and the "Two halves" direction of the design canvas "iudoh.me Layout Variations". The layout is a restrained, lineless 12-column grid.
+Balogun Oluwasogo's personal portfolio: a home page and two case studies (`/work/jobtrackr` and `/work/acetrail`, see "Case studies" below). The home page is a single screen, built from the "Neue Montreal" board and the "Two halves" direction of the design canvas "iudoh.me Layout Variations". The layout is a restrained, lineless 12-column grid.
 
 - **Top:** the name as display type, with the role line under it at about a third of the name's size.
 - **Bottom of the viewport, left half:** "Featured work" and the project list, flush left under the name (columns 1–4).
@@ -54,7 +54,7 @@ Balogun Oluwasogo's personal portfolio: a home page and one case study (`/work/j
 
 1. `npm run typecheck`
 2. `npm run build`
-3. Check 1440×900 and 390×844 on both pages, including the hover state and keyboard focus on the project list.
+3. Check 1440×900 and 390×844 on every page, including the hover state and keyboard focus on the project list.
 4. Summarise the files changed and the key decisions.
 
 ## Assets
@@ -65,25 +65,45 @@ Balogun Oluwasogo's personal portfolio: a home page and one case study (`/work/j
 - **Fonts in the repo:** the two PP Neue Montreal `.woff2` files are committed (Oluwasogo's call) so the Vercel build includes them. The `.otf` originals stay git-ignored.
 - **Deploy:** Vercel builds `main` using `vercel.json` (`npm ci`, `npm run build`, output `dist`). Don't add a framework preset.
 
-## Case study (`/work/jobtrackr`)
+## Case studies (`/work/jobtrackr`, `/work/acetrail`)
 
-Spec: `docs/handoff/jobtrackr/README.md`. Pixel targets: `reference/desktop.html` at 1440×900 and `reference/mobile.html` at 390×844. The reference wins on appearance at those two widths; the handoff README wins on behaviour.
+Specs: `docs/handoff/jobtrackr/README.md` and `docs/handoff/acetrail/README.md`. Pixel targets: each handoff's `reference/desktop.html` at 1440×900 and `reference/mobile.html` at 390×844. The reference wins on appearance at those two widths; the handoff README wins on behaviour.
 
-- **Files:** `src/work/jobtrackr.html`, `src/scss/_case.scss`, `src/ts/media.ts`. The page uses root-absolute URLs (`/assets/...`). `main.ts` runs on both pages and skips whatever a page doesn't have.
+The rules below apply to both pages unless a bullet names one. Acetrail reuses JobTrackr's shell, type, grid, text blocks, video behaviour, process, stack, outcome and footer; what it adds is listed under "Acetrail only".
+
+- **Files:** `src/work/jobtrackr.html`, `src/work/acetrail.html`, `src/scss/_case.scss`, `src/ts/media.ts`. The pages use root-absolute URLs (`/assets/...`). `main.ts` runs on every page and skips whatever a page doesn't have.
+- **Shared SCSS:** a change to `_case.scss` must not move anything on either page. Re-run both pixel diffs after touching it.
 - **Copy:** final and checked against the product. Don't change it, and don't add sections, claims, metrics or testimonials.
 - **Layout:** one column below 1024px (text capped at `$measure` on tablets), the 12-column grid from 1024px. Sections are 104px apart on mobile and 160px on desktop. Body, labels, captions and spacing are fixed; only the display, subtitle and heading sizes are fluid.
 - **Fluid sizes:** the slopes are exact fractions (`calc(10vw / 3)`, not `3.3333vw`) so sizes land on whole pixels at 390 and 1440. A size of 47.9995px shifts glyph spacing in Chrome and breaks the pixel match.
 - **Never size anything with `100vw`.** There must be no horizontal scroll from 320 to 2560px, including with classic scrollbars.
-- **Optical left edge:** every line in the display, heading, statement, list-item and label styles carries the modifier for its first glyph (`.case-h--stem`, `.case-label--round`, `.case-item--s`…; tokens `$lsb-*`). Lines starting on A, body copy, captions and diagram text get none. If a line's first word changes, its modifier changes with it.
-- **Tokens added for this page:** `$status-*` (dots only, always beside the status name), `$diagram-*`, `$plate-video`, `$plate-clip`, `$measure`, `$bp-diagram-wide`, `$clock-size-case-mobile`, the extra `$lsb-*` values, and the `below-desktop` and `visually-hidden` mixins.
-- **Decoration:** the home rules hold. The only lines on the page are the diagram connectors and the clock ring.
+- **Optical left edge:** every line in the display, subtitle, heading, statement, list-item and label styles carries the modifier for its first glyph (`.case-h--stem`, `.case-subtitle--t`, `.case-label--round`, `.case-item--s`…; tokens `$lsb-*`). M uses the stem modifier. Lines starting on A, body copy, captions and diagram text get none. If a line's first word changes, its modifier changes with it.
+- **Tokens added for these pages:** `$acetrail-*` and `$font-acetrail` (Ace Trail's palette and typeface, for the swatches and specimen only), `$status-*` (dots only, always beside the status name), `$diagram-*`, `$plate-video`, `$plate-clip`, `$measure`, `$bp-diagram-wide`, `$clock-size-case-mobile`, the extra `$lsb-*` values, and the `below-desktop` and `visually-hidden` mixins.
+- **Decoration:** the home rules hold. The only lines on the pages are the diagram connectors and the clock ring.
 - **Diagrams:** inlined from `docs/handoff/jobtrackr/diagrams/` without their `<metadata>` block, otherwise untouched. Wide versions show from 1280px (max 1312px), tall versions below (max 440px). The hidden one is `display: none`. Keep each SVG's `role="img"`, `<title>` and unique IDs.
 - **Video:** the markup is `<video muted loop playsinline preload="none" poster data-case-video>` with no `autoplay`, followed by a `<button data-case-video-toggle hidden>`. `media.ts` plays a video while at least 25% of it is visible and pauses it when it leaves. With `prefers-reduced-motion` nothing starts on its own. The button ("Pause video" / "Play video") is visually hidden until focused, and clicking the video toggles it too. A video the person paused stays paused.
 - **Images:** `width` and `height` on every `<img>`, `srcset` with two widths, and `loading="lazy" decoding="async"` except the hero (`fetchpriority="high"`).
 - **Analytics pair:** the laptop image's ratio is `2266 / 1512` (3:2, rounded to the board's 504px at 1440). The phone image fills the same row.
-- **Footer:** the home page's clock markup and classes, at 88px below desktop, with proportional figures as on the board. "Next project" links to Acetrail's live site (the same URL as in `projects.ts`) until it has a case study.
+- **Footer:** the home page's clock markup and classes, at 88px below desktop, with proportional figures as on the board.
+- **Linking:** the order follows the home list: JobTrackr → Acetrail → All That Is Kim. JobTrackr's "Next project" goes to `/work/acetrail` in the same tab. Acetrail's goes to All That Is Kim's live site (the URL in `projects.ts`) in a new tab with the hidden suffix, until that project has a case study; then it changes the same way JobTrackr's did. Both top bars link to `/`.
 - **Media files are final:** don't regenerate, recompress or re-cut them. The screen recording was cut to leave out a third party's email address, so never re-cut it from the raw file.
-- **Checks:** the acceptance list in the handoff README §13: the screenshot diff against both reference pages with reduced motion, the overflow sweep with real scrollbars, keyboard order and motion.
+- **Checks:** the acceptance lists in the handoff READMEs (JobTrackr §13, Acetrail §11): the screenshot diff against both reference pages with reduced motion, the overflow sweep with real scrollbars, keyboard order, motion and linking.
+- **Running the screenshot diff:** the references always load the largest image, while the pages pick from `srcset`, so serve the largest file to both before comparing; otherwise the photos differ by resampling. Chrome repeats the top of a page past 16384px in one screenshot, and both desktop pages are taller than that, so capture the lower part separately from a fresh page load.
+
+### Acetrail only
+
+- **Copy and facts:** final. The product is "Acetrail" in the title and "Ace Trail Tutors" or "Ace Trail" in the prose, on purpose. The Performance numbers are a dated PageSpeed measurement (2 October 2026): don't change them without re-running it and updating the date.
+- **Section gaps:** the `directions`, `hero-scroll`, `classes`, `results`, `engineering` and `performance` entries in `$case-section-gaps`.
+- **Captions:** 12px under the media on desktop as well as mobile (`.case-figure--snug`). JobTrackr's figures keep 16px.
+- **Plates:** all `$plate-clip`. `.case-plate` is the large one (16 / 64px); `.case-plate--medium` is 12 / 32px and `.case-plate--small` is 10 / 24px.
+- **Hero image:** a `<picture>` that switches at 1024px with the layout: the phone photo at 4:5 below, the laptop photo at 3:2 from it, each with its own `object-position` (`.case-media--hero-acetrail`). One alt covers both.
+- **`.case-compare`:** before / after pair. Two columns from 320px (12px gap), columns 1–6 and 7–12 on desktop, capped at `$measure` on tablets. `--stack` (Results) is one column below desktop. The Context pair uses a `<picture>` per side (phone screenshots below desktop, desktop screenshots from it) and a short and a long caption (`.case-below-desktop`, `.case-from-desktop`).
+- **`.case-options`:** the four directions, two per row, in small plates.
+- **`.case-system`:** label, swatches (`.case-swatches`, hex labels are text and the colour blocks are `aria-hidden`) and the Figtree specimen. The specimen is 48px at 390 and 112px at 1440. Below desktop it breaks after "the"; on desktop it stays on one line and its clamp shrinks it 9px per 100px so it still fits columns 1–9 at 1024. Figtree isn't preloaded.
+- **`.case-timing`:** the scroll timing chart, in HTML. `role="img"` with the label; everything inside is `aria-hidden`. The fades end on the ink at alpha 0. It never animates. Beside the phone recording on desktop (`.case-scroll`), under it on mobile.
+- **`.case-lists`:** the Engineering Before / After lists, `<ul>`s labelled by their headings.
+- **`.case-scores`:** a `<dl>` where each name comes first in the markup and `column-reverse` draws the value above it, so screen readers hear "Performance, 100".
+- **Video:** five videos, all with the standard markup and toggle. `media.ts` is unchanged.
 
 ## Open items
 

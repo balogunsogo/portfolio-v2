@@ -34,6 +34,7 @@ export const projects: readonly Project[] = [
     image: 'assets/images/projects/acetrail.webp',
     href: 'https://acetrailtutors.com/',
     external: true,
+    caseStudy: '/work/acetrail',
     previewTone: '#C9CFC6',
     previewInk: '#3E443C',
   },

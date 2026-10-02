@@ -1,9 +1,9 @@
 @use 'sass:list';
 @use 'tokens' as *;
 
-// Case study page (/work/jobtrackr).
+// Case study pages (/work/jobtrackr, /work/acetrail).
 //
-// Pixel targets: docs/handoff/jobtrackr/reference/desktop.html at 1440 and mobile.html
+// Pixel targets: docs/handoff/<project>/reference/desktop.html at 1440 and mobile.html
 // at 390. Below 1024px everything is one column; from 1024px sections sit on the same
 // 12-column grid as the home page. Only display and heading sizes are fluid: body copy,
 // labels, captions and all spacing stay fixed.
@@ -29,6 +29,12 @@ $case-section-gaps: (
   'interviews': 40px 64px,
   'architecture': 48px 120px,
   'data': 40px 80px,
+  'directions': 56px 96px,
+  'hero-scroll': 40px 64px,
+  'classes': 40px 64px,
+  'results': 40px 64px,
+  'engineering': 40px 80px,
+  'performance': 32px 64px,
   'process': 40px 80px,
   'authentication': 40px 64px,
   'security': 64px 104px,
@@ -246,6 +252,28 @@ $case-diagram-wide-max: 1312px;
   white-space: nowrap;
 }
 
+// The two voices inside a small-style line: a name, then its detail.
+.case-strong {
+  font-weight: $weight-medium;
+}
+
+.case-muted {
+  color: $color-muted;
+}
+
+// Content that only one layout shows (a caption's short and long versions).
+.case-below-desktop {
+  @include desktop {
+    display: none;
+  }
+}
+
+.case-from-desktop {
+  @include below-desktop {
+    display: none;
+  }
+}
+
 // Line breaks that only exist on the desktop board.
 .case-break {
   @include below-desktop {
@@ -253,9 +281,23 @@ $case-diagram-wide-max: 1312px;
   }
 }
 
+// Line breaks that only exist on the mobile board.
+.case-break-narrow {
+  @include desktop {
+    display: none;
+  }
+}
+
+// The footer's display line never leaves a lone word at narrow desktop widths.
+.case-display--balance {
+  @include desktop {
+    text-wrap: balance;
+  }
+}
+
 // Optical left edge, as on the home page (see $lsb-* in _tokens.scss). CSS can't read a
 // line's first letter or weight, so each line carries the modifier for its first glyph:
-// stem (B D E F H I L N P R), round (O C), s, j, t, w. Lines starting on A need none.
+// stem (B D E F H I L M N P R), round (O C), s, j, t, w. Lines starting on A need none.
 $case-lsb-medium: (
   'stem': $lsb-stem-medium,
   'round': $lsb-round-medium,
@@ -273,6 +315,7 @@ $case-lsb-book: (
 
 @each $glyph, $bearing in $case-lsb-medium {
   .case-display--#{$glyph},
+  .case-subtitle--#{$glyph},
   .case-h--#{$glyph},
   .case-item--#{$glyph} {
     margin-left: -$bearing;
@@ -294,7 +337,10 @@ $case-lsb-book: (
   .case-caption,
   .case-list__text,
   .case-process__text,
-  .case-art {
+  .case-art,
+  .case-compare,
+  .case-swatches,
+  .case-timing {
     max-width: $measure;
   }
 }
@@ -398,6 +444,37 @@ $case-lsb-book: (
   aspect-ratio: 4 / 3;
 }
 
+// Acetrail's hero is art-directed: a phone photo below desktop, a laptop photo from it.
+.case-media--hero-acetrail {
+  object-position: 46% 50%;
+
+  @include desktop {
+    object-position: 50% 45%;
+  }
+}
+
+.case-media--screen {
+  aspect-ratio: 16 / 10;
+}
+
+.case-media--widescreen {
+  aspect-ratio: 16 / 9;
+}
+
+// A phone screenshot below desktop, a desktop screenshot from it (see the <picture>).
+.case-media--home {
+  aspect-ratio: 390 / 844;
+
+  @include desktop {
+    aspect-ratio: 16 / 10;
+  }
+}
+
+// Screenshots keep their top edge in view.
+.case-media--top {
+  object-position: 50% 0;
+}
+
 .case-media--layers {
   aspect-ratio: 650 / 880;
 
@@ -431,6 +508,22 @@ $case-lsb-book: (
   aspect-ratio: 109 / 60;
 }
 
+.case-video__media--screen {
+  aspect-ratio: 16 / 10;
+}
+
+.case-video__media--widescreen {
+  aspect-ratio: 16 / 9;
+}
+
+.case-video__media--phone-screen {
+  aspect-ratio: 390 / 844;
+}
+
+.case-video__media--photo {
+  aspect-ratio: 4 / 3;
+}
+
 // Pause / play toggle: only visible while it has keyboard focus, over the video's
 // bottom-left corner. The ground-coloured halo keeps the focus ring readable on the plate.
 .case-video__toggle {
@@ -460,6 +553,22 @@ $case-lsb-book: (
 
   @include desktop {
     padding: 64px;
+  }
+}
+
+.case-plate--medium {
+  padding: 12px;
+
+  @include desktop {
+    padding: 32px;
+  }
+}
+
+.case-plate--small {
+  padding: 10px;
+
+  @include desktop {
+    padding: 24px;
   }
 }
 
@@ -509,6 +618,13 @@ $case-lsb-book: (
     > * {
       grid-column: span 6;
     }
+  }
+}
+
+// Acetrail: the caption sits 12px under the media on desktop too.
+.case-figure--snug {
+  @include desktop {
+    row-gap: 12px;
   }
 }
 
@@ -666,6 +782,12 @@ $case-lsb-book: (
 .case-cols {
   @include desktop {
     @include case-grid;
+  }
+}
+
+.case-cols__span-1-6 {
+  @include desktop {
+    grid-column: 1 / span 6;
   }
 }
 
@@ -1141,6 +1263,309 @@ $case-statuses: (
     grid-column: span 3;
     gap: 6px;
   }
+}
+
+// Before / after pair: two plates side by side, each with its caption.
+// Mobile: two columns. Desktop: columns 1–6 and 7–12.
+.case-compare {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 12px;
+
+  @include desktop {
+    @include case-grid;
+  }
+}
+
+// Results: wide media, so the pair stacks below desktop.
+.case-compare--stack {
+  @include below-desktop {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 40px;
+  }
+}
+
+.case-compare__item,
+.case-options__item,
+.case-scroll__figure {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.case-compare__item,
+.case-options__item {
+  @include desktop {
+    grid-column: span 6;
+  }
+}
+
+// Directions: the four homepage options, two per row.
+.case-options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 12px;
+  row-gap: 24px;
+
+  @include desktop {
+    @include case-grid;
+    row-gap: 40px;
+  }
+}
+
+// System: Ace Trail's palette and typeface.
+.case-system {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  @include desktop {
+    gap: 32px;
+  }
+}
+
+.case-swatches {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 12px;
+  row-gap: 20px;
+
+  @include desktop {
+    @include case-grid;
+  }
+}
+
+.case-swatch {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  @include desktop {
+    grid-column: span 3;
+  }
+}
+
+.case-swatch__block {
+  aspect-ratio: 1 / 1;
+
+  @include desktop {
+    aspect-ratio: 3 / 2;
+  }
+}
+
+$case-swatches: (
+  'ground': $acetrail-ground,
+  'ink': $acetrail-ink,
+  'yellow': $acetrail-yellow,
+  'yellow-pale': $acetrail-yellow-pale,
+);
+
+@each $name, $colour in $case-swatches {
+  .case-swatch__block--#{$name} {
+    background: $colour;
+  }
+}
+
+.case-specimen {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  @include desktop {
+    @include case-grid;
+    align-items: end;
+  }
+}
+
+// 48px at 390 → 112px at 1440. Below desktop it grows on one slope, written as an exact
+// fraction. On desktop it stays on one line, so it shrinks faster than the page does
+// (9px per 100px) to keep fitting its nine columns down to 1024.
+.case-specimen__text {
+  color: $acetrail-ink;
+  font-family: $font-acetrail;
+  font-size: clamp(3rem, calc(3rem + (100vw - 390px) * 32 / 525), 7rem);
+  font-weight: 800;
+  line-height: 0.92;
+  letter-spacing: -0.05em;
+
+  @include desktop {
+    grid-column: 1 / span 9;
+    font-size: clamp(4.5rem, calc(7rem - (1440px - 100vw) * 9 / 100), 7rem);
+    line-height: 0.9;
+    white-space: nowrap;
+  }
+}
+
+.case-specimen__note {
+  @include desktop {
+    grid-column: 10 / span 3;
+  }
+}
+
+// The hero scroll: the timing chart beside the phone recording on desktop. On mobile the
+// wrapper steps aside, so both become direct children of the section and take its gap.
+.case-scroll {
+  display: contents;
+
+  @include desktop {
+    @include case-grid;
+    align-items: end;
+  }
+}
+
+.case-scroll__phone {
+  padding: 0 48px;
+
+  @include desktop {
+    grid-column: 9 / span 4;
+    grid-row: 1;
+    padding: 0;
+  }
+}
+
+.case-scroll__figure {
+  @include below-desktop {
+    max-width: $case-art-max;
+  }
+}
+
+.case-scroll__chart {
+  @include desktop {
+    grid-column: 1 / span 7;
+    grid-row: 1;
+  }
+}
+
+// Timing chart: a static explanation of the scroll, drawn in HTML. It never animates.
+.case-timing__body {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+
+  @include desktop {
+    gap: 28px;
+  }
+}
+
+.case-timing__row {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  @include desktop {
+    display: grid;
+    grid-template-columns: 5fr 7fr;
+    column-gap: $gutter;
+    align-items: center;
+  }
+}
+
+.case-timing__track {
+  position: relative;
+  height: 12px;
+  background: $diagram-card;
+}
+
+.case-timing__fill {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: $color-ink;
+}
+
+// The fades end on the ink at alpha 0, not on transparent, so they stay neutral.
+.case-timing__fill--out {
+  width: 55.6%;
+  background: linear-gradient(90deg, $color-ink, rgba($color-ink, 0));
+}
+
+.case-timing__fill--in {
+  left: 60%;
+  width: 40%;
+  background: linear-gradient(90deg, rgba($color-ink, 0), $color-ink);
+}
+
+.case-timing__axis {
+  display: flex;
+  justify-content: space-between;
+  color: $color-muted;
+  font-size: 0.8125rem;
+  line-height: 16px;
+
+  @include desktop {
+    grid-column: 2;
+  }
+}
+
+// Engineering: what the old site shipped beside what the rebuild ships.
+.case-lists {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+
+  @include desktop {
+    @include case-grid;
+  }
+}
+
+.case-lists__group,
+.case-lists__items {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.case-lists__group {
+  @include desktop {
+    grid-column: span 6;
+  }
+}
+
+// Performance: four scores, then four vitals. Each name comes first in the markup and
+// the value is drawn above it.
+.case-scores {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 16px;
+  row-gap: 28px;
+
+  @include desktop {
+    @include case-grid;
+    row-gap: 48px;
+  }
+}
+
+.case-scores__item {
+  display: flex;
+  flex-direction: column-reverse;
+  align-self: start;
+  gap: 6px;
+
+  @include desktop {
+    grid-column: span 3;
+    gap: 8px;
+  }
+}
+
+.case-scores__item--vital {
+  gap: 2px;
+}
+
+.case-scores__number {
+  font-size: 3.5rem;
+  font-weight: $weight-medium;
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+
+  @include desktop {
+    font-size: 6rem;
+  }
+}
+
+.case-scores__name {
+  color: $color-ink;
 }
 
 // Footer: next project, clock and links.
