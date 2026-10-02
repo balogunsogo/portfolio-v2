@@ -4,7 +4,7 @@ Context and rules for anyone (human or AI) working in this repo.
 
 ## What this is
 
-Balogun Oluwasogo's personal portfolio: a home page and three case studies (`/work/jobtrackr`, `/work/acetrail` and `/work/artifacts`, see "Case studies" below). The home page is a single screen, built from the "Neue Montreal" board and the "Two halves" direction of the design canvas "iudoh.me Layout Variations". The layout is a restrained, lineless 12-column grid.
+Balogun Oluwasogo's personal portfolio: a home page and four case studies (`/work/jobtrackr`, `/work/acetrail`, `/work/artifacts` and `/work/now-playing`, see "Case studies" below). The home page is a single screen, built from the "Neue Montreal" board and the "Two halves" direction of the design canvas "iudoh.me Layout Variations". The layout is a restrained, lineless 12-column grid.
 
 - **Top:** the name as display type, with the role line under it at about a third of the name's size.
 - **Bottom of the viewport, left half:** "Featured work" and the project list, flush left under the name (columns 1–4).
@@ -65,14 +65,14 @@ Balogun Oluwasogo's personal portfolio: a home page and three case studies (`/wo
 - **Fonts in the repo:** the two PP Neue Montreal `.woff2` files are committed (Oluwasogo's call) so the Vercel build includes them. The `.otf` originals stay git-ignored.
 - **Deploy:** Vercel builds `main` using `vercel.json` (`npm ci`, `npm run build`, output `dist`). Don't add a framework preset.
 
-## Case studies (`/work/jobtrackr`, `/work/acetrail`, `/work/artifacts`)
+## Case studies (`/work/jobtrackr`, `/work/acetrail`, `/work/artifacts`, `/work/now-playing`)
 
-Specs: `docs/handoff/jobtrackr/README.md`, `docs/handoff/acetrail/README.md` and `docs/handoff/artifacts/README.md`. Pixel targets: each handoff's `reference/desktop.html` at 1440×900 and `reference/mobile.html` at 390×844. The reference wins on appearance at those two widths; the handoff README wins on behaviour.
+Specs: `docs/handoff/jobtrackr/README.md`, `docs/handoff/acetrail/README.md`, `docs/handoff/artifacts/README.md` and `docs/handoff/now-playing/README.md`. Pixel targets: each handoff's `reference/desktop.html` at 1440×900 and `reference/mobile.html` at 390×844. The reference wins on appearance at those two widths; the handoff README wins on behaviour.
 
-The rules below apply to all three pages unless a bullet names one. Acetrail reuses JobTrackr's shell, type, grid, text blocks, video behaviour, process, stack, outcome and footer; what it adds is listed under "Acetrail only". Artifacts reuses all of that plus Acetrail's plates, comparison pairs, lists, scores and timing chart; what it adds is under "Artifacts only".
+The rules below apply to all four pages unless a bullet names one. Acetrail reuses JobTrackr's shell, type, grid, text blocks, video behaviour, process, stack, outcome and footer; what it adds is listed under "Acetrail only". Artifacts reuses all of that plus Acetrail's plates, comparison pairs, lists, scores and timing chart; what it adds is under "Artifacts only". Now Playing adds nothing: it is built only from the other pages' classes, as mapped under "Now Playing only".
 
-- **Files:** `src/work/jobtrackr.html`, `src/work/acetrail.html`, `src/work/artifacts.html`, `src/scss/_case.scss`, `src/ts/media.ts`. The pages use root-absolute URLs (`/assets/...`). `main.ts` runs on every page and skips whatever a page doesn't have.
-- **Shared SCSS:** a change to `_case.scss` must not move anything on any of the three pages. Re-run all three pixel diffs after touching it.
+- **Files:** `src/work/jobtrackr.html`, `src/work/acetrail.html`, `src/work/artifacts.html`, `src/work/now-playing.html`, `src/scss/_case.scss`, `src/ts/media.ts`. The pages use root-absolute URLs (`/assets/...`). `main.ts` runs on every page and skips whatever a page doesn't have.
+- **Shared SCSS:** a change to `_case.scss` must not move anything on any of the four pages. Re-run all four pixel diffs after touching it.
 - **Copy:** final and checked against the product. Don't change it, and don't add sections, claims, metrics or testimonials.
 - **Layout:** one column below 1024px (text capped at `$measure` on tablets), the 12-column grid from 1024px. Sections are 104px apart on mobile and 160px on desktop. Body, labels, captions and spacing are fixed; only the display, subtitle and heading sizes are fluid.
 - **Fluid sizes:** the slopes are exact fractions (`calc(10vw / 3)`, not `3.3333vw`) so sizes land on whole pixels at 390 and 1440. A size of 47.9995px shifts glyph spacing in Chrome and breaks the pixel match.
@@ -85,10 +85,10 @@ The rules below apply to all three pages unless a bullet names one. Acetrail reu
 - **Images:** `width` and `height` on every `<img>`, `srcset` with two widths, and `loading="lazy" decoding="async"` except the hero (`fetchpriority="high"`).
 - **Analytics pair:** the laptop image's ratio is `2266 / 1512` (3:2, rounded to the board's 504px at 1440). The phone image fills the same row.
 - **Footer:** the home page's clock markup and classes, at 88px below desktop, with proportional figures as on the board.
-- **Linking:** the chain is JobTrackr → Acetrail → Artifacts → Now Playing. JobTrackr's "Next project" goes to `/work/acetrail` and Acetrail's to `/work/artifacts`, both in the same tab. Artifacts' goes to Now Playing's live site (the URL in `projects.ts`) in a new tab with the hidden suffix, until that project has a case study; then it changes the same way. All That Is Kim has no case study (its site is about to be redesigned), so the chain skips it and the home page keeps linking to its live site. Every top bar links to `/`.
+- **Linking:** the chain is a loop: JobTrackr → Acetrail → Artifacts → Now Playing → JobTrackr. Each "Next project" link goes to the next case study in the same tab, with no `target`, `rel` or hidden suffix. All That Is Kim has no case study (its site is about to be redesigned), so the chain skips it and the home page keeps linking to its live site in a new tab. If it gets one, it slots in between Acetrail and Artifacts, following the home list. Every top bar links to `/`.
 - **Media files are final:** don't regenerate, recompress or re-cut them. The screen recording was cut to leave out a third party's email address, so never re-cut it from the raw file.
-- **Checks:** the acceptance lists in the handoff READMEs (JobTrackr §13, Acetrail §11, Artifacts §11): the screenshot diff against both reference pages with reduced motion, the overflow sweep with real scrollbars, keyboard order, motion and linking.
-- **Running the screenshot diff:** the references always load the largest image, while the pages pick from `srcset`, so serve the largest file to both before comparing; otherwise the photos differ by resampling. Chrome repeats the top of a page past 16384px in one screenshot, and all three desktop pages are taller than that, so capture the lower part separately from a fresh page load. (A second screenshot of the same page load comes out a few pixels off, so don't reuse the page.)
+- **Checks:** the acceptance lists in the handoff READMEs (JobTrackr §13, Acetrail §11, Artifacts §11, Now Playing §11): the screenshot diff against both reference pages with reduced motion, the overflow sweep with real scrollbars, keyboard order, motion and linking.
+- **Running the screenshot diff:** the references always load the largest image, while the pages pick from `srcset`, so serve the largest file to both before comparing; otherwise the photos differ by resampling. Chrome repeats the top of a page past 16384px in one screenshot, and the JobTrackr, Acetrail and Artifacts desktop pages are taller than that, so capture the lower part separately from a fresh page load. (A second screenshot of the same page load comes out a few pixels off, so don't reuse the page.) Now Playing's desktop page (14085px) fits in one capture. Run one browser at a time and make sure the machine has memory to spare: when it is short, Chrome leaves a large photo blank or changes how text and video posters are antialiased, in different places on each run.
 
 ### Acetrail only
 
@@ -119,6 +119,23 @@ The rules below apply to all three pages unless a bullet names one. Acetrail reu
 - **Rules list:** JobTrackr's `.case-list`.
 - **Video:** seven videos, all with the standard markup and toggle. `media.ts` is unchanged.
 - **Known pixel difference:** on mobile about 110 pixels of antialiasing differ in the collection's "Type · Origin" lines, because the reference sets each line as one text node and the page splits it at the span.
+
+### Now Playing only
+
+- **Copy and facts:** final, checked against the Now Playing repo at `cf9fded` and the live site. The Performance numbers are a dated PageSpeed measurement (2 October 2026): don't change them without re-running it and updating the date.
+- **No new components, tokens or section gaps.** `_case.scss` didn't change for this page. The section gaps reuse Artifacts' `rules` (Live data) and `phone` (Touch) entries, plus `engineering`, `performance`, `process`, `stack` and `outcome`.
+- **Reuse map:**
+  - Hero: a `<picture>` with `.case-media--hero`, as Artifacts. The phone file is 1600 wide (`1600w`, `width="1600" height="2000"`).
+  - Photo pairs (Context, On a phone): `.case-compare--stack` with `.case-media--landscape`, no plate.
+  - Scene stills: the same pair, each image in a `.case-plate--medium` with `.case-media--screen`. Their two widths are 960 and 1440.
+  - Live data: JobTrackr's `.case-list`.
+  - Track changes: a full-width `.case-figure--snug` in a large plate. The artwork tilt: `.case-figure--side` in a medium plate.
+  - Previously: `.case-figure--side` whose media is a plain wrapper around a `.case-media--landscape` image, no plate.
+  - Touch: `.case-compare--phones` with small plates.
+  - Before / After, scores, process, stack, outcome and footer: as built.
+- **Outcome line:** the space before each middle dot is a no-break space, so a dot never starts a line on mobile.
+- **Footer:** "JobTrackr" with `.case-display--j`, linking to `/work/jobtrackr` in the same tab.
+- **Video:** four videos, all with the standard markup and toggle. `media.ts` is unchanged.
 
 ## Open items
 

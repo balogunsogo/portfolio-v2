@@ -69,6 +69,7 @@ export const projects: readonly Project[] = [
     image: 'assets/images/projects/now-playing.webp',
     href: 'https://now-playing.balogunoluwasogo.com/',
     external: true,
+    caseStudy: '/work/now-playing',
     previewTone: '#2A2A27',
     previewInk: '#C9C6BE',
     stemAligned: true,

@@ -191,7 +191,7 @@ Reuse the outcome block: statement in columns 1–10, body in columns 7–11, di
 
 ### 5.17 Footer
 
-Reuse `.case-foot`. "Next project": **Now Playing** (`.case-display--stem`), linking to its live site `https://now-playing.balogunoluwasogo.com/` in a new tab with the hidden suffix. Take the URL from `projects.ts`.
+Reuse `.case-foot`. "Next project": **Now Playing** (`.case-display--stem`), linking to `/work/now-playing` in the same tab. (It linked to Now Playing's live site in a new tab at first; the Now Playing handoff, `docs/handoff/now-playing/README.md` §8, changes it in the same change that builds `/work/now-playing`. The text doesn't change, so the reference here still matches.)
 
 ---
 
@@ -293,11 +293,11 @@ Do all of this **in the same change as the new page**, so no link points at a pa
 
 1. **`projects.ts`:** give Artifacts `caseStudy: '/work/artifacts'`. The home list (desktop) and the sheet's "Read case study" (mobile) then follow automatically.
 2. **`acetrail.html` footer:** "Next project" becomes **Artifacts**, linking to `/work/artifacts` in the same tab. Change the link text from "All That Is Kim" to "Artifacts" and remove its `target`, `rel` and hidden suffix. "Artifacts" starts on A, so the display line takes no optical modifier. The regenerated Acetrail reference shows it.
-3. **`artifacts.html` footer:** "Now Playing" links to its live site in a new tab (§5.17).
+3. **`artifacts.html` footer:** "Now Playing" links to the Now Playing case study (§5.17), switched in the same change that builds `/work/now-playing`.
 4. **All That Is Kim** has no case study (its site is about to be redesigned), so the case-study chain skips it. On the home page it keeps linking to its live site, unchanged.
 5. **The top bars** keep "Balogun Oluwasogo" and "All work" linking to `/`.
 
-The order is JobTrackr → Acetrail → Artifacts → Now Playing.
+The order is JobTrackr → Acetrail → Artifacts → Now Playing, and Now Playing's footer loops back to JobTrackr.
 
 ---
 
@@ -345,8 +345,8 @@ Specific to this page:
 6. **Linking:**
    - From the home list (desktop) and the sheet (mobile), JobTrackr, Acetrail and Artifacts open their case studies in the same tab.
    - Acetrail's footer opens `/work/artifacts` in the same tab.
-   - Artifacts' footer opens now-playing.balogunoluwasogo.com in a new tab.
-   - All That Is Kim and Now Playing still open their sites in a new tab from the home page.
+   - Artifacts' footer opens `/work/now-playing` in the same tab (once that page is built).
+   - All That Is Kim still opens its site in a new tab from the home page.
    - `/work/artifacts` works in `npm run dev`, `npm run preview` and the built `dist/`.
 7. **JobTrackr and Acetrail unchanged:** re-run both pixel matches against their references after the shared SCSS changes. Acetrail's reference now has "Artifacts" in the footer; nothing else on either page may move.
 8. **Docs:** README and CLAUDE.md updated (§2).

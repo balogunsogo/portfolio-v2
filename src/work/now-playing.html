@@ -1,0 +1,528 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Now Playing — Balogun Oluwasogo</title>
+  <meta name="description" content="A live page of what I’m playing on Spotify, built without a framework: Spotify Web API data through a serverless function, colours from the cover, and staged track changes.">
+  <meta name="theme-color" content="#FAFAF8">
+  <link rel="canonical" href="https://www.balogunoluwasogo.com/work/now-playing">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Now Playing — Balogun Oluwasogo">
+  <meta property="og:description" content="A live page of what I’m playing on Spotify, built without a framework: Spotify Web API data through a serverless function, colours from the cover, and staged track changes.">
+  <meta property="og:url" content="https://www.balogunoluwasogo.com/work/now-playing">
+  <meta property="og:image" content="https://www.balogunoluwasogo.com/assets/images/case/now-playing/og.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://www.balogunoluwasogo.com/assets/images/case/now-playing/og.jpg">
+
+  <link rel="icon" href="/assets/favicon.ico?v=3" sizes="32x32">
+  <link rel="icon" href="/assets/favicon.svg?v=3" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <link rel="preload" href="/assets/fonts/PPNeueMontreal-Medium.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <script type="module" src="/assets/js/main.js"></script>
+</head>
+<body>
+  <div class="case">
+    <header class="case-top">
+      <a class="case-top__name" href="/">Balogun Oluwasogo</a>
+      <a class="case-top__link" href="/">All work</a>
+    </header>
+
+    <main class="case__main">
+      <section class="case-hero" aria-labelledby="case-title">
+        <div class="case-hero__head">
+          <h1 class="case-display case-display--stem" id="case-title">Now Playing</h1>
+          <p class="case-subtitle case-subtitle--w">What I’m playing on Spotify, live, on a page that takes its colours from the cover.</p>
+        </div>
+
+        <div class="case-meta">
+          <div class="case-meta__group">
+            <span class="case-meta__label">Role</span>
+            <span>Design and <br class="case-break">frontend development</span>
+          </div>
+          <div class="case-meta__group">
+            <span class="case-meta__label">Year</span>
+            <span>2026</span>
+          </div>
+          <div class="case-meta__group">
+            <span class="case-meta__label">Stack</span>
+            <span>HTML, CSS, JavaScript, <br class="case-break">Spotify Web API</span>
+          </div>
+          <div class="case-meta__group">
+            <span class="case-meta__label">Status</span>
+            <span>Live</span>
+            <a class="case-meta__link" href="https://now-playing.balogunoluwasogo.com/" target="_blank" rel="noopener">now-playing.balogunoluwasogo.com<span class="visually-hidden"> (opens in a new tab)</span></a>
+          </div>
+        </div>
+
+        <picture>
+          <source media="(min-width: 1024px)"
+            srcset="/assets/images/case/now-playing/hero-1200.webp 1200w, /assets/images/case/now-playing/hero-2400.webp 2400w"
+            sizes="calc(100vw - 128px)"
+            width="2400" height="1600">
+          <img class="case-media case-media--hero"
+            src="/assets/images/case/now-playing/hero-phone-1200.webp"
+            srcset="/assets/images/case/now-playing/hero-phone-1200.webp 1200w, /assets/images/case/now-playing/hero-phone-1600.webp 1600w"
+            sizes="calc(100vw - 40px)"
+            width="1600" height="2000" fetchpriority="high"
+            alt="Now Playing showing Both Sides of a Smile on a laptop and on a phone">
+        </picture>
+      </section>
+
+      <section class="case-section" aria-labelledby="context-heading">
+        <div class="case-text">
+          <p class="case-label case-label--round case-text__label">Context</p>
+          <h2 class="case-h case-text__heading" id="context-heading">A page about one thing: the music I work to.</h2>
+          <div class="case-text__body case-copy">
+            <p class="case-body">Music is part of how I work, so I made a page that shows it as it happens. Now Playing reads my Spotify account and shows the track that’s playing, or the last one if nothing is, with the time in Lagos and a link to open it in Spotify.</p>
+            <p class="case-body">The first version, in May 2026, put the cover over a blurred copy of itself, with a short note about the page. At the end of August I rebuilt how it moves: colours taken from the cover, staged track changes, a tilt on the artwork and a list of recent tracks. Touch got a version of its own in late September.</p>
+          </div>
+        </div>
+
+        <div class="case-compare case-compare--stack">
+          <figure class="case-compare__item">
+            <img class="case-media case-media--landscape"
+              src="/assets/images/case/now-playing/online-1200.webp"
+              srcset="/assets/images/case/now-playing/online-1200.webp 1200w, /assets/images/case/now-playing/online-1500.webp 1500w"
+              sizes="(min-width: 1024px) calc(50vw - 76px), calc(100vw - 40px)"
+              width="1500" height="1000" loading="lazy" decoding="async"
+              alt="Now Playing on a tablet, online, with Raindance by Dave and Tems playing">
+            <figcaption class="case-caption">Online, with a track playing.</figcaption>
+          </figure>
+          <figure class="case-compare__item">
+            <img class="case-media case-media--landscape"
+              src="/assets/images/case/now-playing/offline-1200.webp"
+              srcset="/assets/images/case/now-playing/offline-1200.webp 1200w, /assets/images/case/now-playing/offline-2000.webp 2000w"
+              sizes="(min-width: 1024px) calc(50vw - 76px), calc(100vw - 40px)"
+              width="2000" height="1333" loading="lazy" decoding="async"
+              alt="The first version of Now Playing on a tablet, offline, showing the last track played and the note about the page">
+            <figcaption class="case-caption">Offline in the first version, with its note open.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="case-section case-section--rules" aria-labelledby="data-heading">
+        <div class="case-text">
+          <p class="case-label case-label--stem case-text__label">Live data</p>
+          <h2 class="case-h case-h--t case-text__heading" id="data-heading">Three questions to Spotify, in order.</h2>
+          <div class="case-text__body case-copy">
+            <p class="case-body">The page never calls Spotify’s API itself. Every 10 seconds it asks its own endpoint, a serverless function on Vercel that holds the client secret and a long-lived refresh token. The function trades that token for an access token, keeps it until a minute before it expires while the function stays warm, and never lets two requests refresh it at once.</p>
+            <p class="case-body">Then it asks Spotify up to three questions and stops at the first answer. Every response is marked no-store, so a track is never served from a cache.</p>
+          </div>
+        </div>
+
+        <dl class="case-list">
+          <div class="case-list__row">
+            <dt class="case-item case-item--w case-list__name">What’s playing</dt>
+            <dd class="case-list__text">A track that’s playing shows as Online, under “Currently listening to”. A paused one shows as Paused.</dd>
+          </div>
+          <div class="case-list__row">
+            <dt class="case-item case-item--stem case-list__name">Playback state</dt>
+            <dd class="case-list__text">Spotify can answer the first question with nothing for a session that was just paused, while the playback state still holds the track. This catches it.</dd>
+          </div>
+          <div class="case-list__row">
+            <dt class="case-item case-item--stem case-list__name">Last played</dt>
+            <dd class="case-list__text">The most recent track, with how long ago it played. The badge reads Offline.</dd>
+          </div>
+          <div class="case-list__row">
+            <dt class="case-item case-item--stem case-list__name">Nothing yet</dt>
+            <dd class="case-list__text">If the history is empty too, the page says so until something plays.</dd>
+          </div>
+        </dl>
+      </section>
+
+      <section class="case-section" aria-labelledby="changes-heading">
+        <div class="case-text">
+          <p class="case-label case-label--t case-text__label">Track changes</p>
+          <h2 class="case-h case-text__heading" id="changes-heading">A new track waits until it’s ready.</h2>
+          <div class="case-text__body case-copy">
+            <p class="case-body">When the endpoint returns a different track, nothing moves at first. The next cover is loaded and decoded in the background and its colours are worked out, while the current track stays on screen. Only then does the old one step back, for 180 milliseconds, and the new one arrive: the cover settles into place, the details follow, starting 20 to 220 milliseconds in, and the title comes in word by word.</p>
+            <p class="case-body">Each change carries a generation number, so a cover that finishes loading after a newer track has arrived is thrown away. A change of state alone, like pausing, updates the badge and the status line in place instead of replaying the arrival. With reduced motion, the new track simply appears.</p>
+          </div>
+        </div>
+
+        <figure class="case-figure case-figure--snug">
+          <div class="case-plate">
+            <div class="case-video">
+              <video class="case-video__media case-video__media--screen" data-case-video
+                src="/assets/video/now-playing/track-changes.mp4"
+                poster="/assets/images/case/now-playing/track-changes-poster.webp"
+                width="1440" height="900" preload="none" muted loop playsinline
+                aria-label="Now Playing changing track three times: Tornado, then Bang, VILLAIN and Back Outside, each arriving in a stagger as the background changes colour"></video>
+              <button class="case-video__toggle" type="button" data-case-video-toggle hidden>Play video</button>
+            </div>
+          </div>
+          <figcaption class="case-caption case-figure__caption">Three track changes at 1440 × 900, recorded from the site’s code with stand-in tracks. The waits between them are cut.</figcaption>
+        </figure>
+      </section>
+
+      <section class="case-section" aria-labelledby="scene-heading">
+        <div class="case-text">
+          <p class="case-label case-label--t case-text__label">The scene</p>
+          <h2 class="case-h case-h--stem case-text__heading" id="scene-heading">Every cover brings its own colours.</h2>
+          <div class="case-text__body case-copy">
+            <p class="case-body">The background is the cover itself, enlarged and blurred behind the page, over soft fields of colour sampled from it. A 32-pixel copy of the artwork gives an average and a most vivid colour, both clamped to a narrow range of brightness, and the result is kept for the last 16 covers.</p>
+            <p class="case-body">Two background layers take turns, so a new scene fades in over the old one instead of replacing it. While a track plays, the background drifts slowly and the bars beside the status move; when it’s paused or offline, both stop and the scene dims a little. Double-click the status badge and the cover gets a faint glow in its accent colour.</p>
+          </div>
+        </div>
+
+        <div class="case-compare case-compare--stack">
+          <figure class="case-compare__item">
+            <div class="case-plate case-plate--medium">
+              <img class="case-media case-media--screen"
+                src="/assets/images/case/now-playing/scene-tornado-960.webp"
+                srcset="/assets/images/case/now-playing/scene-tornado-960.webp 960w, /assets/images/case/now-playing/scene-tornado-1440.webp 1440w"
+                sizes="(min-width: 1024px) calc(50vw - 140px), calc(100vw - 64px)"
+                width="1440" height="900" loading="lazy" decoding="async"
+                alt="Now Playing with Tornado by Ayra Starr: a purple, blurred copy of the cover fills the background">
+            </div>
+            <figcaption class="case-caption">Tornado.</figcaption>
+          </figure>
+          <figure class="case-compare__item">
+            <div class="case-plate case-plate--medium">
+              <img class="case-media case-media--screen"
+                src="/assets/images/case/now-playing/scene-bang-960.webp"
+                srcset="/assets/images/case/now-playing/scene-bang-960.webp 960w, /assets/images/case/now-playing/scene-bang-1440.webp 1440w"
+                sizes="(min-width: 1024px) calc(50vw - 140px), calc(100vw - 64px)"
+                width="1440" height="900" loading="lazy" decoding="async"
+                alt="Now Playing with Bang: the blurred cover and its orange and green fill the background">
+            </div>
+            <figcaption class="case-caption">Bang. Album artwork belongs to its artists and rights holders.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="case-section" aria-labelledby="artwork-heading">
+        <div class="case-text">
+          <p class="case-label case-label--t case-text__label">The artwork</p>
+          <h2 class="case-h case-h--t case-text__heading" id="artwork-heading">The cover leans toward the pointer.</h2>
+          <div class="case-text__body case-copy">
+            <p class="case-body">With a mouse or trackpad, the cover tilts up to 6.4 degrees toward the pointer and lifts 6 pixels, and a highlight slides across it as it turns. The pointer only sets a target; one animation-frame loop eases toward it, so quick movements stay smooth.</p>
+            <p class="case-body">It runs on fine pointers only, stops while the tab is hidden, and is off with reduced motion. When the pointer leaves, the cover settles back flat.</p>
+          </div>
+        </div>
+
+        <figure class="case-figure case-figure--side case-figure--snug">
+          <div class="case-plate case-plate--medium case-figure__media">
+            <div class="case-video">
+              <video class="case-video__media case-video__media--screen" data-case-video
+                src="/assets/video/now-playing/artwork-depth.mp4"
+                poster="/assets/images/case/now-playing/artwork-depth-poster.webp"
+                width="1440" height="900" preload="none" muted loop playsinline
+                aria-label="A pointer moving around the VILLAIN cover, which tilts toward it, then moving away"></video>
+              <button class="case-video__toggle" type="button" data-case-video-toggle hidden>Play video</button>
+            </div>
+          </div>
+          <figcaption class="case-caption case-figure__caption">Moving a pointer around the cover and away.</figcaption>
+        </figure>
+      </section>
+
+      <section class="case-section" aria-labelledby="previously-heading">
+        <div class="case-text">
+          <p class="case-label case-label--stem case-text__label">Previously</p>
+          <h2 class="case-h case-h--stem case-text__heading" id="previously-heading">Four recent tracks, one tap away.</h2>
+          <div class="case-text__body case-copy">
+            <p class="case-body">The button in the bottom right corner opens Previously: the last four tracks I played, each a link to Spotify. The list is fetched when the panel opens, from a second endpoint that reads my recent history, drops repeats of the same song and leaves out the one on screen. Skeleton cards hold its shape while it loads.</p>
+            <p class="case-body">The first version of the panel only listed tracks this browser had seen change, so it started empty. Reading Spotify’s history instead fills it from the first visit.</p>
+          </div>
+        </div>
+
+        <figure class="case-figure case-figure--side case-figure--snug">
+          <div class="case-figure__media">
+            <img class="case-media case-media--landscape"
+              src="/assets/images/case/now-playing/previously-1200.webp"
+              srcset="/assets/images/case/now-playing/previously-1200.webp 1200w, /assets/images/case/now-playing/previously-2000.webp 2000w"
+              sizes="(min-width: 1024px) calc(66.67vw - 93px), calc(100vw - 40px)"
+              width="2000" height="1333" loading="lazy" decoding="async"
+              alt="Now Playing on a laptop with the Previously panel open: four recent covers under King Coal">
+          </div>
+          <figcaption class="case-caption case-figure__caption">Previously on a laptop.</figcaption>
+        </figure>
+      </section>
+
+      <section class="case-section" aria-labelledby="phone-heading">
+        <div class="case-text">
+          <p class="case-label case-label--round case-text__label">On a phone</p>
+          <h2 class="case-h case-h--s case-text__heading" id="phone-heading">Smaller screens, and shorter ones.</h2>
+          <div class="case-text__body case-copy">
+            <p class="case-body">Below 720 pixels the corners tighten, the cover grows to most of the width, and the two buttons sit just above the bottom edge, clear of the home indicator. Heights use the small viewport unit, so the layout holds still while Safari’s toolbars come and go.</p>
+            <p class="case-body">Shorter screens get a smaller cover in steps, so the title and the Spotify link stay on screen. Previously becomes a strip you swipe sideways.</p>
+          </div>
+        </div>
+
+        <div class="case-compare case-compare--stack">
+          <figure class="case-compare__item">
+            <img class="case-media case-media--landscape"
+              src="/assets/images/case/now-playing/phone-jacket-1200.webp"
+              srcset="/assets/images/case/now-playing/phone-jacket-1200.webp 1200w, /assets/images/case/now-playing/phone-jacket-2000.webp 2000w"
+              sizes="(min-width: 1024px) calc(50vw - 76px), calc(100vw - 40px)"
+              width="2000" height="1333" loading="lazy" decoding="async"
+              alt="Now Playing on a phone lying on a blue jacket, playing Gratitude by Asake">
+            <figcaption class="case-caption">Gratitude by Asake, on a phone.</figcaption>
+          </figure>
+          <figure class="case-compare__item">
+            <img class="case-media case-media--landscape"
+              src="/assets/images/case/now-playing/phone-shelf-1200.webp"
+              srcset="/assets/images/case/now-playing/phone-shelf-1200.webp 1200w, /assets/images/case/now-playing/phone-shelf-2000.webp 2000w"
+              sizes="(min-width: 1024px) calc(50vw - 76px), calc(100vw - 40px)"
+              width="2000" height="1333" loading="lazy" decoding="async"
+              alt="Now Playing on a phone standing on a wooden shelf, with the note about the page open">
+            <figcaption class="case-caption">The same track, with the note open.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="case-section case-section--phone" aria-labelledby="touch-heading">
+        <div class="case-text">
+          <p class="case-label case-label--t case-text__label">Touch</p>
+          <h2 class="case-h case-h--t case-text__heading" id="touch-heading">The cover follows your finger.</h2>
+          <div class="case-text__body case-copy">
+            <p class="case-body">A phone has no pointer to lean toward, so the cover follows a finger instead. Tilt and press run on springs, the angle goes 1.75 times as far as on desktop, and the drag meets more resistance toward the edge. When the page can’t scroll, vertical drags go to the tilt; when it can, they stay with the page.</p>
+            <p class="case-body">A tap opens the cover full screen. The real element moves into the viewer and is animated from where it was, with its corners, shadow and perspective scaled so nothing jumps. There the tilt is stronger, the cover shifts toward the finger, the whole screen is the surface, and two fingers still zoom. The page behind is made inert, focus moves to Close when the viewer is opened from a keyboard, and Escape closes it. Artifacts has the same interaction as Ambient Artwork.</p>
+          </div>
+        </div>
+
+        <div class="case-compare case-compare--phones">
+          <figure class="case-compare__item">
+            <div class="case-plate case-plate--small">
+              <div class="case-video">
+                <video class="case-video__media case-video__media--phone-screen" data-case-video
+                  src="/assets/video/now-playing/touch-artwork.mp4"
+                  poster="/assets/images/case/now-playing/touch-artwork-poster.webp"
+                  width="780" height="1688" preload="none" muted loop playsinline
+                  aria-label="A finger dragging the Both Sides of a Smile cover on a phone, which tilts and springs back, then a tap opening it full screen"></video>
+                <button class="case-video__toggle" type="button" data-case-video-toggle hidden>Play video</button>
+              </div>
+            </div>
+            <figcaption class="case-caption">Dragging the cover, then opening it full screen.</figcaption>
+          </figure>
+          <figure class="case-compare__item">
+            <div class="case-plate case-plate--small">
+              <div class="case-video">
+                <video class="case-video__media case-video__media--phone-screen" data-case-video
+                  src="/assets/video/now-playing/phone-panels.mp4"
+                  poster="/assets/images/case/now-playing/phone-panels-poster.webp"
+                  width="780" height="1688" preload="none" muted loop playsinline
+                  aria-label="On a phone: the note about the page opening and closing, then Previously loading and being swiped sideways"></video>
+                <button class="case-video__toggle" type="button" data-case-video-toggle hidden>Play video</button>
+              </div>
+            </div>
+            <figcaption class="case-caption">The note, then Previously, swiped sideways.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="case-section case-section--engineering" aria-labelledby="engineering-heading">
+        <div class="case-text">
+          <p class="case-label case-label--stem case-text__label">Engineering</p>
+          <h2 class="case-h case-h--stem case-text__heading" id="engineering-heading">Doing less, especially in a hidden tab.</h2>
+          <div class="case-text__body case-copy">
+            <p class="case-body">The first version polled every 5 seconds whether anyone was looking or not, asked for a new access token every time, and swapped the cover the moment a new address arrived. Most of the work since has been making it do less, and do it in a better order.</p>
+            <p class="case-body">Polling now runs only while the page is visible. When the tab is hidden or the page is left, it stops, along with the drifting background and the bars, and it all starts again when you come back, including from the back-forward cache. Each request cancels the one before it, so a slow answer never overwrites a newer one.</p>
+          </div>
+        </div>
+
+        <div class="case-lists">
+          <div class="case-lists__group">
+            <p class="case-label case-label--stem" id="engineering-before">Before</p>
+            <ul class="case-lists__items" aria-labelledby="engineering-before">
+              <li class="case-body">Polled every 5 seconds, in hidden tabs too</li>
+              <li class="case-body">A new access token for every request</li>
+              <li class="case-body">Two questions: playing, or last played</li>
+              <li class="case-body">The Lagos clock redrawn every second</li>
+              <li class="case-body">The cover swapped as soon as its address arrived</li>
+              <li class="case-body">Any change of state counted as a new track</li>
+            </ul>
+          </div>
+          <div class="case-lists__group">
+            <p class="case-label" id="engineering-after">After</p>
+            <ul class="case-lists__items" aria-labelledby="engineering-after">
+              <li class="case-body">Every 10 seconds, only while the page is visible</li>
+              <li class="case-body">One token, reused until a minute before it expires</li>
+              <li class="case-body">Three, so a paused track shows as Paused</li>
+              <li class="case-body">Once a minute, on the minute</li>
+              <li class="case-body">Loaded and decoded first, then staged in</li>
+              <li class="case-body">Only a different track starts a change</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="case-section case-section--performance" aria-labelledby="performance-heading">
+        <div class="case-text">
+          <p class="case-label case-label--stem case-text__label">Performance</p>
+          <h2 class="case-h case-h--stem case-text__heading" id="performance-heading">Measured on a mid-range phone.</h2>
+        </div>
+
+        <dl class="case-scores">
+          <div class="case-scores__item">
+            <dt class="case-label case-label--stem case-scores__name">Performance</dt>
+            <dd class="case-scores__number">81</dd>
+          </div>
+          <div class="case-scores__item">
+            <dt class="case-label case-scores__name">Accessibility</dt>
+            <dd class="case-scores__number">100</dd>
+          </div>
+          <div class="case-scores__item">
+            <dt class="case-label case-label--stem case-scores__name">Best practices</dt>
+            <dd class="case-scores__number">100</dd>
+          </div>
+          <div class="case-scores__item">
+            <dt class="case-label case-label--s case-scores__name">SEO</dt>
+            <dd class="case-scores__number">100</dd>
+          </div>
+          <div class="case-scores__item case-scores__item--vital">
+            <dt class="case-small case-muted">First contentful paint</dt>
+            <dd class="case-body">2.7 s</dd>
+          </div>
+          <div class="case-scores__item case-scores__item--vital">
+            <dt class="case-small case-muted">Largest contentful paint</dt>
+            <dd class="case-body">3.7 s</dd>
+          </div>
+          <div class="case-scores__item case-scores__item--vital">
+            <dt class="case-small case-muted">Total blocking time</dt>
+            <dd class="case-body">130 ms</dd>
+          </div>
+          <div class="case-scores__item case-scores__item--vital">
+            <dt class="case-small case-muted">Cumulative layout shift</dt>
+            <dd class="case-body">0.03</dd>
+          </div>
+        </dl>
+
+        <div class="case-cols">
+          <p class="case-caption case-cols__span-1-6">PageSpeed Insights on the live page, 2 October 2026: one Lighthouse 13.5 run on an emulated Moto G Power over slow 4G. The largest paint is the cover, which can’t start loading until the page has asked what’s playing. On desktop the page scored 95, 100, 100 and 100.</p>
+        </div>
+      </section>
+
+      <section class="case-section case-section--process" aria-labelledby="process-heading">
+        <div class="case-text">
+          <p class="case-label case-label--stem case-text__label">Process</p>
+          <h2 class="case-h case-h--stem case-text__heading" id="process-heading">Built in passes, over five months.</h2>
+          <div class="case-text__body case-copy">
+            <p class="case-body">Now Playing grew in passes, each one small enough to ship on its own. The experimental layers are kept apart, in their own files or in marked blocks, so each one is easy to find and take out.</p>
+            <p class="case-body">It was built with AI coding agents doing much of the typing.</p>
+          </div>
+        </div>
+
+        <ol class="case-process">
+          <li class="case-process__step">
+            <p class="case-process__name">May<span class="case-process__arrow" aria-hidden="true">&nbsp;&nbsp;→</span></p>
+            <p class="case-process__text">The cover over a blurred copy of itself, the track, the Lagos time and a note.</p>
+          </li>
+          <li class="case-process__step">
+            <p class="case-process__name">July<span class="case-process__arrow" aria-hidden="true">&nbsp;&nbsp;→</span></p>
+            <p class="case-process__text">A styling pass, and the note moved behind an info button.</p>
+          </li>
+          <li class="case-process__step">
+            <p class="case-process__name">August<span class="case-process__arrow" aria-hidden="true">&nbsp;&nbsp;→</span></p>
+            <p class="case-process__text">Colours from the cover, staged changes, the tilt and a recent list.</p>
+          </li>
+          <li class="case-process__step">
+            <p class="case-process__name">Early September<span class="case-process__arrow" aria-hidden="true">&nbsp;&nbsp;→</span></p>
+            <p class="case-process__text">Recent tracks from Spotify, skeletons while they load, a new share image.</p>
+          </li>
+          <li class="case-process__step">
+            <p class="case-process__name">Late September</p>
+            <p class="case-process__text">Touch: the cover follows a finger and opens full screen.</p>
+          </li>
+        </ol>
+      </section>
+
+      <section class="case-section case-section--stack" aria-labelledby="stack-heading">
+        <div class="case-text">
+          <p class="case-label case-label--s case-text__label">Stack</p>
+          <h2 class="case-h case-h--stem case-text__heading" id="stack-heading">No framework, no build step.</h2>
+        </div>
+
+        <dl class="case-stack">
+          <div class="case-stack__group">
+            <dt class="case-label case-label--stem">Front end</dt>
+            <dd class="case-body">HTML and CSS</dd>
+            <dd class="case-body">JavaScript modules</dd>
+          </div>
+          <div class="case-stack__group">
+            <dt class="case-label case-label--stem">Motion</dt>
+            <dd class="case-body">CSS animation</dd>
+            <dd class="case-body">Web Animations API</dd>
+            <dd class="case-body">Springs on animation frames</dd>
+          </div>
+          <div class="case-stack__group">
+            <dt class="case-label case-label--stem">Data</dt>
+            <dd class="case-body">Spotify Web API</dd>
+            <dd class="case-body">OAuth refresh token</dd>
+          </div>
+          <div class="case-stack__group">
+            <dt class="case-label case-label--s">Server</dt>
+            <dd class="case-body">Node.js serverless functions</dd>
+          </div>
+          <div class="case-stack__group">
+            <dt class="case-label case-label--stem">Media</dt>
+            <dd class="case-body">Canvas, for colour sampling</dd>
+          </div>
+          <div class="case-stack__group">
+            <dt class="case-label">Analytics</dt>
+            <dd class="case-body">Google Analytics 4</dd>
+          </div>
+          <div class="case-stack__group">
+            <dt class="case-label case-label--stem">Hosting</dt>
+            <dd class="case-body">Vercel</dd>
+          </div>
+        </dl>
+      </section>
+
+      <section class="case-section case-section--outcome" aria-labelledby="outcome-label">
+        <div class="case-text">
+          <p class="case-label case-label--round case-text__label" id="outcome-label">Outcome</p>
+          <p class="case-h case-text__statement">A small page that changes whenever the music does.</p>
+        </div>
+
+        <div class="case-cols">
+          <div class="case-copy case-cols__span-7-11">
+            <p class="case-body">It’s the smallest project here, and most of its craft is in the moments between states: a track arriving, a cover answering a pointer or a finger, a list filling in.</p>
+            <p class="case-body">Three of those pieces now stand on their own in Artifacts. The page itself keeps doing what it was made for: showing what’s on while I work.</p>
+          </div>
+        </div>
+
+        <div class="case-cols">
+          <p class="case-caption case-cols__span-1-9">Interaction design&nbsp;· Motion design&nbsp;· Frontend engineering&nbsp;· API integration&nbsp;· Accessibility&nbsp;· Performance</p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="case-foot">
+      <div class="case-foot__next">
+        <p class="case-label case-label--stem">Next project</p>
+        <p class="case-display case-display--j"><a href="/work/jobtrackr">JobTrackr</a></p>
+      </div>
+
+      <div class="case-foot__aside">
+        <div class="case-foot__meta">
+          <svg class="index__clock" viewBox="0 0 96 96" aria-hidden="true" focusable="false">
+            <circle class="index__clock-face" cx="48" cy="48" r="47.5"/>
+            <text class="index__clock-readout" x="25" y="48" data-clock-readout>--:--</text>
+            <text class="index__clock-readout" x="71" y="48">GMT+1</text>
+            <line class="index__clock-hand index__clock-hand--hour" data-clock-hour x1="48" y1="48" x2="48" y2="24"/>
+            <line class="index__clock-hand" data-clock-minute x1="48" y1="48" x2="48" y2="8"/>
+            <circle class="index__clock-pivot" cx="48" cy="48" r="2.5"/>
+          </svg>
+          <p class="index__time visually-hidden">GMT+1 <time data-clock datetime="">--:--</time></p>
+          <p class="index__location visually-hidden">Lagos, Nigeria</p>
+        </div>
+
+        <nav class="index__links" aria-label="Elsewhere">
+          <ul class="links">
+            <li><a href="https://www.linkedin.com/in/sogobalogun/" target="_blank" rel="me noopener">LinkedIn<span class="visually-hidden"> (opens in a new tab)</span></a></li>
+            <li><a href="https://github.com/balogunsogo" target="_blank" rel="me noopener">GitHub<span class="visually-hidden"> (opens in a new tab)</span></a></li>
+            <li><a href="https://contra.com/balogun_oluwasogo" target="_blank" rel="me noopener">Contra<span class="visually-hidden"> (opens in a new tab)</span></a></li>
+            <li><a href="mailto:balogunoluwasogo@gmail.com">Email</a></li>
+          </ul>
+        </nav>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
