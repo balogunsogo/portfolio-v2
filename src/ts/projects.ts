@@ -57,6 +57,7 @@ export const projects: readonly Project[] = [
     image: 'assets/images/projects/artifacts.webp',
     href: 'https://artifacts.balogunoluwasogo.com/',
     external: true,
+    caseStudy: '/work/artifacts',
     previewTone: '#C8CCD4',
     previewInk: '#3C4049',
   },

@@ -83,7 +83,7 @@ Reuse what exists:
 - The **subtitle** starts on T ("The site for an online IELTS school…"). Add the subtitle style to the medium-weight modifier loop so `.case-subtitle--t` exists. JobTrackr didn't need it.
 - Lines starting on **M** use the **stem** modifier: M's side bearing equals the stems' (0.071em medium, 0.076em book). Examples are "Measured on a mid-range phone." and "Markup and styles".
 
-The Performance score labels and stack group labels are in the label style, so they get the label modifiers too. The display lines ("Acetrail", "All That Is Kim") start on A and get none.
+The Performance score labels and stack group labels are in the label style, so they get the label modifiers too. The display lines ("Acetrail", and "Artifacts" in the footer) start on A and get none.
 
 ---
 
@@ -232,7 +232,7 @@ Reuse the JobTrackr outcome block: statement in columns 1–10, body in columns 
 
 Reuse `.case-foot`.
 
-- "Next project": **All That Is Kim**, linking to its live site `https://allthatiskim.com/` in a new tab with the hidden suffix. Take the URL from `projects.ts`.
+- "Next project": **Artifacts**, linking to `/work/artifacts` in the same tab. (It was All That Is Kim at first; the Artifacts handoff, `docs/handoff/artifacts/README.md` §8, changed it, and the reference here shows it. All That Is Kim has no case study for now.)
 - The display line uses `text-wrap: balance` so it never leaves a lone word at narrow desktop widths.
 
 ---
@@ -341,10 +341,10 @@ Do all four steps **in the same change as the new page**, so no link ever points
 
 1. **`projects.ts`:** give Acetrail `caseStudy: '/work/acetrail'`. The home list (desktop) and the sheet's "Read case study" (mobile) then follow automatically, through the logic JobTrackr already added.
 2. **`jobtrackr.html` footer:** the "Acetrail" next-project link becomes `href="/work/acetrail"`, opening in the same tab. Remove its `target`, `rel` and hidden suffix.
-3. **`acetrail.html` footer:** "All That Is Kim" links to its live site in a new tab (§5.14). When All That Is Kim gets a case study, this changes the same way.
+3. **`acetrail.html` footer:** links to the Artifacts case study (§5.14), switched in the same change that builds `/work/artifacts`.
 4. **The top bars** of both case pages keep "Balogun Oluwasogo" and "All work" linking to `/`.
 
-The order follows the home list: JobTrackr → Acetrail → All That Is Kim.
+The order is JobTrackr → Acetrail → Artifacts. All That Is Kim is skipped while it has no case study.
 
 ---
 
@@ -383,7 +383,7 @@ Specific to this page:
 2. **Pixel match** against `reference/desktop.html` at 1440×900 and `reference/mobile.html` at 390×844, as for JobTrackr: full page, fonts loaded, reduced motion emulated. Section tops, media boxes and text line breaks must match. Report any remaining difference and why.
 3. **No horizontal scroll** at 320, 360, 390, 600, 768, 1023, 1024, 1280, 1366, 1440, 1920 and 2560, with real scrollbars (`ignoreDefaultArgs: ['--hide-scrollbars']`).
 4. **Keyboard:**
-   - Tab runs through the top bar, the site link, each video toggle in page order, "All That Is Kim", then the footer links.
+   - Tab runs through the top bar, the site link, each video toggle in page order, "Artifacts", then the footer links.
    - Focus-visible outlines stay on.
 5. **Motion:**
    - With reduced motion, nothing plays and no `.mp4` is requested.
@@ -392,7 +392,7 @@ Specific to this page:
 6. **Linking:**
    - From the home list (desktop) and the sheet (mobile), both JobTrackr and Acetrail open their case studies in the same tab.
    - JobTrackr's footer opens `/work/acetrail` in the same tab.
-   - Acetrail's footer opens allthatiskim.com in a new tab.
+   - Acetrail's footer opens `/work/artifacts` in the same tab.
    - The other projects still open their sites in a new tab.
    - `/work/acetrail` works in `npm run dev`, `npm run preview` and the built `dist/`.
 7. **JobTrackr unchanged:** re-run JobTrackr's pixel match against its own reference after the shared SCSS changes (the new section gaps, the subtitle modifiers, the Figtree face). It must still match.

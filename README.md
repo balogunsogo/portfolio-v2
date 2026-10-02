@@ -1,6 +1,6 @@
 # Portfolio V2.1
 
-A portfolio for Balogun Oluwasogo, built with plain HTML, SCSS and TypeScript: the home page and two case studies (`/work/jobtrackr` and `/work/acetrail`).
+A portfolio for Balogun Oluwasogo, built with plain HTML, SCSS and TypeScript: the home page and three case studies (`/work/jobtrackr`, `/work/acetrail` and `/work/artifacts`).
 There is no framework and no bundler: Sass compiles the styles, `tsc` compiles the scripts, and a small Node script serves everything during development.
 
 ## Getting started
@@ -25,7 +25,7 @@ The site is deployed on Vercel from the `main` branch. `vercel.json` pins the se
 - **Build:** `npm run build`
 - **Output:** `dist/`
 - **Headers:** long-lived cache for fonts, a week for images and video, and revalidation for CSS/JS (their filenames aren't hashed).
-- **Routes:** `cleanUrls` serves every page without its extension, so `src/work/jobtrackr.html` is `/work/jobtrackr` and `src/work/acetrail.html` is `/work/acetrail`. The dev server does the same.
+- **Routes:** `cleanUrls` serves every page without its extension, so `src/work/jobtrackr.html` is `/work/jobtrackr`, `src/work/acetrail.html` is `/work/acetrail` and `src/work/artifacts.html` is `/work/artifacts`. The dev server does the same.
 
 Every push to `main` deploys to production.
 
@@ -37,6 +37,7 @@ src/
   work/
     jobtrackr.html      JobTrackr case study, served at /work/jobtrackr
     acetrail.html       Acetrail case study, served at /work/acetrail
+    artifacts.html      Artifacts case study, served at /work/artifacts
   assets/
     favicon.svg / .ico  b. wordmark (white on #262626, from the Artifacts project)
     apple-touch-icon.png
@@ -77,10 +78,11 @@ docs/handoff/           implementation handoffs (spec, reference pages, diagrams
 
 ## Content
 
-- **Projects:** each project link on the home page points to its live site and opens in a new tab. A project with `caseStudy` set in `projects.ts` (JobTrackr and Acetrail) links to its case study in the same tab instead, and the mobile sheet's link reads "Read case study".
+- **Projects:** each project link on the home page points to its live site and opens in a new tab. A project with `caseStudy` set in `projects.ts` (JobTrackr, Acetrail and Artifacts) links to its case study in the same tab instead, and the mobile sheet's link reads "Read case study".
 - **Pages:** any `.html` file under `src/` is copied to `dist/` with its folder. Pages below the root use root-absolute URLs (`/assets/...`).
 - **Case studies:**
   - **JobTrackr** (built): the spec and pixel targets are in `docs/handoff/jobtrackr/`. The copy is final and was checked against the product.
   - **Acetrail** (built): the spec, pixel targets and implementation prompt are in `docs/handoff/acetrail/`. The copy is final and its facts were checked against the Ace Trail repo and the live site; the Performance numbers are a PageSpeed measurement from 2 October 2026.
-  - **Order:** each case study's footer links to the next project in the home list. JobTrackr's goes to `/work/acetrail`; Acetrail's goes to All That Is Kim's live site in a new tab, until that project has a case study.
+  - **Artifacts** (built): the spec, pixel targets and implementation prompt are in `docs/handoff/artifacts/`. The copy and measurements were checked against the Artifacts repo and the live site; the Performance numbers are a PageSpeed measurement from 2 October 2026.
+  - **Order:** each case study's footer links to the next one: JobTrackr to `/work/acetrail`, Acetrail to `/work/artifacts`, and Artifacts to Now Playing's live site in a new tab, until that project has a case study. All That Is Kim has no case study while its site is redesigned, so the chain skips it; on the home page it still opens its live site.
 - **Links:** LinkedIn, GitHub, Contra and Email (`mailto:balogunoluwasogo@gmail.com`).

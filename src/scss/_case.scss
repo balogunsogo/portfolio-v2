@@ -1,7 +1,7 @@
 @use 'sass:list';
 @use 'tokens' as *;
 
-// Case study pages (/work/jobtrackr, /work/acetrail).
+// Case study pages (/work/jobtrackr, /work/acetrail, /work/artifacts).
 //
 // Pixel targets: docs/handoff/<project>/reference/desktop.html at 1440 and mobile.html
 // at 390. Below 1024px everything is one column; from 1024px sections sit on the same
@@ -35,6 +35,11 @@ $case-section-gaps: (
   'results': 40px 64px,
   'engineering': 40px 80px,
   'performance': 32px 64px,
+  'collection': 40px 64px,
+  'rules': 40px 80px,
+  'palette': 40px 64px,
+  'track': 40px 64px,
+  'phone': 40px 64px,
   'process': 40px 80px,
   'authentication': 40px 64px,
   'security': 64px 104px,
@@ -340,7 +345,9 @@ $case-lsb-book: (
   .case-art,
   .case-compare,
   .case-swatches,
-  .case-timing {
+  .case-timing,
+  .case-index,
+  .case-palettes__grid {
     max-width: $measure;
   }
 }
@@ -459,6 +466,10 @@ $case-lsb-book: (
 
 .case-media--widescreen {
   aspect-ratio: 16 / 9;
+}
+
+.case-media--landscape {
+  aspect-ratio: 3 / 2;
 }
 
 // A phone screenshot below desktop, a desktop screenshot from it (see the <picture>).
@@ -800,6 +811,12 @@ $case-lsb-book: (
 .case-cols__span-1-10 {
   @include desktop {
     grid-column: 1 / span 10;
+  }
+}
+
+.case-cols__span-5-12 {
+  @include desktop {
+    grid-column: 5 / span 8;
   }
 }
 
@@ -1300,6 +1317,19 @@ $case-statuses: (
   }
 }
 
+// Artifacts: two phone recordings, in the right-hand eight columns on desktop.
+.case-compare--phones {
+  @include desktop {
+    .case-compare__item {
+      grid-column: span 4;
+    }
+
+    .case-compare__item:first-child {
+      grid-column: 5 / span 4;
+    }
+  }
+}
+
 // Directions: the four homepage options, two per row.
 .case-options {
   display: grid;
@@ -1466,12 +1496,13 @@ $case-swatches: (
   background: $diagram-card;
 }
 
+// A fill covers the whole track unless its row sets --from and --width (inline).
 .case-timing__fill {
   position: absolute;
   top: 0;
   bottom: 0;
-  left: 0;
-  width: 100%;
+  left: var(--from, 0);
+  width: var(--width, 100%);
   background: $color-ink;
 }
 
@@ -1484,6 +1515,10 @@ $case-swatches: (
 .case-timing__fill--in {
   left: 60%;
   width: 40%;
+}
+
+.case-timing__fill--in,
+.case-timing__fill--rise {
   background: linear-gradient(90deg, rgba($color-ink, 0), $color-ink);
 }
 
@@ -1566,6 +1601,150 @@ $case-swatches: (
 
 .case-scores__name {
   color: $color-ink;
+}
+
+// Collection: the ten artifacts as a table, laid out with grid.
+// Mobile: the title and number share a line, with "Type · Origin" under them; the header
+// row stays for screen readers. Desktop: number, title, type and origin on the 12 columns.
+.case-index {
+  display: block;
+}
+
+// Table-cell defaults, at zero specificity so the type classes on the cells still apply.
+:where(.case-index th, .case-index td) {
+  padding: 0;
+  font-weight: inherit;
+  text-align: left;
+}
+
+.case-index__head {
+  @include below-desktop {
+    @include visually-hidden;
+  }
+
+  @include desktop {
+    display: block;
+    margin-bottom: 24px;
+  }
+}
+
+.case-index__body {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  @include desktop {
+    gap: 14px;
+  }
+}
+
+.case-index__row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: baseline;
+  column-gap: 12px;
+  row-gap: 4px;
+
+  @include desktop {
+    @include case-grid;
+    row-gap: 0;
+  }
+}
+
+.case-index__number {
+  grid-column: 2;
+  grid-row: 1;
+  font-variant-numeric: tabular-nums;
+
+  @include desktop {
+    grid-column: 1;
+  }
+}
+
+.case-index__title {
+  grid-column: 1;
+  grid-row: 1;
+
+  @include desktop {
+    grid-column: 2 / span 4;
+  }
+}
+
+.case-index__detail {
+  @include case-type-small;
+  grid-row: 2;
+  color: $color-muted;
+
+  @include desktop {
+    grid-row: 1;
+    font-size: 1.25rem;
+    line-height: 1.4;
+    letter-spacing: -0.008em;
+    text-wrap: pretty;
+  }
+}
+
+// Below desktop the type cell carries the whole second line, "Type · Origin": the origin
+// is repeated there in an aria-hidden span, and the origin cell itself is only read out.
+.case-index__type {
+  grid-column: 1 / -1;
+
+  @include desktop {
+    grid-column: 6 / span 3;
+  }
+}
+
+.case-index__origin {
+  @include below-desktop {
+    @include visually-hidden;
+  }
+
+  @include desktop {
+    grid-column: 9 / span 4;
+  }
+}
+
+// Palettes: the two colours Palette Shift takes from each cover. The chip colours are
+// content, set inline in the markup.
+.case-palettes {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  @include desktop {
+    gap: 32px;
+  }
+}
+
+.case-palettes__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 12px;
+  row-gap: 20px;
+
+  @include desktop {
+    @include case-grid;
+  }
+}
+
+.case-palette {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  @include desktop {
+    grid-column: span 3;
+  }
+}
+
+.case-palette__chips {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 8px;
+}
+
+.case-palette__chip {
+  aspect-ratio: 1 / 1;
 }
 
 // Footer: next project, clock and links.
