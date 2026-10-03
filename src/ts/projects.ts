@@ -2,7 +2,10 @@ export interface Project {
   title: string;
   /** Short "type · role" line shown above the description. */
   meta: string;
+  /** First paragraph: what the project is. */
   description: string;
+  /** Second paragraph: what I did on it. */
+  role: string;
   image: string;
   href: string;
   external?: boolean;
@@ -11,6 +14,8 @@ export interface Project {
   previewTone: string;
   previewInk: string;
   stemAligned?: boolean;
+  /** Kept in the data but left out of the list, the preview and the sheet. */
+  hidden?: boolean;
 }
 
 export const projects: readonly Project[] = [
@@ -18,7 +23,8 @@ export const projects: readonly Project[] = [
     title: 'Jobtrackr',
     meta: 'Product · Design and engineering',
     description:
-      'A job-search workspace for applications, interviews, documents and offers. Designed and built end to end, from the interface to a NestJS API on Supabase with per-user data security.',
+      'A workspace for the job search. It keeps every application, interview, document and offer in one place, so it’s always clear what needs doing next.',
+    role: 'I designed the product and built it end to end, from the interface to a NestJS API on Supabase.',
     image: 'assets/images/projects/jobtrackr.webp',
     href: 'https://jobtrackr.balogunoluwasogo.com/',
     external: true,
@@ -30,7 +36,8 @@ export const projects: readonly Project[] = [
     title: 'Acetrail',
     meta: 'Website · Design and development',
     description:
-      'The website for Ace Trail Tutors, an online IELTS tutoring platform. An editorial layout with scroll-led storytelling, built to read as clearly on a phone as on desktop.',
+      'The website for Ace Trail Tutors, an online school that prepares students for the IELTS English test.',
+    role: 'I redesigned the site and rebuilt it with scroll-led animation in GSAP, and ensured the story reads as clearly on a phone as it does on a laptop.',
     image: 'assets/images/projects/acetrail.webp',
     href: 'https://acetrailtutors.com/',
     external: true,
@@ -42,18 +49,22 @@ export const projects: readonly Project[] = [
     title: 'All That Is Kim',
     meta: 'Website · Webflow development',
     description:
-      'A personal site for Kim, a digital strategist and community builder. Image-led with expressive type, built in Webflow to keep its character down to mobile.',
+      'A personal website for Kim, a digital strategist and community builder. It leads with large images and expressive type, which give the site a voice of its own.',
+    role: 'I developed it in Webflow, building each page and making sure its character holds up all the way down to a phone screen, not just on a large monitor.',
     image: 'assets/images/projects/all-that-is-kim.webp',
     href: 'https://allthatiskim.com/',
     external: true,
     previewTone: '#D8CCC6',
     previewInk: '#4A3F3A',
+    // Hidden until it has a case study.
+    hidden: true,
   },
   {
     title: 'Artifacts',
     meta: 'Archive · Creative development',
     description:
-      'A growing archive of interface interactions and motion studies from my projects, each rebuilt as a standalone piece in Next.js and GSAP.',
+      'A growing archive of interactions and motion studies from my projects. Each one stands on its own, so it can be explored, studied and reused.',
+    role: 'I designed the archive and built it, along with every piece in it, in Next.js and GSAP.',
     image: 'assets/images/projects/artifacts.webp',
     href: 'https://artifacts.balogunoluwasogo.com/',
     external: true,
@@ -65,7 +76,8 @@ export const projects: readonly Project[] = [
     title: 'Now Playing',
     meta: 'Experiment · Frontend',
     description:
-      'A music interface driven by real Spotify track data, with album artwork and animated transitions between tracks.',
+      'A page that shows what I’m listening to on Spotify, live.',
+    role: 'I designed it and built it in HTML, CSS and JavaScript on the Spotify Web API.',
     image: 'assets/images/projects/now-playing.webp',
     href: 'https://now-playing.balogunoluwasogo.com/',
     external: true,
@@ -76,10 +88,23 @@ export const projects: readonly Project[] = [
   },
 ];
 
+/** The projects the home page shows. Indexes in the list, preview and sheet refer to this array. */
+export const shownProjects: readonly Project[] = projects.filter((project) => !project.hidden);
+
+/** The description and the role as two block spans: the preview and sheet slots are `<p>`s. */
+export function descriptionParts(project: Project, className: string): HTMLSpanElement[] {
+  return [project.description, project.role].map((text) => {
+    const part = document.createElement('span');
+    part.className = className;
+    part.textContent = text;
+    return part;
+  });
+}
+
 export function renderProjects(list: HTMLElement): void {
   const fragment = document.createDocumentFragment();
 
-  projects.forEach((project, index) => {
+  shownProjects.forEach((project, index) => {
     const item = document.createElement('li');
     const link = document.createElement('a');
     const title = document.createElement('span');

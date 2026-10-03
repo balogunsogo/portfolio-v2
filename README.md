@@ -45,6 +45,7 @@ src/
     og-image.png        1200×630 share image, b. wordmark
     fonts/              PP Neue Montreal .woff2 files (committed), plus Figtree for the Acetrail case study
     images/projects/    featured-work preview images
+    images/portrait/    the About portrait (240w and 480w webp, background baked to the ground; final)
     images/case/        case-study images (webp, two widths each), video posters and share images
     video/              case-study videos (mp4, h.264, no audio)
   scss/
@@ -57,8 +58,10 @@ src/
     _case.scss          case-study pages: shell, type, text blocks, media, diagrams, comparisons, charts, footer
   ts/
     main.ts             entry, wires up the modules a page has
+    about.ts            home page: the portrait in the name opens the About (hover, tap or keyboard)
     clock.ts            live Lagos time (GMT+1), on every page
     media.ts            case-study videos: play in view only, pause toggle, reduced motion
+    top.ts              case studies: the sticky name hides while scrolling down
     projects.ts         project data (title, type, description, image, URL, case study) and list rendering
     preview.ts          desktop hover / focus preview and description column
     modal.ts            mobile bottom sheet (initProjectSheet)
@@ -80,11 +83,12 @@ docs/handoff/           implementation handoffs (spec, reference pages, diagrams
 ## Content
 
 - **Projects:** each project link on the home page points to its live site and opens in a new tab. A project with `caseStudy` set in `projects.ts` (JobTrackr, Acetrail, Artifacts and Now Playing) links to its case study in the same tab instead, and the mobile sheet's link reads "Read case study".
+- **About:** the home page has no About page. Hovering the portrait in the name (or tapping it on touch) swaps the role line for a statement and the work list for the About; the spec and pixel targets are in `docs/handoff/about/`.
 - **Pages:** any `.html` file under `src/` is copied to `dist/` with its folder. Pages below the root use root-absolute URLs (`/assets/...`).
 - **Case studies:**
   - **JobTrackr** (built): the spec and pixel targets are in `docs/handoff/jobtrackr/`. The copy is final and was checked against the product.
   - **Acetrail** (built): the spec, pixel targets and implementation prompt are in `docs/handoff/acetrail/`. The copy is final and its facts were checked against the Ace Trail repo and the live site; the Performance numbers are a PageSpeed measurement from 2 October 2026.
   - **Artifacts** (built): the spec, pixel targets and implementation prompt are in `docs/handoff/artifacts/`. The copy and measurements were checked against the Artifacts repo and the live site; the Performance numbers are a PageSpeed measurement from 2 October 2026.
   - **Now Playing** (built): the spec, pixel targets and implementation prompt are in `docs/handoff/now-playing/`. It uses only components the other three pages already had. The copy and measurements were checked against the Now Playing repo and the live site; the Performance numbers are a PageSpeed measurement from 2 October 2026.
-  - **Order:** each case study's footer links to the next one in the same tab, and the chain loops: JobTrackr → Acetrail → Artifacts → Now Playing → JobTrackr. All That Is Kim has no case study while its site is redesigned, so the chain skips it; on the home page it still opens its live site.
+  - **Order:** each case study's footer links to the next one in the same tab, and the chain loops: JobTrackr → Acetrail → Artifacts → Now Playing → JobTrackr. All That Is Kim has no case study while its site is redesigned, so the chain skips it, and it's hidden from the home page (`hidden: true` in `projects.ts`) until it has one.
 - **Links:** LinkedIn, GitHub, Contra and Email (`mailto:balogunoluwasogo@gmail.com`).

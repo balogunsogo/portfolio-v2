@@ -1,8 +1,10 @@
+import { initAbout } from './about.js';
 import { initClock } from './clock.js';
 import { initMedia } from './media.js';
 import { initProjectSheet } from './modal.js';
 import { initPreview } from './preview.js';
-import { projects, renderProjects } from './projects.js';
+import { renderProjects, shownProjects as projects } from './projects.js';
+import { initTopBar } from './top.js';
 
 const $ = <T extends Element>(selector: string): T | null => document.querySelector<T>(selector);
 
@@ -13,6 +15,17 @@ const readout = $<SVGElement>('[data-clock-readout]');
 if (clock) {
   initClock(clock, hourHand && minuteHand ? { hour: hourHand, minute: minuteHand, readout } : undefined);
 }
+
+// Home: the portrait in the name shows the About.
+const page = $<HTMLElement>('[data-page]');
+const aboutToggle = $<HTMLButtonElement>('[data-about-toggle]');
+const statement = $<HTMLElement>('[data-about-statement]');
+const about = $<HTMLElement>('[data-about]');
+if (page && aboutToggle && statement && about) initAbout({ page, toggle: aboutToggle, statement, about });
+
+// Case study: the top bar hides on the way down and returns on the way up.
+const topBar = $<HTMLElement>('[data-case-top]');
+if (topBar) initTopBar(topBar);
 
 // Case study: videos play only while they're in view.
 const videos = Array.from(document.querySelectorAll<HTMLVideoElement>('[data-case-video]'));

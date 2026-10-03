@@ -11,6 +11,31 @@ html {
   text-size-adjust: 100%;
 }
 
+// A thin muted thumb on no track, on the page and anything else that scrolls.
+* {
+  scrollbar-width: thin;
+  scrollbar-color: $color-muted transparent;
+}
+
+// Safari has no scrollbar-color yet; the same look through the prefixed pseudo-elements.
+@supports not (scrollbar-color: auto) {
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: $color-muted;
+    background-clip: padding-box;
+    border: 2px solid transparent;
+    border-radius: 8px;
+  }
+}
+
 body {
   margin: 0;
   background: $color-ground;

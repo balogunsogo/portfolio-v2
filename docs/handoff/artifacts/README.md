@@ -117,13 +117,13 @@ Same structure and classes as Acetrail's hero.
 
 ### 5.3 The archive
 
-`.case-text`, then a full-width `.case-figure` with `index-desktop.mp4` (1440×900, **16:10**) in a **large plate**. Caption: "The index at 1440 × 900, scrolled from Block Orbit to Card Flip."
+`.case-text`, then a full-width `.case-figure` with `index-desktop.mp4` (1440×900, **16:10**) in a **large plate**. Caption: "The index"
 
 ### 5.4 Theme
 
 `.case-text`, then a **photo pair** (§6.2): `theme-dark-*.webp` and `theme-light-*.webp`, both **3:2**, no plate.
 
-- Captions: "Dark: the index on a laptop." and "Light: Block Orbit on the same laptop."
+- Captions: "Dark" and "Light"
 
 ### 5.5 Rules
 
@@ -144,7 +144,7 @@ Same structure and classes as Acetrail's hero.
 
 ### 5.8 Scroll Cinema
 
-`.case-text`, then a full-width `.case-figure` with `scroll-cinema.mp4` (1440×900, **16:10**) in a **large plate**. Caption: "Scrolling through the pinned section at 1440 × 900."
+`.case-text`, then a full-width `.case-figure` with `scroll-cinema.mp4` (1440×900, **16:10**) in a **large plate**. Caption: "Scrolling through the pinned section "
 
 ### 5.9 From Now Playing
 
@@ -157,14 +157,14 @@ Same structure and classes as Acetrail's hero.
 
 `.case-text`, then:
 
-1. A `.case-figure--side` with `track-transition.mp4` (1440×900, **16:10**) in a **medium plate**. Caption: "Next three times, then Previous."
+1. A `.case-figure--side` with `track-transition.mp4` (1440×900, **16:10**) in a **medium plate**. Caption: "Changing tracks."
 2. The **timing chart** (§6.4). On desktop it sits in columns 5–12, under the video. On mobile it follows the figure.
 
 ### 5.11 On a phone
 
 `.case-text`, then the **phone pair** (§6.5): `index-mobile.mp4` and `ambient-touch.mp4` (each 780×1688, ratio **390 / 844**) in **small plates**.
 
-- Captions: "The index on a 390-pixel-wide phone." and "Dragging and tapping Ambient Artwork."
+- Captions: "The index on mobile." and "Dragging and tapping Ambient Artwork."
 
 ### 5.12 Engineering
 

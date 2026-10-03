@@ -147,7 +147,7 @@ Same structure and classes as JobTrackr's hero (`.case-hero`, `.case-meta`).
 `.case-text`, then a **before/after pair** (new component, §6.1):
 
 - **Desktop:** the desktop screenshots `home-before-desktop.webp` and `home-after-desktop.webp` at **16:10**.
-  - Captions: "Before: the Webflow site." and "After: the redesign, at the same width."
+  - Captions: "Before" and "After"
 - **Mobile:** the phone screenshots `home-before-mobile.webp` and `home-after-mobile.webp` at **390 / 844**.
   - Captions: "Before." and "After."
 - **Implementation:** a `<picture>` per side, so each breakpoint loads only its own screenshot, plus the two caption texts in spans that show per breakpoint. The longer caption would wrap badly in a 169px column.
@@ -158,10 +158,10 @@ Same structure and classes as JobTrackr's hero (`.case-hero`, `.case-meta`).
 
 | File | Name | Description |
 |---|---|---|
-| `direction-editorial.webp` | Editorial. | A large headline over a wide photo. |
-| `direction-proof-cards.webp` | Proof cards. | Student photos as expanding cards. |
-| `direction-study-plan.webp` | Study plan. | The five-week plan as a floating card. |
-| `direction-editorial-sticky.webp` | Editorial, sticky, refined. | A single photo that grows on scroll. The one we built. |
+| `direction-editorial.webp` | Editorial | A large headline over a wide photo. |
+| `direction-proof-cards.webp` | Proof cards | Student photos as expanding cards. |
+| `direction-study-plan.webp` | Study plan | The five-week plan as a floating card. |
+| `direction-editorial-sticky.webp` | Editorial, sticky, refined | A single photo that grows on scroll. The one we built. |
 
 Then the **System** block (§6.3): the label "System", four swatches, and the type specimen.
 
@@ -173,7 +173,7 @@ Section label "The hero"; heading "One photo that opens up as you scroll."
   1. A `.case-figure` holding the desktop video in a **large plate** (the existing `.case-plate`: 64px desktop, 16px mobile). The video is `hero-scroll-desktop.mp4`, 1440×900, **16:10**. Caption full width under it, as in `.case-figure` (the text runs about 600px, on one line): "Desktop, 1440 × 900: the photo grows over 740px of scroll, scaled to the window's height."
   2. 64px below, a 12-column row aligned to the end:
      - Columns 1–7: the **timing chart** (§6.4).
-     - Columns 9–12: a figure with the phone video in a **small plate** (24px desktop, 10px mobile). The video is `hero-scroll-mobile.mp4`, 780×1688, ratio **390 / 844**. Caption: "On a phone the photo grows to the full width over 620px."
+     - Columns 9–12: a figure with the phone video in a **small plate** (24px desktop, 10px mobile). The video is `hero-scroll-mobile.mp4`, 780×1688, ratio **390 / 844**. Caption: "Mobile"
 - **Mobile (40px apart):** the desktop video figure (16px plate), then the phone video figure inset `padding: 0 48px`, then the timing chart.
 
 ### 5.5 Classes
@@ -181,7 +181,7 @@ Section label "The hero"; heading "One photo that opens up as you scroll."
 `.case-text`, then:
 
 - A **before/after pair**: `classes-before.webp` and `classes-after.webp` at **4:3** on both breakpoints.
-  - Captions: "Before: three equal cards." and "After: a table, with the open class open."
+  - Captions: "Before" and "After"
 - A `.case-figure--side` (caption columns 1–4, media columns 5–12) with `classes-phone-1200/2064.webp` at **4:3**.
   - Caption: "On a phone the same row stacks: price, format and status first, then what's included."
   - On mobile the image comes first, then the caption.

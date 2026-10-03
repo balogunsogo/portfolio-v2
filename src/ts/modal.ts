@@ -11,7 +11,7 @@
 // Programmatic focus after a tap would otherwise match :focus-visible in
 // WebKit/Chrome and draw rings on Close and then on the project link.
 
-import type { Project } from './projects.js';
+import { descriptionParts, type Project } from './projects.js';
 
 const mobileLayout = window.matchMedia('(max-width: 1023px)');
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -50,10 +50,11 @@ export function initProjectSheet(el: SheetElements): void {
   // Every project's title, type and description is rendered and stacked in one grid
   // cell per slot, with only the current one visible, so the sheet keeps the height
   // of the longest (wrapped lines included) at any width.
-  const stack = (slot: HTMLElement, texts: readonly string[]): HTMLElement[] => {
-    const nodes = texts.map((text) => {
+  const stack = (slot: HTMLElement, contents: readonly (string | readonly Node[])[]): HTMLElement[] => {
+    const nodes = contents.map((content) => {
       const node = document.createElement('span');
-      node.textContent = text;
+      if (typeof content === 'string') node.textContent = content;
+      else node.append(...content);
       return node;
     });
     slot.replaceChildren(...nodes);
@@ -62,7 +63,7 @@ export function initProjectSheet(el: SheetElements): void {
   const stacks = [
     stack(el.title, projects.map((project) => project.title)),
     stack(el.meta, projects.map((project) => project.meta)),
-    stack(el.description, projects.map((project) => project.description)),
+    stack(el.description, projects.map((project) => descriptionParts(project, 'sheet__part'))),
   ];
 
   let current = -1;

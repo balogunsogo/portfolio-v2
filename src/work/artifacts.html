@@ -27,9 +27,8 @@
 </head>
 <body>
   <div class="case">
-    <header class="case-top">
+    <header class="case-top" data-case-top>
       <a class="case-top__name" href="/">Balogun Oluwasogo</a>
-      <a class="case-top__link" href="/">All work</a>
     </header>
 
     <main class="case__main">
@@ -179,7 +178,7 @@
               <button class="case-video__toggle" type="button" data-case-video-toggle hidden>Play video</button>
             </div>
           </div>
-          <figcaption class="case-caption case-figure__caption">The index at 1440 × 900, scrolled from Block Orbit to Card Flip.</figcaption>
+          <figcaption class="case-caption case-figure__caption">The index</figcaption>
         </figure>
       </section>
 
@@ -201,7 +200,7 @@
               sizes="(min-width: 1024px) calc(50vw - 76px), calc(100vw - 40px)"
               width="2000" height="1333" loading="lazy" decoding="async"
               alt="The Artifacts index in dark mode on a laptop">
-            <figcaption class="case-caption">Dark: the index on a laptop.</figcaption>
+            <figcaption class="case-caption">Dark</figcaption>
           </figure>
           <figure class="case-compare__item">
             <img class="case-media case-media--landscape"
@@ -210,7 +209,7 @@
               sizes="(min-width: 1024px) calc(50vw - 76px), calc(100vw - 40px)"
               width="2000" height="1333" loading="lazy" decoding="async"
               alt="The Block Orbit page in light mode on the same laptop">
-            <figcaption class="case-caption">Light: Block Orbit on the same laptop.</figcaption>
+            <figcaption class="case-caption">Light</figcaption>
           </figure>
         </div>
       </section>
@@ -339,7 +338,7 @@
               <button class="case-video__toggle" type="button" data-case-video-toggle hidden>Play video</button>
             </div>
           </div>
-          <figcaption class="case-caption case-figure__caption">Scrolling through the pinned section at 1440 × 900.</figcaption>
+          <figcaption class="case-caption case-figure__caption">Scrolling through the pinned section </figcaption>
         </figure>
       </section>
 
@@ -407,7 +406,7 @@
           <p class="case-label case-label--t case-text__label">Track Transition</p>
           <h2 class="case-h case-text__heading" id="track-heading">A track change in five phases.</h2>
           <div class="case-text__body case-copy">
-            <p class="case-body">Changing track looks like one movement, but it runs in phases: preparing, departing, committing, arriving, then idle again. While the next cover loads and its colours are worked out, the current track stays on screen. Then the artwork and text step back for 180 milliseconds, the new track is swapped in, and it arrives in a short stagger, with the title revealed word by word, 26 milliseconds apart.</p>
+            <p class="case-body">Changing track looks like one movement, but it runs in phases: preparing, departing, committing, arriving, then idle again. While the next cover loads and its colours are worked out, the current track stays on screen. </p>
             <p class="case-body">Each request carries a generation number and cancels the one before it, so pressing Next several times quickly lands on the last track asked for instead of playing every transition in between. With reduced motion the track still changes, just without the staging.</p>
           </div>
         </div>
@@ -423,35 +422,35 @@
               <button class="case-video__toggle" type="button" data-case-video-toggle hidden>Play video</button>
             </div>
           </div>
-          <figcaption class="case-caption case-figure__caption">Next three times, then Previous.</figcaption>
+          <figcaption class="case-caption case-figure__caption">Changing tracks.</figcaption>
         </figure>
 
         <div class="case-cols">
-          <div class="case-timing case-cols__span-5-12" role="img" aria-label="Timing of a track change: the old artwork and text step back for 180 milliseconds, then the new artwork returns over 620 milliseconds while the title, details and background follow, and the old background layer is cleared at 1,080 milliseconds.">
+          <div class="case-timing case-cols__span-5-12" role="img" aria-label="What happens when the track changes, over about a second: the old cover and text step back, then the new cover settles into place while the title appears word by word, the other details and buttons follow, and the background changes to the new track's colours.">
             <div class="case-timing__body" aria-hidden="true">
-              <p class="case-label case-label--t">Time after the next track is ready</p>
+              <p class="case-label case-label--round">Once the next track is ready</p>
               <div class="case-timing__row">
-                <p class="case-small"><span class="case-strong">Step back</span><br><span class="case-muted">Artwork drops and fades to 48%; the text fades out</span></p>
+                <p class="case-small"><span class="case-strong">Old track steps back</span><br><span class="case-muted">The cover dips and dims, and the text fades out</span></p>
                 <div class="case-timing__track"><div class="case-timing__fill" style="--from: 0%; --width: 16.7%"></div></div>
               </div>
               <div class="case-timing__row">
-                <p class="case-small"><span class="case-strong">Artwork returns</span><br><span class="case-muted">620 ms, once the new track is swapped in</span></p>
+                <p class="case-small"><span class="case-strong">New cover arrives</span><br><span class="case-muted">It settles into place</span></p>
                 <div class="case-timing__track"><div class="case-timing__fill case-timing__fill--rise" style="--from: 16.7%; --width: 57.4%"></div></div>
               </div>
               <div class="case-timing__row">
-                <p class="case-small"><span class="case-strong">Title, word by word</span><br><span class="case-muted">420 ms a word, 26 ms apart</span></p>
+                <p class="case-small"><span class="case-strong">Title, word by word</span><br><span class="case-muted">Each word rises in just after the last</span></p>
                 <div class="case-timing__track"><div class="case-timing__fill case-timing__fill--rise" style="--from: 22.2%; --width: 41.3%"></div></div>
               </div>
               <div class="case-timing__row">
-                <p class="case-small"><span class="case-strong">Label, artist, album, controls</span><br><span class="case-muted">520 ms each, starting 20 to 220 ms in</span></p>
+                <p class="case-small"><span class="case-strong">Details and buttons</span><br><span class="case-muted">Artist, album and controls follow, one after another</span></p>
                 <div class="case-timing__track"><div class="case-timing__fill case-timing__fill--rise" style="--from: 18.5%; --width: 66.7%"></div></div>
               </div>
               <div class="case-timing__row">
-                <p class="case-small"><span class="case-strong">Background blooms in</span><br><span class="case-muted">The old colour layer is cleared at 1,080 ms</span></p>
+                <p class="case-small"><span class="case-strong">Background changes</span><br><span class="case-muted">The new track’s colours wash in</span></p>
                 <div class="case-timing__track"><div class="case-timing__fill case-timing__fill--rise" style="--from: 16.7%; --width: 83.3%"></div></div>
               </div>
               <div class="case-timing__row">
-                <div class="case-timing__axis"><span>0, the next track is ready</span><span>1,080 ms</span></div>
+                <div class="case-timing__axis"><span>Start</span><span>About 1 second</span></div>
               </div>
             </div>
           </div>
@@ -480,7 +479,7 @@
                 <button class="case-video__toggle" type="button" data-case-video-toggle hidden>Play video</button>
               </div>
             </div>
-            <figcaption class="case-caption">The index on a 390-pixel-wide phone.</figcaption>
+            <figcaption class="case-caption">The index on mobile.</figcaption>
           </figure>
           <figure class="case-compare__item">
             <div class="case-plate case-plate--small">
@@ -503,7 +502,7 @@
           <p class="case-label case-label--stem case-text__label">Engineering</p>
           <h2 class="case-h case-h--stem case-text__heading" id="engineering-heading">Light enough to run ten at once.</h2>
           <div class="case-text__body case-copy">
-            <p class="case-body">Ten live previews on one page add up, especially on a phone. A performance pass in late September cut what the index downloads and how much work each preview does before it’s on screen.</p>
+            <p class="case-body">Ten live previews on one page add up, especially on a phone. A performance pass cut what the index downloads and how much work each preview does before it’s on screen.</p>
             <p class="case-body">Previews that need artwork wait until they’re close to the viewport, or until a couple of seconds after the page has loaded. Two preview animations that made the browser recalculate every frame were rewritten to use transforms only, so they run on the compositor. Off-screen previews skip rendering, and the analytics script waits until the page has finished loading.</p>
           </div>
         </div>
@@ -543,11 +542,11 @@
         <dl class="case-scores">
           <div class="case-scores__item">
             <dt class="case-label case-label--stem case-scores__name">Performance</dt>
-            <dd class="case-scores__number">98</dd>
+            <dd class="case-scores__number">100</dd>
           </div>
           <div class="case-scores__item">
             <dt class="case-label case-scores__name">Accessibility</dt>
-            <dd class="case-scores__number">96</dd>
+            <dd class="case-scores__number">100</dd>
           </div>
           <div class="case-scores__item">
             <dt class="case-label case-label--stem case-scores__name">Best practices</dt>
@@ -563,11 +562,11 @@
           </div>
           <div class="case-scores__item case-scores__item--vital">
             <dt class="case-small case-muted">Largest contentful paint</dt>
-            <dd class="case-body">2.4 s</dd>
+            <dd class="case-body">1.4 s</dd>
           </div>
           <div class="case-scores__item case-scores__item--vital">
             <dt class="case-small case-muted">Total blocking time</dt>
-            <dd class="case-body">40 ms</dd>
+            <dd class="case-body">10 ms</dd>
           </div>
           <div class="case-scores__item case-scores__item--vital">
             <dt class="case-small case-muted">Cumulative layout shift</dt>
@@ -576,7 +575,7 @@
         </dl>
 
         <div class="case-cols">
-          <p class="case-caption case-cols__span-1-6">PageSpeed Insights on the live index, 2 October 2026: one Lighthouse 13.5 run on an emulated Moto G Power over slow 4G. On desktop the index scored 100, 96, 100 and 100. The Scroll Cinema page, the one with the 4K video, scored 99, 95, 100 and 100 on the same phone.</p>
+          <p class="case-caption case-cols__span-1-6">PageSpeed Insights on the live index, 3 October 2026: one Lighthouse 13.5 run on an emulated Moto G Power over slow 4G. </p>
         </div>
       </section>
 
@@ -672,7 +671,7 @@
         </div>
 
         <div class="case-cols">
-          <p class="case-caption case-cols__span-1-9">Interaction design · Motion design · Frontend engineering · Component architecture · Accessibility · Performance</p>
+          <p class="case-caption case-cols__span-1-12">Interaction design · Motion design · Frontend engineering · Component architecture · Accessibility · Performance</p>
         </div>
       </section>
     </main>
@@ -680,7 +679,7 @@
     <footer class="case-foot">
       <div class="case-foot__next">
         <p class="case-label case-label--stem">Next project</p>
-        <p class="case-display case-display--stem case-display--balance"><a href="/work/now-playing">Now Playing</a></p>
+        <p class="case-display case-display--stem case-display--balance"><a class="case-foot__link" href="/work/now-playing"><span class="case-nowrap"><span class="case-foot__thumb"><img src="/assets/images/projects/now-playing-480.webp" width="480" height="320" alt="" loading="lazy" decoding="async"></span>Now</span> Playing</a></p>
       </div>
 
       <div class="case-foot__aside">

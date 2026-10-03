@@ -1,4 +1,4 @@
-import type { Project } from './projects.js';
+import { descriptionParts, type Project } from './projects.js';
 
 const canHover = window.matchMedia('(min-width: 1024px) and (hover: hover) and (pointer: fine)');
 
@@ -37,7 +37,7 @@ export function initPreview({ list, frame, image, label, meta, description, proj
     frame.style.setProperty('--preview-ink', project.previewInk);
     label.textContent = project.title;
     meta.textContent = project.meta;
-    description.textContent = project.description;
+    description.replaceChildren(...descriptionParts(project, 'preview-text__part'));
 
     // Dim the other titles so it's clear which project the copy belongs to.
     list.classList.add('has-active');

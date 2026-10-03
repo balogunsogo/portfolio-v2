@@ -27,22 +27,52 @@
   <script type="module" src="assets/js/main.js"></script>
 </head>
 <body>
-  <main class="page">
+  <main class="page" data-page>
     <header class="intro">
-      <h1 class="intro__name">
-        <span class="intro__name-line">Balogun</span>
-        <span class="intro__name-line">Oluwasogo</span>
+      <!-- The portrait sits in the name. Hovering it (desktop) or tapping it (touch) swaps the
+           role line and the work list for the About; see ts/about.ts. The heading's name stays
+           "Balogun Oluwasogo" through aria-labelledby. -->
+      <h1 class="intro__name" aria-labelledby="name-first name-last">
+        <span class="intro__name-line"><span id="name-first">Balogun</span> <button class="intro__portrait" type="button" aria-label="About Oluwasogo" aria-expanded="false" aria-controls="about-statement about" data-about-toggle><img class="intro__portrait-image" src="assets/images/portrait/portrait-480.webp" srcset="assets/images/portrait/portrait-240.webp 240w, assets/images/portrait/portrait-480.webp 480w" sizes="(min-width: 1024px) 9vw, 15vw" width="480" height="381" alt="" decoding="async"></button></span>
+        <span class="intro__name-line" id="name-last">Oluwasogo</span>
       </h1>
-      <p class="intro__role">
-        <span class="intro__role-line">Software Engineer &amp;</span>
-        <span class="intro__role-line">Digital Designer</span>
-      </p>
+      <div class="intro__lead">
+        <p class="intro__role">
+          <span class="intro__role-line">Software Engineer &amp;</span>
+          <span class="intro__role-line">Digital Designer</span>
+        </p>
+        <p class="intro__statement" id="about-statement" data-about-statement>I design interfaces and build them myself, so what gets designed is what ships.</p>
+      </div>
     </header>
 
     <section class="index" aria-labelledby="featured-heading">
-      <h2 class="index__heading" id="featured-heading">Featured work</h2>
+      <div class="index__stage">
+        <h2 class="index__heading" id="featured-heading">Work</h2>
 
-      <ul class="work" data-work-list></ul>
+        <ul class="work" data-work-list></ul>
+
+        <!-- About: takes the work list's place while the portrait is hovered or tapped. -->
+        <div class="about" id="about" data-about>
+          <div class="about__text">
+            <h2 class="about__heading">About</h2>
+            <p>I’m Oluwasogo, a software engineer and digital designer in Lagos, Nigeria. I work on product interfaces, websites, and the small interactions that make them feel considered.</p>
+            <p>By day I build enterprise insurance systems at AXA Mansard. Alongside that I take on freelance work and keep an archive of interaction studies.</p>
+          </div>
+          <dl class="about__facts">
+            <div class="about__fact">
+              <dt>Now</dt>
+              <dd>Software Developer, AXA Mansard</dd>
+              <dd>Design and frontend, Ace Trail Tutors</dd>
+            </div>
+            <div class="about__fact">
+              <dt>Open to</dt>
+              <dd>Frontend builds and product interfaces</dd>
+              <dd>Webflow websites</dd>
+              <dd>Interaction and motion</dd>
+            </div>
+          </dl>
+        </div>
+      </div>
 
       <p class="preview-meta" data-preview-meta aria-hidden="true"></p>
       <p class="preview-text" data-preview-description aria-hidden="true"></p>

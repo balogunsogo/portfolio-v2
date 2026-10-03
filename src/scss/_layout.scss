@@ -59,6 +59,11 @@
     margin-left: -$lsb-round-medium;
   }
 
+  // The first line also holds the portrait; it never wraps on its own.
+  &:first-child {
+    white-space: nowrap;
+  }
+
   @include desktop {
     display: inline;
 
@@ -68,8 +73,61 @@
   }
 }
 
-// 24px on mobile → 48px at 1440.
-.intro__role {
+// The portrait: one more glyph in the name (see $cap-height-medium). Its bottom sits on the
+// baseline and its top on the cap line. The photo's background is baked to the ground colour
+// (docs/handoff/about/export-portrait.py), so only the head and shoulders read. The negative
+// right margin evens the optical gaps either side (the O after it carries its own side bearing).
+.intro__portrait {
+  display: inline-block;
+  vertical-align: baseline;
+  width: $portrait-width;
+  height: $cap-height-medium;
+  margin: 0 -0.03em 0 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit; // keeps 1em = the name's size
+  line-height: 0;
+  color: inherit;
+  cursor: pointer;
+
+  // Hover shows the About; a mouse click does nothing, so no pointer hand.
+  @include hover-desktop {
+    cursor: default;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 3px;
+  }
+}
+
+.intro__portrait-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform-origin: 50% 100%;
+  transition: transform 0.6s $ease-out;
+
+  // While the About shows, the portrait leans in from the baseline.
+  .page.is-about-open & {
+    transform: scale(1.08);
+  }
+}
+
+// The role line and the statement share one place. The statement is laid over the role
+// (out of flow), so the default layout doesn't change; it runs into the space below.
+.intro__lead {
+  position: relative;
+}
+
+// 24px on mobile → 48px at 1440. The About's statement uses the same type.
+.intro__role,
+.intro__statement {
   font-size: clamp(1.5rem, 1rem + 2.28vw, 3.5rem);
   font-weight: $weight-medium;
   line-height: 1.12;
@@ -95,5 +153,43 @@
     &:last-child {
       margin-left: 0;
     }
+  }
+}
+
+// While the About shows, the role steps back and the statement takes its place.
+.intro__role {
+  transition:
+    opacity 0.24s ease $about-delay,
+    visibility 0s;
+
+  .page.is-about-open & {
+    @include about-layer-hidden($rise: false);
+  }
+
+  .page.is-about-flow & {
+    display: none;
+  }
+}
+
+.intro__statement {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  margin-left: -$lsb-stem-medium; // "I…" starts on a stem
+  @include about-layer-hidden;
+
+  @include desktop {
+    max-width: 23em; // two lines, breaking after "gets"
+  }
+
+  .page.is-about-open & {
+    @include about-layer-shown;
+  }
+
+  // Not enough room for the About to rise above the work list (see ts/about.ts):
+  // the statement takes the role's place in the flow and the page scrolls.
+  .page.is-about-flow & {
+    position: static;
   }
 }

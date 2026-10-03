@@ -21,6 +21,7 @@ $work-pad-mobile: 7px;
 $work-pad-desktop: 9px;
 
 .index {
+  position: relative; // the About is positioned against the work list's grid area
   display: flex;
   flex-direction: column;
   margin-top: auto;
@@ -37,8 +38,18 @@ $work-pad-desktop: 9px;
   }
 }
 
+// The heading and the list, plus the About laid over them. Below desktop it's the box the
+// About rises from; on desktop it steps aside so its children stay items of the grid.
+.index__stage {
+  position: relative;
+
+  @include desktop {
+    display: contents;
+  }
+}
+
 .index__heading {
-  margin-left: -$lsb-stem-book; // optical edge for the F, see _tokens.scss
+  margin-left: -$lsb-w-book; // optical edge for the W, see _tokens.scss
   font-size: inherit;
   font-weight: $weight-regular;
   color: $color-muted;
@@ -86,10 +97,10 @@ $work-pad-desktop: 9px;
 }
 
 // Description column (desktop, "Description in its own column" on the canvas).
-// The type/role line sits on the "Featured work" line (row 1) and the description
+// The type/role line sits on the "Work" line (row 1) and the description
 // starts level with the first project (row 2), in columns 5–8 between the list and
 // the image. 20px sits between the 16px labels and the 30px titles in the type scale.
-$preview-ease: cubic-bezier(0.22, 1, 0.36, 1);
+$preview-ease: $ease-out;
 
 .preview-meta,
 .preview-text {
@@ -135,6 +146,17 @@ $preview-ease: cubic-bezier(0.22, 1, 0.36, 1);
     line-height: 1.35;
     letter-spacing: -0.008em;
     transform: translateY(8px);
+  }
+}
+
+// The description is two paragraphs (the project, then my role), rendered as spans
+// because the preview and sheet slots are <p>s.
+.preview-text__part,
+.sheet__part {
+  display: block;
+
+  & + & {
+    margin-top: 0.6em;
   }
 }
 
@@ -516,5 +538,153 @@ $sheet-duration: 0.42s; // keep in sync with TRANSITION_MS in ts/modal.ts
 
   &.is-swapping {
     opacity: 0;
+  }
+}
+
+// About ("D · Portrait in the name" on the canvas). Hidden until the portrait is hovered,
+// tapped or toggled from the keyboard (ts/about.ts sets .page.is-about-open). It's laid over the work list and
+// anchored to the list's last line, so it grows upward and never moves the default layout.
+//   Mobile:  heading, bio, then Now / Open to on the aside's two columns.
+//   Desktop: heading and bio in columns 1–4, Now / Open to in columns 5–8.
+.index__heading,
+.work {
+  transition:
+    opacity 0.24s ease $about-delay,
+    visibility 0s;
+
+  .page.is-about-open & {
+    @include about-layer-hidden($rise: false);
+  }
+
+  .page.is-about-flow & {
+    display: none;
+  }
+}
+
+.about {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  pointer-events: none;
+
+  .page.is-about-open & {
+    pointer-events: auto;
+  }
+
+  @include desktop {
+    grid-column: 1 / span 8;
+    grid-row: 2;
+    bottom: $work-pad-desktop; // level with the last project's line, like the aside
+    display: grid;
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+    column-gap: $gutter;
+    align-items: end;
+  }
+
+  .page.is-about-flow & {
+    position: static;
+  }
+}
+
+.about__text {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 1rem;
+  line-height: 1.45;
+  @include about-layer-hidden;
+
+  .page.is-about-open & {
+    @include about-layer-shown;
+  }
+
+  @include desktop {
+    grid-column: 1 / span 4;
+    gap: 12px;
+    font-size: 1.25rem; // the description column's size
+    line-height: 1.35;
+    letter-spacing: -0.008em;
+  }
+}
+
+.about__heading {
+  margin-bottom: 2px; // 12px to the bio, 16px on desktop
+  font-size: 0.9375rem;
+  font-weight: $weight-regular;
+  line-height: 1.4;
+  letter-spacing: 0; // not the bio's tracking: it matches the "Work" heading
+  color: $color-muted;
+
+  @include desktop {
+    margin-bottom: 4px;
+    font-size: 1rem;
+  }
+}
+
+.about__facts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 16px;
+  margin: 0;
+  @include about-layer-hidden;
+
+  .page.is-about-open & {
+    @include about-layer-shown($about-delay + 0.06s); // the facts follow the bio
+  }
+
+  @include desktop {
+    grid-column: 5 / span 4;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+}
+
+.about__fact {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+
+  // Desktop: the label in the first of four columns, the items in the other three.
+  @include desktop {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0 $gutter;
+  }
+
+  dt {
+    color: $color-muted;
+    white-space: nowrap; // "Open to" stays on one line in the narrow first column at 1024
+
+    @include desktop {
+      grid-column: 1;
+      grid-row: 1 / span 3;
+    }
+  }
+
+  dd {
+    margin: 0;
+    text-wrap: balance; // two even lines in the narrow mobile columns
+
+    @include desktop {
+      grid-column: 2 / span 3;
+    }
+  }
+}
+
+// Reduced motion: the global rule in _base.scss zeroes the durations; the sequencing delays go
+// too, so the About swaps in at once.
+@media (prefers-reduced-motion: reduce) {
+  .intro__role,
+  .intro__statement,
+  .index__heading,
+  .work,
+  .about__text,
+  .about__facts {
+    transition-delay: 0s !important;
   }
 }

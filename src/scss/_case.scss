@@ -114,27 +114,51 @@ $case-diagram-wide-max: 1312px;
   }
 }
 
+// The name stays pinned at the page's top padding while the page scrolls. Difference
+// blending keeps it readable over the ground, photos and video alike; the header only
+// spans the name, so it never sits over anything clickable but itself.
 .case-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
+  position: sticky;
+  top: list.nth($case-pad-mobile, 1);
+  z-index: 10;
+  align-self: flex-start;
   margin-bottom: $case-top-gap-mobile;
   font-size: 0.9375rem;
   line-height: 1.4;
+  color: $color-ink-difference;
+  mix-blend-mode: difference;
+  transition:
+    transform 0.32s $ease-out,
+    opacity 0.2s ease;
 
   @include desktop {
+    top: list.nth($case-pad-desktop, 1);
     margin-bottom: $case-top-gap-desktop;
     font-size: 1rem;
+  }
+
+  // Set by ts/top.ts while the page scrolls down. It slides up past the top edge;
+  // keyboard focus brings it back.
+  &.is-hidden:not(:focus-within) {
+    opacity: 0;
+    transform: translateY(calc(-100% - #{list.nth($case-pad-mobile, 1)}));
+
+    @include desktop {
+      transform: translateY(calc(-100% - #{list.nth($case-pad-desktop, 1)}));
+    }
   }
 }
 
 .case-top__name {
   font-weight: $weight-medium;
+
+  &:hover {
+    color: $color-muted-difference;
+  }
 }
 
 // One line of text is a 21px target; this widens the hit area without moving anything.
 .case-top__name,
-.case-top__link,
 .case-meta__link {
   @include below-desktop {
     position: relative;
@@ -325,6 +349,11 @@ $case-lsb-book: (
   .case-item--#{$glyph} {
     margin-left: -$bearing;
   }
+
+  // The footer's next-project image opens in front of the name and gives the pull back.
+  .case-display--#{$glyph} {
+    --case-lsb: #{$bearing};
+  }
 }
 
 @each $glyph, $bearing in $case-lsb-book {
@@ -400,12 +429,17 @@ $case-lsb-book: (
 
   @include desktop {
     grid-column: span 3;
-    gap: 4px;
+    gap: 0;
   }
 }
 
 .case-meta__label {
   color: $color-muted;
+
+  // Only the label gets the 4px, so Status's value and site link sit line to line like wrapped text.
+  @include desktop {
+    margin-bottom: 4px;
+  }
 }
 
 .case-meta__link {
@@ -802,9 +836,9 @@ $case-lsb-book: (
   }
 }
 
-.case-cols__span-1-9 {
+.case-cols__span-1-12 {
   @include desktop {
-    grid-column: 1 / span 9;
+    grid-column: 1 / -1;
   }
 }
 
@@ -1771,6 +1805,49 @@ $case-swatches: (
   @include desktop {
     grid-column: 1 / span 8;
     gap: 20px;
+  }
+}
+
+// The next project's home-page image, in front of the name at the text's cap height with
+// its bottom on the baseline. The slot is a one-track grid: 1fr is the image's own width,
+// 0fr closes it. While open it puts the image, not the first glyph, on the grid line.
+// Where hovering is real it is closed, and on hover or focus it opens: the name slides
+// right and the image slides in from the left. Elsewhere it is always open.
+// Opening the image must not push a word onto a second line (at 1024, "Now Playing" would).
+.case-foot__link {
+  @include hover-desktop {
+    white-space: nowrap;
+  }
+}
+
+.case-foot__thumb {
+  display: inline-grid;
+  grid-template-columns: minmax(0, 1fr);
+  margin-left: var(--case-lsb, 0em);
+  vertical-align: baseline;
+
+  img {
+    width: auto;
+    min-width: 0;
+    height: 0.7em; // PP Neue Montreal's cap height, for browsers without the cap unit
+    height: 1cap;
+    margin-right: 0.16em;
+    object-fit: cover;
+    object-position: 100% 50%;
+  }
+
+  @include hover-desktop {
+    grid-template-columns: minmax(0, 0fr);
+    margin-left: 0em;
+    transition:
+      grid-template-columns 0.4s $ease-out,
+      margin-left 0.4s $ease-out;
+
+    .case-foot__link:hover &,
+    .case-foot__link:focus-visible & {
+      grid-template-columns: minmax(0, 1fr);
+      margin-left: var(--case-lsb, 0em);
+    }
   }
 }
 

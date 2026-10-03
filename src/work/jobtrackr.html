@@ -27,9 +27,8 @@
 </head>
 <body>
   <div class="case">
-    <header class="case-top">
+    <header class="case-top" data-case-top>
       <a class="case-top__name" href="/">Balogun Oluwasogo</a>
-      <a class="case-top__link" href="/">All work</a>
     </header>
 
     <main class="case__main">
@@ -73,7 +72,7 @@
           <h2 class="case-h case-text__heading" id="problem-heading">A job search spreads across too many places.</h2>
           <div class="case-text__body case-copy">
             <p class="case-body">Roles sit on LinkedIn, company sites and job boards. Replies arrive by email. Interviews happen weeks after the application, and each role wants a slightly different resume. After enough applications, it gets hard to say where anything stands.</p>
-            <p class="case-body">Most job platforms help you find work, not manage what happens after you apply. I was keeping track in browser tabs, bookmarks and memory, and once several applications reached interviews, that stopped working.</p>
+            <p class="case-body">Most job platforms help you find work, not manage what happens after you apply. I was keeping track in browser tabs, bookmarks and memory but that stopped working after several applications.</p>
             <p class="case-body">I wanted one place that could answer a simple question: what’s happening with my job search, and what should I do next? That question ended up on JobTrackr’s login screen.</p>
           </div>
         </div>
@@ -133,21 +132,33 @@
           <p class="case-label case-label--round case-text__label">Overview</p>
           <h2 class="case-h case-h--s case-text__heading" id="overview-heading">See what matters. Know what comes next.</h2>
           <div class="case-text__body case-copy">
-            <p class="case-body">The Overview opens with a sentence rather than a chart: “Good evening, Balogun. 5 things need you this week, and 1 is overdue.” Below it, everything that needs attention is grouped by when it’s due (overdue, today, this week) with the next step right on the row, from joining a call to ticking off a follow-up.</p>
+            <p class="case-body">The Overview opens with a sentence welcoming the user rather than a chart. Below it, everything that needs attention is grouped by when it’s due (overdue, today, this week) with the next step right on the row, from joining a call to ticking off a follow-up.</p>
             <p class="case-body">Totals, the pipeline and recent activity sit around it. Colour is kept for status and urgency, so it always carries meaning and nothing else competes for attention.</p>
           </div>
         </div>
 
         <figure class="case-figure case-figure--side">
-          <div class="case-video case-figure__media">
-            <video class="case-video__media case-video__media--square" data-case-video
-              src="/assets/video/jobtrackr/overview.mp4"
-              poster="/assets/images/case/jobtrackr/overview-poster.webp"
-              width="1080" height="1080" preload="none" muted loop playsinline
-              aria-label="The Overview on desktop and mobile"></video>
-            <button class="case-video__toggle" type="button" data-case-video-toggle hidden>Play video</button>
+          <div class="case-plate case-plate--medium case-figure__media">
+            <img class="case-media case-media--screen"
+              src="/assets/images/case/jobtrackr/overview-960.webp"
+              srcset="/assets/images/case/jobtrackr/overview-960.webp 960w, /assets/images/case/jobtrackr/overview-1440.webp 1440w"
+              sizes="(min-width: 1024px) calc(66.67vw - 157px), calc(100vw - 64px)"
+              width="1440" height="900" loading="lazy" decoding="async"
+              alt="JobTrackr's Overview on desktop: a greeting, totals for applications, responses, interviews and offers, items needing attention grouped as overdue, today and this week, and the pipeline by stage">
           </div>
-          <figcaption class="case-caption case-figure__caption">The Overview on desktop and mobile.</figcaption>
+          <figcaption class="case-caption case-figure__caption">Overview on desktop.</figcaption>
+        </figure>
+
+        <figure class="case-figure case-figure--side">
+          <div class="case-plate case-plate--medium case-figure__media">
+            <img class="case-media case-media--screen"
+              src="/assets/images/case/jobtrackr/overview-mobile-960.webp"
+              srcset="/assets/images/case/jobtrackr/overview-mobile-960.webp 960w, /assets/images/case/jobtrackr/overview-mobile-1440.webp 1440w"
+              sizes="(min-width: 1024px) calc(66.67vw - 157px), calc(100vw - 64px)"
+              width="1440" height="900" loading="lazy" decoding="async"
+              alt="JobTrackr's Overview on two phone screens: the greeting, period filter, totals and items needing attention, then the pipeline by stage and recent activity, with the tab bar at the bottom">
+          </div>
+          <figcaption class="case-caption case-figure__caption">Overview on mobile.</figcaption>
         </figure>
       </section>
 
@@ -198,7 +209,7 @@
           <h2 class="case-h case-h--stem case-text__heading" id="interviews-heading">From tracking to preparation.</h2>
           <div class="case-text__body case-copy">
             <p class="case-body">Once an application moves forward, the question changes from “where did I apply?” to “am I ready for this conversation?” Interviews became their own workflow, attached to an application.</p>
-            <p class="case-body">Each stage has its time and time zone, a meeting link, a preparation checklist, topics to review, questions to ask, notes, feedback, and a history that logs reschedules and outcomes as they happen. One application can hold several stages, so a recruiter screen, a technical round and a final read as one process, not three unrelated calendar events.</p>
+            <p class="case-body">Each stage has its time, a meeting link, a preparation checklist, topics to review, questions to ask, notes, feedback, and a history that logs reschedules and outcomes as they happen. One application can hold several stages, so a recruiter screen, a technical round and a final read as one process, not three unrelated calendar events.</p>
           </div>
         </div>
 
@@ -222,7 +233,7 @@
           <h2 class="case-h case-h--stem case-text__heading" id="analytics-heading">Is the search actually working?</h2>
           <div class="case-text__body case-copy">
             <p class="case-body">With structured data underneath, JobTrackr can answer questions a spreadsheet hides: how many applications get a response, where the pipeline stalls, which sources lead to interviews. Analytics shows the funnel from applied to offered, weekly trends, a status breakdown and interview activity for any period.</p>
-            <p class="case-body">The key numbers are also written out as sentences, such as which source has the strongest interview rate. The goal isn’t analytics for its own sake; it’s knowing when to change the strategy.</p>
+            <p class="case-body">The key numbers are also written out as sentences, such as which source has the strongest interview rate. The goal isn’t analytics for its own sake; it’s knowing if and when to change the strategy.</p>
           </div>
         </div>
 
@@ -289,9 +300,9 @@
 <text class="dg-desc" x="256" y="308" font-size="14">Next.js, React, TypeScript,</text>
 <text class="dg-desc" x="256" y="329" font-size="14">SCSS Modules</text>
 <text class="dg-name" x="576" y="142" font-size="16">API</text>
-<text class="dg-desc" x="576" y="164" font-size="14">NestJS on Vercel. Validation,</text>
-<text class="dg-desc" x="576" y="185" font-size="14">business rules and ownership</text>
-<text class="dg-desc" x="576" y="207" font-size="14">checks live here.</text>
+<text class="dg-desc" x="576" y="438" font-size="14">NestJS on Vercel. Validation,</text>
+<text class="dg-desc" x="576" y="459" font-size="14">business rules and ownership</text>
+<text class="dg-desc" x="576" y="481" font-size="14">checks live here.</text>
 <text class="dg-name" x="1036" y="142" font-size="16">Auth</text>
 <text class="dg-desc" x="1036" y="164" font-size="14">Email and password, Google OAuth.</text>
 <text class="dg-desc" x="1036" y="185" font-size="14">Issues the session and its JWT.</text>
@@ -359,7 +370,7 @@
           <h2 class="case-h case-h--t case-text__heading" id="data-heading">Ten tables, shaped by the journey.</h2>
           <div class="case-text__body case-copy">
             <p class="case-body">The schema mirrors the product. An interview belongs to an application. Preparation items, topics and questions belong to an interview. A document can be linked to many applications. An offer comes from an application, and activity ties the history together.</p>
-            <p class="case-body">Rules live in the model, not just the interface: an application has at most one offer and one pending next action, and every table has Row Level Security. Getting these relationships right early made the rest of the product much easier to reason about.</p>
+            <p class="case-body">Rules live in the model, not just the interface: an application has at most one offer and one pending next action, and every table has Row Level Security. Getting these relationships right early made the rest of the product much easier to build.</p>
           </div>
         </div>
 
@@ -417,10 +428,6 @@
 <text class="dg-desc" x="718" y="465" font-size="14">Topics to review before the stage</text>
 <text class="dg-name" x="1068" y="445" font-size="15">interview_questions</text>
 <text class="dg-desc" x="1068" y="465" font-size="14">Questions to ask the interviewer</text>
-<text class="dg-desc" x="266.95" y="32" font-size="13">many to many</text>
-<text class="dg-desc" x="976.77" y="32" font-size="13">zero or one</text>
-<text class="dg-desc" x="0" y="225" font-size="16">Arrows point from a record to the</text>
-<text class="dg-desc" x="0" y="248" font-size="16">records that belong to it.</text>
 </svg>
         </div>
         <div class="case-art case-art--tall">
@@ -511,7 +518,7 @@
           <p class="case-label case-text__label">Authentication</p>
           <h2 class="case-h case-h--w case-text__heading" id="authentication-heading">Who owns the data?</h2>
           <div class="case-text__body case-copy">
-            <p class="case-body">Turning a personal tool into a multi-user product raised that question first. People sign in with Supabase Auth, by email and password or with Google. The Next.js app handles the session server-side, and the NestJS API verifies every request’s token itself, checking its signature against Supabase’s published keys before it touches any data.</p>
+            <p class="case-body">People sign in with Supabase Auth, by email and password or with Google. The Next.js app handles the session server-side, and the NestJS API verifies every request’s token itself, checking its signature against Supabase’s published keys before it touches any data.</p>
             <p class="case-body">Authentication was more than a login screen. OAuth callbacks, protected routes, session restore and the states people pass through before and after signing in all had to be handled.</p>
           </div>
         </div>
@@ -555,7 +562,7 @@
           <h2 class="case-h case-h--s case-text__heading" id="security-heading">Signed in isn’t the same as allowed.</h2>
           <div class="case-text__body case-copy">
             <p class="case-body">With several people using JobTrackr, the walls between their data became part of the architecture. Knowing, or guessing, an application’s ID must never be enough to read it. So the API never treats an ID as permission: every protected operation checks that the record’s owner matches the user in the verified token.</p>
-            <p class="case-body">I tested this with two accounts, requesting each other’s records directly by ID, to confirm neither could see the other’s. That closes off a class of bug known as Insecure Direct Object Reference, or IDOR.</p>
+            <p class="case-body">I tested this with two accounts, requesting each other’s records directly by ID, to confirm neither could see the other’s. That closes the security issue of Insecure Direct Object Reference, or IDOR.</p>
           </div>
         </div>
 
@@ -615,6 +622,7 @@
           <div class="case-stack__group">
             <dt class="case-label case-label--stem">Design</dt>
             <dd class="case-body">Figma</dd>
+            <dd class="case-body">Claude Design</dd>
           </div>
           <div class="case-stack__group">
             <dt class="case-label case-label--stem">Frontend</dt>
@@ -654,7 +662,7 @@
       <section class="case-section" aria-labelledby="shipping-heading">
         <div class="case-text">
           <p class="case-label case-label--s case-text__label">Shipping</p>
-          <h2 class="case-h case-h--stem case-text__heading" id="shipping-heading">Live, and used for real.</h2>
+          <h2 class="case-h case-h--stem case-text__heading" id="shipping-heading">Live, and in beta.</h2>
           <div class="case-text__body case-copy">
             <p class="case-body">Once the core workflows worked end to end, I deployed the frontend and the API to Vercel, backed by production Supabase. That brought its own work: environment configuration, OAuth redirects for each environment, communication between frontend and API, and migrations written to keep existing data and file paths intact.</p>
             <p class="case-body">I didn’t want JobTrackr to stay a polished prototype. The clip below is a real session in production: saving a role from a LinkedIn posting, then opening its record.</p>
@@ -672,7 +680,7 @@
               <button class="case-video__toggle" type="button" data-case-video-toggle hidden>Play video</button>
             </div>
           </div>
-          <figcaption class="case-caption case-figure__caption">Recorded in production on 24 September 2026, shown at twice the speed.</figcaption>
+          <figcaption class="case-caption case-figure__caption">Recorded in production on 24 September 2026, shown at 2x speed.</figcaption>
         </figure>
       </section>
 
@@ -701,7 +709,7 @@
         </div>
 
         <div class="case-cols">
-          <p class="case-caption case-cols__span-1-9">Product design · Frontend engineering · Backend engineering · Database design · Authentication · Security · Deployment · Testing · Iteration</p>
+          <p class="case-caption case-cols__span-1-12">Product design · Frontend engineering · Backend engineering · Database design · Authentication · Security · Deployment · Testing · Iteration</p>
         </div>
       </section>
     </main>
@@ -709,7 +717,7 @@
     <footer class="case-foot">
       <div class="case-foot__next">
         <p class="case-label case-label--stem">Next project</p>
-        <p class="case-display"><a href="/work/acetrail">Acetrail</a></p>
+        <p class="case-display"><a class="case-foot__link" href="/work/acetrail"><span class="case-foot__thumb"><img src="/assets/images/projects/acetrail-480.webp" width="480" height="360" alt="" loading="lazy" decoding="async"></span>Acetrail</a></p>
       </div>
 
       <div class="case-foot__aside">

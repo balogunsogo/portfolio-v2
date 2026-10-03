@@ -1,0 +1,564 @@
+diff --git a/src/index.html b/src/index.html
+index 69d2b1e..d54e05a 100644
+--- a/src/index.html
++++ b/src/index.html
+@@ -27,22 +27,52 @@
+   <script type="module" src="assets/js/main.js"></script>
+ </head>
+ <body>
+-  <main class="page">
++  <main class="page" data-page>
+     <header class="intro">
+-      <h1 class="intro__name">
+-        <span class="intro__name-line">Balogun</span>
+-        <span class="intro__name-line">Oluwasogo</span>
++      <!-- The portrait sits in the name. Hovering it (desktop) or tapping it (touch) swaps the
++           role line and the work list for the About; see ts/about.ts. The heading's name stays
++           "Balogun Oluwasogo" through aria-labelledby. -->
++      <h1 class="intro__name" aria-labelledby="name-first name-last">
++        <span class="intro__name-line"><span id="name-first">Balogun</span> <button class="intro__portrait" type="button" aria-label="About Oluwasogo" aria-expanded="false" aria-controls="about-statement about" data-about-toggle><img class="intro__portrait-image" src="assets/images/portrait/portrait-480.webp" srcset="assets/images/portrait/portrait-240.webp 240w, assets/images/portrait/portrait-480.webp 480w" sizes="(min-width: 1024px) 9vw, 15vw" width="480" height="381" alt="" decoding="async"></button></span>
++        <span class="intro__name-line" id="name-last">Oluwasogo</span>
+       </h1>
+-      <p class="intro__role">
+-        <span class="intro__role-line">Software Engineer &amp;</span>
+-        <span class="intro__role-line">Digital Designer</span>
+-      </p>
++      <div class="intro__lead">
++        <p class="intro__role">
++          <span class="intro__role-line">Software Engineer &amp;</span>
++          <span class="intro__role-line">Digital Designer</span>
++        </p>
++        <p class="intro__statement" id="about-statement" data-about-statement>I design interfaces and build them myself, so what gets designed is what ships.</p>
++      </div>
+     </header>
+ 
+     <section class="index" aria-labelledby="featured-heading">
+-      <h2 class="index__heading" id="featured-heading">Work</h2>
++      <div class="index__stage">
++        <h2 class="index__heading" id="featured-heading">Work</h2>
++
++        <ul class="work" data-work-list></ul>
+ 
+-      <ul class="work" data-work-list></ul>
++        <!-- About: takes the work list's place while the portrait is hovered or tapped. -->
++        <div class="about" id="about" data-about>
++          <div class="about__text">
++            <h2 class="about__heading">About</h2>
++            <p>I’m Oluwasogo, a software engineer and digital designer in Lagos, Nigeria. I work on product interfaces, websites, and the small interactions that make them feel considered.</p>
++            <p>By day I build enterprise insurance systems at AXA Mansard. Alongside that I take on freelance work and keep an archive of interaction studies.</p>
++          </div>
++          <dl class="about__facts">
++            <div class="about__fact">
++              <dt>Now</dt>
++              <dd>Software Developer, AXA Mansard</dd>
++              <dd>Design and frontend, Ace Trail Tutors</dd>
++            </div>
++            <div class="about__fact">
++              <dt>Open to</dt>
++              <dd>Frontend builds and product interfaces</dd>
++              <dd>Webflow websites</dd>
++              <dd>Interaction and motion</dd>
++            </div>
++          </dl>
++        </div>
++      </div>
+ 
+       <p class="preview-meta" data-preview-meta aria-hidden="true"></p>
+       <p class="preview-text" data-preview-description aria-hidden="true"></p>
+diff --git a/src/scss/_index.scss b/src/scss/_index.scss
+index 8398330..035bfe7 100644
+--- a/src/scss/_index.scss
++++ b/src/scss/_index.scss
+@@ -21,6 +21,7 @@ $work-pad-mobile: 7px;
+ $work-pad-desktop: 9px;
+ 
+ .index {
++  position: relative; // the About is positioned against the work list's grid area
+   display: flex;
+   flex-direction: column;
+   margin-top: auto;
+@@ -37,8 +38,18 @@ $work-pad-desktop: 9px;
+   }
+ }
+ 
++// The heading and the list, plus the About laid over them. Below desktop it's the box the
++// About rises from; on desktop it steps aside so its children stay items of the grid.
++.index__stage {
++  position: relative;
++
++  @include desktop {
++    display: contents;
++  }
++}
++
+ .index__heading {
+-  margin-left: -$lsb-stem-book; // optical edge for the F, see _tokens.scss
++  margin-left: -$lsb-w-book; // optical edge for the W, see _tokens.scss
+   font-size: inherit;
+   font-weight: $weight-regular;
+   color: $color-muted;
+@@ -529,3 +540,151 @@ $sheet-duration: 0.42s; // keep in sync with TRANSITION_MS in ts/modal.ts
+     opacity: 0;
+   }
+ }
++
++// About ("D · Portrait in the name" on the canvas). Hidden until the portrait is hovered,
++// tapped or toggled from the keyboard (ts/about.ts sets .page.is-about-open). It's laid over the work list and
++// anchored to the list's last line, so it grows upward and never moves the default layout.
++//   Mobile:  heading, bio, then Now / Open to on the aside's two columns.
++//   Desktop: heading and bio in columns 1–4, Now / Open to in columns 5–8.
++.index__heading,
++.work {
++  transition:
++    opacity 0.24s ease $about-delay,
++    visibility 0s;
++
++  .page.is-about-open & {
++    @include about-layer-hidden($rise: false);
++  }
++
++  .page.is-about-flow & {
++    display: none;
++  }
++}
++
++.about {
++  position: absolute;
++  left: 0;
++  right: 0;
++  bottom: 0;
++  display: flex;
++  flex-direction: column;
++  gap: 20px;
++  pointer-events: none;
++
++  .page.is-about-open & {
++    pointer-events: auto;
++  }
++
++  @include desktop {
++    grid-column: 1 / span 8;
++    grid-row: 2;
++    bottom: $work-pad-desktop; // level with the last project's line, like the aside
++    display: grid;
++    grid-template-columns: repeat(8, minmax(0, 1fr));
++    column-gap: $gutter;
++    align-items: end;
++  }
++
++  .page.is-about-flow & {
++    position: static;
++  }
++}
++
++.about__text {
++  display: flex;
++  flex-direction: column;
++  gap: 10px;
++  font-size: 1rem;
++  line-height: 1.45;
++  @include about-layer-hidden;
++
++  .page.is-about-open & {
++    @include about-layer-shown;
++  }
++
++  @include desktop {
++    grid-column: 1 / span 4;
++    gap: 12px;
++    font-size: 1.25rem; // the description column's size
++    line-height: 1.35;
++    letter-spacing: -0.008em;
++  }
++}
++
++.about__heading {
++  margin-bottom: 2px; // 12px to the bio, 16px on desktop
++  font-size: 0.9375rem;
++  font-weight: $weight-regular;
++  line-height: 1.4;
++  letter-spacing: 0; // not the bio's tracking: it matches the "Work" heading
++  color: $color-muted;
++
++  @include desktop {
++    margin-bottom: 4px;
++    font-size: 1rem;
++  }
++}
++
++.about__facts {
++  display: grid;
++  grid-template-columns: repeat(2, minmax(0, 1fr));
++  column-gap: 16px;
++  margin: 0;
++  @include about-layer-hidden;
++
++  .page.is-about-open & {
++    @include about-layer-shown($about-delay + 0.06s); // the facts follow the bio
++  }
++
++  @include desktop {
++    grid-column: 5 / span 4;
++    display: flex;
++    flex-direction: column;
++    gap: 12px;
++  }
++}
++
++.about__fact {
++  display: flex;
++  flex-direction: column;
++  gap: 2px;
++
++  // Desktop: the label in the first of four columns, the items in the other three.
++  @include desktop {
++    display: grid;
++    grid-template-columns: repeat(4, minmax(0, 1fr));
++    gap: 0 $gutter;
++  }
++
++  dt {
++    color: $color-muted;
++    white-space: nowrap; // "Open to" stays on one line in the narrow first column at 1024
++
++    @include desktop {
++      grid-column: 1;
++      grid-row: 1 / span 3;
++    }
++  }
++
++  dd {
++    margin: 0;
++    text-wrap: balance; // two even lines in the narrow mobile columns
++
++    @include desktop {
++      grid-column: 2 / span 3;
++    }
++  }
++}
++
++// Reduced motion: the global rule in _base.scss zeroes the durations; the sequencing delays go
++// too, so the About swaps in at once.
++@media (prefers-reduced-motion: reduce) {
++  .intro__role,
++  .intro__statement,
++  .index__heading,
++  .work,
++  .about__text,
++  .about__facts {
++    transition-delay: 0s !important;
++  }
++}
+diff --git a/src/scss/_layout.scss b/src/scss/_layout.scss
+index fc91b60..5decfc6 100644
+--- a/src/scss/_layout.scss
++++ b/src/scss/_layout.scss
+@@ -59,6 +59,11 @@
+     margin-left: -$lsb-round-medium;
+   }
+ 
++  // The first line also holds the portrait; it never wraps on its own.
++  &:first-child {
++    white-space: nowrap;
++  }
++
+   @include desktop {
+     display: inline;
+ 
+@@ -68,8 +73,61 @@
+   }
+ }
+ 
+-// 24px on mobile → 48px at 1440.
+-.intro__role {
++// The portrait: one more glyph in the name (see $cap-height-medium). Its bottom sits on the
++// baseline and its top on the cap line. The photo's background is baked to the ground colour
++// (docs/handoff/about/export-portrait.py), so only the head and shoulders read. The negative
++// right margin evens the optical gaps either side (the O after it carries its own side bearing).
++.intro__portrait {
++  display: inline-block;
++  vertical-align: baseline;
++  width: $portrait-width;
++  height: $cap-height-medium;
++  margin: 0 -0.03em 0 0;
++  padding: 0;
++  border: 0;
++  background: none;
++  font: inherit; // keeps 1em = the name's size
++  line-height: 0;
++  color: inherit;
++  cursor: pointer;
++
++  // Hover shows the About; a mouse click does nothing, so no pointer hand.
++  @include hover-desktop {
++    cursor: default;
++  }
++
++  &:focus {
++    outline: none;
++  }
++
++  &:focus-visible {
++    outline: 2px solid currentColor;
++    outline-offset: 3px;
++  }
++}
++
++.intro__portrait-image {
++  width: 100%;
++  height: 100%;
++  object-fit: cover;
++  transform-origin: 50% 100%;
++  transition: transform 0.6s $ease-out;
++
++  // While the About shows, the portrait leans in from the baseline.
++  .page.is-about-open & {
++    transform: scale(1.08);
++  }
++}
++
++// The role line and the statement share one place. The statement is laid over the role
++// (out of flow), so the default layout doesn't change; it runs into the space below.
++.intro__lead {
++  position: relative;
++}
++
++// 24px on mobile → 48px at 1440. The About's statement uses the same type.
++.intro__role,
++.intro__statement {
+   font-size: clamp(1.5rem, 1rem + 2.28vw, 3.5rem);
+   font-weight: $weight-medium;
+   line-height: 1.12;
+@@ -97,3 +155,41 @@
+     }
+   }
+ }
++
++// While the About shows, the role steps back and the statement takes its place.
++.intro__role {
++  transition:
++    opacity 0.24s ease $about-delay,
++    visibility 0s;
++
++  .page.is-about-open & {
++    @include about-layer-hidden($rise: false);
++  }
++
++  .page.is-about-flow & {
++    display: none;
++  }
++}
++
++.intro__statement {
++  position: absolute;
++  top: 0;
++  left: 0;
++  right: 0;
++  margin-left: -$lsb-stem-medium; // "I…" starts on a stem
++  @include about-layer-hidden;
++
++  @include desktop {
++    max-width: 23em; // two lines, breaking after "gets"
++  }
++
++  .page.is-about-open & {
++    @include about-layer-shown;
++  }
++
++  // Not enough room for the About to rise above the work list (see ts/about.ts):
++  // the statement takes the role's place in the flow and the page scrolls.
++  .page.is-about-flow & {
++    position: static;
++  }
++}
+diff --git a/src/scss/_tokens.scss b/src/scss/_tokens.scss
+index e02afeb..40eedee 100644
+--- a/src/scss/_tokens.scss
++++ b/src/scss/_tokens.scss
+@@ -28,6 +28,7 @@ $lsb-s-book: 0.027em; // S in Book
+ $lsb-j-medium: 0.018em; // J in Medium
+ $lsb-t: 0.015em; // T in Medium and Book
+ $lsb-w-medium: 0.014em; // W in Medium
++$lsb-w-book: 0.017em; // W in Book
+ 
+ // Layout
+ $columns: 12;
+@@ -36,6 +37,11 @@ $clock-size: 96px; // analog clock in the aside
+ $clock-size-case-mobile: 88px; // the same clock in the case-study footer below desktop
+ $measure: 36rem; // longest line of text in the single-column layout (tablet widths)
+ 
++// The portrait in the name: as tall as a capital (OS/2 cap height 715 / 1000) and sitting on
++// the baseline, so it reads as one more glyph. 0.9em wide matches the design (about 5:4).
++$cap-height-medium: 0.715em;
++$portrait-width: 0.9em;
++
+ // JobTrackr status colours, sampled from the product. Used only for the small dots.
+ $status-saved: $color-ink;
+ $status-applied: #3e83ee;
+@@ -63,6 +69,35 @@ $plate-clip: #ecebe6; // around the screen recording
+ // Motion
+ $ease-out: cubic-bezier(0.22, 1, 0.36, 1); // the hover preview and the next-project image
+ 
++// The About on the home page swaps two sets of layers in place (ts/about.ts sets
++// .page.is-about-open). Outgoing layers fade out in 0.15s; incoming ones start 0.1s later, as the
++// outgoing text is almost gone (the two share one place), then fade in over 0.24s and rise 8px
++// over 0.32s like the description column.
++$about-out: 0.15s;
++$about-delay: 0.1s;
++
++@mixin about-layer-hidden($rise: true) {
++  opacity: 0;
++  visibility: hidden;
++  @if $rise {
++    transform: translateY(8px);
++  }
++  transition:
++    opacity $about-out ease,
++    transform $about-out ease,
++    visibility 0s linear $about-out;
++}
++
++@mixin about-layer-shown($delay: $about-delay) {
++  opacity: 1;
++  visibility: visible;
++  transform: none;
++  transition:
++    opacity 0.24s ease $delay,
++    transform 0.32s $ease-out $delay,
++    visibility 0s;
++}
++
+ // Breakpoints (min-width)
+ $bp-desktop: 1024px;
+ $bp-diagram-wide: 1280px; // below this the wide diagrams' text would get too small
+diff --git a/src/ts/about.ts b/src/ts/about.ts
+new file mode 100644
+index 0000000..359c0cc
+--- /dev/null
++++ b/src/ts/about.ts
+@@ -0,0 +1,102 @@
++// About on the home page: the portrait in the name swaps the role line and the work list for
++// the About.
++//   Desktop with a mouse: shows while the pointer is on the portrait, hides 100ms after it leaves.
++//   Touch, and any device without hover: a tap toggles it.
++//   Keyboard: Enter / Space toggle it; Escape, Tab or moving focus away hide it. Focus alone
++//   doesn't open it: the portrait is the page's first tab stop, and while the About shows the
++//   work list is hidden, so Tab closes it first and lands on the first project.
++// If the About can't rise above the work list without reaching the statement (short screens),
++// .is-about-flow puts both in the flow instead and the page scrolls.
++
++const hoverDesktop = window.matchMedia('(min-width: 1024px) and (hover: hover) and (pointer: fine)');
++const CLOSE_DELAY_MS = 100;
++const MIN_CLEARANCE = 32; // px between the statement and the About before it falls back to the flow
++
++interface AboutElements {
++  page: HTMLElement;
++  toggle: HTMLButtonElement;
++  statement: HTMLElement;
++  about: HTMLElement;
++}
++
++// Layout top of an element, ignoring the 8px rise it may be mid-way through.
++const layoutTop = (el: HTMLElement): number =>
++  el.getBoundingClientRect().top - new DOMMatrixReadOnly(getComputedStyle(el).transform).m42;
++
++type Source = 'pointer' | 'tap';
++
++export function initAbout({ page, toggle, statement, about }: AboutElements): void {
++  let open = false;
++  let source: Source | null = null; // what opened it, which decides what closes it
++  let lastPointer = '';
++  let closeTimer: number | undefined;
++
++  // The About's top is the top of its tallest column (the bio, or the facts on desktop).
++  const aboutTop = (): number =>
++    Math.min(...Array.from(about.children, (child) => layoutTop(child as HTMLElement)));
++
++  const fitLayout = (): void => {
++    if (!open) return;
++    page.classList.remove('is-about-flow');
++    const statementBottom = layoutTop(statement) + statement.offsetHeight;
++    page.classList.toggle('is-about-flow', aboutTop() - statementBottom < MIN_CLEARANCE);
++  };
++
++  const set = (next: boolean, from: Source | null = null): void => {
++    window.clearTimeout(closeTimer);
++    if (next === open) {
++      if (next && from) source = from;
++      return;
++    }
++    open = next;
++    source = next ? from : null;
++    toggle.setAttribute('aria-expanded', String(next));
++    page.classList.toggle('is-about-open', next);
++    if (next) fitLayout();
++    else page.classList.remove('is-about-flow');
++  };
++
++  toggle.addEventListener('pointerdown', (event) => {
++    lastPointer = event.pointerType;
++  });
++
++  toggle.addEventListener('pointerenter', (event) => {
++    if (hoverDesktop.matches && event.pointerType === 'mouse') set(true, 'pointer');
++  });
++
++  toggle.addEventListener('pointerleave', (event) => {
++    if (event.pointerType !== 'mouse' || source !== 'pointer') return;
++    window.clearTimeout(closeTimer);
++    closeTimer = window.setTimeout(() => set(false), CLOSE_DELAY_MS);
++  });
++
++  // On desktop, focus leaving closes a keyboard-opened About. On touch it waits for the next tap.
++  toggle.addEventListener('blur', () => {
++    if (source === 'tap' && hoverDesktop.matches) set(false);
++  });
++
++  // Tab closes it before focus moves, so the (now visible) work list is next in line.
++  toggle.addEventListener('keydown', (event) => {
++    if (event.key === 'Tab' && open) set(false);
++  });
++
++  // A mouse click on desktop changes nothing (hover already showed it). Taps, pen, and
++  // Enter / Space (clicks with detail 0) toggle.
++  toggle.addEventListener('click', (event) => {
++    if (hoverDesktop.matches && event.detail > 0 && lastPointer === 'mouse') return;
++    set(!open, 'tap');
++  });
++
++  document.addEventListener('keydown', (event) => {
++    if (event.key === 'Escape' && open) set(false);
++  });
++
++  // Switching between the hover and tap layouts (resize, rotation) starts closed.
++  hoverDesktop.addEventListener('change', () => set(false));
++
++  let frame = 0;
++  window.addEventListener('resize', () => {
++    cancelAnimationFrame(frame);
++    frame = requestAnimationFrame(fitLayout);
++  });
++}
+diff --git a/src/ts/main.ts b/src/ts/main.ts
+index 602adb5..e28cb82 100644
+--- a/src/ts/main.ts
++++ b/src/ts/main.ts
+@@ -1,3 +1,4 @@
++import { initAbout } from './about.js';
+ import { initClock } from './clock.js';
+ import { initMedia } from './media.js';
+ import { initProjectSheet } from './modal.js';
+@@ -15,6 +16,13 @@ if (clock) {
+   initClock(clock, hourHand && minuteHand ? { hour: hourHand, minute: minuteHand, readout } : undefined);
+ }
+ 
++// Home: the portrait in the name shows the About.
++const page = $<HTMLElement>('[data-page]');
++const aboutToggle = $<HTMLButtonElement>('[data-about-toggle]');
++const statement = $<HTMLElement>('[data-about-statement]');
++const about = $<HTMLElement>('[data-about]');
++if (page && aboutToggle && statement && about) initAbout({ page, toggle: aboutToggle, statement, about });
++
+ // Case study: the top bar hides on the way down and returns on the way up.
+ const topBar = $<HTMLElement>('[data-case-top]');
+ if (topBar) initTopBar(topBar);

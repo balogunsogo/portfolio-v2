@@ -4,6 +4,10 @@
 $color-ground: #fafaf8;
 $color-ink: #111110;
 $color-muted: #65635d; // 5.9:1 on ground
+// Ground minus ink and ground minus muted: under mix-blend-mode: difference these land
+// exactly on ink and muted over the ground, and turn light over dark photos and video.
+$color-ink-difference: #e9e9e8;
+$color-muted-difference: #95979b;
 
 // Type
 $font-sans: 'PP Neue Montreal', 'Neue Montreal', 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -24,6 +28,7 @@ $lsb-s-book: 0.027em; // S in Book
 $lsb-j-medium: 0.018em; // J in Medium
 $lsb-t: 0.015em; // T in Medium and Book
 $lsb-w-medium: 0.014em; // W in Medium
+$lsb-w-book: 0.017em; // W in Book
 
 // Layout
 $columns: 12;
@@ -31,6 +36,11 @@ $gutter: 24px;
 $clock-size: 96px; // analog clock in the aside
 $clock-size-case-mobile: 88px; // the same clock in the case-study footer below desktop
 $measure: 36rem; // longest line of text in the single-column layout (tablet widths)
+
+// The portrait in the name: as tall as a capital (OS/2 cap height 715 / 1000) and sitting on
+// the baseline, so it reads as one more glyph. 0.9em wide matches the design (about 5:4).
+$cap-height-medium: 0.715em;
+$portrait-width: 0.9em;
 
 // JobTrackr status colours, sampled from the product. Used only for the small dots.
 $status-saved: $color-ink;
@@ -55,6 +65,38 @@ $diagram-card: #ebeae5;
 // Media plates
 $plate-video: #000000; // behind the three motion videos (they were exported on black)
 $plate-clip: #ecebe6; // around the screen recording
+
+// Motion
+$ease-out: cubic-bezier(0.22, 1, 0.36, 1); // the hover preview and the next-project image
+
+// The About on the home page swaps two sets of layers in place (ts/about.ts sets
+// .page.is-about-open). Outgoing layers fade out in 0.15s; incoming ones start 0.1s later, as the
+// outgoing text is almost gone (the two share one place), then fade in over 0.24s and rise 8px
+// over 0.32s like the description column.
+$about-out: 0.15s;
+$about-delay: 0.1s;
+
+@mixin about-layer-hidden($rise: true) {
+  opacity: 0;
+  visibility: hidden;
+  @if $rise {
+    transform: translateY(8px);
+  }
+  transition:
+    opacity $about-out ease,
+    transform $about-out ease,
+    visibility 0s linear $about-out;
+}
+
+@mixin about-layer-shown($delay: $about-delay) {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition:
+    opacity 0.24s ease $delay,
+    transform 0.32s $ease-out $delay,
+    visibility 0s;
+}
 
 // Breakpoints (min-width)
 $bp-desktop: 1024px;
