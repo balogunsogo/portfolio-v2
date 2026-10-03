@@ -422,10 +422,12 @@ $case-lsb-book: (
   }
 }
 
+// Values in Medium, labels in Book and muted: one step of contrast between the two.
 .case-meta__group {
   display: flex;
   flex-direction: column;
   gap: 2px;
+  font-weight: $weight-medium;
 
   @include desktop {
     grid-column: span 3;
@@ -434,6 +436,7 @@ $case-lsb-book: (
 }
 
 .case-meta__label {
+  font-weight: $weight-regular;
   color: $color-muted;
 
   // Only the label gets the 4px, so Status's value and site link sit line to line like wrapped text.

@@ -175,7 +175,7 @@ The role and the statement share one place, as do the list and the About, so the
 
 ## 7. Copy (as written; change it only in `index.html`)
 
-- **Statement:** I design interfaces and build them myself, so what gets designed is what ships.
+- **Statement:** I design and build digital experiences, from the way they work to the details that make them feel good to use.
 - **Heading:** About
 - **Bio:**
   - I’m Oluwasogo, a software engineer and digital designer in Lagos, Nigeria. I work on product interfaces, websites, and the small interactions that make them feel considered.
@@ -184,9 +184,9 @@ The role and the statement share one place, as do the list and the About, so the
   - Software Developer, AXA Mansard
   - Design and frontend, Ace Trail Tutors
 - **Open to:**
-  - Frontend builds and product interfaces
-  - Webflow websites
-  - Interaction and motion
+  - Product design and development
+  - Custom websites and Webflow builds
+  - Interaction design and motion
 
 Don't add claims, metrics or testimonials. The curly apostrophe in "I’m" is intended.
 

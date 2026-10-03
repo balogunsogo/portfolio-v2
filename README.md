@@ -45,7 +45,7 @@ src/
     og-image.png        1200×630 share image, b. wordmark
     fonts/              PP Neue Montreal .woff2 files (committed), plus Figtree for the Acetrail case study
     images/projects/    featured-work preview images
-    images/portrait/    the About portrait (240w and 480w webp, background baked to the ground; final)
+    images/portrait/    the About portrait (240w and 480w webp, on an off-white backdrop baked in; final)
     images/case/        case-study images (webp, two widths each), video posters and share images
     video/              case-study videos (mp4, h.264, no audio)
   scss/
