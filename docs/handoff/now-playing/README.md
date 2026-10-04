@@ -89,7 +89,7 @@ The copy is final: take every string **verbatim** from the reference HTML. Seman
 
 Same structure and classes as Artifacts' hero.
 
-- **Copy:** title "Now Playing"; subtitle "What I'm playing on Spotify, live, on a page that takes its colours from the cover."
+- **Copy:** title "Now Playing"; subtitle "What I'm playing on Spotify, live, "
 - **Meta:**
   - Role: "Design and / frontend development" (line break after "and" on desktop).
   - Year: 2026.
@@ -104,7 +104,7 @@ Same structure and classes as Artifacts' hero.
 
 ### 5.2 Context
 
-`.case-text` (heading "A page about one thing: the music I work to."), then a **photo pair**: `.case-compare.case-compare--stack` holding two `figure.case-compare__item`s, each an `img.case-media.case-media--landscape` (3:2, no plate) and a caption, exactly as Artifacts' Theme pair.
+`.case-text` (heading "A page about one thing: the music I'm listening to."), then a **photo pair**: `.case-compare.case-compare--stack` holding two `figure.case-compare__item`s, each an `img.case-media.case-media--landscape` (3:2, no plate) and a caption, exactly as Artifacts' Theme pair.
 
 - `online-1200.webp` / `online-1500.webp` (1500×1000): "Online, with a track playing."
 - `offline-1200.webp` / `offline-2000.webp` (2000×1333): "Offline in the first version, with its note open."
@@ -121,7 +121,7 @@ Same structure and classes as Artifacts' hero.
 
 `.case-text`, then a **still pair**: `.case-compare.case-compare--stack` with two items, each a `.case-plate.case-plate--medium` holding an `img.case-media.case-media--screen` (16:10), then its caption.
 
-- `scene-tornado-960.webp` / `scene-tornado-1440.webp` (1440×900): "Tornado."
+- `scene-tornado-960.webp` / `scene-tornado-1440.webp` (1440×900): "Tornado. Album artwork belongs to its artists and rights holders."
 - `scene-bang-960.webp` / `scene-bang-1440.webp` (1440×900): "Bang. Album artwork belongs to its artists and rights holders."
 
 ### 5.6 The artwork

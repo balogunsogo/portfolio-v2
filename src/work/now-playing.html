@@ -35,7 +35,7 @@
       <section class="case-hero" aria-labelledby="case-title">
         <div class="case-hero__head">
           <h1 class="case-display case-display--stem" id="case-title">Now Playing</h1>
-          <p class="case-subtitle case-subtitle--w">What I’m playing on Spotify, live, on a page that takes its colours from the cover.</p>
+          <p class="case-subtitle case-subtitle--w">What I’m playing on Spotify, live. </p>
         </div>
 
         <div class="case-meta">
@@ -75,9 +75,9 @@
       <section class="case-section" aria-labelledby="context-heading">
         <div class="case-text">
           <p class="case-label case-label--round case-text__label">Context</p>
-          <h2 class="case-h case-text__heading" id="context-heading">A page about one thing: the music I work to.</h2>
+          <h2 class="case-h case-text__heading" id="context-heading">A page about one thing: the music I'm listening to.</h2>
           <div class="case-text__body case-copy">
-            <p class="case-body">Music is part of how I work, so I made a page that shows it as it happens. Now Playing reads my Spotify account and shows the track that’s playing, or the last one if nothing is, with the time in Lagos and a link to open it in Spotify.</p>
+            <p class="case-body">Music is part of how I work, so I made a page that shows it as it happens. Now Playing reads my Spotify account and shows the track that’s playing, or the last one if nothing is, with a link to open it in Spotify.</p>
             <p class="case-body">The first version, in May 2026, put the cover over a blurred copy of itself, with a short note about the page. At the end of August I rebuilt how it moves: colours taken from the cover, staged track changes, a tilt on the artwork and a list of recent tracks. Touch got a version of its own in late September.</p>
           </div>
         </div>
@@ -155,7 +155,7 @@
               <button class="case-video__toggle" type="button" data-case-video-toggle hidden>Play video</button>
             </div>
           </div>
-          <figcaption class="case-caption case-figure__caption">Three track changes at 1440 × 900, recorded from the site’s code with stand-in tracks. The waits between them are cut.</figcaption>
+          <figcaption class="case-caption case-figure__caption">Three track changes on desktop</figcaption>
         </figure>
       </section>
 
@@ -179,7 +179,7 @@
                 width="1440" height="900" loading="lazy" decoding="async"
                 alt="Now Playing with Tornado by Ayra Starr: a purple, blurred copy of the cover fills the background">
             </div>
-            <figcaption class="case-caption">Tornado.</figcaption>
+            <figcaption class="case-caption">Tornado. Album artwork belongs to its artists and rights holders.</figcaption>
           </figure>
           <figure class="case-compare__item">
             <div class="case-plate case-plate--medium">
@@ -200,7 +200,7 @@
           <p class="case-label case-label--t case-text__label">The artwork</p>
           <h2 class="case-h case-h--t case-text__heading" id="artwork-heading">The cover leans toward the pointer.</h2>
           <div class="case-text__body case-copy">
-            <p class="case-body">With a mouse or trackpad, the cover tilts up to 6.4 degrees toward the pointer and lifts 6 pixels, and a highlight slides across it as it turns. The pointer only sets a target; one animation-frame loop eases toward it, so quick movements stay smooth.</p>
+            <p class="case-body">With a mouse or trackpad, the cover tilts toward the pointer and lifts slightly, and a highlight slides across it as it turns. The pointer only sets a target; one animation-frame loop eases toward it, so quick movements stay smooth.</p>
             <p class="case-body">It runs on fine pointers only, stops while the tab is hidden, and is off with reduced motion. When the pointer leaves, the cover settles back flat.</p>
           </div>
         </div>
@@ -225,7 +225,7 @@
           <p class="case-label case-label--stem case-text__label">Previously</p>
           <h2 class="case-h case-h--stem case-text__heading" id="previously-heading">Four recent tracks, one tap away.</h2>
           <div class="case-text__body case-copy">
-            <p class="case-body">The button in the bottom right corner opens Previously: the last four tracks I played, each a link to Spotify. The list is fetched when the panel opens, from a second endpoint that reads my recent history, drops repeats of the same song and leaves out the one on screen. Skeleton cards hold its shape while it loads.</p>
+            <p class="case-body">The button in the bottom right corner opens Previously: the last four tracks I played, each a link to Spotify. The list is fetched when the panel opens, from a second endpoint that reads my recent history. Skeleton cards hold its shape while it loads.</p>
             <p class="case-body">The first version of the panel only listed tracks this browser had seen change, so it started empty. Reading Spotify’s history instead fills it from the first visit.</p>
           </div>
         </div>
