@@ -65,6 +65,15 @@ img {
   max-width: 100%;
 }
 
+// Remove the native mobile tap flash from controls and custom tap targets.
+a,
+button,
+[role='button'],
+[data-case-video],
+[data-sheet-scrim] {
+  -webkit-tap-highlight-color: transparent;
+}
+
 a {
   color: inherit;
   text-decoration: none;
