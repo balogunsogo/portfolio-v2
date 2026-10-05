@@ -1,5 +1,5 @@
 // Shared build helpers used by build.mjs and dev.mjs. No dependencies beyond Node.
-import { cpSync, existsSync, mkdirSync, readdirSync, rmSync } from 'node:fs';
+import { cpSync, existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { spawn } from 'node:child_process';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -26,7 +26,20 @@ export function clean() {
 // .webp versions). PNGs at the assets root — og-image, touch icon — do ship.
 const SOURCE_ONLY = /(\.(otf|ttf|psd|fig)|\.gitkeep|[\\/]images[\\/].*\.png)$/i;
 
-/** Copies every .html file under `from` into `to`, keeping the folder structure. */
+// Shared by production, development and preview. Every generated HTML page gets
+// the official Google tag; source documents stay free of duplicated snippets.
+const GOOGLE_TAG = `
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PBVPJTHMK6"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-PBVPJTHMK6');
+  </script>`;
+
+/** Copies every .html file under `from` into `to`, adding analytics in its head. */
 function copyPages(from, to) {
   for (const entry of readdirSync(from, { withFileTypes: true })) {
     const source = join(from, entry.name);
@@ -34,7 +47,8 @@ function copyPages(from, to) {
       copyPages(source, join(to, entry.name));
     } else if (entry.name.endsWith('.html')) {
       mkdirSync(to, { recursive: true });
-      cpSync(source, join(to, entry.name));
+      const html = readFileSync(source, 'utf8');
+      writeFileSync(join(to, entry.name), html.replace(/<head\b[^>]*>/i, (head) => head + GOOGLE_TAG));
     }
   }
 }
