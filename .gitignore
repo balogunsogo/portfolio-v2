@@ -4,10 +4,11 @@ dist/
 Thumbs.db
 *.log
 
-# Typeface: only the web fonts (.woff2) are committed so Vercel can build them in.
-# The desktop .otf originals stay local.
+# Typeface: web fonts and the official Regular OTF-only package face ship to Vercel.
+# Other desktop originals stay local.
 src/assets/fonts/*.otf
 src/assets/fonts/*.ttf
+!src/assets/fonts/PPNeueMontreal-Regular.otf
 
 # Full-size image exports; the site ships the optimised .webp versions.
 src/assets/images/**/*.png

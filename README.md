@@ -43,7 +43,7 @@ src/
     favicon.svg / .ico  b. wordmark (white on #262626, from the Artifacts project)
     apple-touch-icon.png
     og-image.png        1200×630 share image, b. wordmark
-    fonts/              PP Neue Montreal .woff2 files (committed), plus Figtree for the Acetrail case study
+    fonts/              official PP Neue Montreal Regular .otf (committed), plus Figtree for the Acetrail case study
     images/projects/    featured-work preview images
     images/portrait/    the About portrait (240w and 480w webp, on an off-white backdrop baked in; final)
     images/case/        case-study images (webp, two widths each), video posters and share images
@@ -71,7 +71,7 @@ docs/handoff/           implementation handoffs (spec, reference pages, diagrams
 
 ## Assets
 
-- **Fonts:** `src/assets/fonts/` holds the licensed PP Neue Montreal files. The site loads `PPNeueMontreal-Book.woff2` (400) and `PPNeueMontreal-Medium.woff2` (500). The `.otf` originals stay in the folder but are not deployed. `figtree-latin-wght.woff2` is Ace Trail's own typeface (SIL Open Font License), used only for the type specimen on the Acetrail case study.
+- **Fonts:** `src/assets/fonts/` holds the licensed PP Neue Montreal files. The site loads official v3.0 `PPNeueMontreal-Regular.otf`, registered for CSS 400 and 500. Its native weight is 400; the semantic 500 alias intentionally uses the same static Regular outlines, which visually match production Medium more closely than official Semibold. The downloaded personal-use package supplies only OTF; only this upright Neue Montreal face ships. The supplied EULA is retained in `docs/font-licenses/`. `figtree-latin-wght.woff2` is Ace Trail's own typeface (SIL Open Font License), used only for the type specimen on the Acetrail case study.
 - **Project images:** `src/assets/images/projects/` keeps the full-size PNG exports for editing. The site loads 1200px-wide WebP versions (`<slug>.webp`, 20–180KB each) through each project's `image` in `src/ts/projects.ts`. The PNGs are not deployed.
 - **Adding or replacing an image:** export a 1200px-wide WebP at quality 80, name it in lowercase kebab-case, and point the project's `image` in `projects.ts` at it.
 - **Case-study media:** `src/assets/images/case/<project>/` and `src/assets/video/<project>/`. Large images come in two widths for `srcset`, and each video has a poster. They are final: don't regenerate, recompress or re-cut them. The JobTrackr screen recording was cut to leave out a third party's email address.

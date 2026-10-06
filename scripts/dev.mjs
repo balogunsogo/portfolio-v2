@@ -24,6 +24,7 @@ const types = {
   '.ico': 'image/x-icon',
   '.woff2': 'font/woff2',
   '.woff': 'font/woff',
+  '.otf': 'font/otf',
   '.mp4': 'video/mp4',
 };
 

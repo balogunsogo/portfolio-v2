@@ -67,7 +67,7 @@ Balogun Oluwasogo's personal portfolio: a home page and four case studies (`/wor
 - **Only web formats ship.** Fonts are served as `.woff2`, images as WebP (previews at 1200px, case-study images in two widths) and video as `.mp4`.
 - **Build:** `copyStatic()` copies every `.html` under `src/` with its folder, plus `src/assets`. The dev server resolves extensionless paths to `.html` (like Vercel's `cleanUrls`) and answers `Range` requests, which Safari needs for video.
 - **Raw sources stay in `src/assets` but are never deployed.** That means the `.otf` fonts and the full-size `.png` exports. They're filtered out by `SOURCE_ONLY` in `scripts/shared.mjs` and git-ignored.
-- **Fonts in the repo:** the two PP Neue Montreal `.woff2` files are committed (Oluwasogo's call) so the Vercel build includes them. The `.otf` originals stay git-ignored.
+- **Fonts in the repo:** official v3.0 `PPNeueMontreal-Regular.otf` is committed and included in the Vercel build, registered for CSS 400 and 500. Its native weight is 400; semantic 500 intentionally uses the same Regular outlines to better match production Medium. Semibold is not shipped. Other desktop font files stay git-ignored. The supplied EULA is in `docs/font-licenses/`.
 - **Deploy:** Vercel builds `main` using `vercel.json` (`npm ci`, `npm run build`, output `dist`). Don't add a framework preset.
 
 ## Case studies (`/work/jobtrackr`, `/work/acetrail`, `/work/artifacts`, `/work/now-playing`)

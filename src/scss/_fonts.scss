@@ -1,22 +1,16 @@
-// PP Neue Montreal is a licensed typeface (Pangram Pangram) and is not committed to the repo.
-// Drop the .woff2 files into src/assets/fonts/ with these names and they load automatically.
-// Until then the stack in $font-sans falls back to Helvetica Neue / Arial.
+// Official PP Neue Montreal v3.0 personal-use package (OTF only).
+// Native Regular (400) also supplies semantic 500: visually closer to production Medium.
+// This is an explicit static-face alias, not a variable font or synthesized weight.
+// License: docs/font-licenses/EULA-PangramPangram-FreeForPersonalUse-MAY2021.pdf.
 
 @font-face {
   font-family: 'PP Neue Montreal';
-  src: url('../fonts/PPNeueMontreal-Book.woff2') format('woff2');
-  font-weight: 400;
+  src: url('../fonts/PPNeueMontreal-Regular.otf') format('opentype');
+  font-weight: 400 500;
   font-style: normal;
   font-display: swap;
 }
 
-@font-face {
-  font-family: 'PP Neue Montreal';
-  src: url('../fonts/PPNeueMontreal-Medium.woff2') format('woff2');
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
 
 // Ace Trail's own typeface (SIL Open Font License), used only for the type specimen on the
 // Acetrail case study. Browsers download it only when that specimen renders.

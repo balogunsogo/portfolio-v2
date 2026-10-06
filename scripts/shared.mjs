@@ -21,10 +21,12 @@ export function clean() {
 }
 
 // Source-only files that live in src/assets for editing but must never ship:
-// desktop font formats (.otf/.ttf — only .woff2 is served), design files, placeholder
+// unused desktop font formats (.otf/.ttf), design files, placeholder
 // .gitkeep files, and the full-size PNG exports in images/ (the site serves optimised
 // .webp versions). PNGs at the assets root — og-image, touch icon — do ship.
 const SOURCE_ONLY = /(\.(otf|ttf|psd|fig)|\.gitkeep|[\\/]images[\\/].*\.png)$/i;
+// The official personal-use package supplies only OTF; ship only the Regular face used at CSS 400 and 500.
+const SERVED_OTF = /[\\/]fonts[\\/]PPNeueMontreal-Regular\.otf$/;
 
 // Shared by production, development and preview. Every generated HTML page gets
 // the official Google tag; source documents stay free of duplicated snippets.
@@ -53,7 +55,7 @@ function copyPages(from, to) {
   }
 }
 
-/** Copies web-ready static files (HTML pages, woff2 fonts, webp/svg images, mp4 video) from src/ into dist/. */
+/** Copies static files, including the official Regular OTF face, from src/ into dist/. */
 export function copyStatic() {
   mkdirSync(dist, { recursive: true });
   copyPages(src, dist);
@@ -61,7 +63,7 @@ export function copyStatic() {
   if (existsSync(assets)) {
     cpSync(assets, join(dist, 'assets'), {
       recursive: true,
-      filter: (path) => !SOURCE_ONLY.test(path),
+      filter: (path) => SERVED_OTF.test(path) || !SOURCE_ONLY.test(path),
     });
   }
 }
