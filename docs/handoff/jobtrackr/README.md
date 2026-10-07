@@ -93,7 +93,7 @@ Values are exact at 1440 (desktop) and 390 (mobile). PP Neue Montreal is weight 
 
 | Role | Desktop @1440 | Mobile @390 | Weight | Line height | Tracking | Fluid rule |
 |---|---|---|---|---|---|---|
-| Display: "JobTrackr" title, "Acetrail" next-project link | 136px | 64px | 500 | 0.88 / 0.9 | -0.045em | Reuse home `.intro__name` clamps: desktop `clamp(6rem, 9.45vw, 11.5rem)`, mobile `clamp(3.5rem, 16.4vw, 7rem)` |
+| Display: "JobTrackr" title, "Morrow Studio" next-project link | 136px | 64px | 500 | 0.88 / 0.9 | -0.045em | Reuse home `.intro__name` clamps: desktop `clamp(6rem, 9.45vw, 11.5rem)`, mobile `clamp(3.5rem, 16.4vw, 7rem)` |
 | Subtitle | 48px | 24px | 500 | 1.1 / 1.15 | -0.025em / -0.02em | desktop `clamp(2.25rem, 3.3333vw, 3.5rem)`, mobile `clamp(1.5rem, 6.1538vw, 2.25rem)` |
 | Section heading (`h2`) and the three statements | 48px | 28px | 500 | 1.08 / 1.12 | -0.025em / -0.02em | desktop as subtitle; mobile `clamp(1.75rem, 7.1795vw, 2.5rem)`; `text-wrap: balance` |
 | List item (five areas, defence layers) | 30px | 24px | 500 | 1.3 / 1.25 | -0.02em | fixed |
@@ -242,10 +242,10 @@ Used by: The problem, Structure, Overview, Applications, Interviews, Analytics, 
     - **Desktop:** label and statement (`row-gap: 20px`, statement in columns 1–10). The body is in columns 7–11. The disciplines line is in the caption style in columns 1–9. The three blocks are 48px apart.
     - **Mobile:** the same blocks in a column, 24px apart.
 17. **Footer: next project and links**
-    - **Desktop:** a 12-column grid. Columns 1–8 hold the label "Next project" and "Acetrail" (display size, a link), 20px apart. Columns 9–12, with `align-self: end`, hold a 2-column grid (24px gap, aligned to the end): the 96px clock and the links column.
-    - **Mobile:** a column with a 48px gap. First the label and "Acetrail" (64px), 12px apart. Then a row (`space-between`, aligned to the end) with the clock at 88px and the links at 15px.
+    - **Desktop:** a 12-column grid. Columns 1–8 hold the label "Next project" and "Morrow Studio" (display size, a link), 20px apart. Columns 9–12, with `align-self: end`, hold a 2-column grid (24px gap, aligned to the end): the 96px clock and the links column.
+    - **Mobile:** a column with a 48px gap. First the label and "Morrow Studio" (64px), 12px apart. Then a row (`space-between`, aligned to the end) with the clock at 88px and the links at 15px.
     - **Clock and links:** reuse the home page's clock markup, classes and `clock.ts` (live time). The reference shows a static 11:05. The links are the same as home: LinkedIn, GitHub, Contra, Email, in that order, right-aligned, 4px apart.
-    - **Next project link:** Acetrail has no case study yet, so link to its live site (`https://acetrailtutors.com/`) in a new tab, with the visually hidden suffix. Take the URL from `projects.ts`.
+    - **Next project link:** Morrow Studio, the second case study, in the same tab: `/work/morrow-studio`, with the `morrow-studio-480.webp` thumb, `.case-display--stem` and `--balance`, and the thumb and "Morrow" in `.case-nowrap`, as Artifacts' footer does for "Now Playing" (see `docs/handoff/morrow-studio/README.md` §8). The chain was JobTrackr → Acetrail until Morrow Studio was added.
 
 ---
 
@@ -360,7 +360,7 @@ Inline the four files from `diagrams/` exactly. They were generated from the ref
    - Diff the two. The only acceptable differences are about 1px of antialiasing or positional drift. Section tops, image boxes and text line breaks must match exactly.
 3. **No horizontal scroll.** At widths 320, 390, 768, 1023, 1024, 1280, 1366, 1440 and 1920, with real scrollbars, `document.documentElement.scrollWidth === clientWidth`. In Playwright, launch Chromium with `ignoreDefaultArgs: ['--hide-scrollbars']`.
 4. **Keyboard.**
-   - The Tab order runs: top bar, then the site link, then each video toggle in page order, then "Acetrail", then the footer links.
+   - The Tab order runs: top bar, then the site link, then each video toggle in page order, then "Morrow Studio", then the footer links.
    - Focus-visible outlines stay on (the site's 2px `currentColor`).
 5. **Motion.**
    - With reduced motion, nothing autoplays.
