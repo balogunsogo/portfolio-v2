@@ -14,5 +14,6 @@ src/assets/fonts/*.ttf
 src/assets/images/**/*.png
 
 # Screenshots and scratch files from design sessions.
+/.tmp/
 Claude outputs/
 /Balogun Oluwasogo Profile.jpg
