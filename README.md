@@ -1,6 +1,6 @@
 # Portfolio V2.1
 
-A portfolio for Balogun Oluwasogo, built with plain HTML, SCSS and TypeScript: the home page and four case studies (`/work/jobtrackr`, `/work/acetrail`, `/work/artifacts` and `/work/now-playing`).
+A portfolio for Balogun Oluwasogo, built with plain HTML, SCSS and TypeScript: the home page and five case studies (`/work/jobtrackr`, `/work/morrow-studio`, `/work/acetrail`, `/work/artifacts` and `/work/now-playing`).
 There is no framework and no bundler: Sass compiles the styles, `tsc` compiles the scripts, and a small Node script serves everything during development.
 
 ## Getting started
@@ -25,7 +25,7 @@ The site is deployed on Vercel from the `main` branch. `vercel.json` pins the se
 - **Build:** `npm run build`
 - **Output:** `dist/`
 - **Headers:** long-lived cache for fonts, a week for images and video, and revalidation for CSS/JS (their filenames aren't hashed).
-- **Routes:** `cleanUrls` serves every page without its extension, so `src/work/jobtrackr.html` is `/work/jobtrackr`, `src/work/acetrail.html` is `/work/acetrail`, `src/work/artifacts.html` is `/work/artifacts` and `src/work/now-playing.html` is `/work/now-playing`. The dev server does the same.
+- **Routes:** `cleanUrls` serves every page without its extension, so `src/work/jobtrackr.html` is `/work/jobtrackr`, `src/work/morrow-studio.html` is `/work/morrow-studio`, `src/work/acetrail.html` is `/work/acetrail`, `src/work/artifacts.html` is `/work/artifacts` and `src/work/now-playing.html` is `/work/now-playing`. The dev server does the same.
 
 Every push to `main` deploys to production.
 
@@ -36,6 +36,7 @@ src/
   index.html            home page markup (copied to dist/ as is)
   work/
     jobtrackr.html      JobTrackr case study, served at /work/jobtrackr
+    morrow-studio.html  Morrow Studio case study, served at /work/morrow-studio
     acetrail.html       Acetrail case study, served at /work/acetrail
     artifacts.html      Artifacts case study, served at /work/artifacts
     now-playing.html    Now Playing case study, served at /work/now-playing
@@ -82,13 +83,14 @@ docs/handoff/           implementation handoffs (spec, reference pages, diagrams
 
 ## Content
 
-- **Projects:** each project link on the home page points to its live site and opens in a new tab. A project with `caseStudy` set in `projects.ts` (JobTrackr, Acetrail, Artifacts and Now Playing) links to its case study in the same tab instead, and the mobile sheet's link reads "Read case study".
+- **Projects:** each project link on the home page points to its live site and opens in a new tab. A project with `caseStudy` set in `projects.ts` (JobTrackr, Morrow Studio, Acetrail, Artifacts and Now Playing) links to its case study in the same tab instead, and the mobile sheet's link reads "Read case study".
 - **About:** the home page has no About page. Hovering the portrait in the name (or tapping it on touch) swaps the role line for a statement and the work list for the About; the spec and pixel targets are in `docs/handoff/about/`.
 - **Pages:** any `.html` file under `src/` is copied to `dist/` with its folder. Pages below the root use root-absolute URLs (`/assets/...`).
 - **Case studies:**
   - **JobTrackr** (built): the spec and pixel targets are in `docs/handoff/jobtrackr/`. The copy is final and was checked against the product.
+  - **Morrow Studio** (built, second project): the spec and pixel targets are in `docs/handoff/morrow-studio/`. It reuses the shared case-study classes and video behaviour. The CMS and Editing sections show the supplied Studio screenshots directly: three art-directed pictures switch at 1024px, and two field crops form a pair without plates. Preview describes document locations and the editors' guide. The copy, migration counts and QA facts were checked against the Morrow repo at `0798ad6` and its reports. Update 1 replaces the project preview images in place with centred framing; the former Studio laptop render and 700px crops are removed.
   - **Acetrail** (built): the spec, pixel targets and implementation prompt are in `docs/handoff/acetrail/`. The copy is final and its facts were checked against the Ace Trail repo and the live site; the Performance numbers are a PageSpeed measurement from 2 October 2026.
   - **Artifacts** (built): the spec, pixel targets and implementation prompt are in `docs/handoff/artifacts/`. The copy and measurements were checked against the Artifacts repo and the live site; the Performance numbers are a PageSpeed measurement from 2 October 2026.
   - **Now Playing** (built): the spec, pixel targets and implementation prompt are in `docs/handoff/now-playing/`. It uses only components the other three pages already had. The copy and measurements were checked against the Now Playing repo and the live site; the Performance numbers are a PageSpeed measurement from 2 October 2026.
-  - **Order:** each case study's footer links to the next one in the same tab, and the chain loops: JobTrackr → Acetrail → Artifacts → Now Playing → JobTrackr. All That Is Kim has no case study while its site is redesigned, so the chain skips it, and it's hidden from the home page (`hidden: true` in `projects.ts`) until it has one.
+  - **Order:** each case study's footer links to the next one in the same tab, and the chain loops: JobTrackr → Morrow Studio → Acetrail → Artifacts → Now Playing → JobTrackr. All That Is Kim has no case study while its site is redesigned, so the chain skips it, and it's hidden from the home page (`hidden: true` in `projects.ts`) until it has one.
 - **Links:** LinkedIn, GitHub, Contra and Email (`mailto:balogunoluwasogo@gmail.com`).

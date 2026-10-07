@@ -33,6 +33,20 @@ export const projects: readonly Project[] = [
     previewInk: '#4A4843',
   },
   {
+    title: 'Morrow Studio',
+    meta: 'Website and CMS · Design and engineering',
+    description:
+      'A portfolio for a fictional creative studio, with ten case studies and a Sanity CMS designed around the people who edit it.',
+    role: 'I designed the studio and its site, built it in Next.js and Sanity, and designed the editing experience behind it.',
+    image: 'assets/images/projects/morrow-studio.webp',
+    href: 'https://morrowstudio.balogunoluwasogo.com/',
+    external: true,
+    caseStudy: '/work/morrow-studio',
+    previewTone: '#DED6CB',
+    previewInk: '#4A443C',
+    stemAligned: true,
+  },
+  {
     title: 'Acetrail',
     meta: 'Website · Design and development',
     description:

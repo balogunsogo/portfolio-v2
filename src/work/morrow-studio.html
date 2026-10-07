@@ -1,0 +1,578 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Morrow Studio — Balogun Oluwasogo</title>
+  <meta name="description" content="A portfolio for a fictional creative studio, designed and built in Next.js with a Sanity CMS shaped around its editors: ten case studies, mobile edits, live preview and a scripted migration.">
+  <meta name="theme-color" content="#FAFAF8">
+  <link rel="canonical" href="https://www.balogunoluwasogo.com/work/morrow-studio">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Morrow Studio — Balogun Oluwasogo">
+  <meta property="og:description" content="A portfolio for a fictional creative studio, designed and built in Next.js with a Sanity CMS shaped around its editors: ten case studies, mobile edits, live preview and a scripted migration.">
+  <meta property="og:url" content="https://www.balogunoluwasogo.com/work/morrow-studio">
+  <meta property="og:image" content="https://www.balogunoluwasogo.com/assets/images/case/morrow-studio/og.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://www.balogunoluwasogo.com/assets/images/case/morrow-studio/og.jpg">
+
+  <link rel="icon" href="/assets/favicon.ico?v=3" sizes="32x32">
+  <link rel="icon" href="/assets/favicon.svg?v=3" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <link rel="preload" href="/assets/fonts/PPNeueMontreal-Regular.otf" as="font" type="font/otf" crossorigin>
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <script type="module" src="/assets/js/main.js"></script>
+</head>
+<body>
+  <div class="case">
+    <header class="case-top" data-case-top>
+      <a class="case-top__name" href="/">Balogun Oluwasogo</a>
+    </header>
+
+    <main class="case__main">
+      <section class="case-hero" aria-labelledby="case-title">
+        <div class="case-hero__head">
+          <h1 class="case-display case-display--stem" id="case-title">Morrow Studio</h1>
+          <p class="case-subtitle case-subtitle--stem">Designing both sides of a portfolio: the experience visitors see and the CMS editors use behind it.</p>
+        </div>
+
+        <div class="case-meta">
+          <div class="case-meta__group">
+            <span class="case-meta__label">Role</span>
+            <span>Design and engineering</span>
+          </div>
+          <div class="case-meta__group">
+            <span class="case-meta__label">Year</span>
+            <span>2026</span>
+          </div>
+          <div class="case-meta__group">
+            <span class="case-meta__label">Stack</span>
+            <span>Next.js, Sanity, <br class="case-break">TypeScript, SCSS</span>
+          </div>
+          <div class="case-meta__group">
+            <span class="case-meta__label">Status</span>
+            <!-- Reuse the label's desktop 4px gap, with the score-name ink colour. -->
+            <span class="case-meta__label case-scores__name">Live</span>
+            <a class="case-meta__link" href="https://morrowstudio.balogunoluwasogo.com/" target="_blank" rel="noopener">morrowstudio.balogunoluwasogo.com<span class="visually-hidden"> (opens in a new tab)</span></a>
+          </div>
+        </div>
+
+        <picture>
+          <source media="(min-width: 1024px)"
+            srcset="/assets/images/case/morrow-studio/hero-1200.webp 1200w, /assets/images/case/morrow-studio/hero-2400.webp 2400w"
+            sizes="calc(100vw - 128px)"
+            width="2400" height="1600">
+          <img class="case-media case-media--hero"
+            src="/assets/images/case/morrow-studio/hero-phone-1200.webp"
+            srcset="/assets/images/case/morrow-studio/hero-phone-1200.webp 1200w, /assets/images/case/morrow-studio/hero-phone-1600.webp 1600w"
+            sizes="calc(100vw - 40px)"
+            width="1600" height="2000" fetchpriority="high"
+            alt="Morrow Studio's home page on screen, on a stone table in afternoon light">
+        </picture>
+      </section>
+
+      <section class="case-section" aria-labelledby="context-heading">
+        <div class="case-text">
+          <p class="case-label case-label--round case-text__label">Context</p>
+          <h2 class="case-h case-text__heading" id="context-heading">A fictional studio, built like a real one.</h2>
+          <div class="case-text__body case-copy">
+            <p class="case-body">Morrow Studio is a fictional independent creative practice I created as a personal project. I wanted to learn Sanity properly and explore how to build a flexible content management system that could support a highly art-directed website without compromising its visual identity.</p>
+            <p class="case-body">It grew into a complete studio site: an identity and an editorial design language, ten case studies with their own desktop and mobile compositions, a CMS shaped around the people who would edit it, a script that moved all the content in, and a long round of visual and interaction QA.</p>
+          </div>
+        </div>
+
+        <figure class="case-figure case-figure--snug">
+          <div class="case-video">
+              <video class="case-video__media case-video__media--widescreen" data-case-video
+                src="/assets/video/morrow-studio/home-motion.mp4"
+                poster="/assets/images/case/morrow-studio/home-motion-poster.webp"
+                width="1920" height="1080" preload="none" muted loop playsinline
+                aria-label="Morrow Studio’s home page on a display: the title rises and the opening image unmasks, then the page scrolls through selected work to the project index, where hovering each project shows its image"></video>
+              <button class="case-video__toggle" type="button" data-case-video-toggle hidden>Play video</button>
+            </div>
+          <figcaption class="case-caption case-figure__caption">The home page</figcaption>
+        </figure>
+      </section>
+
+      <section class="case-section" aria-labelledby="design-heading">
+        <div class="case-text">
+          <p class="case-label case-label--stem case-text__label">Design</p>
+          <h2 class="case-h case-h--round case-text__heading" id="design-heading">Quiet frame, loud work.</h2>
+          <div class="case-text__body case-copy">
+            <p class="case-body">That line opens Morrow’s design system, and the rest follows from it. The frame stays quiet: warm neutrals, an orange accent kept for small signals, one typeface used at its extremes, thin rules instead of boxes, and sharp corners. The colour comes from the photography.</p>
+            <p class="case-body">Layouts are asymmetric within a strict 12-column grid. Motion explains continuity and never decorates: titles rise from a mask, images unmask as they enter, the menu staggers in, all on two shared curves. I explored the direction in Claude Design, and its exported frames became the reference the build had to match.</p>
+          </div>
+        </div>
+
+        <div class="case-compare case-compare--stack">
+          <figure class="case-compare__item">
+            <div class="case-plate case-plate--medium">
+              <img class="case-media case-media--screen"
+              src="/assets/images/case/morrow-studio/system-colour-1200.webp"
+              srcset="/assets/images/case/morrow-studio/system-colour-1200.webp 1200w, /assets/images/case/morrow-studio/system-colour-2400.webp 2400w"
+              sizes="(min-width: 1024px) calc(50vw - 140px), calc(100vw - 64px)"
+              width="2400" height="1500" loading="lazy" decoding="async"
+              alt="Morrow’s design system: the line Quiet frame, loud work, five principles and the palette of ground, ink, grey, soft, rule and an orange signal">
+            </div>
+            <figcaption class="case-caption">The principles and the palette.</figcaption>
+          </figure>
+          <figure class="case-compare__item">
+            <div class="case-plate case-plate--medium">
+              <img class="case-media case-media--screen"
+              src="/assets/images/case/morrow-studio/system-type-1200.webp"
+              srcset="/assets/images/case/morrow-studio/system-type-1200.webp 1200w, /assets/images/case/morrow-studio/system-type-2400.webp 2400w"
+              sizes="(min-width: 1024px) calc(50vw - 140px), calc(100vw - 64px)"
+              width="2400" height="1500" loading="lazy" decoding="async"
+              alt="Morrow’s type scale in Geist, from Morrow at display size down to body copy and Geist Mono labels">
+            </div>
+            <figcaption class="case-caption">The type scale, in Geist and Geist Mono.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="case-section" aria-labelledby="projects-heading">
+        <div class="case-text">
+          <p class="case-label case-label--t case-text__label">Ten projects</p>
+          <h2 class="case-h case-h--t case-text__heading" id="projects-heading">Ten case studies, one renderer.</h2>
+          <div class="case-text__body case-copy">
+            <p class="case-body">Morrow features ten projects, ranging from a hotel in Margate to a running club in Bristol. Rather than building each page separately, I created a reusable system of ten content blocks, including text, images, galleries, videos and quotes. A single renderer brings everything together, while project-specific layout rules control how each page looks and feels.</p>
+            <p class="case-body">The Work archive brings all ten projects together, with category filters, list and grid views, and an interactive preview that updates as you browse. On mobile, the layout adapts to show each project's thumbnail directly in the list.</p>
+          </div>
+        </div>
+
+        <figure class="case-figure case-figure--snug">
+          <img class="case-media case-media--landscape"
+              src="/assets/images/case/morrow-studio/projects-phones-1200.webp"
+              srcset="/assets/images/case/morrow-studio/projects-phones-1200.webp 1200w, /assets/images/case/morrow-studio/projects-phones-2400.webp 2400w"
+              sizes="(min-width: 1024px) calc(100vw - 128px), calc(100vw - 40px)"
+              width="2400" height="1600" loading="lazy" decoding="async"
+              alt="Three phones on a stone table showing the Nocturne, Arc Athletics and Kiln project pages">
+          <figcaption class="case-caption case-figure__caption">Nocturne, Arc Athletics and Kiln</figcaption>
+        </figure>
+
+        <figure class="case-figure case-figure--side case-figure--snug">
+          <div class="case-plate case-plate--medium case-figure__media">
+            <div class="case-video">
+              <video class="case-video__media case-video__media--screen" data-case-video
+                src="/assets/video/morrow-studio/work-archive.mp4"
+                poster="/assets/images/case/morrow-studio/work-archive-poster.webp"
+                width="1440" height="900" preload="none" muted loop playsinline
+                aria-label="The Work archive at 1440 by 900: the title rises, the pointer moves down the list as the preview changes, then the Identity filter leaves four projects and the grid view shows them as images"></video>
+              <button class="case-video__toggle" type="button" data-case-video-toggle hidden>Play video</button>
+            </div>
+          </div>
+          <figcaption class="case-caption case-figure__caption">The Work archive </figcaption>
+        </figure>
+      </section>
+
+      <section class="case-section case-section--engineering" aria-labelledby="model-heading">
+        <div class="case-text">
+          <p class="case-label case-label--round case-text__label">Content model</p>
+          <h2 class="case-h case-h--s case-text__heading" id="model-heading">Sanity holds the content. The code holds the layout.</h2>
+          <div class="case-text__body case-copy">
+            <p class="case-body">Every project is one document: its details, a cover and a hero image, then the blocks in order. Editors decide what a page says and in what order it says it.</p>
+            <p class="case-body">How it looks stays in code. Grid spans, offsets, aspect ratios, overlaps, spacing and timing belong to the design system. Editors get a few preset choices, such as where a contained image sits, but no free widths or offsets: I didn’t want the CMS to become a page builder.</p>
+          </div>
+        </div>
+
+        <div class="case-lists">
+          <div class="case-lists__group">
+            <p class="case-label case-label--stem" id="content-left">In Sanity</p>
+            <ul class="case-lists__items" aria-labelledby="content-left">
+              <li class="case-body">Copy and captions</li>
+              <li class="case-body">Images, crops and alt text</li>
+              <li class="case-body">Section order</li>
+              <li class="case-body">Service labels</li>
+              <li class="case-body">Mobile replacements</li>
+              <li class="case-body">Project order</li>
+            </ul>
+          </div>
+          <div class="case-lists__group">
+            <p class="case-label case-label--stem" id="content-right">In code</p>
+            <ul class="case-lists__items" aria-labelledby="content-right">
+              <li class="case-body">Grid spans and offsets</li>
+              <li class="case-body">Aspect ratios</li>
+              <li class="case-body">Overlaps</li>
+              <li class="case-body">Spacing</li>
+              <li class="case-body">Type scale</li>
+              <li class="case-body">Motion and timing</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="case-section" aria-labelledby="mobile-heading">
+        <div class="case-text">
+          <p class="case-label case-label--stem case-text__label">Mobile</p>
+          <h2 class="case-h case-h--stem case-text__heading" id="mobile-heading">Mobile is an edit, not a stack.</h2>
+          <div class="case-text__body case-copy">
+            <p class="case-body">The mobile experience was designed separately, not simply adapted from desktop. Projects could have different hero images, shorter text, fewer gallery images and a different section order. Rather than maintaining two separate versions of every project, I built a system that could support both.</p>
+            <p class="case-body">Each project lives in a single CMS document, making content easier to manage and update without duplicating work. Changes to shared content are reflected across both versions, while desktop and mobile can still have their own images, text, section order and visibility settings. For example, Forma uses a different content arrangement on mobile, replacing certain desktop sections with mobile-specific ones.</p>
+          </div>
+        </div>
+
+        <figure class="case-figure case-figure--side case-figure--snug">
+          <div class="case-figure__media">
+            <div class="case-video">
+              <video class="case-video__media case-video__media--square" data-case-video
+                src="/assets/video/morrow-studio/phone-motion.mp4"
+                poster="/assets/images/case/morrow-studio/phone-motion-poster.webp"
+                width="1080" height="1080" preload="none" muted loop playsinline
+                aria-label="Morrow Studio on a phone: the home page opens and scrolls, the menu staggers in, then Aster House opens and scrolls past its shorter overview and its booking section to the gallery, which is swiped twice"></video>
+              <button class="case-video__toggle" type="button" data-case-video-toggle hidden>Play video</button>
+            </div>
+          </div>
+          <figcaption class="case-caption case-figure__caption">From the menu to Aster House on a phone. The overview is shorter, booking is one image-and-text block, and the gallery keeps four of its pictures.</figcaption>
+        </figure>
+
+        <div class="case-lists">
+          <div class="case-lists__group">
+            <p class="case-label case-label--stem" id="forma-left">Forma on desktop</p>
+            <ul class="case-lists__items" aria-labelledby="forma-left">
+              <li class="case-body">Overview</li>
+              <li class="case-body">Image pair</li>
+              <li class="case-body">Structure</li>
+              <li class="case-body">Drawings</li>
+              <li class="case-body">Statement</li>
+              <li class="case-body">Full-width image, desktop only</li>
+              <li class="case-body">Gallery, desktop only</li>
+              <li class="case-body">Quote</li>
+              <li class="case-body">Credits</li>
+            </ul>
+          </div>
+          <div class="case-lists__group">
+            <p class="case-label case-label--stem" id="forma-right">Forma on a phone</p>
+            <ul class="case-lists__items" aria-labelledby="forma-right">
+              <li class="case-body">Overview</li>
+              <li class="case-body">Full-width image, mobile only</li>
+              <li class="case-body">Image pair</li>
+              <li class="case-body">Statement</li>
+              <li class="case-body">Drawings</li>
+              <li class="case-body">Image pair, mobile only</li>
+              <li class="case-body">Structure</li>
+              <li class="case-body">Quote</li>
+              <li class="case-body">Credits</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="case-section" aria-labelledby="cms-heading">
+        <div class="case-text">
+          <p class="case-label case-label--t case-text__label">The CMS</p>
+          <h2 class="case-h case-h--t case-text__heading" id="cms-heading">The site wasn’t the only interface.</h2>
+          <div class="case-text__body case-copy">
+            <p class="case-body">A well-structured CMS isn't necessarily easy to use. The default setup exposed technical field names, confusing options and long forms that could make managing content difficult for someone unfamiliar with the code.</p>
+            <p class="case-body">I customized Sanity Studio to make content management simpler and more intuitive. Editors can log in and update the website without touching the code. The interface focuses on what they need: the Home page, About page and ten projects, organized with clear labels, thumbnails and project details.</p>
+          </div>
+        </div>
+
+        <figure class="case-figure case-figure--snug">
+          <picture>
+            <source media="(min-width: 1024px)"
+              srcset="/assets/images/case/morrow-studio/studio-projects-1366.webp"
+              width="1366" height="768">
+            <img class="case-media"
+              src="/assets/images/case/morrow-studio/studio-projects-mobile.webp"
+              srcset="/assets/images/case/morrow-studio/studio-projects-mobile.webp"
+              width="642" height="632" loading="lazy" decoding="async"
+              alt="The hosted Sanity Studio, with Home, About and the ten projects listed in their Project order, each with a thumbnail, its number, sector and year">
+          </picture>
+          <figcaption class="case-caption case-figure__caption">
+            <span class="case-from-desktop">Aster House in the hosted Studio</span>
+            <span class="case-below-desktop">The hosted Studio: Home, About, and the ten projects in their Project order.</span>
+          </figcaption>
+        </figure>
+      </section>
+
+      <section class="case-section" aria-labelledby="editing-heading">
+        <div class="case-text">
+          <p class="case-label case-label--stem case-text__label">Editing</p>
+          <h2 class="case-h case-h--round case-text__heading" id="editing-heading">Organised like the site, in the editors’ words.</h2>
+          <div class="case-text__body case-copy">
+            <p class="case-body">Each document is organized into clear sections that match the website, making it easier for editors to find and update content. Mobile settings are kept separate, allowing editors to customize the mobile experience only where needed. Otherwise, the main content is used automatically.</p>
+            <p class="case-body">Fields have clear names and helpful descriptions so editors understand what they're changing. I also added validation to catch mistakes before publishing. Minor issues, like unfinished placeholder text, trigger warnings, while important errors, such as missing image descriptions or duplicate project ordering, must be fixed before publishing.</p>
+          </div>
+        </div>
+
+        <figure class="case-figure case-figure--snug">
+          <picture>
+            <source media="(min-width: 1024px)"
+              srcset="/assets/images/case/morrow-studio/studio-home-1366.webp"
+              width="1366" height="768">
+            <img class="case-media"
+              src="/assets/images/case/morrow-studio/studio-home-mobile.webp"
+              srcset="/assets/images/case/morrow-studio/studio-home-mobile.webp"
+              width="640" height="552" loading="lazy" decoding="async"
+              alt="The Home document in the Studio, open on its Hero group, with the tabs All fields, Hero, Featured Work, Studio, Project Index, Footer and Mobile, and the Opening label field">
+          </picture>
+          <figcaption class="case-caption case-figure__caption">Home opens on its Hero group, the top of the page.</figcaption>
+        </figure>
+
+        <div class="case-compare case-compare--stack">
+          <figure class="case-compare__item">
+            <img class="case-media"
+              src="/assets/images/case/morrow-studio/studio-availability.webp"
+              width="640" height="512" loading="lazy" decoding="async"
+              alt="The Availability field in the Studio, described as Tell visitors whether the studio is taking on new work, set to Booking spring 2027">
+            <figcaption class="case-caption">Availability, with a line on what it’s for.</figcaption>
+          </figure>
+          <figure class="case-compare__item">
+            <img class="case-media"
+              src="/assets/images/case/morrow-studio/studio-hero-image.webp"
+              width="640" height="512" loading="lazy" decoding="async"
+              alt="Aster House’s case study hero image in the Studio, with its crop button and its alternative text">
+            <figcaption class="case-caption">A project’s hero image, with the alternative text it needs before it can be published.</figcaption>
+          </figure>
+        </div>
+
+        <figure class="case-figure case-figure--snug">
+          <picture>
+            <source media="(min-width: 1024px)"
+              srcset="/assets/images/case/morrow-studio/studio-about-1366.webp"
+              width="1366" height="768">
+            <img class="case-media"
+              src="/assets/images/case/morrow-studio/studio-about-mobile.webp"
+              srcset="/assets/images/case/morrow-studio/studio-about-mobile.webp"
+              width="640" height="552" loading="lazy" decoding="async"
+              alt="The About document in the Studio, with a placeholder warning and warning marks on the groups that hold placeholder copy">
+          </picture>
+          <figcaption class="case-caption case-figure__caption">About, with its placeholder copy flagged on the groups that hold it.</figcaption>
+        </figure>
+
+        <div class="case-lists">
+          <div class="case-lists__group">
+            <p class="case-label case-label--stem" id="studio-left">In the schema</p>
+            <ul class="case-lists__items" aria-labelledby="studio-left">
+              <li class="case-body">orderRank</li>
+              <li class="case-body">disciplines</li>
+              <li class="case-body">heroImage</li>
+              <li class="case-body">mobileOrder</li>
+              <li class="case-body">visibility: all</li>
+              <li class="case-body">8a00e8e08307a2b9</li>
+              <li class="case-body">sourceType: unresolved</li>
+            </ul>
+          </div>
+          <div class="case-lists__group">
+            <p class="case-label case-label--stem" id="studio-right">In the Studio</p>
+            <ul class="case-lists__items" aria-labelledby="studio-right">
+              <li class="case-body">Project order</li>
+              <li class="case-body">Archive filters</li>
+              <li class="case-body">Case study hero image</li>
+              <li class="case-body">Mobile section order</li>
+              <li class="case-body">Desktop + mobile</li>
+              <li class="case-body">Fig. 01 The signwritten lintel…</li>
+              <li class="case-body">Poster only — video source pending</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="case-section case-section--rules" aria-labelledby="preview-heading">
+        <div class="case-text">
+          <p class="case-label case-label--stem case-text__label">Preview</p>
+          <h2 class="case-h case-h--stem case-text__heading" id="preview-heading">Edit a draft, see it in the site, then publish.</h2>
+          <div class="case-text__body case-copy">
+            <p class="case-body">Nothing an editor types goes live by accident. Changes save as drafts, and Sanity’s Presentation tool shows the draft inside the real website, beside the fields, with the page’s text and images linked back to the fields they come from.</p>
+            <p class="case-body">Every document also says where it’s used: a project lists its own page and the Work archive, and Presentation opens either one beside its fields. I wrote the editors a short guide to the rest, from logging in to undoing a mistake.</p>
+          </div>
+        </div>
+
+        <dl class="case-list">
+          <div class="case-list__row">
+            <dt class="case-item case-item--stem case-list__name">Edit</dt>
+            <dd class="case-list__text">In the hosted Studio, in the group that matches the part of the page.</dd>
+          </div>
+          <div class="case-list__row">
+            <dt class="case-item case-item--stem case-list__name">Draft</dt>
+            <dd class="case-list__text">Every change saves as a draft. The public site stays on the published version.</dd>
+          </div>
+          <div class="case-list__row">
+            <dt class="case-item case-item--stem case-list__name">Preview</dt>
+            <dd class="case-list__text">Presentation shows the draft in the real site, on desktop and on mobile.</dd>
+          </div>
+          <div class="case-list__row">
+            <dt class="case-item case-item--stem case-list__name">Publish</dt>
+            <dd class="case-list__text">When it looks right, Publish puts it live.</dd>
+          </div>
+        </dl>
+      </section>
+
+      <section class="case-section case-section--performance" aria-labelledby="migration-heading">
+        <div class="case-text">
+          <p class="case-label case-label--stem case-text__label">Migration</p>
+          <h2 class="case-h case-h--t case-text__heading" id="migration-heading">Ten projects, moved in by script.</h2>
+          <div class="case-text__body case-copy">
+            <p class="case-body">Typing ten projects into the Studio by hand would have been slow and easy to get wrong. A migration script read the design export, mapped it to the schema, uploaded the images and wrote everything as drafts, which were checked against the source before anything was published.</p>
+            <p class="case-body">It can run again without duplicating anything. It patches documents that already exist, creates the ones that don’t, keeps their original IDs so the home page’s links to them hold, and reuses any image Sanity already has.</p>
+          </div>
+        </div>
+
+        <dl class="case-scores">
+          <div class="case-scores__item">
+            <dt class="case-label case-label--stem case-scores__name">Projects published</dt>
+            <dd class="case-scores__number">10</dd>
+          </div>
+          <div class="case-scores__item">
+            <dt class="case-label case-label--stem case-scores__name">Images mapped</dt>
+            <dd class="case-scores__number">65</dd>
+          </div>
+          <div class="case-scores__item">
+            <!-- The reference's U bearing is 0.071em, supplied by the item modifier. -->
+            <dt class="case-label case-item--stem case-scores__name">Uploaded</dt>
+            <dd class="case-scores__number">56</dd>
+          </div>
+          <div class="case-scores__item">
+            <dt class="case-label case-label--stem case-scores__name">Reused</dt>
+            <dd class="case-scores__number">9</dd>
+          </div>
+        </dl>
+
+        <div class="case-cols">
+          <p class="case-caption case-cols__span-1-6">From the migration report, 5 October 2026. Five projects were created and five that already existed were patched.</p>
+        </div>
+      </section>
+
+      <section class="case-section" aria-labelledby="qa-heading">
+        <div class="case-text">
+          <p class="case-label case-label--round case-text__label">QA</p>
+          <h2 class="case-h case-h--t case-text__heading" id="qa-heading">The last stage removed differences.</h2>
+          <div class="case-text__body case-copy">
+            <p class="case-body">Once everything worked, the job was matching. Playwright captured all thirteen routes at six widths, from 1440 down to 320, and the main pages were compared side by side with their reference frames, adjusted and captured again.</p>
+            <p class="case-body">A separate pass checked behaviour rather than pixels: navigation, the menu, focus matching hover, the filters, list and grid, the galleries, next-project links and reduced motion. The final run passed every check.</p>
+          </div>
+        </div>
+
+      </section>
+
+      <section class="case-section case-section--process" aria-labelledby="process-heading">
+        <div class="case-text">
+          <p class="case-label case-label--stem case-text__label">Process</p>
+          <h2 class="case-h case-h--stem case-text__heading" id="process-heading">Designed first, then built to match.</h2>
+          <div class="case-text__body case-copy">
+            <p class="case-body">Morrow was designed first and built against that design, one layer at a time: the pages, then the content model behind them, then the content itself, then the Studio and the details.</p>
+            <p class="case-body">I led the design, defined the content model, and oversaw the development, using AI coding agents to support the implementation.</p>
+          </div>
+        </div>
+
+        <ol class="case-process">
+          <li class="case-process__step">
+            <p class="case-process__name">Design<span class="case-process__arrow" aria-hidden="true">&nbsp;&nbsp;→</span></p>
+            <p class="case-process__text">The system, then every page, on desktop and on mobile.</p>
+          </li>
+          <li class="case-process__step">
+            <p class="case-process__name">Build<span class="case-process__arrow" aria-hidden="true">&nbsp;&nbsp;→</span></p>
+            <p class="case-process__text">Next.js pages and one renderer for the ten blocks.</p>
+          </li>
+          <li class="case-process__step">
+            <p class="case-process__name">Content model<span class="case-process__arrow" aria-hidden="true">&nbsp;&nbsp;→</span></p>
+            <p class="case-process__text">Schemas for the projects, Home and About, with the mobile overrides.</p>
+          </li>
+          <li class="case-process__step">
+            <p class="case-process__name">Migration<span class="case-process__arrow" aria-hidden="true">&nbsp;&nbsp;→</span></p>
+            <p class="case-process__text">The export moved in by script, checked, then published.</p>
+          </li>
+          <li class="case-process__step">
+            <p class="case-process__name">Refinement</p>
+            <p class="case-process__text">The Studio for editors, then visual and interaction QA, performance and accessibility.</p>
+          </li>
+        </ol>
+      </section>
+
+      <section class="case-section case-section--stack" aria-labelledby="stack-heading">
+        <div class="case-text">
+          <p class="case-label case-label--s case-text__label">Stack</p>
+          <h2 class="case-h case-h--stem case-text__heading" id="stack-heading">Next.js in front, Sanity behind.</h2>
+        </div>
+
+        <dl class="case-stack">
+          <div class="case-stack__group">
+            <dt class="case-label case-label--stem">Front end</dt>
+            <dd class="case-body">Next.js App Router</dd>
+            <dd class="case-body">React</dd>
+            <dd class="case-body">TypeScript</dd>
+            <dd class="case-body">SCSS</dd>
+          </div>
+          <div class="case-stack__group">
+            <dt class="case-label case-label--round">CMS</dt>
+            <dd class="case-body">Sanity Studio</dd>
+            <dd class="case-body">GROQ</dd>
+            <dd class="case-body">Portable Text</dd>
+          </div>
+          <div class="case-stack__group">
+            <dt class="case-label case-label--stem">Preview</dt>
+            <dd class="case-body">Presentation</dd>
+            <dd class="case-body">Visual Editing</dd>
+            <dd class="case-body">Draft Mode</dd>
+          </div>
+          <div class="case-stack__group">
+            <dt class="case-label case-label--stem">Images</dt>
+            <dd class="case-body">Sanity image pipeline</dd>
+            <dd class="case-body">Hotspots and crops</dd>
+          </div>
+          <div class="case-stack__group">
+            <dt class="case-label case-label--t">Testing</dt>
+            <dd class="case-body">Playwright</dd>
+          </div>
+          <div class="case-stack__group">
+            <dt class="case-label case-label--stem">Hosting</dt>
+            <dd class="case-body">Vercel</dd>
+            <dd class="case-body">Sanity Studio hosting</dd>
+          </div>
+        </dl>
+      </section>
+
+      <section class="case-section case-section--outcome" aria-labelledby="outcome-label">
+        <div class="case-text">
+          <p class="case-label case-label--round case-text__label" id="outcome-label">Outcome</p>
+          <p class="case-h case-h--w case-text__statement">What began as a way to learn Sanity became a site with two audiences.</p>
+        </div>
+
+        <div class="case-cols">
+          <div class="case-copy case-cols__span-7-11">
+            <p class="case-body">Visitors get an editorial portfolio with ten distinct case studies. Editors get a Studio that speaks their language, shows every change in the real site before it goes live, and keeps the layout out of harm’s way.</p>
+            <p class="case-body">The lesson I’m keeping: the structure of a CMS is design work too. Not every visual decision belongs in it, and on a phone, a page can be an edit rather than a smaller copy.</p>
+          </div>
+        </div>
+
+        <div class="case-cols">
+          <p class="case-caption case-cols__span-1-10">Visual design&nbsp;· Interaction design&nbsp;· Frontend engineering&nbsp;· CMS architecture&nbsp;· Editor experience&nbsp;· Content migration&nbsp;· QA</p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="case-foot">
+      <div class="case-foot__next">
+        <p class="case-label case-label--stem">Next project</p>
+        <p class="case-display"><a class="case-foot__link" href="/work/acetrail"><span class="case-foot__thumb"><img src="/assets/images/projects/acetrail-480.webp" width="480" height="360" alt="" loading="lazy" decoding="async"></span>Acetrail</a></p>
+      </div>
+
+      <div class="case-foot__aside">
+        <div class="case-foot__meta">
+          <svg class="index__clock" viewBox="0 0 96 96" aria-hidden="true" focusable="false">
+            <circle class="index__clock-face" cx="48" cy="48" r="47.5"/>
+            <text class="index__clock-readout" x="25" y="48" data-clock-readout>--:--</text>
+            <text class="index__clock-readout" x="71" y="48">GMT+1</text>
+            <line class="index__clock-hand index__clock-hand--hour" data-clock-hour x1="48" y1="48" x2="48" y2="24"/>
+            <line class="index__clock-hand" data-clock-minute x1="48" y1="48" x2="48" y2="8"/>
+            <circle class="index__clock-pivot" cx="48" cy="48" r="2.5"/>
+          </svg>
+          <p class="index__time visually-hidden">GMT+1 <time data-clock datetime="">--:--</time></p>
+          <p class="index__location visually-hidden">Lagos, Nigeria</p>
+        </div>
+
+        <nav class="index__links" aria-label="Elsewhere">
+          <ul class="links">
+            <li><a href="https://www.linkedin.com/in/sogobalogun/" target="_blank" rel="me noopener">LinkedIn<span class="visually-hidden"> (opens in a new tab)</span></a></li>
+            <li><a href="https://github.com/balogunsogo" target="_blank" rel="me noopener">GitHub<span class="visually-hidden"> (opens in a new tab)</span></a></li>
+            <li><a href="https://contra.com/balogun_oluwasogo" target="_blank" rel="me noopener">Contra<span class="visually-hidden"> (opens in a new tab)</span></a></li>
+            <li><a href="mailto:balogunoluwasogo@gmail.com">Email</a></li>
+          </ul>
+        </nav>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
