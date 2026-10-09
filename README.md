@@ -33,7 +33,7 @@ Every push to `main` deploys to production.
 
 ```
 src/
-  index.html            home page markup (copied to dist/ as is)
+  index.html            home page markup (build inserts the list from projects.ts)
   work/
     jobtrackr.html      JobTrackr case study, served at /work/jobtrackr
     morrow-studio.html  Morrow Studio case study, served at /work/morrow-studio
@@ -50,7 +50,8 @@ src/
     images/case/        case-study images (webp, two widths each), video posters and share images
     video/              case-study videos (mp4, h.264, no audio)
   scss/
-    main.scss           entry, only @use statements
+    main.scss           complete stylesheet entry for case studies, only @use statements
+    home.scss           homepage entry, shares the same styles without case-study CSS
     _tokens.scss        colours, type stack, grid, breakpoints, mixins
     _fonts.scss         @font-face for PP Neue Montreal, and Figtree for the Acetrail specimen
     _base.scss          reset, body, links, reduced motion
@@ -66,14 +67,14 @@ src/
     projects.ts         project data (title, type, description, image, URL, case study) and list rendering
     preview.ts          desktop hover / focus preview and description column
     modal.ts            mobile bottom sheet (initProjectSheet)
-scripts/                build + dev server (Node only, no dependencies)
+scripts/                build + dev server; projects.mjs renders the list with the existing TypeScript dependency
 docs/handoff/           implementation handoffs (spec, reference pages, diagrams); never deployed
 ```
 
 ## Assets
 
 - **Fonts:** `src/assets/fonts/` holds the licensed PP Neue Montreal files. The site loads official v3.0 `PPNeueMontreal-Regular.otf`, registered for CSS 400 and 500. Its native weight is 400; the semantic 500 alias intentionally uses the same static Regular outlines, which visually match production Medium more closely than official Semibold. The downloaded personal-use package supplies only OTF; only this upright Neue Montreal face ships. The supplied EULA is retained in `docs/font-licenses/`. `figtree-latin-wght.woff2` is Ace Trail's own typeface (SIL Open Font License), used only for the type specimen on the Acetrail case study.
-- **Project images:** `src/assets/images/projects/` keeps the full-size PNG exports for editing. The site loads 1200px-wide WebP versions (`<slug>.webp`, 20–180KB each) through each project's `image` in `src/ts/projects.ts`. The PNGs are not deployed.
+- **Project images:** `src/assets/images/projects/` keeps the full-size PNG exports for editing. Desktop previews load the 1200px-wide WebP versions (`<slug>.webp`) through each project's `image` in `src/ts/projects.ts`. Morrow Studio's mobile sheet uses `imageSrcset` with 480px, 800px and 1200px versions of the same framing, selected for the panel width and screen density. The PNGs are not deployed. Mobile warms only the selected image, then the next project's image once the selected one loads; desktop cache warmup runs only when hover previews are available.
 - **Adding or replacing an image:** export a 1200px-wide WebP at quality 80, name it in lowercase kebab-case, and point the project's `image` in `projects.ts` at it.
 - **Case-study media:** `src/assets/images/case/<project>/` and `src/assets/video/<project>/`. Large images come in two widths for `srcset`, and each video has a poster. They are final: don't regenerate, recompress or re-cut them. The JobTrackr screen recording was cut to leave out a third party's email address.
 - **Diagrams:** the four JobTrackr diagrams are inlined in `src/work/jobtrackr.html` from `docs/handoff/jobtrackr/diagrams/`, without the files' content-credentials `<metadata>` block. The `.dg-*` classes in `_case.scss` style them.

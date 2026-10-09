@@ -11,7 +11,7 @@
 // Programmatic focus after a tap would otherwise match :focus-visible in
 // WebKit/Chrome and draw rings on Close and then on the project link.
 
-import { descriptionParts, type Project } from './projects.js';
+import { descriptionParts, setProjectImage, type Project } from './projects.js';
 
 const mobileLayout = window.matchMedia('(max-width: 1023px)');
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -21,6 +21,8 @@ const TRANSITION_MS = 420;
 // Drag distance (px) or release speed (px/ms) that dismisses the sheet.
 const DISMISS_DISTANCE = 96;
 const DISMISS_VELOCITY = 0.6;
+// The panel is capped at 36rem with 20px padding on either side (_index.scss).
+const IMAGE_SIZES = '(min-width: 576px) 536px, calc(100vw - 40px)';
 
 interface SheetElements {
   list: HTMLElement;
@@ -81,7 +83,7 @@ export function initProjectSheet(el: SheetElements): void {
     stacks.forEach((nodes) =>
       nodes.forEach((node, i) => node.toggleAttribute('data-active', i === index)),
     );
-    el.image.src = project.image;
+    setProjectImage(el.image, project, IMAGE_SIZES);
     el.image.alt = `${project.title} preview`;
     el.image.style.background = project.previewTone;
     // A project with a case study links to it in the same tab; the rest go to their live site.
@@ -229,12 +231,27 @@ export function initProjectSheet(el: SheetElements): void {
   el.closeButton.addEventListener('click', (event: MouseEvent) => close(event.detail === 0));
   el.nextButton.addEventListener('click', next);
 
-  // Warm the image cache once the list is first touched.
+  // Start only the touched project's image; desktop previews warm their own cache.
   list.addEventListener(
     'pointerdown',
-    () => projects.forEach((project) => (new Image().src = project.image)),
-    { once: true },
+    (event: PointerEvent) => {
+      if (!mobileLayout.matches || !(event.target instanceof Element)) return;
+      const link = event.target.closest<HTMLAnchorElement>('a[data-project-index]');
+      if (!link || !list.contains(link)) return;
+      const project = projects[Number(link.dataset.projectIndex)];
+      if (project) setProjectImage(new Image(), project, IMAGE_SIZES);
+    },
   );
+
+  // Keep Next ready, but give the visible image the connection first.
+  el.image.addEventListener('load', () => {
+    if (!mobileLayout.matches || current < 0 || !root.classList.contains('is-open')) return;
+    const project = projects[(current + 1) % projects.length];
+    if (!project) return;
+    const nextImage = new Image();
+    nextImage.fetchPriority = 'low';
+    setProjectImage(nextImage, project, IMAGE_SIZES);
+  });
 
   mobileLayout.addEventListener('change', (event: MediaQueryListEvent) => {
     if (!event.matches) close();

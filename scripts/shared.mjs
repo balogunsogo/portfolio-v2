@@ -1,8 +1,9 @@
-// Shared build helpers used by build.mjs and dev.mjs. No dependencies beyond Node.
+// Shared build helpers used by build.mjs and dev.mjs; use the existing TypeScript dependency for the list.
 import { cpSync, existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { spawn } from 'node:child_process';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { projectListMarkup } from './projects.mjs';
 
 export const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 export const src = join(root, 'src');
@@ -42,14 +43,17 @@ const GOOGLE_TAG = `
   </script>`;
 
 /** Copies every .html file under `from` into `to`, adding analytics in its head. */
-function copyPages(from, to) {
+function copyPages(from, to, workList) {
   for (const entry of readdirSync(from, { withFileTypes: true })) {
     const source = join(from, entry.name);
     if (entry.isDirectory()) {
-      copyPages(source, join(to, entry.name));
+      copyPages(source, join(to, entry.name), workList);
     } else if (entry.name.endsWith('.html')) {
       mkdirSync(to, { recursive: true });
-      const html = readFileSync(source, 'utf8');
+      const html = readFileSync(source, 'utf8').replace(
+        '<ul class="work" data-work-list></ul>',
+        `<ul class="work" data-work-list data-work-rendered>${workList}</ul>`,
+      );
       writeFileSync(join(to, entry.name), html.replace(/<head\b[^>]*>/i, (head) => head + GOOGLE_TAG));
     }
   }
@@ -58,7 +62,7 @@ function copyPages(from, to) {
 /** Copies static files, including the official Regular OTF face, from src/ into dist/. */
 export function copyStatic() {
   mkdirSync(dist, { recursive: true });
-  copyPages(src, dist);
+  copyPages(src, dist, projectListMarkup(join(src, 'ts', 'projects.ts')));
   const assets = join(src, 'assets');
   if (existsSync(assets)) {
     cpSync(assets, join(dist, 'assets'), {
@@ -82,4 +86,7 @@ export function run(name, args, { wait = true } = {}) {
   });
 }
 
-export const sassArgs = ['src/scss/main.scss', 'dist/assets/css/main.css'];
+export const sassArgs = [
+  'src/scss/main.scss:dist/assets/css/main.css',
+  'src/scss/home.scss:dist/assets/css/home.css',
+];

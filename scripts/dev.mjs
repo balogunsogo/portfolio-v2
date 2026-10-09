@@ -40,7 +40,7 @@ if (shouldWatch) {
   // Re-copy HTML and assets when they change (SCSS/TS are handled by their own watchers).
   let pending;
   watch(src, { recursive: true }, (_event, file) => {
-    if (!file || /\.(scss|ts)$/.test(file)) return;
+    if (!file || (/\.(scss|ts)$/.test(file) && !/(^|[\\/])projects\.ts$/.test(file))) return;
     clearTimeout(pending);
     pending = setTimeout(() => {
       copyStatic();

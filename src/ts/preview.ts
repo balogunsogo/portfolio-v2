@@ -19,7 +19,7 @@ export function initPreview({ list, frame, image, label, meta, description, proj
 
   // Warm the cache for every preview image the first time the list is approached.
   const preload = (): void => {
-    if (preloaded) return;
+    if (!canHover.matches || preloaded) return;
     preloaded = true;
     for (const project of projects) {
       new Image().src = project.image;

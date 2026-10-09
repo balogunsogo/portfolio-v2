@@ -7,6 +7,8 @@ export interface Project {
   /** Second paragraph: what I did on it. */
   role: string;
   image: string;
+  /** Optional resolution variants of the same preview, without changing its crop. */
+  imageSrcset?: string;
   href: string;
   external?: boolean;
   /** Root-absolute path of the project's case study. When set, the list and the sheet link to it instead of `href`. */
@@ -39,6 +41,8 @@ export const projects: readonly Project[] = [
       'A portfolio for a fictional creative studio, with ten case studies and a Sanity CMS designed around the people who edit it.',
     role: 'I designed the studio and its site, built it in Next.js and Sanity, and designed the editing experience behind it.',
     image: 'assets/images/projects/morrow-studio.webp',
+    imageSrcset:
+      'assets/images/projects/morrow-studio-480.webp 480w, assets/images/projects/morrow-studio-800.webp 800w, assets/images/projects/morrow-studio.webp 1200w',
     href: 'https://morrowstudio.balogunoluwasogo.com/',
     external: true,
     caseStudy: '/work/morrow-studio',
@@ -105,6 +109,13 @@ export const projects: readonly Project[] = [
 /** The projects the home page shows. Indexes in the list, preview and sheet refer to this array. */
 export const shownProjects: readonly Project[] = projects.filter((project) => !project.hidden);
 
+/** Use the same source selection for visible images and their cache warmups. */
+export function setProjectImage(image: HTMLImageElement, project: Project, sizes: string): void {
+  image.sizes = sizes;
+  image.srcset = project.imageSrcset ?? '';
+  image.src = project.image;
+}
+
 /** The description and the role as two block spans: the preview and sheet slots are `<p>`s. */
 export function descriptionParts(project: Project, className: string): HTMLSpanElement[] {
   return [project.description, project.role].map((text) => {
@@ -116,6 +127,9 @@ export function descriptionParts(project: Project, className: string): HTMLSpanE
 }
 
 export function renderProjects(list: HTMLElement): void {
+  // The build supplies this list before first paint. Keep those links (and any
+  // existing focus) when wiring the interactions; retain the fallback for raw HTML.
+  if (list.hasAttribute('data-work-rendered')) return;
   const fragment = document.createDocumentFragment();
 
   shownProjects.forEach((project, index) => {
