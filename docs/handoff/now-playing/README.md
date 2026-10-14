@@ -4,6 +4,7 @@ Build the Now Playing case study as the site's fourth case study, pixel-perfect 
 
 - **URL:** `/work/now-playing`
 - **Pixel targets:** `reference/desktop.html` at **1440 × 900** and `reference/mobile.html` at **390 × 844**.
+- **Reading mode (TL;DR):** see `docs/handoff/tldr/README.md`.
 - **Starting point:** JobTrackr, Acetrail and Artifacts are built and live (`src/work/*.html`, `src/scss/_case.scss`, `src/ts/media.ts`). This page is built **only from components those pages already have**: the shell, type, grid, text blocks, plates, video behaviour, photo pairs, side figures, the phone pair, the definition list, the Before / After lists, scores, process, stack, outcome and footer. There are no new components, tokens or section-gap entries.
 - **Stack and rules:** unchanged (`CLAUDE.md`). Plain HTML, SCSS and TypeScript; no new dependencies, no new fonts.
 

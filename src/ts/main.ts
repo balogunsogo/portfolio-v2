@@ -4,6 +4,7 @@ import { initMedia } from './media.js';
 import { initProjectSheet } from './modal.js';
 import { initPreview } from './preview.js';
 import { renderProjects, shownProjects as projects } from './projects.js';
+import { initReadingMode } from './tldr.js';
 import { initTopBar } from './top.js';
 
 const $ = <T extends Element>(selector: string): T | null => document.querySelector<T>(selector);
@@ -25,7 +26,11 @@ if (page && aboutToggle && statement && about) initAbout({ page, toggle: aboutTo
 
 // Case study: the top bar hides on the way down and returns on the way up.
 const topBar = $<HTMLElement>('[data-case-top]');
-if (topBar) initTopBar(topBar);
+const resyncTopBar = topBar ? initTopBar(topBar) : undefined;
+
+// Case study: the full story or TL;DR, from the switch in the top bar.
+const reading = $<HTMLElement>('[data-reading]');
+if (reading) initReadingMode({ group: reading, status: $<HTMLElement>('[data-reading-status]'), onJump: resyncTopBar });
 
 // Case study: videos play only while they're in view.
 const videos = Array.from(document.querySelectorAll<HTMLVideoElement>('[data-case-video]'));

@@ -4,6 +4,7 @@ Build the Acetrail case study as the site's second case study, pixel-perfect to 
 
 - **URL:** `/work/acetrail`
 - **Pixel targets:** `reference/desktop.html` at **1440 × 900** and `reference/mobile.html` at **390 × 844**.
+- **Reading mode (TL;DR):** see `docs/handoff/tldr/README.md`.
 - **Starting point:** the JobTrackr case study (`src/work/jobtrackr.html`, `src/scss/_case.scss`, `src/ts/media.ts`) is built and live. This page uses the same shell, type, grid, text blocks, video behaviour, stack, outcome and footer. Reuse those classes as they are. Only the components in §6 are new.
 - **Stack and rules:** unchanged (`CLAUDE.md`). Plain HTML, SCSS and TypeScript; no new dependencies.
 

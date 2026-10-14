@@ -22,6 +22,8 @@
   <link rel="icon" href="/assets/favicon.svg?v=3" type="image/svg+xml">
   <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
   <link rel="preload" href="/assets/fonts/PPNeueMontreal-Regular.otf" as="font" type="font/otf" crossorigin>
+  <!-- Reading mode, before the first paint (see src/ts/tldr.ts). -->
+  <script>(function(r){if(!window.CSS||!CSS.supports('selector(:has(*))'))return;r.classList.add('has-tldr');try{if(localStorage.getItem('tldr')==='1')r.classList.add('is-tldr')}catch(e){}})(document.documentElement)</script>
   <link rel="stylesheet" href="/assets/css/main.css">
   <script type="module" src="/assets/js/main.js"></script>
 </head>
@@ -29,6 +31,11 @@
   <div class="case">
     <header class="case-top" data-case-top>
       <a class="case-top__name" href="/">Balogun Oluwasogo</a>
+      <div class="case-reading" role="group" aria-label="Reading mode" data-reading>
+        <button class="case-reading__option case-reading__option--full" type="button" aria-pressed="true" data-reading-option="full">Full story</button>
+        <button class="case-reading__option case-reading__option--tldr" type="button" aria-pressed="false" data-reading-option="tldr">TL;DR</button>
+        <p class="visually-hidden" role="status" data-reading-status></p>
+      </div>
     </header>
 
     <main class="case__main">

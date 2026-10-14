@@ -115,14 +115,19 @@ $case-diagram-wide-max: 1312px;
 }
 
 // The name stays pinned at the page's top padding while the page scrolls. Difference
-// blending keeps it readable over the ground, photos and video alike; the header only
-// spans the name, so it never sits over anything clickable but itself.
+// blending keeps it readable over the ground, photos and video alike. The header spans
+// the page so the reading switch can sit at its right edge, but only the name and the
+// switch take clicks, so it never sits over anything clickable but itself.
 .case-top {
   position: sticky;
   top: list.nth($case-pad-mobile, 1);
   z-index: 10;
-  align-self: flex-start;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: $gutter;
   margin-bottom: $case-top-gap-mobile;
+  pointer-events: none;
   font-size: 0.9375rem;
   line-height: 1.4;
   color: $color-ink-difference;
@@ -146,6 +151,10 @@ $case-diagram-wide-max: 1312px;
     @include desktop {
       transform: translateY(calc(-100% - #{list.nth($case-pad-desktop, 1)}));
     }
+  }
+
+  > * {
+    pointer-events: auto;
   }
 }
 
@@ -171,6 +180,59 @@ $case-diagram-wide-max: 1312px;
   }
 }
 
+// Reading mode (ts/tldr.ts): "Full story" or "TL;DR", two words at the top bar's right
+// edge. The lit word is the current mode, the other is muted, the way the home list dims
+// every project but the active one. It only appears once the head script has set
+// html.has-tldr, and the lit word follows html.is-tldr, so the first paint is right.
+.case-reading {
+  display: none;
+  gap: 16px;
+
+  @include desktop {
+    gap: $gutter;
+  }
+
+  .has-tldr & {
+    display: flex;
+  }
+}
+
+.case-reading__option {
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: $color-muted-difference;
+  cursor: pointer;
+  transition: color 0.15s ease;
+
+  &:hover {
+    color: $color-ink-difference;
+  }
+
+  &:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 3px;
+  }
+
+  // 44px tall, and wide enough to meet the next word's target halfway across the gap.
+  @include below-desktop {
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      inset: -12px -8px;
+    }
+  }
+}
+
+:root:not(.is-tldr) .case-reading__option--full,
+.is-tldr .case-reading__option--tldr {
+  color: $color-ink-difference;
+  cursor: default;
+}
+
 .case-section {
   display: flex;
   flex-direction: column;
@@ -188,6 +250,38 @@ $case-diagram-wide-max: 1312px;
     @include desktop {
       gap: list.nth($gaps, 2);
     }
+  }
+}
+
+// TL;DR: the hero, the pictures, Stack and Outcome. Every other section keeps only what
+// you look at rather than read, without captions, and a section left with none steps
+// aside, so the 104 / 160px rhythm between sections holds. The flex gaps skip hidden
+// children. A new component that is a picture goes in $tldr-media; text inside one goes in
+// $tldr-media-text (see docs/handoff/tldr).
+//
+// Pictures: figures and pairs, bare images and videos, Acetrail's four directions and its
+// colour and type study, the hero-scroll recording, the media beside text (Interviews,
+// Authentication, Architecture), the analytics pair and the diagrams.
+$tldr-media: 'figure, .case-compare, .case-media, .case-video, .case-options, .case-system, .case-scroll, .case-split, .case-analytics, .case-arch, .case-art';
+$tldr-media-text: '.case-scroll__chart, .case-split__side, .case-arch__text';
+
+.has-tldr.is-tldr .case-section:not(.case-section--stack, .case-section--outcome) {
+  > :not(#{$tldr-media}),
+  figcaption,
+  #{$tldr-media-text} {
+    display: none;
+  }
+
+  &:not(:has(> :is(#{$tldr-media}))) {
+    display: none;
+  }
+}
+
+// Give Acetrail's final caption a little more line space in the short mobile layout,
+// preserving its type and left edge while keeping two lines at the reference width.
+.has-tldr.is-tldr:has(.case-section--directions) .case-section--outcome > .case-cols:last-child > .case-caption {
+  @include below-desktop {
+    width: calc(100% + #{$gutter * 0.25});
   }
 }
 
@@ -1887,5 +1981,13 @@ $case-swatches: (
         padding: 6px 0;
       }
     }
+  }
+}
+
+// JobTrackr's next-project image expands the long name into the clock's columns.
+// Hide only the clock while the link is active, preserving the footer's geometry.
+@include hover-desktop {
+  .case-foot:has(.case-foot__link[href='/work/morrow-studio']:is(:hover, :focus-visible)) .index__clock {
+    visibility: hidden;
   }
 }

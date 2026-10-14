@@ -4,6 +4,7 @@ Build the Artifacts case study as the site's third case study, pixel-perfect to 
 
 - **URL:** `/work/artifacts`
 - **Pixel targets:** `reference/desktop.html` at **1440 × 900** and `reference/mobile.html` at **390 × 844**.
+- **Reading mode (TL;DR):** see `docs/handoff/tldr/README.md`.
 - **Starting point:** JobTrackr and Acetrail are built and live (`src/work/jobtrackr.html`, `src/work/acetrail.html`, `src/scss/_case.scss`, `src/ts/media.ts`). This page uses the same shell, type, grid, text blocks, plates, video behaviour, lists, scores, process, stack, outcome and footer. Reuse those classes as they are. Only the components in §6 are new.
 - **Stack and rules:** unchanged (`CLAUDE.md`). Plain HTML, SCSS and TypeScript; no new dependencies, no new fonts.
 

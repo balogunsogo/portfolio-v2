@@ -1,0 +1,1515 @@
+{
+ "_about": "TL;DR mode, Chromium, reduced motion, fonts loaded, every lazy image loaded. Each block: [first class or tag, top from the top of the page, height] in CSS px. Wrappers laid out with display: contents are listed as their children.",
+ "jobtrackr": {
+  "1440x900": {
+   "pageHeight": 11721,
+   "shown": [
+    {
+     "section": "Hero",
+     "blocks": [
+      [
+       ".case-hero__head",
+       174,
+       192
+      ],
+      [
+       ".case-meta",
+       439,
+       71
+      ],
+      [
+       ".case-media",
+       566,
+       875
+      ]
+     ]
+    },
+    {
+     "section": "Overview",
+     "blocks": [
+      [
+       ".case-figure",
+       1601,
+       566
+      ],
+      [
+       ".case-figure",
+       2230,
+       566
+      ]
+     ]
+    },
+    {
+     "section": "Applications",
+     "blocks": [
+      [
+       ".case-media",
+       2956,
+       875
+      ],
+      [
+       ".case-figure",
+       3895,
+       644
+      ]
+     ]
+    },
+    {
+     "section": "Interviews",
+     "blocks": [
+      [
+       ".case-split",
+       4699,
+       650
+      ]
+     ]
+    },
+    {
+     "section": "Analytics",
+     "blocks": [
+      [
+       ".case-analytics",
+       5509,
+       504
+      ]
+     ]
+    },
+    {
+     "section": "Architecture",
+     "blocks": [
+      [
+       ".case-arch",
+       6173,
+       721
+      ],
+      [
+       ".case-figure",
+       7014,
+       556
+      ]
+     ]
+    },
+    {
+     "section": "Data model",
+     "blocks": [
+      [
+       ".case-art",
+       7730,
+       512
+      ]
+     ]
+    },
+    {
+     "section": "Authentication",
+     "blocks": [
+      [
+       ".case-split",
+       8402,
+       650
+      ]
+     ]
+    },
+    {
+     "section": "Stack",
+     "blocks": [
+      [
+       ".case-text",
+       9212,
+       146
+      ],
+      [
+       ".case-stack",
+       9414,
+       297
+      ]
+     ]
+    },
+    {
+     "section": "Shipping",
+     "blocks": [
+      [
+       ".case-figure",
+       9871,
+       780
+      ]
+     ]
+    },
+    {
+     "section": "Outcome",
+     "blocks": [
+      [
+       ".case-text",
+       10810,
+       198
+      ],
+      [
+       ".case-cols",
+       11056,
+       216
+      ],
+      [
+       ".case-cols",
+       11320,
+       22
+      ]
+     ]
+    }
+   ],
+   "hidden": [
+    "The problem",
+    "Structure",
+    "Process",
+    "Security",
+    "Beta"
+   ]
+  },
+  "390x844": {
+   "pageHeight": 8256,
+   "shown": [
+    {
+     "section": "Hero",
+     "blocks": [
+      [
+       ".case-hero__head",
+       105,
+       127
+      ],
+      [
+       ".case-meta",
+       268,
+       191
+      ],
+      [
+       ".case-media",
+       495,
+       438
+      ]
+     ]
+    },
+    {
+     "section": "Overview",
+     "blocks": [
+      [
+       ".case-figure",
+       1036,
+       228
+      ],
+      [
+       ".case-figure",
+       1300,
+       228
+      ]
+     ]
+    },
+    {
+     "section": "Applications",
+     "blocks": [
+      [
+       ".case-media",
+       1632,
+       263
+      ],
+      [
+       ".case-figure",
+       1934,
+       712
+      ]
+     ]
+    },
+    {
+     "section": "Interviews",
+     "blocks": [
+      [
+       ".case-media",
+       2750,
+       263
+      ]
+     ]
+    },
+    {
+     "section": "Analytics",
+     "blocks": [
+      [
+       ".case-analytics",
+       3117,
+       595
+      ]
+     ]
+    },
+    {
+     "section": "Architecture",
+     "blocks": [
+      [
+       ".case-arch__layers",
+       3816,
+       366
+      ],
+      [
+       ".case-figure",
+       4230,
+       584
+      ]
+     ]
+    },
+    {
+     "section": "Data model",
+     "blocks": [
+      [
+       ".case-art",
+       4918,
+       908
+      ]
+     ]
+    },
+    {
+     "section": "Authentication",
+     "blocks": [
+      [
+       ".case-video",
+       5930,
+       263
+      ]
+     ]
+    },
+    {
+     "section": "Stack",
+     "blocks": [
+      [
+       ".case-text",
+       6296,
+       98
+      ],
+      [
+       ".case-stack",
+       6422,
+       475
+      ]
+     ]
+    },
+    {
+     "section": "Shipping",
+     "blocks": [
+      [
+       ".case-figure",
+       7001,
+       207
+      ]
+     ]
+    },
+    {
+     "section": "Outcome",
+     "blocks": [
+      [
+       ".case-text",
+       7312,
+       192
+      ],
+      [
+       ".case-cols",
+       7528,
+       213
+      ],
+      [
+       ".case-cols",
+       7765,
+       63
+      ]
+     ]
+    }
+   ],
+   "hidden": [
+    "The problem",
+    "Structure",
+    "Process",
+    "Security",
+    "Beta"
+   ]
+  }
+ },
+ "morrow-studio": {
+  "1440x900": {
+   "pageHeight": 10475,
+   "shown": [
+    {
+     "section": "Hero",
+     "blocks": [
+      [
+       ".case-hero__head",
+       174,
+       245
+      ],
+      [
+       ".case-meta",
+       492,
+       75
+      ],
+      [
+       "picture",
+       623,
+       875
+      ]
+     ]
+    },
+    {
+     "section": "Context",
+     "blocks": [
+      [
+       ".case-figure",
+       1657,
+       738
+      ]
+     ]
+    },
+    {
+     "section": "Design",
+     "blocks": [
+      [
+       ".case-compare",
+       2555,
+       427
+      ]
+     ]
+    },
+    {
+     "section": "Ten projects",
+     "blocks": [
+      [
+       ".case-figure",
+       3142,
+       875
+      ],
+      [
+       ".case-figure",
+       4081,
+       566
+      ]
+     ]
+    },
+    {
+     "section": "Mobile",
+     "blocks": [
+      [
+       ".case-figure",
+       4806,
+       867
+      ]
+     ]
+    },
+    {
+     "section": "The CMS",
+     "blocks": [
+      [
+       ".case-figure",
+       5833,
+       738
+      ]
+     ]
+    },
+    {
+     "section": "Editing",
+     "blocks": [
+      [
+       ".case-figure",
+       6731,
+       738
+      ],
+      [
+       ".case-compare",
+       7532,
+       515
+      ],
+      [
+       ".case-figure",
+       8111,
+       738
+      ]
+     ]
+    },
+    {
+     "section": "Stack",
+     "blocks": [
+      [
+       ".case-text",
+       9009,
+       94
+      ],
+      [
+       ".case-stack",
+       9159,
+       297
+      ]
+     ]
+    },
+    {
+     "section": "Outcome",
+     "blocks": [
+      [
+       ".case-text",
+       9616,
+       146
+      ],
+      [
+       ".case-cols",
+       9810,
+       216
+      ],
+      [
+       ".case-cols",
+       10074,
+       22
+      ]
+     ]
+    }
+   ],
+   "hidden": [
+    "Content model",
+    "Preview",
+    "Migration",
+    "QA",
+    "Process"
+   ]
+  },
+  "390x844": {
+   "pageHeight": 6308,
+   "shown": [
+    {
+     "section": "Hero",
+     "blocks": [
+      [
+       ".case-hero__head",
+       105,
+       212
+      ],
+      [
+       ".case-meta",
+       353,
+       170
+      ],
+      [
+       "picture",
+       559,
+       438
+      ]
+     ]
+    },
+    {
+     "section": "Context",
+     "blocks": [
+      [
+       ".case-figure",
+       1100,
+       197
+      ]
+     ]
+    },
+    {
+     "section": "Design",
+     "blocks": [
+      [
+       ".case-compare",
+       1401,
+       496
+      ]
+     ]
+    },
+    {
+     "section": "Ten projects",
+     "blocks": [
+      [
+       ".case-figure",
+       2001,
+       233
+      ],
+      [
+       ".case-figure",
+       2270,
+       228
+      ]
+     ]
+    },
+    {
+     "section": "Mobile",
+     "blocks": [
+      [
+       ".case-figure",
+       2602,
+       350
+      ]
+     ]
+    },
+    {
+     "section": "The CMS",
+     "blocks": [
+      [
+       ".case-figure",
+       3056,
+       345
+      ]
+     ]
+    },
+    {
+     "section": "Editing",
+     "blocks": [
+      [
+       ".case-figure",
+       3504,
+       302
+      ],
+      [
+       ".case-compare",
+       3842,
+       600
+      ],
+      [
+       ".case-figure",
+       4478,
+       302
+      ]
+     ]
+    },
+    {
+     "section": "Stack",
+     "blocks": [
+      [
+       ".case-text",
+       4884,
+       66
+      ],
+      [
+       ".case-stack",
+       4979,
+       377
+      ]
+     ]
+    },
+    {
+     "section": "Outcome",
+     "blocks": [
+      [
+       ".case-text",
+       5459,
+       129
+      ],
+      [
+       ".case-cols",
+       5612,
+       238
+      ],
+      [
+       ".case-cols",
+       5874,
+       63
+      ]
+     ]
+    }
+   ],
+   "hidden": [
+    "Content model",
+    "Preview",
+    "Migration",
+    "QA",
+    "Process"
+   ]
+  }
+ },
+ "acetrail": {
+  "1440x900": {
+   "pageHeight": 12001,
+   "shown": [
+    {
+     "section": "Hero",
+     "blocks": [
+      [
+       ".case-hero__head",
+       174,
+       192
+      ],
+      [
+       ".case-meta",
+       439,
+       71
+      ],
+      [
+       "picture",
+       566,
+       875
+      ]
+     ]
+    },
+    {
+     "section": "Context",
+     "blocks": [
+      [
+       ".case-compare",
+       1601,
+       427
+      ]
+     ]
+    },
+    {
+     "section": "Directions",
+     "blocks": [
+      [
+       ".case-options",
+       2187,
+       881
+      ],
+      [
+       ".case-system",
+       3164,
+       450
+      ]
+     ]
+    },
+    {
+     "section": "The hero",
+     "blocks": [
+      [
+       ".case-figure",
+       3774,
+       868
+      ],
+      [
+       ".case-scroll",
+       4706,
+       856
+      ]
+     ]
+    },
+    {
+     "section": "Classes",
+     "blocks": [
+      [
+       ".case-compare",
+       5722,
+       499
+      ],
+      [
+       ".case-figure",
+       6285,
+       650
+      ]
+     ]
+    },
+    {
+     "section": "Results",
+     "blocks": [
+      [
+       ".case-media",
+       7095,
+       984
+      ],
+      [
+       ".case-compare",
+       8143,
+       390
+      ]
+     ]
+    },
+    {
+     "section": "How it works",
+     "blocks": [
+      [
+       ".case-figure",
+       8694,
+       566
+      ]
+     ]
+    },
+    {
+     "section": "Stack",
+     "blocks": [
+      [
+       ".case-text",
+       9419,
+       94
+      ],
+      [
+       ".case-stack",
+       9569,
+       297
+      ]
+     ]
+    },
+    {
+     "section": "Since launch",
+     "blocks": [
+      [
+       ".case-video",
+       10026,
+       984
+      ]
+     ]
+    },
+    {
+     "section": "Outcome",
+     "blocks": [
+      [
+       ".case-text",
+       11170,
+       146
+      ],
+      [
+       ".case-cols",
+       11364,
+       188
+      ],
+      [
+       ".case-cols",
+       11600,
+       22
+      ]
+     ]
+    }
+   ],
+   "hidden": [
+    "Engineering",
+    "Performance",
+    "Process"
+   ]
+  },
+  "390x844": {
+   "pageHeight": 7048,
+   "shown": [
+    {
+     "section": "Hero",
+     "blocks": [
+      [
+       ".case-hero__head",
+       105,
+       127
+      ],
+      [
+       ".case-meta",
+       268,
+       191
+      ],
+      [
+       "picture",
+       495,
+       438
+      ]
+     ]
+    },
+    {
+     "section": "Context",
+     "blocks": [
+      [
+       ".case-compare",
+       1036,
+       338
+      ]
+     ]
+    },
+    {
+     "section": "Directions",
+     "blocks": [
+      [
+       ".case-options",
+       1478,
+       250
+      ],
+      [
+       ".case-system",
+       1784,
+       670
+      ]
+     ]
+    },
+    {
+     "section": "The hero",
+     "blocks": [
+      [
+       ".case-figure",
+       2558,
+       231
+      ],
+      [
+       ".case-scroll__phone",
+       2829,
+       526
+      ]
+     ]
+    },
+    {
+     "section": "Classes",
+     "blocks": [
+      [
+       ".case-compare",
+       3459,
+       133
+      ],
+      [
+       ".case-figure",
+       3632,
+       263
+      ]
+     ]
+    },
+    {
+     "section": "Results",
+     "blocks": [
+      [
+       ".case-media",
+       3999,
+       263
+      ],
+      [
+       ".case-compare",
+       4301,
+       455
+      ]
+     ]
+    },
+    {
+     "section": "How it works",
+     "blocks": [
+      [
+       ".case-figure",
+       4860,
+       228
+      ]
+     ]
+    },
+    {
+     "section": "Stack",
+     "blocks": [
+      [
+       ".case-text",
+       5192,
+       98
+      ],
+      [
+       ".case-stack",
+       5317,
+       450
+      ]
+     ]
+    },
+    {
+     "section": "Since launch",
+     "blocks": [
+      [
+       ".case-video",
+       5872,
+       263
+      ]
+     ]
+    },
+    {
+     "section": "Outcome",
+     "blocks": [
+      [
+       ".case-text",
+       6238,
+       160
+      ],
+      [
+       ".case-cols",
+       6423,
+       188
+      ],
+      [
+       ".case-cols",
+       6635,
+       42
+      ]
+     ]
+    }
+   ],
+   "hidden": [
+    "Engineering",
+    "Performance",
+    "Process"
+   ]
+  }
+ },
+ "artifacts": {
+  "1440x900": {
+   "pageHeight": 10210,
+   "shown": [
+    {
+     "section": "Hero",
+     "blocks": [
+      [
+       ".case-hero__head",
+       174,
+       245
+      ],
+      [
+       ".case-meta",
+       492,
+       71
+      ],
+      [
+       "picture",
+       619,
+       875
+      ]
+     ]
+    },
+    {
+     "section": "The archive",
+     "blocks": [
+      [
+       ".case-figure",
+       1653,
+       868
+      ]
+     ]
+    },
+    {
+     "section": "Theme",
+     "blocks": [
+      [
+       ".case-compare",
+       2681,
+       429
+      ]
+     ]
+    },
+    {
+     "section": "Rules",
+     "blocks": [
+      [
+       ".case-figure",
+       3271,
+       566
+      ]
+     ]
+    },
+    {
+     "section": "Block Orbit",
+     "blocks": [
+      [
+       ".case-compare",
+       3996,
+       429
+      ]
+     ]
+    },
+    {
+     "section": "Split Menu",
+     "blocks": [
+      [
+       ".case-figure",
+       4586,
+       566
+      ]
+     ]
+    },
+    {
+     "section": "Scroll Cinema",
+     "blocks": [
+      [
+       ".case-figure",
+       5311,
+       868
+      ]
+     ]
+    },
+    {
+     "section": "From Now Playing",
+     "blocks": [
+      [
+       ".case-figure",
+       6339,
+       566
+      ]
+     ]
+    },
+    {
+     "section": "Track Transition",
+     "blocks": [
+      [
+       ".case-figure",
+       7065,
+       566
+      ]
+     ]
+    },
+    {
+     "section": "On a phone",
+     "blocks": [
+      [
+       ".case-compare",
+       7791,
+       856
+      ]
+     ]
+    },
+    {
+     "section": "Stack",
+     "blocks": [
+      [
+       ".case-text",
+       8807,
+       94
+      ],
+      [
+       ".case-stack",
+       8957,
+       263
+      ]
+     ]
+    },
+    {
+     "section": "Outcome",
+     "blocks": [
+      [
+       ".case-text",
+       9380,
+       146
+      ],
+      [
+       ".case-cols",
+       9574,
+       188
+      ],
+      [
+       ".case-cols",
+       9810,
+       22
+      ]
+     ]
+    }
+   ],
+   "hidden": [
+    "Context",
+    "Engineering",
+    "Performance",
+    "Process"
+   ]
+  },
+  "390x844": {
+   "pageHeight": 6317,
+   "shown": [
+    {
+     "section": "Hero",
+     "blocks": [
+      [
+       ".case-hero__head",
+       105,
+       154
+      ],
+      [
+       ".case-meta",
+       295,
+       191
+      ],
+      [
+       "picture",
+       522,
+       438
+      ]
+     ]
+    },
+    {
+     "section": "The archive",
+     "blocks": [
+      [
+       ".case-figure",
+       1064,
+       231
+      ]
+     ]
+    },
+    {
+     "section": "Theme",
+     "blocks": [
+      [
+       ".case-compare",
+       1399,
+       507
+      ]
+     ]
+    },
+    {
+     "section": "Rules",
+     "blocks": [
+      [
+       ".case-figure",
+       2009,
+       228
+      ]
+     ]
+    },
+    {
+     "section": "Block Orbit",
+     "blocks": [
+      [
+       ".case-compare",
+       2341,
+       507
+      ]
+     ]
+    },
+    {
+     "section": "Split Menu",
+     "blocks": [
+      [
+       ".case-figure",
+       2952,
+       228
+      ]
+     ]
+    },
+    {
+     "section": "Scroll Cinema",
+     "blocks": [
+      [
+       ".case-figure",
+       3283,
+       231
+      ]
+     ]
+    },
+    {
+     "section": "From Now Playing",
+     "blocks": [
+      [
+       ".case-figure",
+       3618,
+       228
+      ]
+     ]
+    },
+    {
+     "section": "Track Transition",
+     "blocks": [
+      [
+       ".case-figure",
+       3950,
+       228
+      ]
+     ]
+    },
+    {
+     "section": "On a phone",
+     "blocks": [
+      [
+       ".case-compare",
+       4282,
+       342
+      ]
+     ]
+    },
+    {
+     "section": "Stack",
+     "blocks": [
+      [
+       ".case-text",
+       4728,
+       98
+      ],
+      [
+       ".case-stack",
+       4854,
+       446
+      ]
+     ]
+    },
+    {
+     "section": "Outcome",
+     "blocks": [
+      [
+       ".case-text",
+       5404,
+       160
+      ],
+      [
+       ".case-cols",
+       5589,
+       213
+      ],
+      [
+       ".case-cols",
+       5826,
+       63
+      ]
+     ]
+    }
+   ],
+   "hidden": [
+    "Context",
+    "Engineering",
+    "Performance",
+    "Process"
+   ]
+  }
+ },
+ "now-playing": {
+  "1440x900": {
+   "pageHeight": 8191,
+   "shown": [
+    {
+     "section": "Hero",
+     "blocks": [
+      [
+       ".case-hero__head",
+       174,
+       192
+      ],
+      [
+       ".case-meta",
+       439,
+       71
+      ],
+      [
+       "picture",
+       566,
+       875
+      ]
+     ]
+    },
+    {
+     "section": "Context",
+     "blocks": [
+      [
+       ".case-compare",
+       1601,
+       429
+      ]
+     ]
+    },
+    {
+     "section": "Track changes",
+     "blocks": [
+      [
+       ".case-figure",
+       2190,
+       868
+      ]
+     ]
+    },
+    {
+     "section": "The scene",
+     "blocks": [
+      [
+       ".case-compare",
+       3218,
+       427
+      ]
+     ]
+    },
+    {
+     "section": "The artwork",
+     "blocks": [
+      [
+       ".case-figure",
+       3805,
+       566
+      ]
+     ]
+    },
+    {
+     "section": "Previously",
+     "blocks": [
+      [
+       ".case-figure",
+       4530,
+       578
+      ]
+     ]
+    },
+    {
+     "section": "On a phone",
+     "blocks": [
+      [
+       ".case-compare",
+       5268,
+       429
+      ]
+     ]
+    },
+    {
+     "section": "Touch",
+     "blocks": [
+      [
+       ".case-compare",
+       5857,
+       856
+      ]
+     ]
+    },
+    {
+     "section": "Stack",
+     "blocks": [
+      [
+       ".case-text",
+       6873,
+       94
+      ],
+      [
+       ".case-stack",
+       7023,
+       229
+      ]
+     ]
+    },
+    {
+     "section": "Outcome",
+     "blocks": [
+      [
+       ".case-text",
+       7412,
+       94
+      ],
+      [
+       ".case-cols",
+       7554,
+       188
+      ],
+      [
+       ".case-cols",
+       7790,
+       22
+      ]
+     ]
+    }
+   ],
+   "hidden": [
+    "Live data",
+    "Engineering",
+    "Performance",
+    "Process"
+   ]
+  },
+  "390x844": {
+   "pageHeight": 5664,
+   "shown": [
+    {
+     "section": "Hero",
+     "blocks": [
+      [
+       ".case-hero__head",
+       105,
+       99
+      ],
+      [
+       ".case-meta",
+       240,
+       191
+      ],
+      [
+       "picture",
+       467,
+       438
+      ]
+     ]
+    },
+    {
+     "section": "Context",
+     "blocks": [
+      [
+       ".case-compare",
+       1009,
+       507
+      ]
+     ]
+    },
+    {
+     "section": "Track changes",
+     "blocks": [
+      [
+       ".case-figure",
+       1619,
+       231
+      ]
+     ]
+    },
+    {
+     "section": "The scene",
+     "blocks": [
+      [
+       ".case-compare",
+       1954,
+       496
+      ]
+     ]
+    },
+    {
+     "section": "The artwork",
+     "blocks": [
+      [
+       ".case-figure",
+       2554,
+       228
+      ]
+     ]
+    },
+    {
+     "section": "Previously",
+     "blocks": [
+      [
+       ".case-figure",
+       2885,
+       233
+      ]
+     ]
+    },
+    {
+     "section": "On a phone",
+     "blocks": [
+      [
+       ".case-compare",
+       3223,
+       507
+      ]
+     ]
+    },
+    {
+     "section": "Touch",
+     "blocks": [
+      [
+       ".case-compare",
+       3833,
+       342
+      ]
+     ]
+    },
+    {
+     "section": "Stack",
+     "blocks": [
+      [
+       ".case-text",
+       4280,
+       66
+      ],
+      [
+       ".case-stack",
+       4374,
+       418
+      ]
+     ]
+    },
+    {
+     "section": "Outcome",
+     "blocks": [
+      [
+       ".case-text",
+       4896,
+       98
+      ],
+      [
+       ".case-cols",
+       5018,
+       188
+      ],
+      [
+       ".case-cols",
+       5230,
+       63
+      ]
+     ]
+    }
+   ],
+   "hidden": [
+    "Live data",
+    "Engineering",
+    "Performance",
+    "Process"
+   ]
+  }
+ }
+}

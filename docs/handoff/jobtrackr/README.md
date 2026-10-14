@@ -5,6 +5,7 @@ Build the JobTrackr case study as a second page of this site, pixel-perfect to t
 - **URL:** `/work/jobtrackr`
 - **Stack:** the existing one — plain HTML, SCSS and TypeScript. No framework, bundler or new runtime dependencies (see `CLAUDE.md`).
 - **Pixel targets:** `reference/desktop.html` at **1440 × 900** and `reference/mobile.html` at **390 × 844**.
+- **Reading mode (TL;DR):** see `docs/handoff/tldr/README.md`.
 
 ---
 

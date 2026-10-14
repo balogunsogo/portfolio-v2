@@ -7,7 +7,9 @@ const TOLERANCE = 6;
 // Within this distance of the top the bar always shows (it sits at 28 or 48px).
 const TOP_ZONE = 120;
 
-export function initTopBar(bar: HTMLElement): void {
+// Returns a function that takes the current position as the new starting point, for a
+// script that has just moved the page itself (ts/tldr.ts), so that jump never hides the bar.
+export function initTopBar(bar: HTMLElement): () => void {
   let lastY = window.scrollY;
   let ticking = false;
 
@@ -30,4 +32,9 @@ export function initTopBar(bar: HTMLElement): void {
     },
     { passive: true },
   );
+
+  return () => {
+    lastY = window.scrollY;
+    bar.classList.remove('is-hidden');
+  };
 }
