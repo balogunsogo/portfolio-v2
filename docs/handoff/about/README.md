@@ -1,3 +1,5 @@
+Update, 14 October 2026: the Work / About switch adds a visible way in; see `docs/handoff/about-switch/README.md`.
+
 # About on the home page: implementation handoff
 
 Add an About to the home page without a page of its own. A portrait set inside the name ("Balogun [photo] Oluwasogo") is the trigger. While the pointer is on it (desktop), or after a tap (touch), the role line becomes a statement and the work list becomes the About. Moving off it, or tapping again, puts the home page back.

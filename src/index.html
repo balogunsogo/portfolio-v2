@@ -37,8 +37,8 @@
   <main class="page" data-page>
     <header class="intro">
       <!-- The portrait sits in the name. Hovering it (desktop) or tapping it (touch) swaps the
-           role line and the work list for the About; see ts/about.ts. The heading's name stays
-           "Balogun Oluwasogo" through aria-labelledby. -->
+           role line and the work list for the About, and so does "About" in the switch above the
+           list; see ts/about.ts. The heading's name stays "Balogun Oluwasogo" through aria-labelledby. -->
       <h1 class="intro__name" aria-labelledby="name-first name-last">
         <span class="intro__name-line"><span id="name-first">Balogun</span> <button class="intro__portrait" type="button" aria-label="About Oluwasogo" aria-expanded="false" aria-controls="about-statement about" data-about-toggle><img class="intro__portrait-image" src="assets/images/portrait/portrait-480.webp?v=3" srcset="assets/images/portrait/portrait-240.webp?v=3 240w, assets/images/portrait/portrait-480.webp?v=3 480w" sizes="(min-width: 1024px) 9vw, 15vw" width="480" height="381" alt="" decoding="async"></button></span>
         <span class="intro__name-line" id="name-last">Oluwasogo</span>
@@ -54,14 +54,19 @@
 
     <section class="index" aria-labelledby="featured-heading">
       <div class="index__stage">
-        <h2 class="index__heading" id="featured-heading">Work</h2>
+        <!-- Work / About: the lit word is what the stage shows. This row stays on the "Work" line
+             while the About is open, with the bio and facts appearing beneath it. -->
+        <div class="index__heading index__switch" data-about-switch>
+          <h2 class="index__switch-heading" id="featured-heading"><button class="index__switch-word index__switch-word--work" type="button" aria-pressed="true" data-about-show="work">Work</button></h2>
+          <button class="index__switch-word index__switch-word--about" type="button" aria-pressed="false" aria-controls="about-statement about" data-about-show="about">About</button>
+        </div>
 
         <ul class="work" data-work-list></ul>
 
-        <!-- About: takes the work list's place while the portrait is hovered or tapped. -->
+        <!-- About: takes the work list's place while the portrait is hovered or tapped, or after "About". -->
         <div class="about" id="about" data-about>
           <div class="about__text">
-            <h2 class="about__heading">About</h2>
+            <h2 class="visually-hidden">About</h2>
             <p>I’m Oluwasogo, a software engineer and digital designer in Lagos, Nigeria. I work on product interfaces, websites, and the small interactions that make them feel considered.</p>
             <p>By day I build enterprise insurance systems at AXA Mansard. Alongside that I take on freelance work and keep an archive of interaction studies.</p>
           </div>

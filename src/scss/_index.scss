@@ -49,6 +49,8 @@ $work-pad-desktop: 9px;
 }
 
 .index__heading {
+  display: flex;
+  gap: 16px;
   margin-left: -$lsb-w-book; // optical edge for the W, see _tokens.scss
   font-size: inherit;
   font-weight: $weight-regular;
@@ -57,7 +59,52 @@ $work-pad-desktop: 9px;
   @include desktop {
     grid-column: 1 / span 4;
     grid-row: 1;
+    gap: $gutter;
   }
+}
+
+// Work / About: two words over the stage. The lit word is what the stage shows and the other is
+// muted, the same switch as the case studies' "Full story / TL;DR". "About" opens the About until
+// "Work", Escape or the portrait closes it (ts/about.ts). The portrait's hover still peeks.
+.index__switch-heading {
+  margin: 0;
+  font: inherit;
+}
+
+.index__switch-word {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: $color-muted;
+  cursor: pointer;
+  transition: color 0.15s ease;
+
+  &:hover {
+    color: $color-ink;
+  }
+
+  &:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 3px;
+  }
+
+  // 44px tall, and wide enough to meet the other word's target halfway across the gap.
+  @include below-desktop {
+    &::after {
+      content: '';
+      position: absolute;
+      inset: -12px -8px;
+    }
+  }
+}
+
+.page:not(.is-about-open) .index__switch-word--work,
+.page.is-about-open .index__switch-word--about {
+  color: $color-ink;
+  cursor: default;
 }
 
 .work {
@@ -561,6 +608,43 @@ $sheet-duration: 0.42s; // keep in sync with TRANSITION_MS in ts/modal.ts
   }
 }
 
+// Keep the same switch row visible in both states at every size. Mobile reserves its closed
+// position while the taller About flows beneath it; the page can grow downward.
+.page.is-about-open .index__heading.index__switch {
+  opacity: 1;
+  visibility: visible;
+  transition: none;
+}
+
+.page.is-about-flow .index__heading.index__switch {
+  display: flex;
+}
+
+@include below-desktop {
+  // Reserve room for either intro layer even on short phones, so the expanded statement
+  // never has to push the switch down. Both layers keep their existing type and reveal.
+  .intro__lead {
+    display: grid;
+  }
+
+  .intro__role,
+  .intro__statement {
+    grid-area: 1 / 1;
+  }
+
+  .intro__statement {
+    position: static;
+  }
+
+  .page.is-about-open .index {
+    margin-top: var(--about-switch-offset, 0px);
+  }
+
+  .page.is-about-flow .about {
+    margin-top: 12px;
+  }
+}
+
 .about {
   position: absolute;
   left: 0;
@@ -608,20 +692,6 @@ $sheet-duration: 0.42s; // keep in sync with TRANSITION_MS in ts/modal.ts
     font-size: 1.25rem; // the description column's size
     line-height: 1.35;
     letter-spacing: -0.008em;
-  }
-}
-
-.about__heading {
-  margin-bottom: 2px; // 12px to the bio, 16px on desktop
-  font-size: 0.9375rem;
-  font-weight: $weight-regular;
-  line-height: 1.4;
-  letter-spacing: 0; // not the bio's tracking: it matches the "Work" heading
-  color: $color-muted;
-
-  @include desktop {
-    margin-bottom: 4px;
-    font-size: 1rem;
   }
 }
 
