@@ -621,20 +621,9 @@ $sheet-duration: 0.42s; // keep in sync with TRANSITION_MS in ts/modal.ts
 }
 
 @include below-desktop {
-  // Reserve room for either intro layer even on short phones, so the expanded statement
-  // never has to push the switch down. Both layers keep their existing type and reveal.
-  .intro__lead {
-    display: grid;
-  }
-
-  .intro__role,
-  .intro__statement {
-    grid-area: 1 / 1;
-  }
-
-  .intro__statement {
-    position: static;
-  }
+  // Keep the hidden statement out of flow. Reserving its taller grid row also
+  // reserved blank space in Work, pushing the footer below short initial viewports.
+  // Opening About uses the existing .is-about-flow rules to fit the visible text.
 
   .page.is-about-open .index {
     margin-top: var(--about-switch-offset, 0px);
