@@ -193,7 +193,7 @@ Used by: The problem, Structure, Overview, Applications, Interviews, Analytics, 
      - Role: "Product design and / full-stack engineering". On desktop there is a line break after "and"; "full-stack" never breaks.
      - Year: 2026.
      - Stack: "Next.js, NestJS, / Supabase, Drizzle". On desktop there is a break after "NestJS,".
-     - Status: "Live, in beta". On desktop the link `jobtrackr.balogunoluwasogo.com` sits under it; on mobile it goes below the grid. It goes to `https://www.jobtrackr.site/`, opens in a new tab, and has a visually hidden "(opens in a new tab)".
+     - Status: "Live, in beta". On desktop the link `https://www.jobtrackr.site/` sits under it; on mobile it goes below the grid. It goes to `https://www.jobtrackr.site/`, opens in a new tab, and has a visually hidden "(opens in a new tab)".
 2. **The problem:** text block only.
 3. **Structure:** text block, then two blocks.
    - **The lifecycle:**
