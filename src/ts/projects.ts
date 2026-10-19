@@ -28,7 +28,7 @@ export const projects: readonly Project[] = [
       'A workspace for the job search. It keeps every application, interview, document and offer in one place, so it’s always clear what needs doing next.',
     role: 'I designed the product and built it end to end, from the interface to a NestJS API on Supabase.',
     image: 'assets/images/projects/jobtrackr.webp',
-    href: 'jobtrackr.site',
+    href: 'https://www.jobtrackr.site/',
     external: true,
     caseStudy: '/work/jobtrackr',
     previewTone: '#DCD8CF',
