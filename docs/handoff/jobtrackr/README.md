@@ -7,6 +7,13 @@ Build the JobTrackr case study as a second page of this site, pixel-perfect to t
 - **Pixel targets:** `reference/desktop.html` at **1440 × 900** and `reference/mobile.html` at **390 × 844**.
 - **Reading mode (TL;DR):** see `docs/handoff/tldr/README.md`.
 
+> **Update 1 (15 October 2026).** The page is built and live. This update adds one section, **Insights**, between Security and Stack: the private, owner-only analytics area now in JobTrackr. What changed, in short:
+>
+> - **Insights (§6, item 13)** is new: a text block, a full-width laptop video, a phone video and phone still side by side, the "Reporting rules" list and a laptop still beside an "Owner only" note. It's built **only from components this page already has**, at the default section gap, so `_case.scss` doesn't change.
+> - **Media (§7):** two videos with posters and two stills in two widths, all new and final. Every screen in them shows **sample data**, captured from the real Insights UI; the first caption says so.
+> - **The reference pages** gain the section, and the full-page screenshots in `reference/` are retaken. The TL;DR references for this page (`docs/handoff/tldr/reference/jobtrackr-*.webp` and the `jobtrackr` entry in `blocks.json`) are regenerated with it.
+> - Nothing else on the page changes. `PROMPT-UPDATE.md` is the prompt for this update.
+
 ---
 
 ## 1. Sources of truth
@@ -14,7 +21,7 @@ Build the JobTrackr case study as a second page of this site, pixel-perfect to t
 | Priority | File | What it settles |
 |---|---|---|
 | 1 | `reference/desktop.html`, `reference/mobile.html` | Exact appearance at 1440 and 390: every size, gap, grid span, colour, aspect ratio, line break and the final copy. Open them directly in a browser (they load fonts and assets from `src/assets`). They use inline styles **only as a reference** — rebuild them with SCSS classes. |
-| 2 | `reference/desktop-1..3.webp`, `reference/mobile-1..3.webp` | Full-page screenshots of the two reference pages (reduced motion, so videos show their posters). |
+| 2 | `reference/desktop-1..4.webp`, `reference/mobile-1..4.webp` | Full-page screenshots of the two reference pages (reduced motion, so videos show their posters), in parts of 6,200px (desktop) and 6,000px (mobile). Retaken for update 1. |
 | 3 | `diagrams/*.svg` | The four diagrams, production-ready. Inline them as they are. |
 | 4 | This README | Structure, behaviour between and beyond the two widths, media, accessibility, build changes and acceptance checks. |
 
@@ -145,7 +152,7 @@ Semantics:
 
 ### The shared text-block pattern
 
-Used by: The problem, Structure, Overview, Applications, Interviews, Analytics, Data model, Process, Authentication, Security, Shipping, Beta.
+Used by: The problem, Structure, Overview, Applications, Interviews, Analytics, Data model, Process, Authentication, Security, Insights, Shipping, Beta.
 
 - **Desktop:** a 12-column grid with `row-gap: 20px`.
   - Row 1: label, columns 1–4.
@@ -157,7 +164,7 @@ Used by: The problem, Structure, Overview, Applications, Interviews, Analytics, 
 
 | Section | Desktop | Mobile |
 |---|---|---|
-| default | 64px | 36px |
+| default (also Insights, new in update 1) | 64px | 36px |
 | Structure | 96px | 64px |
 | Applications | 64px | 40px |
 | Interviews | 64px | 40px |
@@ -186,7 +193,7 @@ Used by: The problem, Structure, Overview, Applications, Interviews, Analytics, 
      - Role: "Product design and / full-stack engineering". On desktop there is a line break after "and"; "full-stack" never breaks.
      - Year: 2026.
      - Stack: "Next.js, NestJS, / Supabase, Drizzle". On desktop there is a break after "NestJS,".
-     - Status: "Live, in beta". On desktop the link `jobtrackr.balogunoluwasogo.com` sits under it; on mobile it goes below the grid. It goes to `https://jobtrackr.balogunoluwasogo.com/`, opens in a new tab, and has a visually hidden "(opens in a new tab)".
+     - Status: "Live, in beta". On desktop the link `jobtrackr.balogunoluwasogo.com` sits under it; on mobile it goes below the grid. It goes to `https://www.jobtrackr.site/`, opens in a new tab, and has a visually hidden "(opens in a new tab)".
 2. **The problem:** text block only.
 3. **Structure:** text block, then two blocks.
    - **The lifecycle:**
@@ -232,17 +239,24 @@ Used by: The problem, Structure, Overview, Applications, Interviews, Analytics, 
       - **Mobile:** each case stacks as: "Signed in as User A, asks for" (small, muted), then what was asked for (body), then the result with a 9px dot.
     - **Defence in depth:** the same layout as Five areas.
     - **Statement:** heading style, columns 1–10.
-13. **Stack:** label and `h2` ("Tools chosen around the product.") as in the text block, but with no body.
+13. **Insights** (new in update 1). `<section class="case-section" aria-labelledby="insights-heading">`, no modifier (the default 64 / 36px gap). In order:
+    - **Text block:** label "Insights" (`.case-label--stem`), heading "Only what the data can prove." (`.case-h--round`, `id="insights-heading"`), two paragraphs.
+    - **Laptop video:** a full-width `figure.case-figure` (no plate) holding the standard video markup with `.case-video__media--widescreen` (**16:9**, `insights.mp4`, 1920×1080), and its caption in columns 1–6 on desktop (16px below), under it on mobile (12px). This is Morrow Studio's home-video pattern.
+    - **Phone pair:** `figure.case-figure.case-figure--pair`, exactly as Applications: the phone video in columns 1–6 at **1:1** (`.case-video__media--square`, `insights-phone.mp4`), the phone still in columns 7–12 at **1:1** (`img.case-media.case-media--square`; the files are square, so nothing is cropped), and the caption under the video. Mobile: video, still, caption, 12px apart.
+    - **Reporting rules:** `.case-block` with the label "Reporting rules" (`.case-label--stem`) over a five-row `.case-list` (`<dl>`), laid out as Five areas and Defence in depth. Names and modifiers: "Not tracked, never zero" (`--stem`), "Labelled shares" (`--stem`), "No trend arrows" (`--stem`), "One snapshot" (`--round`), "Aggregates only" (none).
+    - **Laptop still and note:** a `.case-split`, exactly as Interviews: the still in columns 1–8 at **4:3** (`.case-media--photo`, `insights-laptop-*.webp`), and a `.case-block.case-block--note` in columns 9–12 (`align-self: end`) with the label "Owner only" (`.case-label--round`) and one paragraph. Mobile: the still, then the note (10px gap inside), both direct children of the section through `display: contents`.
+    - **TL;DR:** nothing to add. Every picture here is already a `$tldr-media` component (`figure`, `.case-split`), the note is `$tldr-media-text`, and the text block and the list hide. In TL;DR the section keeps the two figures (without captions) and the laptop still.
+14. **Stack:** label and `h2` ("Tools chosen around the product.") as in the text block, but with no body.
     - **Desktop:** a grid with `row-gap: 48px`; each group spans 3 columns. A group is its label and its lines in the body style, 6px apart.
     - **Mobile:** a 2-column grid (column gap 16px, row gap 28px). A group's label and lines are 4px apart.
-14. **Shipping**
+15. **Shipping**
     - **Desktop:** text block, then the screen recording at **109:60**, centred on the clip plate with 64px padding. The caption is in columns 1–6, 16px below.
     - **Mobile:** the plate has 16px padding and the caption is 12px below.
-15. **Beta:** text block only.
-16. **Outcome**
+16. **Beta:** text block only.
+17. **Outcome**
     - **Desktop:** label and statement (`row-gap: 20px`, statement in columns 1–10). The body is in columns 7–11. The disciplines line is in the caption style in columns 1–9. The three blocks are 48px apart.
     - **Mobile:** the same blocks in a column, 24px apart.
-17. **Footer: next project and links**
+18. **Footer: next project and links**
     - **Desktop:** a 12-column grid. Columns 1–8 hold the label "Next project" and "Morrow Studio" (display size, a link), 20px apart. Columns 9–12, with `align-self: end`, hold a 2-column grid (24px gap, aligned to the end): the 96px clock and the links column.
     - **Mobile:** a column with a 48px gap. First the label and "Morrow Studio" (64px), 12px apart. Then a row (`space-between`, aligned to the end) with the clock at 88px and the links at 15px.
     - **Clock and links:** reuse the home page's clock markup, classes and `clock.ts` (live time). The reference shows a static 11:05. The links are the same as home: LinkedIn, GitHub, Contra, Email, in that order, right-aligned, 4px apart.
@@ -267,9 +281,15 @@ All files are in `src/assets`. Large images come in two widths for `srcset`. Giv
 | Application video | `application.mp4` (1080², 19s), `application-poster.webp` | 1:1 | Moving through an application's tabs |
 | Login video | `login.mp4` (1440×1080, 6s), `login-poster.webp` | 4:3 | The JobTrackr login screen |
 | Real session | `real-use.mp4` (1308×720, 23s), `real-use-poster.webp` | 109:60 | A real session: adding an application from a LinkedIn posting, then opening it |
+| Insights, laptop video (update 1) | `video/jobtrackr/insights.mp4` (1920×1080, 25s), poster `insights-poster.webp` | 16:9 | Insights on a laptop: a metric’s definition opens, the range changes to 7 days, the Overview scrolls to its status and feature cards, then Acquisition shows a funnel whose five middle stages read Not tracked, and Engagement shows visits as Not tracked |
+| Insights, phone video (update 1) | `video/jobtrackr/insights-phone.mp4` (1080², 16s), poster `insights-phone-poster.webp` | 1:1 | Insights on a phone: the Overview scrolls to weekly sign-ups and the activation grid, then the section sheet opens Acquisition & Activation and its onboarding funnel |
+| Insights, phone still (update 1) | `insights-phone-1200.webp` (1200×1200), `-2000.webp` (2000×2000) | 1:1 | The onboarding funnel on a phone in a stand: five of its seven stages read Not tracked |
+| Insights, laptop still (update 1) | `insights-laptop-1200.webp` (1200×900), `-2064.webp` (2064×1548) | 4:3 | Engagement & Retention on a laptop: accounts recording over 7 and 30 days, and visits marked Not tracked |
 | Share image | `og.jpg` (1200×630) | — | — |
 
 - **Hero `sizes`:** `(min-width: 1024px) calc(100vw - 128px), calc(100vw - 40px)`. Derive the other images' `sizes` from their grid spans.
+- **Insights `sizes` (update 1):** the phone still `(min-width: 1024px) calc(50vw - 76px), calc(100vw - 40px)`; the laptop still `(min-width: 1024px) calc(66.67vw - 93px), calc(100vw - 40px)`, as Interviews.
+- **The Insights media (update 1)** are renders of a laptop and a phone in the page's warm set (oak, fluted panelling, concrete, terracotta), with the real Insights UI composited onto the screens. The UI was captured from JobTrackr's own web app (`main` at `9aedde0`) running locally against **sample data**, never production numbers; the first figure's caption says so. The videos loop seamlessly: each ends on its first frame's state. Final as delivered: don't regenerate, recompress or re-cut them.
 - **The screen recording:** it was trimmed, cropped and sped up 2×. The Google account picker and an unrelated LinkedIn page were cut on purpose. **Don't re-cut it from the raw recording**: the raw file shows a third party's email address.
 
 ---
@@ -369,7 +389,12 @@ Inline the four files from `diagrams/` exactly. They were generated from the ref
    - Every video can be paused from the keyboard.
 6. **Routing.** `/work/jobtrackr` works in `npm run dev` and in the production build. From the home page, the JobTrackr list link (desktop) and "Read case study" in the sheet (mobile) both open it.
 7. **Docs.** Update `README.md` (structure, assets, route) and `CLAUDE.md` (case-study rules, new tokens, video rules). Remove the "JobTrackr case study" open item.
-8. Summarise the files changed and the key decisions.
+8. **Update 1 only (Insights):**
+   - The section sits between Security and Stack, and the full story matches the updated reference at both widths. The built page is now 22,092px tall at 1440 × 900 and 20,278px at 390 × 844 (the reference pages, 21,795px and 20,071px), so both diffs need more than one capture, the lower parts each from a fresh page load (CLAUDE.md, "Running the screenshot diff"). The section itself is 3,149px tall on desktop and 2,617px on mobile, the same on the page and the reference.
+   - Both new videos follow §8: no autoplay attribute, play at 25% visible, never on their own with reduced motion, and each has its toggle.
+   - TL;DR: the section shows the two figures without captions and the laptop still without its note; the page matches the regenerated `docs/handoff/tldr/reference/blocks.json` entry for `jobtrackr`.
+   - Keyboard: the two new video toggles come after Authentication's and before Shipping's, in page order.
+9. Summarise the files changed and the key decisions.
 
 ---
 
@@ -384,5 +409,17 @@ The copy was checked against the live app, the motion videos and the stack slide
 - the IDOR test with two accounts;
 - ten tables with Row Level Security;
 - frontend and API on Vercel.
+
+**Insights (update 1)**, checked against the JobTrackr repo (`main` at `9aedde0`, `docs/insights.md`, `jobtrackr-insights/SPEC.md`, `BOARD_REVIEW.md`, the Pass 1 metrics audit) and the running app:
+
+- the five section names, and that the area is private and owner-only;
+- the owner check: the API verifies the token, then compares the account with a server-side owner list (`INSIGHTS_OWNER_USER_IDS`); any other signed-in account gets a 404; the account-menu link is rendered only for owners;
+- that the queries are the port of an audit of the production database, and that writes are not visits;
+- the five reporting rules: "Not tracked" or "Not connected" instead of zero, and a measured zero shown as 0; labelled share denominators; no growth percentages or trend arrows (no comparable prior period); every query for one response in one `REPEATABLE READ, READ ONLY` transaction with one `asOf`; aggregates only;
+- that only New accounts and Applications added follow the date range;
+- on mobile, the section switcher and the date range open as sheets, and the weekly chart becomes a labelled list;
+- designed in Claude Design and built with AI coding agents (the site's wording for this: "with AI coding agents doing much of the typing").
+
+The screens show **sample data**. The real numbers are production aggregates, and publishing them is the owner's call; if they're ever shown, the caption must change with them.
 
 **Don't add claims, metrics or testimonials.** If a fact needs changing, change it in the reference and here too.

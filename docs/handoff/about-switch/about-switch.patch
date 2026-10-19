@@ -1,0 +1,280 @@
+diff --git a/src/index.html b/src/index.html
+index 9d01100..8660695 100644
+--- a/src/index.html
++++ b/src/index.html
+@@ -37,8 +37,8 @@
+   <main class="page" data-page>
+     <header class="intro">
+       <!-- The portrait sits in the name. Hovering it (desktop) or tapping it (touch) swaps the
+-           role line and the work list for the About; see ts/about.ts. The heading's name stays
+-           "Balogun Oluwasogo" through aria-labelledby. -->
++           role line and the work list for the About, and so does "About" in the switch above the
++           list; see ts/about.ts. The heading's name stays "Balogun Oluwasogo" through aria-labelledby. -->
+       <h1 class="intro__name" aria-labelledby="name-first name-last">
+         <span class="intro__name-line"><span id="name-first">Balogun</span> <button class="intro__portrait" type="button" aria-label="About Oluwasogo" aria-expanded="false" aria-controls="about-statement about" data-about-toggle><img class="intro__portrait-image" src="assets/images/portrait/portrait-480.webp?v=3" srcset="assets/images/portrait/portrait-240.webp?v=3 240w, assets/images/portrait/portrait-480.webp?v=3 480w" sizes="(min-width: 1024px) 9vw, 15vw" width="480" height="381" alt="" decoding="async"></button></span>
+         <span class="intro__name-line" id="name-last">Oluwasogo</span>
+@@ -54,14 +54,22 @@
+ 
+     <section class="index" aria-labelledby="featured-heading">
+       <div class="index__stage">
+-        <h2 class="index__heading" id="featured-heading">Work</h2>
++        <!-- Work / About: the lit word is what the stage shows. On desktop this row stays on the
++             "Work" line while the About is open; below desktop the About brings its own row. -->
++        <div class="index__heading index__switch" data-about-switch>
++          <h2 class="index__switch-heading" id="featured-heading"><button class="index__switch-word index__switch-word--work" type="button" aria-pressed="true" data-about-show="work">Work</button></h2>
++          <button class="index__switch-word index__switch-word--about" type="button" aria-pressed="false" aria-controls="about-statement about" data-about-show="about">About</button>
++        </div>
+ 
+         <ul class="work" data-work-list></ul>
+ 
+-        <!-- About: takes the work list's place while the portrait is hovered or tapped. -->
++        <!-- About: takes the work list's place while the portrait is hovered or tapped, or after "About". -->
+         <div class="about" id="about" data-about>
+           <div class="about__text">
+-            <h2 class="about__heading">About</h2>
++            <div class="about__heading about__switch">
++              <button class="index__switch-word index__switch-word--work" type="button" aria-pressed="false" data-about-show="work">Work</button>
++              <h2 class="index__switch-heading index__switch-word--about">About</h2>
++            </div>
+             <p>I’m Oluwasogo, a software engineer and digital designer in Lagos, Nigeria. I work on product interfaces, websites, and the small interactions that make them feel considered.</p>
+             <p>By day I build enterprise insurance systems at AXA Mansard. Alongside that I take on freelance work and keep an archive of interaction studies.</p>
+           </div>
+diff --git a/src/scss/_index.scss b/src/scss/_index.scss
+index 03ab00e..24c677d 100644
+--- a/src/scss/_index.scss
++++ b/src/scss/_index.scss
+@@ -49,6 +49,8 @@ $work-pad-desktop: 9px;
+ }
+ 
+ .index__heading {
++  display: flex;
++  gap: 16px;
+   margin-left: -$lsb-w-book; // optical edge for the W, see _tokens.scss
+   font-size: inherit;
+   font-weight: $weight-regular;
+@@ -57,9 +59,54 @@ $work-pad-desktop: 9px;
+   @include desktop {
+     grid-column: 1 / span 4;
+     grid-row: 1;
++    gap: $gutter;
++  }
++}
++
++// Work / About: two words over the stage. The lit word is what the stage shows and the other is
++// muted, the same switch as the case studies' "Full story / TL;DR". "About" opens the About until
++// "Work", Escape or the portrait closes it (ts/about.ts). The portrait's hover still peeks.
++.index__switch-heading {
++  margin: 0;
++  font: inherit;
++}
++
++.index__switch-word {
++  position: relative;
++  margin: 0;
++  padding: 0;
++  border: 0;
++  background: none;
++  font: inherit;
++  color: $color-muted;
++  cursor: pointer;
++  transition: color 0.15s ease;
++
++  &:hover {
++    color: $color-ink;
++  }
++
++  &:focus-visible {
++    outline: 2px solid currentColor;
++    outline-offset: 3px;
++  }
++
++  // 44px tall, and wide enough to meet the other word's target halfway across the gap.
++  @include below-desktop {
++    &::after {
++      content: '';
++      position: absolute;
++      inset: -12px -8px;
++    }
+   }
+ }
+ 
++.page:not(.is-about-open) .index__switch-word--work,
++.page.is-about-open .index__switch-word--about {
++  color: $color-ink;
++  cursor: default;
++}
++
+ .work {
+   display: flex;
+   flex-direction: column;
+@@ -561,6 +608,22 @@ $sheet-duration: 0.42s; // keep in sync with TRANSITION_MS in ts/modal.ts
+   }
+ }
+ 
++// Desktop: the switch row stays on the "Work" line while the About is open, in the flow layout
++// too; only the list and the About swap below it, so the About's own row isn't needed there.
++.page.is-about-open .index__heading.index__switch {
++  @include desktop {
++    opacity: 1;
++    visibility: visible;
++    transition: none;
++  }
++}
++
++.page.is-about-flow .index__heading.index__switch {
++  @include desktop {
++    display: flex;
++  }
++}
++
+ .about {
+   position: absolute;
+   left: 0;
+@@ -611,8 +674,12 @@ $sheet-duration: 0.42s; // keep in sync with TRANSITION_MS in ts/modal.ts
+   }
+ }
+ 
++// Below desktop the About brings its own Work / About row, in the same place over the bio.
+ .about__heading {
+-  margin-bottom: 2px; // 12px to the bio, 16px on desktop
++  display: flex;
++  gap: 16px;
++  margin-bottom: 2px; // 12px to the bio
++  margin-left: -$lsb-w-book; // the row starts on the W of "Work"
+   font-size: 0.9375rem;
+   font-weight: $weight-regular;
+   line-height: 1.4;
+@@ -620,8 +687,7 @@ $sheet-duration: 0.42s; // keep in sync with TRANSITION_MS in ts/modal.ts
+   color: $color-muted;
+ 
+   @include desktop {
+-    margin-bottom: 4px;
+-    font-size: 1rem;
++    display: none; // the switch row above the stage stays put instead
+   }
+ }
+ 
+diff --git a/src/ts/about.ts b/src/ts/about.ts
+index 6335196..9322f59 100644
+--- a/src/ts/about.ts
++++ b/src/ts/about.ts
+@@ -5,12 +5,19 @@
+ //   Keyboard: Enter / Space toggle it; Escape, Tab or moving focus away hide it. Focus alone
+ //   doesn't open it: the portrait is the page's first tab stop, and while the About shows the
+ //   work list is hidden, so Tab closes it first and lands on the first project.
++// The Work / About switch over the list ([data-about-show]) does the same on every device:
++// "About" opens it and it stays open until "Work", Escape or the portrait closes it; a pointer
++// passing over the portrait doesn't. On desktop the switch row stays put ([data-about-switch]);
++// below desktop the About brings its own row, and focus follows the pressed word there.
+ // If the About can't rise above the work list without reaching the statement (short screens),
+-// .is-about-flow puts both in the flow instead and the page scrolls.
++// or on desktop the statement would reach the switch row or the About rise past the list's
++// first line, .is-about-flow puts both in the flow instead and the page scrolls.
+ 
+ const hoverDesktop = window.matchMedia('(min-width: 1024px) and (hover: hover) and (pointer: fine)');
++const desktop = window.matchMedia('(min-width: 1024px)'); // where the switch row stays put
+ const CLOSE_DELAY_MS = 100;
+ const MIN_CLEARANCE = 32; // px between the statement and the About before it falls back to the flow
++const ROW_GAP = 16; // px between the switch row and the stage on desktop (the grid's row gap)
+ 
+ interface AboutElements {
+   page: HTMLElement;
+@@ -19,11 +26,23 @@ interface AboutElements {
+   about: HTMLElement;
+ }
+ 
++// Focuses an element once it can take focus: a row fading in is visible at once, but under
++// reduced motion its visibility runs a 0.01ms transition that starts hidden, so it can take a
++// frame or two.
++const focusWhenShown = (target: HTMLElement, frames = 5): void => {
++  requestAnimationFrame(() => {
++    target.focus({ preventScroll: true });
++    if (document.activeElement !== target && frames > 1) focusWhenShown(target, frames - 1);
++  });
++};
++
+ // Layout top of an element, ignoring the 8px rise it may be mid-way through.
+ const layoutTop = (el: HTMLElement): number =>
+   el.getBoundingClientRect().top - new DOMMatrixReadOnly(getComputedStyle(el).transform).m42;
+ 
+-type Source = 'pointer' | 'tap';
++// What opened it decides what closes it: 'pointer' (hovering the portrait) closes on leaving,
++// 'tap' (the portrait) on the next tap, 'switch' ("About") only on "Work", Escape or the portrait.
++type Source = 'pointer' | 'tap' | 'switch';
+ 
+ export function initAbout({ page, toggle, statement, about }: AboutElements): void {
+   let open = false;
+@@ -31,6 +50,9 @@ export function initAbout({ page, toggle, statement, about }: AboutElements): vo
+   let lastPointer = '';
+   let closeTimer: number | undefined;
+ 
++  const switches = Array.from(page.querySelectorAll<HTMLButtonElement>('[data-about-show]'));
++  const row = page.querySelector<HTMLElement>('[data-about-switch]');
++
+   // The About's top is the top of its tallest column (the bio, or the facts on desktop).
+   const aboutTop = (): number =>
+     Math.min(...Array.from(about.children, (child) => layoutTop(child as HTMLElement)));
+@@ -39,23 +61,48 @@ export function initAbout({ page, toggle, statement, about }: AboutElements): vo
+     if (!open) return;
+     page.classList.remove('is-about-flow');
+     const statementBottom = layoutTop(statement) + statement.offsetHeight;
+-    page.classList.toggle('is-about-flow', aboutTop() - statementBottom < MIN_CLEARANCE);
++    let fits = aboutTop() - statementBottom >= MIN_CLEARANCE;
++    // Desktop: the switch row stays put, so the statement has to clear it too, and the About
++    // can't rise past the list's top.
++    if (fits && desktop.matches && row) {
++      const rowBox = row.getBoundingClientRect();
++      fits = rowBox.top - statementBottom >= MIN_CLEARANCE && aboutTop() >= rowBox.bottom + ROW_GAP;
++    }
++    page.classList.toggle('is-about-flow', !fits);
+   };
+ 
+   const set = (next: boolean, from: Source | null = null): void => {
+     window.clearTimeout(closeTimer);
+     if (next === open) {
+-      if (next && from) source = from;
++      // A peek becomes a choice once tapped or switched; a choice never falls back to a peek.
++      if (next && from && source === 'pointer') source = from;
+       return;
+     }
+     open = next;
+     source = next ? from : null;
+     toggle.setAttribute('aria-expanded', String(next));
++    for (const button of switches) {
++      button.setAttribute('aria-pressed', String((button.dataset.aboutShow === 'about') === next));
++    }
+     page.classList.toggle('is-about-open', next);
+     if (next) fitLayout();
+     else page.classList.remove('is-about-flow');
+   };
+ 
++  // The switch. On desktop the pressed word stays where it is; below desktop its row fades out,
++  // so focus moves to the row that takes its place: "Work" over the About, "About" over the list.
++  for (const button of switches) {
++    button.addEventListener('click', () => {
++      const next = button.dataset.aboutShow === 'about';
++      const hadFocus = document.activeElement === button;
++      set(next, next ? 'switch' : null);
++      if (!hadFocus || (desktop.matches && !about.contains(button))) return;
++      const target = switches.find((other) =>
++        next ? about.contains(other) : !about.contains(other) && other.dataset.aboutShow === 'about');
++      if (target) focusWhenShown(target);
++    });
++  }
++
+   toggle.addEventListener('pointerdown', (event) => {
+     lastPointer = event.pointerType;
+   });
+@@ -75,9 +122,10 @@ export function initAbout({ page, toggle, statement, about }: AboutElements): vo
+     if (source === 'tap' && hoverDesktop.matches) set(false);
+   });
+ 
+-  // Tab closes it before focus moves, so the (now visible) work list is next in line.
++  // Tab closes it before focus moves, so the (now visible) work list is next in line. An About
++  // chosen from the switch stays: Tab moves on to the switch.
+   toggle.addEventListener('keydown', (event) => {
+-    if (event.key === 'Tab' && open) set(false);
++    if (event.key === 'Tab' && open && source !== 'switch') set(false);
+   });
+ 
+   // A mouse click on desktop changes nothing (hover already showed it). Taps, pen, and

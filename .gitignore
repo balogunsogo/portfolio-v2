@@ -4,6 +4,16 @@ dist/
 Thumbs.db
 *.log
 
+# Local environment settings and deployment metadata.
+.env
+.env.*
+!.env.example
+!.env.*.example
+.vercel/
+
+# Incremental TypeScript build cache.
+*.tsbuildinfo
+
 # Typeface: web fonts and the official Regular OTF-only package face ship to Vercel.
 # Other desktop originals stay local.
 src/assets/fonts/*.otf

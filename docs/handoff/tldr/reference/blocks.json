@@ -2,7 +2,7 @@
  "_about": "TL;DR mode, Chromium, reduced motion, fonts loaded, every lazy image loaded. Each block: [first class or tag, top from the top of the page, height] in CSS px. Wrappers laid out with display: contents are listed as their children.",
  "jobtrackr": {
   "1440x900": {
-   "pageHeight": 11721,
+   "pageHeight": 14041,
    "shown": [
     {
      "section": "Hero",
@@ -110,16 +110,36 @@
      ]
     },
     {
+     "section": "Insights",
+     "blocks": [
+      [
+       ".case-figure",
+       9212,
+       738
+      ],
+      [
+       ".case-figure",
+       10014,
+       644
+      ],
+      [
+       ".case-split",
+       10722,
+       650
+      ]
+     ]
+    },
+    {
      "section": "Stack",
      "blocks": [
       [
        ".case-text",
-       9212,
+       11532,
        146
       ],
       [
        ".case-stack",
-       9414,
+       11734,
        297
       ]
      ]
@@ -129,7 +149,7 @@
      "blocks": [
       [
        ".case-figure",
-       9871,
+       12191,
        780
       ]
      ]
@@ -139,17 +159,17 @@
      "blocks": [
       [
        ".case-text",
-       10810,
+       13130,
        198
       ],
       [
        ".case-cols",
-       11056,
+       13376,
        216
       ],
       [
        ".case-cols",
-       11320,
+       13640,
        22
       ]
      ]
@@ -164,7 +184,7 @@
    ]
   },
   "390x844": {
-   "pageHeight": 8256,
+   "pageHeight": 9603,
    "shown": [
     {
      "section": "Hero",
@@ -272,16 +292,36 @@
      ]
     },
     {
+     "section": "Insights",
+     "blocks": [
+      [
+       ".case-figure",
+       6296,
+       197
+      ],
+      [
+       ".case-figure",
+       6529,
+       712
+      ],
+      [
+       ".case-media",
+       7277,
+       263
+      ]
+     ]
+    },
+    {
      "section": "Stack",
      "blocks": [
       [
        ".case-text",
-       6296,
+       7644,
        98
       ],
       [
        ".case-stack",
-       6422,
+       7769,
        475
       ]
      ]
@@ -291,7 +331,7 @@
      "blocks": [
       [
        ".case-figure",
-       7001,
+       8348,
        207
       ]
      ]
@@ -301,17 +341,17 @@
      "blocks": [
       [
        ".case-text",
-       7312,
+       8659,
        192
       ],
       [
        ".case-cols",
-       7528,
+       8875,
        213
       ],
       [
        ".case-cols",
-       7765,
+       9112,
        63
       ]
      ]

@@ -25,11 +25,11 @@ Every case study can be read two ways: the full story (the default), or TL;DR.
 
 The reader switches with two words in the sticky top bar, "Full story" and "TL;DR". The choice is remembered, so the next case study opens in the same mode.
 
-**Measured at 1440 × 900 and 390 × 844:**
+**Measured at 1440 × 900 and 390 × 844** (JobTrackr after its update 1, 15 October 2026, which added Insights):
 
 | Page | Full, desktop | TL;DR, desktop | Full, mobile | TL;DR, mobile |
 |---|---|---|---|---|
-| JobTrackr | 18,782px | 11,721px | 17,557px | 8,256px |
+| JobTrackr | 22,092px | 14,041px | 20,278px | 9,603px |
 | Morrow Studio | 17,192px | 10,475px | 14,963px | 6,308px |
 | Acetrail | 17,114px | 12,001px | 13,705px | 7,048px |
 | Artifacts | 18,202px | 10,210px | 16,177px | 6,317px |
@@ -80,7 +80,7 @@ Sections are flex columns with `gap`, so hidden children leave no space behind. 
 | `.case-options` | Acetrail's four directions |
 | `.case-system` | Acetrail's colour and type study, kept whole: label, swatches with names and hex values, the specimen and its note |
 | `.case-scroll` | Acetrail's hero-scroll phone recording |
-| `.case-split` | The media beside text: JobTrackr Interviews and Authentication |
+| `.case-split` | The media beside text: JobTrackr Interviews, Authentication and Insights (update 1) |
 | `.case-analytics` | JobTrackr's laptop and phone analytics |
 | `.case-arch` | JobTrackr's exploded layers image |
 | `.case-art` | JobTrackr's data-model diagrams |
@@ -91,7 +91,7 @@ Sections are flex columns with `gap`, so hidden children leave no space behind. 
 
 | Page | In TL;DR | Hidden whole |
 |---|---|---|
-| JobTrackr | Overview's two screenshots. Applications' laptop photo and the video-and-phone pair; "The decision" hides. Interviews' laptop photo. Analytics' laptop and phone. Architecture's layers image and diagram. The data-model diagram. Authentication's sign-in recording. Stack. Shipping's recording. Outcome. | The problem, Structure, Process, Security, Beta |
+| JobTrackr | Overview's two screenshots. Applications' laptop photo and the video-and-phone pair; "The decision" hides. Interviews' laptop photo. Analytics' laptop and phone. Architecture's layers image and diagram. The data-model diagram. Authentication's sign-in recording. Insights' laptop video, its phone video and still, and its laptop still; the text block, "Reporting rules" and the "Owner only" note hide (JobTrackr update 1). Stack. Shipping's recording. Outcome. | The problem, Structure, Process, Security, Beta |
 | Morrow Studio | Context's video, Design's pair, the three phones and the Work archive, the Mobile video, the CMS screenshot, Editing's three pictures, Stack, Outcome. | Content model, Preview, Migration, QA, Process |
 | Acetrail | Context's pair. The four directions and the colour and type study. The hero's desktop and phone recordings, without the timing chart. Classes, Results and How it works. Stack. Since launch. Outcome. | Engineering, Performance, Process |
 | Artifacts | Every section's figure or pair: Archive, Theme, Rules (without its list), Block Orbit, Split Menu, Scroll Cinema, Now Playing, Palette (without the chips), Track (without the timing chart), Phone. Stack, Outcome. | Context (the collection table), Engineering, Performance, Process |

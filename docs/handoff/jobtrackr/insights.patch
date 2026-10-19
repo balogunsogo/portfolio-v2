@@ -1,0 +1,122 @@
+diff --git a/CLAUDE.md b/CLAUDE.md
+index 3e43474..f7e0622 100644
+--- a/CLAUDE.md
++++ b/CLAUDE.md
+@@ -101,11 +101,12 @@ The rules below apply to all five pages unless a bullet names one. Acetrail reus
+ - **Video:** the markup is `<video muted loop playsinline preload="none" poster data-case-video>` with no `autoplay`, followed by a `<button data-case-video-toggle hidden>`. `media.ts` plays a video while at least 25% of it is visible and pauses it when it leaves. With `prefers-reduced-motion` nothing starts on its own. The button ("Pause video" / "Play video") is visually hidden until focused, and clicking the video toggles it too. A video the person paused stays paused.
+ - **Images:** `width` and `height` on every `<img>`, `srcset` with two widths, and `loading="lazy" decoding="async"` except the hero (`fetchpriority="high"`).
+ - **Analytics pair:** the laptop image's ratio is `2266 / 1512` (3:2, rounded to the board's 504px at 1440). The phone image fills the same row.
++- **JobTrackr's Insights section (update 1):** between Security and Stack, at the default section gap, built only from existing components: a full-width 16:9 video (Morrow Studio's home-video pattern), Applications' video-and-still pair, a `.case-list`, and Interviews' `.case-split` with a note. Its screens show the real Insights UI with sample data, and the first caption says so; keep that sentence while the media stay. Its two videos, their posters and the two stills are final as delivered. Spec: `docs/handoff/jobtrackr/README.md` (update 1).
+ - **Footer:** the home page's clock markup and classes, at 88px below desktop, with proportional figures as on the board. On JobTrackr, the clock hides while the Morrow Studio next-project link is hovered or keyboard-focused on desktop, so its expanding thumbnail does not overlap the clock.
+ - **Linking:** the chain is a loop: JobTrackr → Morrow Studio → Acetrail → Artifacts → Now Playing → JobTrackr. Morrow Studio is the second home project. Each "Next project" link goes to the next case study in the same tab, with no `target`, `rel` or hidden suffix. All That Is Kim has no case study (its site is about to be redesigned), so the chain skips it, and it's `hidden: true` in `projects.ts`: its data stays, but the home list, preview and sheet leave it out. If it gets one, remove the flag and it slots in between Acetrail and Artifacts, following the home list. Every top bar links to `/`.
+ - **Media files are final:** don't regenerate, recompress or re-cut them. The screen recording was cut to leave out a third party's email address, so never re-cut it from the raw file.
+ - **Checks:** the acceptance lists in the handoff READMEs (JobTrackr §13, Morrow Studio §11, Acetrail §11, Artifacts §11, Now Playing §11): the screenshot diff against both reference pages with reduced motion, the overflow sweep with real scrollbars, keyboard order, motion and linking. TL;DR: the full story must stay pixel-identical, and TL;DR must match `docs/handoff/tldr/reference/blocks.json`.
+-- **Running the screenshot diff:** the references always load the largest image, while the pages pick from `srcset`, so serve the largest file to both before comparing; otherwise the photos differ by resampling. Chrome repeats the top of a page past 16384px in one screenshot, and the JobTrackr, Morrow Studio, Acetrail and Artifacts desktop pages are taller than that, so capture the lower part separately from a fresh page load. (A second screenshot of the same page load comes out a few pixels off, so don't reuse the page.) Now Playing's desktop page (14085px) fits in one capture. Run one browser at a time and make sure the machine has memory to spare: when it is short, Chrome leaves a large photo blank or changes how text and video posters are antialiased, in different places on each run.
++- **Running the screenshot diff:** the references always load the largest image, while the pages pick from `srcset`, so serve the largest file to both before comparing; otherwise the photos differ by resampling. Chrome repeats the top of a page past 16384px in one screenshot, and the JobTrackr, Morrow Studio, Acetrail and Artifacts desktop pages are taller than that (and, since its Insights update, JobTrackr's mobile page too), so capture the lower part separately from a fresh page load. (A second screenshot of the same page load comes out a few pixels off, so don't reuse the page.) Now Playing's desktop page (14085px) fits in one capture. Run one browser at a time and make sure the machine has memory to spare: when it is short, Chrome leaves a large photo blank or changes how text and video posters are antialiased, in different places on each run.
+ 
+ ### Acetrail only
+ 
+diff --git a/README.md b/README.md
+index dc69a70..c3a101e 100644
+--- a/README.md
++++ b/README.md
+@@ -88,7 +88,7 @@ docs/handoff/           implementation handoffs (spec, reference pages, diagrams
+ - **About:** the home page has no About page. Hovering the portrait in the name (or tapping it on touch) swaps the role line for a statement and the work list for the About; the spec and pixel targets are in `docs/handoff/about/`.
+ - **Pages:** any `.html` file under `src/` is copied to `dist/` with its folder. Pages below the root use root-absolute URLs (`/assets/...`).
+ - **Case studies:**
+-  - **JobTrackr** (built): the spec and pixel targets are in `docs/handoff/jobtrackr/`. The copy is final and was checked against the product.
++  - **JobTrackr** (built): the spec and pixel targets are in `docs/handoff/jobtrackr/`. The copy is final and was checked against the product. Update 1 adds Insights between Security and Stack, about the owner-only analytics area: two videos and two stills of a laptop and a phone whose screens show the real Insights UI with sample data, built from the page's existing components.
+   - **Morrow Studio** (built, second project): the spec and pixel targets are in `docs/handoff/morrow-studio/`. It reuses the shared case-study classes and video behaviour. The CMS and Editing sections show the supplied Studio screenshots directly: three art-directed pictures switch at 1024px, and two field crops form a pair without plates. Preview describes document locations and the editors' guide. The copy, migration counts and QA facts were checked against the Morrow repo at `0798ad6` and its reports. Update 1 replaces the project preview images in place with centred framing; the former Studio laptop render and 700px crops are removed.
+   - **Acetrail** (built): the spec, pixel targets and implementation prompt are in `docs/handoff/acetrail/`. The copy is final and its facts were checked against the Ace Trail repo and the live site; the Performance numbers are a PageSpeed measurement from 2 October 2026.
+   - **Artifacts** (built): the spec, pixel targets and implementation prompt are in `docs/handoff/artifacts/`. The copy and measurements were checked against the Artifacts repo and the live site; the Performance numbers are a PageSpeed measurement from 2 October 2026.
+diff --git a/src/work/jobtrackr.html b/src/work/jobtrackr.html
+index 448b493..d34d5e2 100644
+--- a/src/work/jobtrackr.html
++++ b/src/work/jobtrackr.html
+@@ -619,6 +619,86 @@
+         </div>
+       </section>
+ 
++      <section class="case-section" aria-labelledby="insights-heading">
++        <div class="case-text">
++          <p class="case-label case-label--stem case-text__label">Insights</p>
++          <h2 class="case-h case-h--round case-text__heading" id="insights-heading">Only what the data can prove.</h2>
++          <div class="case-text__body case-copy">
++            <p class="case-body">Once other people were using JobTrackr, I wanted to see how: whether new accounts went on to track an application, and which features they reached for. Insights is a private analytics area inside the product, with five sections: Overview, Acquisition &amp; Activation, Product Usage, Engagement &amp; Retention, and Product Health.</p>
++            <p class="case-body">Before designing it, I audited what the production database could actually answer. It stores what people record, not when they visit, so Insights reports only what the audit could prove and says plainly where it can’t. I designed it in Claude Design and built it from the app’s own components, with AI coding agents doing much of the typing.</p>
++          </div>
++        </div>
++
++        <figure class="case-figure">
++          <div class="case-video">
++            <video class="case-video__media case-video__media--widescreen" data-case-video
++              src="/assets/video/jobtrackr/insights.mp4"
++              poster="/assets/images/case/jobtrackr/insights-poster.webp"
++              width="1920" height="1080" preload="none" muted loop playsinline
++              aria-label="Insights on a laptop: a metric’s definition opens, the range changes to 7 days, the Overview scrolls to its status and feature cards, then Acquisition shows a funnel whose five middle stages read Not tracked, and Engagement shows visits as Not tracked"></video>
++            <button class="case-video__toggle" type="button" data-case-video-toggle hidden>Play video</button>
++          </div>
++          <figcaption class="case-caption case-figure__caption">Insights on desktop. Changing the range moves only the two numbers it applies to. Every screen in this section shows sample data, not production numbers.</figcaption>
++        </figure>
++
++        <figure class="case-figure case-figure--pair">
++          <div class="case-video">
++            <video class="case-video__media case-video__media--square" data-case-video
++              src="/assets/video/jobtrackr/insights-phone.mp4"
++              poster="/assets/images/case/jobtrackr/insights-phone-poster.webp"
++              width="1080" height="1080" preload="none" muted loop playsinline
++              aria-label="Insights on a phone: the Overview scrolls to weekly sign-ups and the activation grid, then the section sheet opens Acquisition &amp; Activation and its onboarding funnel"></video>
++            <button class="case-video__toggle" type="button" data-case-video-toggle hidden>Play video</button>
++          </div>
++          <img class="case-media case-media--square"
++            src="/assets/images/case/jobtrackr/insights-phone-1200.webp"
++            srcset="/assets/images/case/jobtrackr/insights-phone-1200.webp 1200w, /assets/images/case/jobtrackr/insights-phone-2000.webp 2000w"
++            sizes="(min-width: 1024px) calc(50vw - 76px), calc(100vw - 40px)"
++            width="2000" height="2000" loading="lazy" decoding="async"
++            alt="The onboarding funnel on a phone in a stand: five of its seven stages read Not tracked">
++          <figcaption class="case-caption case-figure__caption">On a phone, the sections and the date range move into sheets, and the weekly chart turns into a list.</figcaption>
++        </figure>
++
++        <div class="case-block">
++          <p class="case-label case-label--stem">Reporting rules</p>
++          <dl class="case-list">
++            <div class="case-list__row">
++              <dt class="case-item case-item--stem case-list__name">Not tracked, never zero</dt>
++              <dd class="case-list__text">A metric with no source says so. A measured zero still shows as 0.</dd>
++            </div>
++            <div class="case-list__row">
++              <dt class="case-item case-item--stem case-list__name">Labelled shares</dt>
++              <dd class="case-list__text">Every percentage names the accounts it’s a share of.</dd>
++            </div>
++            <div class="case-list__row">
++              <dt class="case-item case-item--stem case-list__name">No trend arrows</dt>
++              <dd class="case-list__text">There’s no earlier period to compare against yet, so there are no growth percentages.</dd>
++            </div>
++            <div class="case-list__row">
++              <dt class="case-item case-item--round case-list__name">One snapshot</dt>
++              <dd class="case-list__text">Every number on a page comes from one read-only database transaction, at one moment.</dd>
++            </div>
++            <div class="case-list__row">
++              <dt class="case-item case-list__name">Aggregates only</dt>
++              <dd class="case-list__text">Counts and shares, never names, emails or IDs.</dd>
++            </div>
++          </dl>
++        </div>
++
++        <div class="case-split">
++          <img class="case-media case-media--photo case-split__media"
++            src="/assets/images/case/jobtrackr/insights-laptop-1200.webp"
++            srcset="/assets/images/case/jobtrackr/insights-laptop-1200.webp 1200w, /assets/images/case/jobtrackr/insights-laptop-2064.webp 2064w"
++            sizes="(min-width: 1024px) calc(66.67vw - 93px), calc(100vw - 40px)"
++            width="2064" height="1548" loading="lazy" decoding="async"
++            alt="Engagement &amp; Retention on a laptop: accounts recording over 7 and 30 days, and visits marked Not tracked">
++          <div class="case-block case-block--note case-split__side">
++            <p class="case-label case-label--round">Owner only</p>
++            <p class="case-body">Insights sits behind the usual sign-in and one more check. The API compares the verified account with a server-side list of owners, and any other account gets a 404, as if the page weren’t there. Only owners see the link to it in their account menu.</p>
++          </div>
++        </div>
++      </section>
++
+       <section class="case-section case-section--stack" aria-labelledby="stack-heading">
+         <div class="case-text">
+           <p class="case-label case-label--s case-text__label">Stack</p>
