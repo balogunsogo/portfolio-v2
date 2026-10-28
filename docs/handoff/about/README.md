@@ -180,11 +180,11 @@ The role and the statement share one place, as do the list and the About, so the
 - **Statement:** I design and build digital experiences, from the way they work to the details that make them feel good to use.
 - **Heading:** About
 - **Bio:**
-  - I’m Oluwasogo, a software engineer and digital designer in Lagos, Nigeria. I work on product interfaces, websites, and the small interactions that make them feel considered.
-  - By day I build enterprise insurance systems at AXA Mansard. Alongside that I take on freelance work and keep an archive of interaction studies.
+  - I’m Oluwasogo, a design and frontend engineer in Lagos, Nigeria. I work across product design, frontend and backend development, building digital experiences with thoughtful interactions and attention to detail.
+  - By day, I build enterprise applications at AXA Mansard, working across frontend and backend systems, API integrations, and collaborating with teams to improve business workflows. Outside of that, I take on freelance projects and explore interactions through personal experiments.
 - **Now:**
   - Software Developer, AXA Mansard
-  - Design and frontend, Ace Trail Tutors
+  - Design and Tech, Ace Trail Tutors
 - **Open to:**
   - Product design and development
   - Custom websites and Webflow builds

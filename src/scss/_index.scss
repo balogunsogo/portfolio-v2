@@ -735,6 +735,15 @@ $sheet-duration: 0.42s; // keep in sync with TRANSITION_MS in ts/modal.ts
   }
 }
 
+.about__link {
+  color: $color-muted;
+
+  &:hover,
+  &:focus-visible {
+    color: $color-ink;
+  }
+}
+
 // Reduced motion: the global rule in _base.scss zeroes the durations; the sequencing delays go
 // too, so the About swaps in at once.
 @media (prefers-reduced-motion: reduce) {

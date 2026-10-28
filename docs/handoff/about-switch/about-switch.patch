@@ -36,8 +36,8 @@ index 9d01100..8660695 100644
 +              <button class="index__switch-word index__switch-word--work" type="button" aria-pressed="false" data-about-show="work">Work</button>
 +              <h2 class="index__switch-heading index__switch-word--about">About</h2>
 +            </div>
-             <p>I’m Oluwasogo, a software engineer and digital designer in Lagos, Nigeria. I work on product interfaces, websites, and the small interactions that make them feel considered.</p>
-             <p>By day I build enterprise insurance systems at AXA Mansard. Alongside that I take on freelance work and keep an archive of interaction studies.</p>
+             <p>I’m Oluwasogo, a design and frontend engineer in Lagos, Nigeria. I work across product design, frontend and backend development, building digital experiences with thoughtful interactions and attention to detail.</p>
+             <p>By day, I build enterprise applications at AXA Mansard, working across frontend and backend systems, API integrations, and collaborating with teams to improve business workflows. Outside of that, I take on freelance projects and explore interactions through personal experiments.</p>
            </div>
 diff --git a/src/scss/_index.scss b/src/scss/_index.scss
 index 03ab00e..24c677d 100644

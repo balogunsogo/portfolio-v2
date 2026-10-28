@@ -20,13 +20,13 @@ index 69d2b1e..d54e05a 100644
 +        <span class="intro__name-line" id="name-last">Oluwasogo</span>
        </h1>
 -      <p class="intro__role">
--        <span class="intro__role-line">Software Engineer &amp;</span>
--        <span class="intro__role-line">Digital Designer</span>
+-        <span class="intro__role-line">Design &amp;</span>
+-        <span class="intro__role-line">Frontend Engineer</span>
 -      </p>
 +      <div class="intro__lead">
 +        <p class="intro__role">
-+          <span class="intro__role-line">Software Engineer &amp;</span>
-+          <span class="intro__role-line">Digital Designer</span>
++          <span class="intro__role-line">Design &amp;</span>
++          <span class="intro__role-line">Frontend Engineer</span>
 +        </p>
 +        <p class="intro__statement" id="about-statement" data-about-statement>I design and build digital experiences, from the way they work to the details that make them feel good to use.</p>
 +      </div>
@@ -44,14 +44,14 @@ index 69d2b1e..d54e05a 100644
 +        <div class="about" id="about" data-about>
 +          <div class="about__text">
 +            <h2 class="about__heading">About</h2>
-+            <p>I’m Oluwasogo, a software engineer and digital designer in Lagos, Nigeria. I work on product interfaces, websites, and the small interactions that make them feel considered.</p>
-+            <p>By day I build enterprise insurance systems at AXA Mansard. Alongside that I take on freelance work and keep an archive of interaction studies.</p>
++            <p>I’m Oluwasogo, a design and frontend engineer in Lagos, Nigeria. I work across product design, frontend and backend development, building digital experiences with thoughtful interactions and attention to detail.</p>
++            <p>By day, I build enterprise applications at AXA Mansard, working across frontend and backend systems, API integrations, and collaborating with teams to improve business workflows. Outside of that, I take on freelance projects and explore interactions through personal experiments.</p>
 +          </div>
 +          <dl class="about__facts">
 +            <div class="about__fact">
 +              <dt>Now</dt>
 +              <dd>Software Developer, AXA Mansard</dd>
-+              <dd>Design and frontend, Ace Trail Tutors</dd>
++              <dd>Design and Tech, Ace Trail Tutors</dd>
 +            </div>
 +            <div class="about__fact">
 +              <dt>Open to</dt>

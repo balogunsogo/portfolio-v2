@@ -153,12 +153,12 @@
 .intro__role-line {
   display: block;
 
-  // "Software…" starts on a round S.
+  // "Design…" starts on a D stem.
   &:first-child {
-    margin-left: -$lsb-s-medium;
+    margin-left: -$lsb-stem-medium;
   }
 
-  // On mobile "Digital…" starts its own line on a D stem.
+  // On mobile "Frontend…" starts its own line on an F stem.
   &:last-child {
     margin-left: -$lsb-stem-medium;
   }
