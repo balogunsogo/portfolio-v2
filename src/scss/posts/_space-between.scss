@@ -1,0 +1,76 @@
+@use '../tokens' as *;
+
+.form-demo {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+  background: $plate-clip;
+}
+.form-demo__head { display: flex; flex-direction: column; gap: 12px; font-size: 15px; line-height: 1.4; }
+.form-demo__name { font-weight: $weight-medium; }
+.form-demo__conditions { display: flex; gap: 16px; margin: 0; padding: 0; border: 0; color: $color-muted; }
+.form-demo__condition {
+  position: relative;
+  cursor: pointer;
+
+  input { @include visually-hidden; }
+  &:has(input:checked), &:hover { color: $color-ink; }
+  &:has(input:focus-visible) { outline: 2px solid currentColor; outline-offset: 3px; }
+  &:has(input:disabled) { cursor: default; }
+  @include below-desktop {
+    &::after { content: ''; position: absolute; min-width: 44px; width: calc(100% + 12px); height: 44px; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+  }
+}
+.form-demo__stage { display: flex; justify-content: center; align-items: center; min-width: 0; }
+.form-demo__card { display: flex; flex-direction: column; gap: 20px; width: 100%; padding: 24px; background: $color-ground; }
+.form-demo__heading { margin: 0; font-size: 24px; font-weight: $weight-medium; line-height: 1.15; letter-spacing: -0.02em; }
+.form-demo__description { margin-top: 8px; font-size: 15px; line-height: 1.45; color: $color-muted; overflow-wrap: anywhere; }
+.form-demo__form { display: flex; flex-direction: column; gap: 8px; }
+.form-demo__form[hidden] { display: none; }
+.form-demo__label { font-size: 15px; line-height: 1.4; }
+.form-demo__field { display: flex; flex-direction: column; gap: 12px; }
+.form-demo__input {
+  width: 100%;
+  min-width: 0;
+  height: 48px;
+  padding: 0;
+  border: 0;
+  border-bottom: 1px solid $color-muted; // Deliberate form-field exception.
+  border-radius: 0;
+  background: transparent;
+  font: inherit;
+  font-size: 16px;
+  color: $color-ink;
+
+  &::placeholder { color: $color-muted; }
+  &:focus, &[aria-invalid='true'] { border-bottom: 2px solid $color-ink; }
+  &:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+}
+.form-demo__submit { flex: none; width: 100%; height: 48px; padding: 0 22px; border: 0; border-radius: 0; background: $color-ink; color: $color-ground; font: inherit; font-size: 16px; font-weight: $weight-medium; cursor: pointer; }
+.form-demo__submit:disabled, .form-demo__submit[aria-disabled='true'] { background: $color-muted; cursor: progress; }
+.form-demo__submit:focus-visible, .form-demo__text-button:focus-visible, .form-demo__heading:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+.form-demo__message { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; min-height: 44px; font-size: 15px; line-height: 1.45; color: $color-muted; }
+.form-demo__text-button { position: relative; margin: 0; padding: 0; border: 0; background: none; font: inherit; font-size: 15px; font-weight: $weight-medium; color: $color-ink; cursor: pointer; }
+.form-demo__text-button:hover { color: $color-muted; }
+.form-demo__foot { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; font-size: 13px; line-height: 1.4; color: $color-muted; }
+.form-demo__reset { flex: none; font-size: inherit; font-weight: $weight-regular; color: $color-muted; }
+.form-demo__reset:hover { color: $color-ink; }
+
+@include below-desktop {
+  .form-demo__text-button::after { content: ''; position: absolute; min-width: 44px; width: calc(100% + 12px); height: 44px; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+  // Keep four condition words on the smallest supported viewport.
+  @media (max-width: 359px) { .form-demo__conditions { flex-wrap: wrap; row-gap: 24px; } }
+}
+@include desktop {
+  .form-demo { height: 600px; display: grid; grid-template-rows: auto 1fr auto; padding: 32px 40px; }
+  .form-demo__head { flex-direction: row; justify-content: space-between; align-items: baseline; font-size: 16px; }
+  .form-demo__conditions { gap: 20px; }
+  .form-demo__card { width: 480px; min-height: 312px; padding: 40px; gap: 24px; }
+  .form-demo__heading { font-size: 28px; }
+  .form-demo__description { font-size: 16px; }
+  .form-demo__field { flex-direction: row; align-items: flex-end; }
+  .form-demo__input { flex: 1; font-size: 18px; }
+  .form-demo__submit { width: auto; }
+  .form-demo__foot { font-size: 14px; }
+}

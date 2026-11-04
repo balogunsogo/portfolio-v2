@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=390">
+<title>Writing index, mobile</title>
+<style>
+
+@font-face { font-family: "PP Neue Montreal"; src: url("../../../../src/assets/fonts/PPNeueMontreal-Regular.otf") format("opentype"); font-weight: 400 500; font-style: normal; font-display: swap; }
+*, ::before, ::after { box-sizing: border-box; }
+body { margin: 0; background: #FAFAF8; color: #111110; font-family: "PP Neue Montreal", "Neue Montreal", "Helvetica Neue", Helvetica, Arial, sans-serif; font-weight: 400; line-height: 1.4; -webkit-font-smoothing: antialiased; text-rendering: optimizelegibility; }
+h1, h2, p, ol, ul { margin: 0; }
+ol, ul { padding: 0; list-style: none; }
+a { color: inherit; text-decoration: none; transition: color 0.15s; }
+a:hover { color: #65635D; }
+a:focus-visible { outline: currentcolor solid 2px; outline-offset: 3px; }
+.visually-hidden { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+.page { min-height: 844px; display: flex; flex-direction: column; padding: 28px 20px 32px; font-size: 15px; }
+.top { display: flex; justify-content: space-between; align-items: baseline; line-height: 1.4; }
+.top__name { font-weight: 500; }
+.intro { display: flex; flex-direction: column; gap: 14px; margin-top: 56px; }
+.intro__name { font-size: 64px; font-weight: 500; line-height: 0.9; letter-spacing: -0.045em; margin-left: -0.014em; }
+.intro__role { font-size: 24.9px; font-weight: 500; line-height: 1.12; letter-spacing: -0.022em; }
+.index { display: flex; flex-direction: column; margin-top: auto; padding-top: 48px; }
+.switch { display: flex; gap: 16px; margin-left: -0.017em; color: #65635D; }
+.switch__link { position: relative; color: #65635D; }
+.switch__link::after { content: ""; position: absolute; inset: -12px -8px; }
+.switch__current { margin: 0; font: inherit; color: #111110; }
+.posts { display: flex; flex-direction: column; gap: 28px; margin-top: 16px; }
+.post { display: flex; flex-direction: column; gap: 6px; }
+.post__link { display: block; padding: 2px 0; font-size: 28px; font-weight: 500; line-height: 1.15; letter-spacing: -0.02em; margin-left: -0.015em; text-wrap: balance; }
+.post__desc { font-size: 16px; line-height: 1.45; color: #65635D; text-wrap: pretty; }
+.post__meta { font-size: 15px; color: #65635D; font-variant-numeric: tabular-nums; }
+.aside { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 16px; margin-top: 40px; align-items: end; }
+.clock { position: relative; width: 96px; height: 96px; color: #65635D; }
+.clock svg { display: block; width: 96px; height: 96px; fill: none; stroke-linecap: round; }
+.clock__face { stroke: currentcolor; stroke-width: 1; }
+.clock__readout { fill: currentcolor; font-size: 11px; font-variant-numeric: tabular-nums; text-anchor: middle; dominant-baseline: central; }
+.clock__hand { stroke: #111110; stroke-width: 1; }
+.clock__hand--hour { stroke-width: 2.25; }
+.clock__pivot { fill: #FAFAF8; stroke: #111110; stroke-width: 1; }
+.clock__time { position: absolute; left: 25px; top: 48px; transform: translate(-50%, -50%); font-size: 11px; line-height: 1; font-variant-numeric: tabular-nums; white-space: nowrap; pointer-events: none; }
+.links { display: flex; flex-direction: column; align-items: flex-end; text-align: right; }
+.links a { display: inline-block; padding: 6px 0; }
+
+</style>
+</head>
+<body>
+
+
+<div style="position: relative; width: 390px; height: 844px; overflow: hidden; background: #FAFAF8">
+<main class="page">
+<header class="top"><a class="top__name" href="#">Balogun Oluwasogo</a></header>
+<header class="intro">
+<h1 class="intro__name">Writing</h1>
+<p class="intro__role">Essays on design and engineering.</p>
+</header>
+<section class="index" aria-labelledby="writing-heading-m">
+<nav class="switch" aria-label="Sections"><a class="switch__link" href="#">Work</a><a class="switch__link" href="#">About</a><h2 class="switch__current" id="writing-heading-m" aria-current="page">Writing</h2></nav>
+<ol class="posts">
+<li class="post">
+<a class="post__link" href="#">The Space Between Design and Engineering</a>
+<p class="post__desc">Some thoughts on how learning to build software changed the way I think about design.</p>
+<p class="post__meta"><time datetime="2026-11-04">4 November 2026</time> · 6 min read</p>
+</li>
+</ol>
+<div class="aside">
+<div class="clock"><svg aria-hidden="true" focusable="false" viewBox="0 0 96 96"><circle class="clock__face" cx="48" cy="48" r="47.5"></circle><text class="clock__readout" x="71" y="48">GMT+1</text><line class="clock__hand clock__hand--hour" transform="rotate(332.5 48 48)" x1="48" x2="48" y1="48" y2="24"></line><line class="clock__hand" transform="rotate(30 48 48)" x1="48" x2="48" y1="48" y2="8"></line><circle class="clock__pivot" cx="48" cy="48" r="2.5"></circle></svg><span class="clock__time" aria-hidden="true">11:05</span><p class="visually-hidden">GMT+1 11:05, Lagos, Nigeria</p></div>
+<nav aria-label="Elsewhere"><ul class="links"><li><a href="#">LinkedIn<span class="visually-hidden"> (opens in a new tab)</span></a></li><li><a href="#">GitHub<span class="visually-hidden"> (opens in a new tab)</span></a></li><li><a href="#">Contra<span class="visually-hidden"> (opens in a new tab)</span></a></li><li><a href="#">Email</a></li></ul></nav>
+</div>
+</section>
+</main>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1440">
+<title>Demo 01, every state</title>
+<style>
+
+@font-face{font-family:'PP Neue Montreal';src:url(../../../../src/assets/fonts/PPNeueMontreal-Regular.otf) format('opentype');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'PP Neue Montreal';src:url(../../../../src/assets/fonts/PPNeueMontreal-Regular.otf) format('opentype');font-weight:500;font-style:normal;font-display:swap}
+*, ::before, ::after { box-sizing: border-box; }
+body { margin: 0; background: #FAFAF8; color: #111110; font-family: 'PP Neue Montreal', 'Helvetica Neue', Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; text-rendering: optimizelegibility; }
+p { margin: 0; }
+.board { width: 1440px; height: 1200px; padding: 64px; display: flex; flex-direction: column; gap: 48px; }
+.grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 48px 24px; }
+.cell { display: flex; flex-direction: column; gap: 12px; }
+.cell__label { font-size: 16px; line-height: 1.4; color: #65635D; }
+.plate { padding: 24px; background: #ECEBE6; }
+.card { min-height: 380px; padding: 32px; background: #FAFAF8; display: flex; flex-direction: column; gap: 24px; }
+.card__title { font-size: 26px; font-weight: 500; line-height: 1.15; letter-spacing: -0.02em; }
+.card__text { margin-top: 8px; font-size: 15px; line-height: 1.45; color: #65635D; }
+.form { display: flex; flex-direction: column; gap: 8px; }
+.label { font-size: 15px; line-height: 1.4; }
+.field { display: flex; gap: 12px; align-items: flex-end; }
+.input { flex: 1; min-width: 0; height: 48px; display: flex; align-items: center; border-bottom: 1px solid #65635D; font-size: 18px; }
+.input--empty { color: #8F8C85; }
+.input--focus { border-bottom: 2px solid #111110; }
+.btn { flex: none; height: 48px; padding: 0 20px; display: flex; align-items: center; background: #111110; color: #FAFAF8; font-size: 16px; font-weight: 500; }
+.btn--busy { background: #65635D; }
+.msg { min-height: 44px; display: flex; flex-direction: column; align-items: flex-start; gap: 6px; font-size: 15px; line-height: 1.45; }
+.msg--muted { color: #65635D; }
+.textbtn { font-size: 15px; font-weight: 500; }
+.note { max-width: 860px; font-size: 16px; line-height: 1.45; color: #65635D; }
+
+</style>
+</head>
+<body>
+
+
+<div class="board">
+<p class="note">Every state of the form in the first demo, at desktop size. Nothing is sent anywhere: each state comes from a timer in the page. The typed email survives every state except a reset.</p>
+<div class="grid">
+<div class="cell"><p class="cell__label">Idle</p><div class="plate"><div class="card"><div><p class="card__title">Join the waitlist</p><p class="card__text">Leave your email and we’ll let you know when it opens.</p></div><div class="form"><p class="label">Email address</p><div class="field"><div class="input input--empty">name@example.com</div><div class="btn">Join</div></div></div><div class="msg"></div></div></div></div>
+<div class="cell"><p class="cell__label">Invalid email, on submit</p><div class="plate"><div class="card"><div><p class="card__title">Join the waitlist</p><p class="card__text">Leave your email and we’ll let you know when it opens.</p></div><div class="form"><p class="label">Email address</p><div class="field"><div class="input input--focus">ada@example</div><div class="btn">Join</div></div></div><div class="msg"><p>Enter an email address, like name@example.com.</p></div></div></div></div>
+<div class="cell"><p class="cell__label">Sending, normal network (0.7 seconds)</p><div class="plate"><div class="card"><div><p class="card__title">Join the waitlist</p><p class="card__text">Leave your email and we’ll let you know when it opens.</p></div><div class="form"><p class="label">Email address</p><div class="field"><div class="input">ada@example.com</div><div class="btn btn--busy">Joining…</div></div></div><div class="msg"></div></div></div></div>
+<div class="cell"><p class="cell__label">Slow network, after 1.5 seconds (resolves at 3.5)</p><div class="plate"><div class="card"><div><p class="card__title">Join the waitlist</p><p class="card__text">Leave your email and we’ll let you know when it opens.</p></div><div class="form"><p class="label">Email address</p><div class="field"><div class="input">ada@example.com</div><div class="btn btn--busy">Joining…</div></div></div><div class="msg"><p class="msg--muted">Still working. This is taking longer than usual.</p></div></div></div></div>
+<div class="cell"><p class="cell__label">Server error, first attempt (the retry goes through)</p><div class="plate"><div class="card"><div><p class="card__title">Join the waitlist</p><p class="card__text">Leave your email and we’ll let you know when it opens.</p></div><div class="form"><p class="label">Email address</p><div class="field"><div class="input">ada@example.com</div><div class="btn">Join</div></div></div><div class="msg"><p>Something went wrong on our side, so you haven’t joined yet. Your email is still here.</p><p class="textbtn">Try again</p></div></div></div></div>
+<div class="cell"><p class="cell__label">Success</p><div class="plate"><div class="card"><div><p class="card__title">You’re on the list.</p><p class="card__text">We’ll email ada@example.com when it opens.</p></div><div class="msg"><p class="textbtn">Start over</p></div></div></div></div>
+</div>
+</div>
+
+</body>
+</html>

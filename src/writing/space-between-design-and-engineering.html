@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>The Space Between Design and Engineering — Balogun Oluwasogo</title>
+  <meta name="description" content="Some thoughts on how learning to build software changed the way I think about design.">
+  <meta name="theme-color" content="#FAFAF8">
+  <link rel="canonical" href="https://www.balogunoluwasogo.com/writing/space-between-design-and-engineering">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="The Space Between Design and Engineering — Balogun Oluwasogo">
+  <meta property="og:description" content="Some thoughts on how learning to build software changed the way I think about design.">
+  <meta property="og:url" content="https://www.balogunoluwasogo.com/writing/space-between-design-and-engineering">
+  <meta property="og:image" content="https://www.balogunoluwasogo.com/assets/images/writing/space-between-og.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="The Space Between Design and Engineering, by Balogun Oluwasogo">
+  <meta property="article:published_time" content="2026-11-04">
+  <meta property="article:author" content="Balogun Oluwasogo">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="The Space Between Design and Engineering — Balogun Oluwasogo">
+  <meta name="twitter:description" content="Some thoughts on how learning to build software changed the way I think about design.">
+  <meta name="twitter:image" content="https://www.balogunoluwasogo.com/assets/images/writing/space-between-og.jpg">
+  <link rel="icon" href="/assets/favicon.ico?v=3" sizes="32x32">
+  <link rel="icon" href="/assets/favicon.svg?v=3" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <link rel="preload" href="/assets/fonts/PPNeueMontreal-Regular.otf" as="font" type="font/otf" crossorigin>
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"The Space Between Design and Engineering","description":"Some thoughts on how learning to build software changed the way I think about design.","datePublished":"2026-11-04","dateModified":"2026-11-04","author":{"@type":"Person","name":"Balogun Oluwasogo","url":"https://www.balogunoluwasogo.com/"},"image":"https://www.balogunoluwasogo.com/assets/images/writing/space-between-og.jpg","mainEntityOfPage":"https://www.balogunoluwasogo.com/writing/space-between-design-and-engineering","inLanguage":"en"}</script>
+  <script type="module" src="/assets/js/main.js"></script>
+  <script type="module" src="/assets/js/posts/space-between/form-demo.js"></script>
+</head>
+<body>
+  <div class="case writing">
+    <header class="case-top" data-case-top><a class="case-top__name" href="/">Balogun Oluwasogo</a><a class="writing-top-link" href="/writing">Writing</a></header>
+    <main>
+      <article>
+        <header class="writing-head">
+          <h1 class="writing-title">The Space Between Design and Engineering</h1>
+          <p class="writing-subtitle">Some thoughts on how learning to build software changed the way I think about design.</p>
+        </header>
+        <div class="writing-body">
+          <section class="writing-section" aria-labelledby="introduction-heading">
+            <h2 class="visually-hidden" id="introduction-heading">Introduction</h2>
+            <div class="writing-row writing-row--intro">
+              <dl class="writing-meta"><div><dt>Published</dt><dd><time datetime="2026-11-04">4 November 2026</time></dd></div><div><dt>Reading time</dt><dd>6 minutes</dd></div></dl>
+              <div class="writing-prose"><p>I started out in design towards the end of 2021, taking Google’s UX Design Professional Certificate course. I was interested in how digital products were designed, how people interacted with them, and what made some experiences better than others.</p>
+<p>After that, I started freelancing on Fiverr and Upwork, mostly working on websites and interfaces for clients. I enjoyed the process, especially seeing something go from an idea to a finished product.</p>
+<p>At that point, most of my attention was on the design itself. How things looked, how people moved through a website, whether the layout made sense, and whether the experience felt right.</p>
+<p>I understood that someone had to build these things, of course, but I didn’t fully appreciate how much of the experience was shaped during implementation.</p>
+<p>That changed when I started writing software professionally.</p></div>
+            </div>
+          </section>
+          <section class="writing-section" aria-labelledby="engineering-heading"><div class="writing-row"><h2 class="writing-heading writing-heading--round" id="engineering-heading">Getting into engineering</h2><div class="writing-prose"><p>In 2023, I joined AXA Mansard through its Executive Trainee programme. That was the beginning of my software engineering journey.</p>
+<p>I started with frontend and mobile development, working on applications that people actually depended on to get things done.</p>
+<p>It was quite different from freelancing.</p>
+<p>For one, I was working within existing systems and codebases, alongside other engineers and teams. There were business requirements, dependencies, deadlines, and decisions that had been made long before I joined.</p>
+<p>I also started seeing how much work goes into making even seemingly simple features behave properly.</p>
+<p>Take a form, for example. From a design perspective, you might be thinking about the layout, field grouping, labels, and how easy it is to complete.</p>
+<p>When you’re implementing that same form, you also have to think about validation, API responses, loading states, errors, permissions, and what happens when someone does something you didn’t expect.</p>
+<p>And those things affect the design too.</p>
+<p>An error message needs somewhere to appear. A loading state needs to communicate what’s happening. Validation rules can change how a form should be structured in the first place.</p>
+<p>I started paying more attention to these details, even when I was doing design work.</p></div></div></section>
+          <section class="writing-section" aria-labelledby="mockup-heading">
+            <div class="writing-row"><h2 class="writing-heading writing-heading--t" id="mockup-heading">The things you don’t always see in a mockup</h2><div class="writing-prose"><p>One thing I’ve noticed is that it’s relatively easy to design for when everything goes right.</p>
+<p>The data loads, the content fits, the user follows the expected flow, and every interaction behaves exactly as intended.</p>
+<p>Real applications are rarely that straightforward.</p>
+<p>Sometimes a request takes longer than expected. Sometimes the data is incomplete. Sometimes someone clicks something twice, or tries to do something they don’t have permission to do.</p>
+<p>These are all things that need to be accounted for, and they can have a pretty big impact on the experience.</p>
+<p>Even when everything works, there are smaller details to consider.</p>
+<p>Does an interaction respond quickly enough? Is the feedback clear? Does an animation help someone understand what’s happening, or does it just look nice?</p>
+<p>I’ve come to see these as design and engineering decisions happening at the same time.</p>
+<p>You can design a really nice transition, but how it’s implemented affects how smooth it feels. You can build a technically correct feature, but if the feedback is confusing, people will still struggle with it.</p>
+<p>The two constantly affect each other.</p>
+<p>Here’s a simple example. Try submitting the form under different conditions and see how the experience changes.</p></div></div>
+            <figure class="writing-demo form-demo" data-form-demo aria-labelledby="form-demo-title">
+  <div class="form-demo__head">
+    <p class="form-demo__name" id="form-demo-title">One form, different realities</p>
+    <fieldset class="form-demo__conditions">
+      <legend class="visually-hidden">Network conditions</legend>
+      <span aria-hidden="true">Network</span>
+      <label class="form-demo__condition"><input type="radio" name="demo-network" value="normal" checked disabled data-demo-condition>Normal</label>
+      <label class="form-demo__condition"><input type="radio" name="demo-network" value="slow" disabled data-demo-condition>Slow</label>
+      <label class="form-demo__condition"><input type="radio" name="demo-network" value="error" disabled data-demo-condition>Server error</label>
+    </fieldset>
+  </div>
+  <div class="form-demo__stage">
+    <div class="form-demo__card">
+      <div>
+        <h3 class="form-demo__heading" tabindex="-1" data-demo-heading>Join the waitlist</h3>
+        <p class="form-demo__description" data-demo-description>Leave your email and we’ll let you know when it opens.</p>
+      </div>
+      <form class="form-demo__form" novalidate data-demo-form>
+        <label class="form-demo__label" for="demo-email">Email address</label>
+        <div class="form-demo__field">
+          <input class="form-demo__input" id="demo-email" type="email" inputmode="email" autocomplete="email" placeholder="name@example.com" aria-invalid="false" aria-describedby="demo-message" disabled data-demo-email>
+          <button class="form-demo__submit" type="submit" aria-busy="false" disabled data-demo-submit>Join</button>
+        </div>
+      </form>
+      <div class="form-demo__message" id="demo-message" role="status" aria-live="polite" data-demo-message></div>
+    </div>
+  </div>
+  <figcaption class="form-demo__foot">
+    <p data-demo-note>This demo needs JavaScript. Nothing you type is sent or stored.</p>
+    <button class="form-demo__text-button form-demo__reset" type="button" disabled data-demo-reset>Reset</button>
+  </figcaption>
+</figure>
+          </section>
+          <section class="writing-section" aria-labelledby="shift-heading">
+            <div class="writing-row"><h2 class="writing-heading" id="shift-heading">A gradual shift in perspective</h2><div class="writing-prose"><p>Around 2025, I started taking on more backend and full-stack work, and this became even more apparent.</p>
+<p>There wasn’t one particular project that changed how I thought about things. It was more of a gradual realization from working on different projects and running into different kinds of problems.</p>
+<p>I’d be implementing something and notice that a small technical decision had implications for the user experience. Other times, I’d be designing something and realize that understanding the underlying system would help me make a better decision.</p>
+<p>I’ve seen this play out in some of my personal projects too.</p>
+<p>With the Ace Trail Tutors website, for example, I spent time working on the motion and interactions. Getting the animations to look right was one part of it. Making sure they performed well, using transforms where appropriate, and accounting for people who prefer reduced motion were just as important.</p>
+<p>Here’s what the hero looks like with and without the full animation.</p></div></div>
+            <div class="writing-demo" data-media-switch>
+<figure class="writing-version" data-media-version="Full motion">
+  <div class="writing-plate" data-media-plate>
+    <div class="writing-frame"><video class="writing-video" muted playsinline preload="none" controls src="/assets/video/writing/ace-trail-normal.mp4" poster="/assets/images/writing/ace-trail-normal-poster.webp" aria-label="The Ace Trail Tutors hero with full motion: the headline and photo rise into place, then the photo grows to fill the window as the page scrolls." data-media-video></video></div>
+    <div class="writing-controls" data-media-controls hidden><div class="writing-control-group" role="group" aria-label="Animation" data-media-versions></div><div class="writing-control-group writing-controls__actions"><button class="writing-control" type="button" data-media-replay hidden>Replay</button><button class="writing-control writing-control--ink" type="button" data-media-toggle>Play</button></div></div>
+  </div>
+  <figcaption class="writing-row writing-caption"><p>With full motion, the hero rises into place as the page loads, and the photo grows to fill the window as you scroll. Both recordings use the same 1440 × 900 window and the same scroll.</p></figcaption>
+</figure>
+<figure class="writing-version" data-media-version="Reduced motion">
+  <div class="writing-plate" data-media-plate>
+    <div class="writing-frame"><video class="writing-video" muted playsinline preload="none" controls src="/assets/video/writing/ace-trail-reduced.mp4" poster="/assets/images/writing/ace-trail-reduced-poster.webp" aria-label="The Ace Trail Tutors hero with reduced motion: nothing rises in, and the photo jumps to full size halfway through the scroll." data-media-video></video></div>
+
+  </div>
+  <figcaption class="writing-row writing-caption"><p>With reduced motion, the hero appears in place, and the photo jumps to full size halfway through the scroll instead of growing. Both recordings use the same 1440 × 900 window and the same scroll.</p></figcaption>
+</figure>
+</div>
+            <div class="writing-after"><div class="writing-row"><div class="writing-prose"><p>JobTrackr was a different experience.</p>
+<p>I designed and built it to help people manage their job applications, interviews, documents, and other parts of their job search.</p>
+<p>There’s the visible side of the product: the interface, the flows, the interactions, and how everything is organized.</p>
+<p>Then there’s everything supporting it. The database, authentication, permissions, API requests, error handling, and all the other things that need to work for someone to use the product reliably.</p>
+<p>For instance, making sure one user can’t access another user’s applications isn’t something you’d notice from looking at the interface. But it’s a pretty important part of building a product people can trust.</p>
+<p>Here’s a quick look at JobTrackr. The interface is only part of what’s happening, so I’ve included a few notes on the engineering behind it.</p></div></div></div>
+            <div data-annotated-media>
+  <figure class="writing-demo" aria-label="JobTrackr: adding an application, with notes on the engineering behind it">
+    <div class="writing-plate">
+      <div class="writing-frame"><video class="writing-video" muted playsinline preload="none" controls src="/assets/video/writing/jobtrackr-workflow.mp4" poster="/assets/images/writing/jobtrackr-workflow-poster.webp" aria-label="JobTrackr, signed in as a sample account: a new application for Product Designer at Northwind is added as Saved, opened, and moved to Applied, which adds ‘Application submitted’ to its activity." data-media-video></video></div>
+      <div class="writing-controls" data-media-controls hidden><p class="writing-controls__label">Adding an application, then moving it from Saved to Applied</p><div class="writing-control-group writing-controls__actions"><button class="writing-control" type="button" data-media-replay hidden>Replay</button><button class="writing-control writing-control--ink" type="button" data-media-toggle>Play</button></div></div>
+    </div>
+    <figcaption class="writing-row writing-caption"><p>Recorded from JobTrackr running locally, with a sample account and sample data. The video shows the interface. The notes describe the code behind it.</p></figcaption>
+  </figure>
+  <div class="writing-notes" data-media-notes="Behind the interface">
+    <section class="writing-note" data-media-note aria-labelledby="note-heading-0"><h3 class="writing-note__heading writing-note__heading--stem" id="note-heading-0" data-media-note-heading>Interface</h3><div class="writing-prose writing-note__panel" id="note-panel-0" data-media-note-panel><p>Adding an application opens a drawer. The form checks what you’ve entered when you save, and the server checks it again. A new record gets a confirmation with a link to open it, and moving it from Saved to Applied adds the submission to its activity.</p><p>If the server doesn’t answer, the form says the save couldn’t be confirmed and keeps what you typed, so you can check before adding it a second time.</p></div></section>
+    <section class="writing-note" data-media-note aria-labelledby="note-heading-1"><h3 class="writing-note__heading" id="note-heading-1" data-media-note-heading>API &amp; authentication</h3><div class="writing-prose writing-note__panel" id="note-panel-1" data-media-note-panel><p>Saving runs a server action in the Next.js app. It reads the signed-in session on the server and calls the NestJS API with the access token in an Authorization header.</p><p>Every API route that isn’t marked public sits behind a guard. It checks the token’s signature against Supabase’s published keys, along with its issuer and audience, before any handler runs. Without a valid token, the API answers 401 and the app asks you to sign in again.</p></div></section>
+    <section class="writing-note" data-media-note aria-labelledby="note-heading-2"><h3 class="writing-note__heading writing-note__heading--stem" id="note-heading-2" data-media-note-heading>Data permissions</h3><div class="writing-prose writing-note__panel" id="note-panel-2" data-media-note-panel><p>The API takes your user ID from the verified token, never from the request body. Every application query is filtered by it, so asking for someone else’s record finds nothing and returns a 404.</p><p>In the database, row-level security policies tie each table to its owner. They’re a second layer for anything that reaches the database with a user’s token, and client roles can’t write the fields that record where an application came from.</p></div></section>
+  </div>
+</div>
+            <div class="writing-after"><div class="writing-row"><div class="writing-prose"><p>Working on projects like these has changed how I approach both design and engineering.</p>
+<p>I think more about how the whole thing works, rather than just the part I’m currently working on.</p></div></div></div>
+          </section>
+          <section class="writing-section" aria-labelledby="between-heading"><div class="writing-row"><h2 class="writing-heading writing-heading--s" id="between-heading">Somewhere between the two</h2><div class="writing-prose"><p>I don’t think every designer needs to become an engineer, or that every engineer needs to learn how to design.</p>
+<p>There’s a lot of value in specialization, and I’ve worked with people who are exceptionally good at what they do because they’ve spent years focusing on it.</p>
+<p>But I do think understanding a bit more of what happens on the other side makes a difference.</p>
+<p>As a designer, knowing how things are built helps you make more informed decisions. You start thinking about performance, accessibility, and technical constraints earlier.</p>
+<p>As an engineer, understanding design helps you look beyond whether a feature works. You pay more attention to how people experience it, whether the interaction makes sense, and whether there’s a better way to approach the problem.</p>
+<p>Sometimes that means simplifying a design. Sometimes it means putting in extra engineering effort because a particular interaction is worth getting right.</p>
+<p>And sometimes it means questioning the original approach entirely.</p>
+<p>I think there’s a real craft in being able to move between those perspectives, understand the trade-offs, and make decisions that account for both.</p></div></div></section>
+          <section class="writing-section" aria-labelledby="learning-heading"><div class="writing-row"><h2 class="writing-heading writing-heading--s" id="learning-heading">Still learning</h2><div class="writing-prose"><p>These days, I work across product design, frontend development, backend systems, and whatever interesting thing I decide to experiment with next.</p>
+<p>I still enjoy design for many of the same reasons I did when I started. I like good typography, thoughtful layouts, interesting interactions, and the little details that make a product enjoyable to use.</p>
+<p>I also enjoy figuring out how things work, solving engineering problems, and building the systems behind those experiences.</p>
+<p>There’s still a lot I don’t know, and that’s part of what keeps it interesting.</p>
+<p>I don’t really see design and engineering as separate interests anymore. They’re both part of how I approach building things.</p>
+<p>And I want to keep getting better at both.</p></div></div></section>
+        </div>
+      </article>
+    </main>
+    <footer class="case-foot writing-foot">
+      <div class="case-foot__next"><p class="writing-foot__label">Back to</p><a class="case-display writing-foot__link" href="/writing">Writing</a></div>
+      <div class="case-foot__aside">
+        <div class="case-foot__meta">
+          <svg class="index__clock" viewBox="0 0 96 96" aria-hidden="true" focusable="false">
+            <circle class="index__clock-face" cx="48" cy="48" r="47.5"/>
+            <text class="index__clock-readout" x="25" y="48" data-clock-readout>--:--</text>
+            <text class="index__clock-readout" x="71" y="48">GMT+1</text>
+            <line class="index__clock-hand index__clock-hand--hour" data-clock-hour x1="48" y1="48" x2="48" y2="24"/>
+            <line class="index__clock-hand" data-clock-minute x1="48" y1="48" x2="48" y2="8"/>
+            <circle class="index__clock-pivot" cx="48" cy="48" r="2.5"/>
+          </svg>
+          <p class="index__time visually-hidden">GMT+1 <time data-clock datetime="">--:--</time></p>
+          <p class="index__location visually-hidden">Lagos, Nigeria</p>
+        </div>
+
+        <nav class="index__links" aria-label="Elsewhere">
+          <ul class="links">
+            <li><a href="https://www.linkedin.com/in/sogobalogun/" target="_blank" rel="me noopener">LinkedIn<span class="visually-hidden"> (opens in a new tab)</span></a></li>
+            <li><a href="https://github.com/balogunsogo" target="_blank" rel="me noopener">GitHub<span class="visually-hidden"> (opens in a new tab)</span></a></li>
+            <li><a href="https://contra.com/balogun_oluwasogo" target="_blank" rel="me noopener">Contra<span class="visually-hidden"> (opens in a new tab)</span></a></li>
+            <li><a href="mailto:balogunoluwasogo@gmail.com">Email</a></li>
+          </ul>
+        </nav>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

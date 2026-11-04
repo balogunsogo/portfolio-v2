@@ -4,6 +4,7 @@ import { spawn } from 'node:child_process';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { projectListMarkup } from './projects.mjs';
+import { postListMarkup } from './posts.mjs';
 
 export const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 export const src = join(root, 'src');
@@ -43,16 +44,19 @@ const GOOGLE_TAG = `
   </script>`;
 
 /** Copies every .html file under `from` into `to`, adding analytics in its head. */
-function copyPages(from, to, workList) {
+function copyPages(from, to, workList, postList) {
   for (const entry of readdirSync(from, { withFileTypes: true })) {
     const source = join(from, entry.name);
     if (entry.isDirectory()) {
-      copyPages(source, join(to, entry.name), workList);
+      copyPages(source, join(to, entry.name), workList, postList);
     } else if (entry.name.endsWith('.html')) {
       mkdirSync(to, { recursive: true });
       const html = readFileSync(source, 'utf8').replace(
         '<ul class="work" data-work-list></ul>',
         `<ul class="work" data-work-list data-work-rendered>${workList}</ul>`,
+      ).replace(
+        '<ol class="posts" data-post-list></ol>',
+        `<ol class="posts" data-post-list data-posts-rendered>${postList}</ol>`,
       );
       writeFileSync(join(to, entry.name), html.replace(/<head\b[^>]*>/i, (head) => head + GOOGLE_TAG));
     }
@@ -62,7 +66,7 @@ function copyPages(from, to, workList) {
 /** Copies static files, including the official Regular OTF face, from src/ into dist/. */
 export function copyStatic() {
   mkdirSync(dist, { recursive: true });
-  copyPages(src, dist, projectListMarkup(join(src, 'ts', 'projects.ts')));
+  copyPages(src, dist, projectListMarkup(join(src, 'ts', 'projects.ts')), postListMarkup(join(src, 'ts', 'posts.ts')));
   const assets = join(src, 'assets');
   if (existsSync(assets)) {
     cpSync(assets, join(dist, 'assets'), {

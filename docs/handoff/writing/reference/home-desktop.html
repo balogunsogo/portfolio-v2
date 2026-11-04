@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1440">
+<title>Home with Writing, desktop</title>
+<style>
+
+
+.board-clock { position: relative; flex: none; width: 96px; height: 96px; margin-top: auto; }
+.board-clock .index__clock { margin-top: 0; }
+.board-clock__time { position: absolute; left: 25px; top: 48px; transform: translate(-50%, -50%); font-size: 11px; line-height: 1; color: inherit; font-variant-numeric: tabular-nums; white-space: nowrap; pointer-events: none; }
+@font-face { font-family: "PP Neue Montreal"; src: url("../../../../src/assets/fonts/PPNeueMontreal-Regular.otf") format("opentype"); font-weight: 400 500; font-style: normal; font-display: swap; }
+*, ::before, ::after { box-sizing: border-box; }
+html { text-size-adjust: 100%; }
+* { scrollbar-width: thin; scrollbar-color: rgb(101, 99, 93) transparent; }
+body { margin: 0px; background: rgb(250, 250, 248); color: rgb(17, 17, 16); font-family: "PP Neue Montreal", "Neue Montreal", "Helvetica Neue", Helvetica, Arial, sans-serif; font-weight: 400; line-height: 1.4; -webkit-font-smoothing: antialiased; text-rendering: optimizelegibility; }
+h1, h2, p, ul { margin: 0px; }
+ul { padding: 0px; list-style: none; }
+img { display: block; max-width: 100%; }
+a, button, [role="button"], [data-case-video], [data-sheet-scrim] { -webkit-tap-highlight-color: transparent; }
+a { color: inherit; text-decoration: none; transition: color 0.15s; }
+a:hover { color: rgb(101, 99, 93); }
+a:focus-visible { outline: currentcolor solid 2px; outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+}
+.visually-hidden { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border: 0px; }
+.page { min-height: 900px; display: flex; flex-direction: column; gap: 48px; padding: 28px 20px 32px; }
+.page { gap: 56px; padding: 48px 64px 56px; }
+.intro { display: flex; flex-direction: column; gap: 14px; }
+.intro { gap: 20px; }
+.intro__name { font-size: clamp(3.5rem, 236.16px, 7rem); font-weight: 500; line-height: 0.9; letter-spacing: -0.045em; }
+.intro__name { font-size: clamp(6rem, 136.08px, 11.5rem); line-height: 0.88; white-space: nowrap; }
+.intro__name-line { display: block; }
+.intro__name-line:first-child { margin-left: -0.071em; }
+.intro__name-line:last-child { margin-left: -0.036em; }
+.intro__name-line:first-child { white-space: nowrap; }
+.intro__name-line { display: inline; }
+.intro__name-line:last-child { margin-left: 0px; }
+.intro__portrait { display: inline-block; vertical-align: baseline; width: 0.9em; height: 0.715em; margin: 0px -0.03em 0px 0px; padding: 0px; border: 0px; background: none; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: inherit; font-family: inherit; font-optical-sizing: inherit; font-size-adjust: inherit; font-kerning: inherit; font-feature-settings: inherit; font-variation-settings: inherit; line-height: 0; color: inherit; cursor: pointer; }
+.intro__portrait { cursor: default; }
+.intro__portrait:focus { outline: none; }
+.intro__portrait:focus-visible { outline: currentcolor solid 2px; outline-offset: 3px; }
+.intro__portrait-image { width: 100%; height: 100%; object-fit: cover; transform-origin: 50% 100%; transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
+.page.is-about-open .intro__portrait-image { transform: scale(1.08); }
+.intro__lead { position: relative; }
+.intro__role, .intro__statement { font-size: clamp(1.5rem, 1rem + 32.832px, 3.5rem); font-weight: 500; line-height: 1.12; letter-spacing: -0.022em; }
+.intro__role-line { display: block; }
+.intro__role-line:first-child { margin-left: -0.071em; }
+.intro__role-line:last-child { margin-left: -0.071em; }
+.intro__role-line { display: inline; }
+.intro__role-line:last-child { margin-left: 0px; }
+.intro__role { transition: opacity 0.24s 0.1s, visibility; }
+.page.is-about-open .intro__role { opacity: 0; visibility: hidden; transition: opacity 0.15s, transform 0.15s, visibility linear 0.15s; }
+.page.is-about-flow .intro__role { display: none; }
+.intro__statement { position: absolute; top: 0px; left: 0px; right: 0px; margin-left: -0.071em; opacity: 0; visibility: hidden; transform: translateY(8px); transition: opacity 0.15s, transform 0.15s, visibility linear 0.15s; }
+.intro__statement { max-width: 23em; }
+.page.is-about-open .intro__statement { opacity: 1; visibility: visible; transform: none; transition: opacity 0.24s 0.1s, transform 0.32s cubic-bezier(0.22, 1, 0.36, 1) 0.1s, visibility; }
+.page.is-about-flow .intro__statement { position: static; }
+.index { position: relative; display: flex; flex-direction: column; margin-top: auto; font-size: 0.9375rem; }
+.index { display: grid; grid-template-columns: repeat(12, minmax(0px, 1fr)); grid-template-rows: auto auto; gap: 16px 24px; align-items: start; font-size: 1rem; }
+.index__stage { position: relative; }
+.index__stage { display: contents; }
+.index__heading { margin-left: -0.017em; font-size: inherit; font-weight: 400; color: rgb(101, 99, 93); }
+.index__heading { grid-area: 1 / 1 / auto / span 4; }
+.work { display: flex; flex-direction: column; align-items: flex-start; margin-top: 8px; }
+.work { grid-area: 2 / 1 / auto / span 4; justify-self: start; margin-top: 0px; }
+.work__link { position: relative; display: block; padding: 7px 0px; font-size: 1.75rem; font-weight: 500; line-height: 1.2; letter-spacing: -0.02em; }
+.work__link { padding: 9px 0px; font-size: 1.875rem; line-height: 1.4; }
+.work__link--stem { margin-left: -0.071em; }
+.preview-meta, .preview-text { display: none; }
+.preview-meta, .preview-text { display: block; grid-column: 5 / span 4; opacity: 0; visibility: hidden; pointer-events: none; transition: opacity 0.24s, transform 0.32s cubic-bezier(0.22, 1, 0.36, 1), visibility linear 0.24s; }
+.preview-meta.is-visible, .preview-text.is-visible { opacity: 1; visibility: visible; transform: none; transition: opacity 0.24s, transform 0.32s cubic-bezier(0.22, 1, 0.36, 1), visibility; }
+.preview-meta { grid-row: 1; color: rgb(101, 99, 93); }
+.preview-text { grid-row: 2; max-width: 26ch; padding-top: 12px; font-size: 1.25rem; line-height: 1.35; letter-spacing: -0.008em; transform: translateY(8px); }
+.preview-text__part, .sheet__part { display: block; }
+.preview-text__part + .preview-text__part, .preview-text__part + .sheet__part, .sheet__part + .preview-text__part, .sheet__part + .sheet__part { margin-top: 0.6em; }
+.work.has-active .work__link:not(.is-active) { color: rgb(101, 99, 93); }
+.index__aside { display: grid; grid-template-columns: repeat(2, minmax(0px, 1fr)); column-gap: 16px; margin-top: var(--meta-gap, 40px); transition: opacity 0.2s, visibility linear; }
+.index__aside { grid-area: 2 / 9 / auto / span 4; align-self: end; align-items: end; column-gap: 24px; margin-top: 0px; padding-bottom: 9px; }
+.index__meta { display: flex; flex-direction: column; justify-content: space-between; padding: 6px 0px; color: rgb(101, 99, 93); }
+.index__meta { justify-content: flex-end; gap: 4px; padding: 0px; }
+.index__time { font-variant-numeric: tabular-nums; }
+.index__clock { display: block; width: 96px; height: 96px; margin-top: auto; fill: none; stroke-linecap: round; }
+.index__clock-face { stroke: currentcolor; stroke-width: 1; }
+.index__clock-readout { fill: currentcolor; font-size: 11px; font-variant-numeric: tabular-nums; text-anchor: middle; dominant-baseline: central; }
+.index__clock-hand { stroke: rgb(17, 17, 16); stroke-width: 1; }
+.index__clock-hand--hour { stroke-width: 2.25; }
+.index__clock-pivot { fill: rgb(250, 250, 248); stroke: rgb(17, 17, 16); stroke-width: 1; }
+.links { display: flex; flex-direction: column; align-items: flex-end; text-align: right; }
+.links a { display: inline-block; padding: 6px 0px; }
+.links { gap: 4px; }
+.links a { padding: 0px; }
+.index:has(.preview.is-visible) .index__aside { opacity: 0; visibility: hidden; transition: opacity 0.2s, visibility linear 0.2s; }
+.preview { display: none; }
+.preview { display: block; grid-area: 1 / 9 / span 2 / span 4; align-self: stretch; position: relative; overflow: hidden; background: var(--preview-tone, transparent); opacity: 0; visibility: hidden; pointer-events: none; transition: opacity 0.2s, visibility linear 0.2s; }
+.preview.is-visible { opacity: 1; visibility: visible; transition: opacity 0.2s, visibility; }
+.preview__image { position: absolute; inset: 0px; width: 100%; height: 100%; object-fit: cover; }
+.preview__image:not([src]), .preview__image[src=""] { display: none; }
+.preview__label { position: absolute; left: 20px; bottom: 20px; font-size: 0.875rem; color: var(--preview-ink, #111110); }
+.preview.has-image .preview__label { display: none; }
+@keyframes preview-image-swap { 
+  0% { opacity: 0; }
+}
+@keyframes preview-copy-swap { 
+  0% { opacity: 0; transform: translateY(8px); }
+}
+.preview.is-switching .preview__image { animation: 0.18s ease 0s 1 normal none running preview-image-swap; }
+.preview-meta.is-switching, .preview-text.is-switching { animation: 0.32s cubic-bezier(0.22, 1, 0.36, 1) 0s 1 normal none running preview-copy-swap; }
+.sheet { position: fixed; z-index: 10; inset: 0px; }
+.sheet[hidden] { display: none; }
+.sheet { display: none; }
+.sheet__scrim { position: absolute; inset: 0px; background: rgba(17, 17, 16, 0.32); opacity: 0; transition: opacity 0.28s; }
+.sheet.is-open .sheet__scrim { opacity: 1; }
+.sheet__panel { position: absolute; left: 0px; right: 0px; bottom: 0px; max-width: 36rem; max-height: 792px; margin: 0px auto; overflow-y: auto; overscroll-behavior: contain; display: flex; flex-direction: column; gap: 16px; padding: 20px 20px calc(24px + env(safe-area-inset-bottom)); background: rgb(250, 250, 248); color: rgb(17, 17, 16); transform: translateY(100%); transition: transform 0.42s cubic-bezier(0.22, 1, 0.36, 1); }
+.sheet.is-open .sheet__panel { transform: translateY(0px); }
+.sheet__panel.is-dragging { transition: none; }
+.sheet__head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; touch-action: none; }
+.sheet__heading { display: flex; flex-direction: column; gap: 4px; }
+.sheet__title { margin: 0px; font-size: 1.75rem; font-weight: 500; line-height: 1.15; letter-spacing: -0.02em; }
+.sheet__meta { font-size: 0.875rem; color: rgb(101, 99, 93); }
+.sheet__close, .sheet__next { min-height: 44px; padding: 0px; border: 0px; background: none; color: inherit; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; line-height: inherit; font-family: inherit; font-optical-sizing: inherit; font-size-adjust: inherit; font-kerning: inherit; font-feature-settings: inherit; font-variation-settings: inherit; font-size: 0.9375rem; cursor: pointer; }
+.sheet__close { flex: 0 0 auto; padding-left: 12px; }
+.sheet__close:focus, .sheet__next:focus { outline: none; }
+.sheet__close:focus-visible, .sheet__next:focus-visible { outline: currentcolor solid 2px; outline-offset: 3px; }
+.sheet__panel:focus { outline: none; }
+.sheet__next { color: rgb(101, 99, 93); text-align: right; }
+.sheet__image { width: 100%; aspect-ratio: 4 / 3; max-height: 306px; object-fit: cover; }
+.sheet__text { font-size: 1rem; line-height: 1.45; }
+.sheet__title, .sheet__meta, .sheet__text { display: grid; }
+.sheet__title > span, .sheet__meta > span, .sheet__text > span { grid-area: 1 / 1; visibility: hidden; }
+.sheet__title > [data-active], .sheet__meta > [data-active], .sheet__text > [data-active] { visibility: visible; }
+.sheet__foot { display: flex; justify-content: space-between; align-items: center; gap: 16px; font-size: 0.9375rem; }
+.sheet__visit { display: inline-flex; align-items: center; gap: 0.25em; min-height: 44px; font-weight: 500; }
+[data-sheet-swap] { transition: opacity 0.14s; }
+[data-sheet-swap].is-swapping { opacity: 0; }
+.index__heading, .work { transition: opacity 0.24s 0.1s, visibility; }
+.page.is-about-open .index__heading, .page.is-about-open .work { opacity: 0; visibility: hidden; transition: opacity 0.15s, transform 0.15s, visibility linear 0.15s; }
+.page.is-about-flow .index__heading, .page.is-about-flow .work { display: none; }
+.about { position: absolute; left: 0px; right: 0px; bottom: 0px; display: flex; flex-direction: column; gap: 20px; pointer-events: none; }
+.page.is-about-open .about { pointer-events: auto; }
+.about { grid-area: 2 / 1 / auto / span 8; bottom: 9px; display: grid; grid-template-columns: repeat(8, minmax(0px, 1fr)); column-gap: 24px; align-items: end; }
+.page.is-about-flow .about { position: static; }
+.about__text { display: flex; flex-direction: column; gap: 10px; font-size: 1rem; line-height: 1.45; opacity: 0; visibility: hidden; transform: translateY(8px); transition: opacity 0.15s, transform 0.15s, visibility linear 0.15s; }
+.page.is-about-open .about__text { opacity: 1; visibility: visible; transform: none; transition: opacity 0.24s 0.1s, transform 0.32s cubic-bezier(0.22, 1, 0.36, 1) 0.1s, visibility; }
+.about__text { grid-column: 1 / span 4; gap: 12px; font-size: 1.25rem; line-height: 1.35; letter-spacing: -0.008em; }
+.about__heading { margin-bottom: 2px; font-size: 0.9375rem; font-weight: 400; line-height: 1.4; letter-spacing: 0px; color: rgb(101, 99, 93); }
+.about__heading { margin-bottom: 4px; font-size: 1rem; }
+.about__facts { display: grid; grid-template-columns: repeat(2, minmax(0px, 1fr)); column-gap: 16px; margin: 0px; opacity: 0; visibility: hidden; transform: translateY(8px); transition: opacity 0.15s, transform 0.15s, visibility linear 0.15s; }
+.page.is-about-open .about__facts { opacity: 1; visibility: visible; transform: none; transition: opacity 0.24s 0.16s, transform 0.32s cubic-bezier(0.22, 1, 0.36, 1) 0.16s, visibility; }
+.about__facts { grid-column: 5 / span 4; display: flex; flex-direction: column; gap: 12px; }
+.about__fact { display: flex; flex-direction: column; gap: 2px; }
+.about__fact { display: grid; grid-template-columns: repeat(4, minmax(0px, 1fr)); gap: 0px 24px; }
+.about__fact dt { color: rgb(101, 99, 93); white-space: nowrap; }
+.about__fact dt { grid-area: 1 / 1 / span 3; }
+.about__fact dd { margin: 0px; text-wrap: balance; }
+.about__fact dd { grid-column: 2 / span 3; }
+@media (prefers-reduced-motion: reduce) {
+  .intro__role, .intro__statement, .index__heading, .work, .about__text, .about__facts { transition-delay: 0s !important; }
+}
+.index__heading.switch, .about__heading.switch { display: flex; gap: 16px; color: rgb(101, 99, 93); }
+.index__heading.switch, .about__heading.switch { gap: 24px; }
+.about__heading.switch { margin-left: -0.017em; margin-bottom: 2px; }
+.about__heading.switch { margin-bottom: 4px; }
+.switch__h { margin: 0px; font: inherit; }
+.switch__word { margin: 0px; padding: 0px; border: 0px; background: none; font: inherit; color: rgb(101, 99, 93); cursor: pointer; position: relative; transition: color 0.15s; }
+.switch__word:hover { color: rgb(17, 17, 16); }
+.switch__word:focus-visible { outline: currentcolor solid 2px; outline-offset: 3px; }
+.page:not(.is-about-open) .switch__word--work, .page.is-about-open .switch__word--about { color: rgb(17, 17, 16); cursor: default; }
+.page.is-about-open .index__heading.switch { opacity: 1; visibility: visible; transform: none; transition: none; }
+.about__heading.switch { display: none; }
+.switch__link { color: rgb(101, 99, 93); transition: color 0.15s; }
+.switch__link:hover { color: rgb(17, 17, 16); }
+.switch__link:focus-visible { outline: currentcolor solid 2px; outline-offset: 3px; }
+.page.is-about-flow .about__heading.switch { display: flex; }
+
+</style>
+</head>
+<body>
+
+
+<div style="position: relative; width: 1440px; height: 900px; overflow: hidden; transform: translateZ(0); background: #FAFAF8"><div style="position: absolute; inset: 0; overflow-x: hidden; overflow-y: auto"><main class="page" data-page=""> <header class="intro"> <h1 aria-labelledby="name-first name-last" class="intro__name"> <span class="intro__name-line"><span id="name-first">Balogun</span> <button aria-controls="about-statement about" aria-expanded="false" aria-label="About Oluwasogo" class="intro__portrait" data-about-toggle="" type="button"><img alt="" class="intro__portrait-image" decoding="async" height="381" src="../../../../src/assets/images/portrait/portrait-480.webp" width="480"/></button></span> <span class="intro__name-line" id="name-last">Oluwasogo</span> </h1> <div class="intro__lead"> <p class="intro__role"> <span class="intro__role-line">Design</span> <span class="intro__role-line">Engineer</span> </p> <p class="intro__statement" data-about-statement="" id="about-statement">I design and build digital experiences, from the way they work to the details that make them feel good to use.</p> </div> </header> <section aria-labelledby="featured-heading" class="index"> <div class="index__stage"> <div class="index__heading switch"><h2 class="switch__h" id="featured-heading"><button class="switch__word switch__word--work" data-about-close="" type="button">Work</button></h2><button aria-controls="about-statement about" class="switch__word switch__word--about" data-about-open="" type="button">About</button><a class="switch__link" href="#">Writing</a></div> <ul class="work" data-work-list="" data-work-rendered=""><li><a class="work__link" data-project-index="0" href="#"><span data-work-title="">Jobtrackr</span></a></li><li><a class="work__link work__link--stem" data-project-index="1" href="#"><span data-work-title="">Morrow Studio</span></a></li><li><a class="work__link" data-project-index="2" href="#"><span data-work-title="">Acetrail</span></a></li><li><a class="work__link" data-project-index="3" href="#"><span data-work-title="">Artifacts</span></a></li><li><a class="work__link work__link--stem" data-project-index="4" href="#"><span data-work-title="">Now Playing</span></a></li></ul> <div class="about" data-about="" id="about"> <div class="about__text"> <div class="about__heading switch"><button class="switch__word switch__word--work" data-about-close="" type="button">Work</button><h2 class="switch__h switch__word switch__word--about">About</h2><a class="switch__link" href="#">Writing</a></div> <p>I’m Oluwasogo, a design engineer in Lagos, Nigeria. I work across product design, frontend and backend development, building digital experiences with thoughtful interactions and attention to detail.</p> <p>By day, I build enterprise applications at AXA Mansard, working across frontend and backend systems, API integrations, and collaborating with teams to improve business workflows. Outside of that, I take on freelance projects and explore interactions through personal experiments.</p> </div> <dl class="about__facts"> <div class="about__fact"> <dt>Now</dt> <dd>Software Developer, AXA Mansard</dd> <dd>Design and Tech, Ace Trail Tutors</dd> </div> <div class="about__fact"> <dt>Open to</dt> <dd>Product design and development</dd> <dd>Custom websites and Webflow builds</dd> <dd>Interaction design and motion</dd> </div> </dl> </div> </div> <p aria-hidden="true" class="preview-meta" data-preview-meta=""></p> <p aria-hidden="true" class="preview-text" data-preview-description=""><span class="preview-text__part"></span><span class="preview-text__part"></span></p> <div aria-hidden="true" class="preview has-image" data-preview="" style="background: #DCD8CF"> <img alt="" class="preview__image" data-preview-image="" decoding="async" src=""/> <span class="preview__label" data-preview-label="" style="color: #4A4843">Jobtrackr</span> </div> <div class="index__aside"> <div class="index__meta"> <div class="board-clock"><svg aria-hidden="true" class="index__clock" focusable="false" viewbox="0 0 96 96"> <circle class="index__clock-face" cx="48" cy="48" r="47.5"></circle> <text class="index__clock-readout" x="71" y="48">GMT+1</text> <line class="index__clock-hand index__clock-hand--hour" data-clock-hour="" transform="rotate(332.5 48 48)" x1="48" x2="48" y1="48" y2="24"></line> <line class="index__clock-hand" data-clock-minute="" transform="rotate(30 48 48)" x1="48" x2="48" y1="48" y2="8"></line> <circle class="index__clock-pivot" cx="48" cy="48" r="2.5"></circle> </svg><span aria-hidden="true" class="board-clock__time" data-clock-readout="">11:05</span></div> <p class="index__time visually-hidden">GMT+1 <time data-clock="">11:05</time></p> <p class="index__location visually-hidden">Lagos, Nigeria</p> </div> <nav aria-label="Elsewhere" class="index__links"> <ul class="links"> <li><a href="#">LinkedIn<span class="visually-hidden"> (opens in a new tab)</span></a></li> <li><a href="#">GitHub<span class="visually-hidden"> (opens in a new tab)</span></a></li> <li><a href="#">Contra<span class="visually-hidden"> (opens in a new tab)</span></a></li> <li><a href="#">Email</a></li> </ul> </nav> </div> </section> </main></div></div>
+
+</body>
+</html>

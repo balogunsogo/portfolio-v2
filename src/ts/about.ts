@@ -95,6 +95,14 @@ export function initAbout({ page, toggle, statement, about }: AboutElements): vo
     }
   };
 
+  // A deep link uses the same open path as the switch, without moving focus or scrolling.
+  if (location.hash === '#about') {
+    set(true, 'switch');
+    history.replaceState(history.state, '', location.pathname + location.search);
+    // Font metrics can settle after module initialization, particularly on a cold load.
+    void document.fonts.ready.then(fitLayout);
+  }
+
   // The same buttons remain visible, so touch and keyboard focus never need another row.
   for (const button of switches) {
     button.addEventListener('click', () => {

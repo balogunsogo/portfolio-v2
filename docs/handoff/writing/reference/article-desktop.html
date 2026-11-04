@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1440">
+<title>The Space Between Design and Engineering, desktop</title>
+<style>
+
+@font-face{font-family:'PP Neue Montreal';src:url(../../../../src/assets/fonts/PPNeueMontreal-Regular.otf) format('opentype');font-weight:400;font-style:normal;font-display:swap}
+
+@font-face{font-family:'PP Neue Montreal';src:url(../../../../src/assets/fonts/PPNeueMontreal-Regular.otf) format('opentype');font-weight:500;font-style:normal;font-display:swap}
+*, ::before, ::after { box-sizing: border-box; }
+html { overflow-x: hidden; }
+body { margin: 0; background: #FAFAF8; color: #111110; font-family: 'PP Neue Montreal', 'Helvetica Neue', Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; text-rendering: optimizelegibility; }
+.part-0 h1, .part-0 h2, .part-0 p, .part-0 dl, .part-0 dd, .part-0 figure { margin: 0; }
+.part-0 a { color: inherit; text-decoration: none; transition: color 0.15s; }
+.part-0 a:hover { color: #65635D; }
+.part-0 a:focus-visible, .part-0 button:focus-visible { outline: 2px solid currentcolor; outline-offset: 3px; }
+.part-0 .vh { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+.part-0 .page { width: 1440px;  padding: 48px 64px 160px; display: flex; flex-direction: column; }
+.part-0 .top { display: flex; justify-content: space-between; align-items: baseline; font-size: 16px; line-height: 1.4; }
+.part-0 .top__name { font-weight: 500; }
+.part-0 .head { margin-top: 104px; display: flex; flex-direction: column; gap: 28px; }
+.part-0 .title { max-width: 1089px; font-size: 96px; font-weight: 500; line-height: 0.92; letter-spacing: -0.04em; margin-left: -0.015em; text-wrap: balance; }
+.part-0 .sub { max-width: 870px; font-size: 32px; font-weight: 400; line-height: 1.25; letter-spacing: -0.012em; color: #65635D; text-wrap: pretty; }
+.part-0 .body { margin-top: 120px; display: flex; flex-direction: column; gap: 120px; }
+.part-0 .sec { display: flex; flex-direction: column; }
+.part-0 .row { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; align-items: start; }
+.part-0 .rail { grid-column: 1 / span 3; }
+.part-0 .h2 { font-size: 30px; font-weight: 500; line-height: 1.2; letter-spacing: -0.02em; text-wrap: balance; }
+.part-0 .h2--t { margin-left: -0.015em; }
+.part-0 .h2--g { margin-left: -0.036em; }
+.part-0 .meta { display: flex; flex-direction: column; gap: 16px; padding-top: 4px; font-size: 16px; line-height: 1.4; }
+.part-0 .meta div { display: flex; flex-direction: column; gap: 2px; }
+.part-0 .meta dt { color: #65635D; }
+.part-0 .prose { grid-column: 5 / span 6; max-width: 576px; display: flex; flex-direction: column; gap: 20px; font-size: 20px; line-height: 1.55; letter-spacing: -0.008em; text-wrap: pretty; }
+.part-0 .demo { margin-top: 72px; }
+.part-0 .d1 { height: 600px; display: grid; grid-template-rows: auto 1fr auto; padding: 32px 40px; background: #ECEBE6; }
+.part-0 .d1__head { display: flex; justify-content: space-between; align-items: baseline; font-size: 16px; line-height: 1.4; }
+.part-0 .d1__name { font-weight: 500; }
+.part-0 .scen { display: flex; gap: 20px; color: #65635D; }
+.part-0 .opt { position: relative; margin: 0; padding: 0; border: 0; background: none; font: inherit; color: #65635D; cursor: pointer; transition: color 0.15s; }
+.part-0 .opt::after { content: ""; position: absolute; inset: -12px -8px; }
+.part-0 .opt:hover { color: #111110; }
+.part-0 .opt.is-on { color: #111110; cursor: default; }
+.part-0 .stage { display: flex; align-items: center; justify-content: center; }
+.part-0 .card { width: 480px; min-height: 312px; padding: 40px; background: #FAFAF8; display: flex; flex-direction: column; gap: 24px; }
+.part-0 .card__title { font-size: 28px; font-weight: 500; line-height: 1.15; letter-spacing: -0.02em; }
+.part-0 .card__text { margin-top: 8px; font-size: 16px; line-height: 1.45; color: #65635D; }
+.part-0 .form { display: flex; flex-direction: column; gap: 8px; }
+.part-0 .label { font-size: 15px; line-height: 1.4; }
+.part-0 .field { display: flex; gap: 12px; align-items: flex-end; }
+.part-0 .input { flex: 1; min-width: 0; height: 48px; padding: 0; border: 0; border-bottom: 1px solid #65635D; border-radius: 0; background: transparent; font: inherit; font-size: 18px; color: #111110; }
+.part-0 .input::placeholder { color: #8F8C85; }
+.part-0 .input:focus { outline: none; border-bottom: 2px solid #111110; }
+.part-0 .input.is-invalid { border-bottom: 2px solid #111110; }
+.part-0 .btn { flex: none; height: 48px; padding: 0 22px; border: 0; border-radius: 0; background: #111110; color: #FAFAF8; font: inherit; font-size: 16px; font-weight: 500; cursor: pointer; }
+.part-0 .btn:disabled { background: #65635D; cursor: progress; }
+.part-0 .msg { min-height: 44px; display: flex; flex-direction: column; align-items: flex-start; gap: 6px; font-size: 15px; line-height: 1.45; }
+.part-0 .msg__muted { color: #65635D; }
+.part-0 .textbtn {  margin: 0; padding: 0; border: 0; background: none; font: inherit; font-size: 15px; font-weight: 500; color: #111110; cursor: pointer; }
+.part-0 .textbtn:hover { color: #65635D; }
+.part-0 .d1__foot { display: flex; justify-content: space-between; align-items: baseline; font-size: 14px; line-height: 1.4; color: #65635D; }
+.part-0 .d1__reset { font-size: 14px; font-weight: 400; color: #65635D; }
+.part-0 .d1__reset:hover { color: #111110; }
+
+@font-face{font-family:'PP Neue Montreal';src:url(../../../../src/assets/fonts/PPNeueMontreal-Regular.otf) format('opentype');font-weight:400;font-style:normal;font-display:swap}
+
+@font-face{font-family:'PP Neue Montreal';src:url(../../../../src/assets/fonts/PPNeueMontreal-Regular.otf) format('opentype');font-weight:500;font-style:normal;font-display:swap}
+*, ::before, ::after { box-sizing: border-box; }
+html { overflow-x: hidden; }
+body { margin: 0; background: #FAFAF8; color: #111110; font-family: 'PP Neue Montreal', 'Helvetica Neue', Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; text-rendering: optimizelegibility; }
+.part-1 h1, .part-1 h2, .part-1 p, .part-1 figure, .part-1 figcaption { margin: 0; }
+.part-1 a { color: inherit; text-decoration: none; transition: color 0.15s; }
+.part-1 a:hover { color: #65635D; }
+.part-1 a:focus-visible, .part-1 button:focus-visible { outline: 2px solid currentcolor; outline-offset: 3px; }
+.part-1 .page { width: 1440px;  padding: 120px 64px 160px; display: flex; flex-direction: column; }
+.part-1 .sec { display: flex; flex-direction: column; }
+.part-1 .row { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; align-items: start; }
+.part-1 .rail { grid-column: 1 / span 3; }
+.part-1 .h2 { font-size: 30px; font-weight: 500; line-height: 1.2; letter-spacing: -0.02em; text-wrap: balance; }
+.part-1 .prose { grid-column: 5 / span 6; max-width: 576px; display: flex; flex-direction: column; gap: 20px; font-size: 20px; line-height: 1.55; letter-spacing: -0.008em; text-wrap: pretty; }
+.part-1 .after { margin-top: 72px; }
+.part-1 .demo { margin-top: 72px; display: flex; flex-direction: column; gap: 16px; }
+.part-1 .vplate { padding: 48px 64px 28px; background: #ECEBE6; }
+.part-1 .frame { position: relative; aspect-ratio: 16 / 10; overflow: hidden; background: #000; }
+.part-1 .frame img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.part-1 .ctrl { display: flex; justify-content: space-between; align-items: baseline; margin-top: 20px; font-size: 16px; line-height: 1.4; }
+.part-1 .ctrl__label { color: #65635D; }
+.part-1 .group { display: flex; gap: 24px; }
+.part-1 .opt { position: relative; margin: 0; padding: 0; border: 0; background: none; font: inherit; color: #65635D; cursor: pointer; transition: color 0.15s; }
+.part-1 .opt::after { content: ""; position: absolute; inset: -12px -8px; }
+.part-1 .opt:hover { color: #111110; }
+.part-1 .opt.is-on { color: #111110; cursor: default; }
+.part-1 .opt--ink { color: #111110; }
+.part-1 .opt--ink:hover { color: #65635D; }
+.part-1 .cap { grid-column: 5 / span 6; max-width: 576px; font-size: 16px; line-height: 1.45; color: #65635D; text-wrap: pretty; }
+.part-1 .slot { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: 48px; background: #D9D7D0; text-align: center; font-size: 16px; line-height: 1.45; color: #4A4843; }
+.part-1 .slot__name { font-size: 20px; font-weight: 500; color: #111110; letter-spacing: -0.008em; }
+.part-1 .notes { margin-top: 56px; }
+.part-1 .tabs { grid-column: 1 / span 4; display: flex; flex-direction: column; align-items: flex-start; }
+.part-1 .tab { margin: 0; padding: 9px 0; border: 0; background: none; font: inherit; font-size: 30px; font-weight: 500; line-height: 1.4; letter-spacing: -0.02em; color: #65635D; cursor: pointer; text-align: left; transition: color 0.15s; }
+.part-1 .tab:hover { color: #111110; }
+.part-1 .tab.is-on { color: #111110; cursor: default; }
+.part-1 .tab--stem { margin-left: -0.071em; }
+.part-1 .panel { grid-column: 5 / span 6; max-width: 576px; padding-top: 12px; display: flex; flex-direction: column; gap: 20px; font-size: 20px; line-height: 1.55; letter-spacing: -0.008em; text-wrap: pretty; }
+
+@font-face{font-family:'PP Neue Montreal';src:url(../../../../src/assets/fonts/PPNeueMontreal-Regular.otf) format('opentype');font-weight:400;font-style:normal;font-display:swap}
+
+@font-face{font-family:'PP Neue Montreal';src:url(../../../../src/assets/fonts/PPNeueMontreal-Regular.otf) format('opentype');font-weight:500;font-style:normal;font-display:swap}
+*, ::before, ::after { box-sizing: border-box; }
+html { overflow-x: hidden; }
+body { margin: 0; background: #FAFAF8; color: #111110; font-family: 'PP Neue Montreal', 'Helvetica Neue', Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; text-rendering: optimizelegibility; }
+.part-2 h1, .part-2 h2, .part-2 p, .part-2 ul { margin: 0; }
+.part-2 ul { padding: 0; list-style: none; }
+.part-2 a { color: inherit; text-decoration: none; transition: color 0.15s; }
+.part-2 a:hover { color: #65635D; }
+.part-2 a:focus-visible { outline: 2px solid currentcolor; outline-offset: 3px; }
+.part-2 .vh { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+.part-2 .page { width: 1440px;  padding: 120px 64px 56px; display: flex; flex-direction: column; }
+.part-2 .body { display: flex; flex-direction: column; gap: 120px; }
+.part-2 .row { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; align-items: start; }
+.part-2 .rail { grid-column: 1 / span 3; }
+.part-2 .h2 { font-size: 30px; font-weight: 500; line-height: 1.2; letter-spacing: -0.02em; text-wrap: balance; margin-left: -0.024em; }
+.part-2 .prose { grid-column: 5 / span 6; max-width: 576px; display: flex; flex-direction: column; gap: 20px; font-size: 20px; line-height: 1.55; letter-spacing: -0.008em; text-wrap: pretty; }
+.part-2 .foot { margin-top: auto; padding-top: 160px; align-items: end; }
+.part-2 .foot__next { grid-column: 1 / span 8; display: flex; flex-direction: column; gap: 12px; }
+.part-2 .foot__label { font-size: 16px; line-height: 1.4; color: #65635D; }
+.part-2 .foot__link { font-size: 136px; font-weight: 500; line-height: 0.88; letter-spacing: -0.045em; margin-left: -0.014em; }
+.part-2 .aside { grid-column: 9 / span 4; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 24px; align-items: end; font-size: 16px; line-height: 1.4; }
+.part-2 .clock { position: relative; width: 96px; height: 96px; color: #65635D; }
+.part-2 .clock svg { display: block; width: 96px; height: 96px; fill: none; stroke-linecap: round; }
+.part-2 .clock__face { stroke: currentcolor; stroke-width: 1; }
+.part-2 .clock__readout { fill: currentcolor; font-size: 11px; font-variant-numeric: tabular-nums; text-anchor: middle; dominant-baseline: central; }
+.part-2 .clock__hand { stroke: #111110; stroke-width: 1; }
+.part-2 .clock__hand--hour { stroke-width: 2.25; }
+.part-2 .clock__pivot { fill: #FAFAF8; stroke: #111110; stroke-width: 1; }
+.part-2 .clock__time { position: absolute; left: 25px; top: 48px; transform: translate(-50%, -50%); font-size: 11px; line-height: 1; font-variant-numeric: tabular-nums; white-space: nowrap; pointer-events: none; }
+.part-2 .links { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; text-align: right; }
+.part-0 .page { padding-bottom: 0 !important; } .part-1 .page { padding-bottom: 0 !important; }
+
+</style>
+</head>
+<body>
+<div class="part-0">
+
+<div style="width: 1440px; background: #FAFAF8">
+<div class="page">
+<header class="top"><a class="top__name" href="#">Balogun Oluwasogo</a><a href="#">Writing</a></header>
+<article>
+<header class="head">
+<h1 class="title">The Space Between Design and Engineering</h1>
+<p class="sub">Some thoughts on how learning to build software changed the way I think about design.</p>
+</header>
+<div class="body">
+<section class="sec" aria-label="Introduction">
+<div class="row">
+<dl class="rail meta"><div><dt>Published</dt><dd><time datetime="2026-11-04">4 November 2026</time></dd></div><div><dt>Reading time</dt><dd>6 minutes</dd></div></dl>
+<div class="prose">
+<p>I started out in design towards the end of 2021, taking Google’s UX Design Professional Certificate course. I was interested in how digital products were designed, how people interacted with them, and what made some experiences better than others.</p>
+<p>After that, I started freelancing on Fiverr and Upwork, mostly working on websites and interfaces for clients. I enjoyed the process, especially seeing something go from an idea to a finished product.</p>
+<p>At that point, most of my attention was on the design itself. How things looked, how people moved through a website, whether the layout made sense, and whether the experience felt right.</p>
+<p>I understood that someone had to build these things, of course, but I didn’t fully appreciate how much of the experience was shaped during implementation.</p>
+<p>That changed when I started writing software professionally.</p>
+</div>
+</div>
+</section>
+<section class="sec" aria-labelledby="s-engineering">
+<div class="row">
+<h2 class="rail h2 h2--g" id="s-engineering">Getting into engineering</h2>
+<div class="prose">
+<p>In 2023, I joined AXA Mansard through its Executive Trainee programme. That was the beginning of my software engineering journey.</p>
+<p>I started with frontend and mobile development, working on applications that people actually depended on to get things done.</p>
+<p>It was quite different from freelancing.</p>
+<p>For one, I was working within existing systems and codebases, alongside other engineers and teams. There were business requirements, dependencies, deadlines, and decisions that had been made long before I joined.</p>
+<p>I also started seeing how much work goes into making even seemingly simple features behave properly.</p>
+<p>Take a form, for example. From a design perspective, you might be thinking about the layout, field grouping, labels, and how easy it is to complete.</p>
+<p>When you’re implementing that same form, you also have to think about validation, API responses, loading states, errors, permissions, and what happens when someone does something you didn’t expect.</p>
+<p>And those things affect the design too.</p>
+<p>An error message needs somewhere to appear. A loading state needs to communicate what’s happening. Validation rules can change how a form should be structured in the first place.</p>
+<p>I started paying more attention to these details, even when I was doing design work.</p>
+</div>
+</div>
+</section>
+<section class="sec" aria-labelledby="s-mockup">
+<div class="row">
+<h2 class="rail h2 h2--t" id="s-mockup">The things you don’t always see in a mockup</h2>
+<div class="prose">
+<p>One thing I’ve noticed is that it’s relatively easy to design for when everything goes right.</p>
+<p>The data loads, the content fits, the user follows the expected flow, and every interaction behaves exactly as intended.</p>
+<p>Real applications are rarely that straightforward.</p>
+<p>Sometimes a request takes longer than expected. Sometimes the data is incomplete. Sometimes someone clicks something twice, or tries to do something they don’t have permission to do.</p>
+<p>These are all things that need to be accounted for, and they can have a pretty big impact on the experience.</p>
+<p>Even when everything works, there are smaller details to consider.</p>
+<p>Does an interaction respond quickly enough? Is the feedback clear? Does an animation help someone understand what’s happening, or does it just look nice?</p>
+<p>I’ve come to see these as design and engineering decisions happening at the same time.</p>
+<p>You can design a really nice transition, but how it’s implemented affects how smooth it feels. You can build a technically correct feature, but if the feedback is confusing, people will still struggle with it.</p>
+<p>The two constantly affect each other.</p>
+<p>Here’s a simple example. Try submitting the form under different conditions and see how the experience changes.</p>
+</div>
+</div>
+<figure class="demo d1" aria-labelledby="d1-name">
+<div class="d1__head">
+<p class="d1__name" id="d1-name">One form, different realities</p>
+<div class="scen" role="radiogroup" aria-label="Network conditions"><span aria-hidden="true">Network</span><button class="opt is-on" type="button" role="radio" aria-checked="true">Normal</button><button class="opt" type="button" role="radio" aria-checked="false">Slow</button><button class="opt" type="button" role="radio" aria-checked="false">Server error</button></div>
+</div>
+<div class="stage">
+<div class="card">
+
+
+<div><p class="card__title">Join the waitlist</p><p class="card__text">Leave your email and we’ll let you know when it opens.</p></div>
+<form class="form" novalidate>
+<label class="label" for="d1-email">Email address</label>
+<div class="field"><input class="input" id="d1-email" name="email" type="email" autocomplete="email" placeholder="name@example.com" value="" aria-invalid="false" aria-describedby="d1-msg"/><button class="btn" type="submit" aria-busy="false">Join</button></div>
+</form>
+<div class="msg" id="d1-msg" role="status" aria-live="polite">
+
+
+
+</div>
+
+</div>
+</div>
+<div class="d1__foot"><p>A demo running in your browser. Nothing you type is sent or stored.</p><button class="textbtn d1__reset" type="button">Reset</button></div>
+</figure>
+</section>
+</div>
+</article>
+</div>
+</div>
+</div>
+<div class="part-1">
+
+<div style="width: 1440px; background: #FAFAF8">
+<div class="page">
+<section class="sec" aria-labelledby="s-shift">
+<div class="row">
+<h2 class="rail h2" id="s-shift">A gradual shift in perspective</h2>
+<div class="prose">
+<p>Around 2025, I started taking on more backend and full-stack work, and this became even more apparent.</p>
+<p>There wasn’t one particular project that changed how I thought about things. It was more of a gradual realization from working on different projects and running into different kinds of problems.</p>
+<p>I’d be implementing something and notice that a small technical decision had implications for the user experience. Other times, I’d be designing something and realize that understanding the underlying system would help me make a better decision.</p>
+<p>I’ve seen this play out in some of my personal projects too.</p>
+<p>With the Ace Trail Tutors website, for example, I spent time working on the motion and interactions. Getting the animations to look right was one part of it. Making sure they performed well, using transforms where appropriate, and accounting for people who prefer reduced motion were just as important.</p>
+<p>Here’s what the hero looks like with and without the full animation.</p>
+</div>
+</div>
+<figure class="demo" aria-label="The Ace Trail Tutors hero, with and without the full animation">
+<div class="vplate">
+<div class="frame"><img src="../../../../src/assets/images/writing/ace-trail-normal-poster.webp" alt="The Ace Trail Tutors hero before scrolling: the headline Get on the Ace Trail on the left, and a small photo of hands on a laptop on the right"/></div>
+<div class="ctrl">
+<div class="group" role="group" aria-label="Animation"><button class="opt is-on" type="button" aria-pressed="true">Full motion</button><button class="opt" type="button" aria-pressed="false">Reduced motion</button></div>
+<div class="group"><button class="opt opt--ink" type="button">Play</button></div>
+</div>
+</div>
+<figcaption class="row"><p class="cap">With full motion, the hero rises into place as the page loads, and the photo grows to fill the window as you scroll. Both recordings use the same 1440 × 900 window and the same scroll.</p></figcaption>
+</figure>
+<div class="row after">
+<div class="prose">
+<p>JobTrackr was a different experience.</p>
+<p>I designed and built it to help people manage their job applications, interviews, documents, and other parts of their job search.</p>
+<p>There’s the visible side of the product: the interface, the flows, the interactions, and how everything is organized.</p>
+<p>Then there’s everything supporting it. The database, authentication, permissions, API requests, error handling, and all the other things that need to work for someone to use the product reliably.</p>
+<p>For instance, making sure one user can’t access another user’s applications isn’t something you’d notice from looking at the interface. But it’s a pretty important part of building a product people can trust.</p>
+<p>Here’s a quick look at JobTrackr. The interface is only part of what’s happening, so I’ve included a few notes on the engineering behind it.</p>
+</div>
+</div>
+<figure class="demo" aria-label="JobTrackr: adding an application, with notes on the engineering behind it">
+<div class="vplate">
+<div class="frame"><img src="../../../../src/assets/images/writing/jobtrackr-workflow-poster.webp" alt="JobTrackr's Applications page, signed in as a sample account" width="1440" height="900"/></div>
+<div class="ctrl">
+<p class="ctrl__label">Adding an application, then moving it from Saved to Applied</p>
+<div class="group"><button class="opt opt--ink" type="button">Play</button></div>
+</div>
+</div>
+<figcaption class="row"><p class="cap">Recorded from JobTrackr running locally, with a sample account and sample data. The video shows the interface. The notes describe the code behind it.</p></figcaption>
+</figure>
+<div class="row notes">
+<div class="tabs" role="tablist" aria-label="Behind the interface"><button class="tab tab--stem is-on" type="button" role="tab" id="t-ui" aria-controls="p-notes" aria-selected="true">Interface</button><button class="tab" type="button" role="tab" id="t-api" aria-controls="p-notes" aria-selected="false">API &amp; authentication</button><button class="tab tab--stem" type="button" role="tab" id="t-data" aria-controls="p-notes" aria-selected="false">Data permissions</button></div>
+<div class="panel" role="tabpanel" id="p-notes" aria-labelledby="t-ui">
+<p>Adding an application opens a drawer. The form checks what you’ve entered when you save, and the server checks it again. A new record gets a confirmation with a link to open it, and moving it from Saved to Applied adds the submission to its activity.</p><p>If the server doesn’t answer, the form says the save couldn’t be confirmed and keeps what you typed, so you can check before adding it a second time.</p>
+
+
+</div>
+</div>
+<div class="row after">
+<div class="prose">
+<p>Working on projects like these has changed how I approach both design and engineering.</p>
+<p>I think more about how the whole thing works, rather than just the part I’m currently working on.</p>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+<div class="part-2">
+
+<div style="width: 1440px; background: #FAFAF8">
+<div class="page">
+<div class="body">
+<section class="row" aria-labelledby="s-between">
+<h2 class="rail h2" id="s-between">Somewhere between the two</h2>
+<div class="prose">
+<p>I don’t think every designer needs to become an engineer, or that every engineer needs to learn how to design.</p>
+<p>There’s a lot of value in specialization, and I’ve worked with people who are exceptionally good at what they do because they’ve spent years focusing on it.</p>
+<p>But I do think understanding a bit more of what happens on the other side makes a difference.</p>
+<p>As a designer, knowing how things are built helps you make more informed decisions. You start thinking about performance, accessibility, and technical constraints earlier.</p>
+<p>As an engineer, understanding design helps you look beyond whether a feature works. You pay more attention to how people experience it, whether the interaction makes sense, and whether there’s a better way to approach the problem.</p>
+<p>Sometimes that means simplifying a design. Sometimes it means putting in extra engineering effort because a particular interaction is worth getting right.</p>
+<p>And sometimes it means questioning the original approach entirely.</p>
+<p>I think there’s a real craft in being able to move between those perspectives, understand the trade-offs, and make decisions that account for both.</p>
+</div>
+</section>
+<section class="row" aria-labelledby="s-learning">
+<h2 class="rail h2" id="s-learning">Still learning</h2>
+<div class="prose">
+<p>These days, I work across product design, frontend development, backend systems, and whatever interesting thing I decide to experiment with next.</p>
+<p>I still enjoy design for many of the same reasons I did when I started. I like good typography, thoughtful layouts, interesting interactions, and the little details that make a product enjoyable to use.</p>
+<p>I also enjoy figuring out how things work, solving engineering problems, and building the systems behind those experiences.</p>
+<p>There’s still a lot I don’t know, and that’s part of what keeps it interesting.</p>
+<p>I don’t really see design and engineering as separate interests anymore. They’re both part of how I approach building things.</p>
+<p>And I want to keep getting better at both.</p>
+</div>
+</section>
+</div>
+<footer class="row foot">
+<div class="foot__next"><p class="foot__label">Back to</p><a class="foot__link" href="#">Writing</a></div>
+<div class="aside">
+<div class="clock"><svg aria-hidden="true" focusable="false" viewBox="0 0 96 96"><circle class="clock__face" cx="48" cy="48" r="47.5"></circle><text class="clock__readout" x="71" y="48">GMT+1</text><line class="clock__hand clock__hand--hour" transform="rotate(332.5 48 48)" x1="48" x2="48" y1="48" y2="24"></line><line class="clock__hand" transform="rotate(30 48 48)" x1="48" x2="48" y1="48" y2="8"></line><circle class="clock__pivot" cx="48" cy="48" r="2.5"></circle></svg><span class="clock__time" aria-hidden="true">11:05</span><p class="vh">GMT+1 11:05, Lagos, Nigeria</p></div>
+<nav aria-label="Elsewhere"><ul class="links"><li><a href="#">LinkedIn<span class="vh"> (opens in a new tab)</span></a></li><li><a href="#">GitHub<span class="vh"> (opens in a new tab)</span></a></li><li><a href="#">Contra<span class="vh"> (opens in a new tab)</span></a></li><li><a href="#">Email</a></li></ul></nav>
+</div>
+</footer>
+</div>
+</div>
+</div>
+</body>
+</html>

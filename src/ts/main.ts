@@ -6,6 +6,8 @@ import { initPreview } from './preview.js';
 import { renderProjects, shownProjects as projects } from './projects.js';
 import { initReadingMode } from './tldr.js';
 import { initTopBar } from './top.js';
+import { initMediaSwitch } from './writing/media-switch.js';
+import { initAnnotatedMedia } from './writing/annotated-media.js';
 
 const $ = <T extends Element>(selector: string): T | null => document.querySelector<T>(selector);
 
@@ -35,6 +37,10 @@ if (reading) initReadingMode({ group: reading, status: $<HTMLElement>('[data-rea
 // Case study: videos play only while they're in view.
 const videos = Array.from(document.querySelectorAll<HTMLVideoElement>('[data-case-video]'));
 if (videos.length > 0) initMedia(videos);
+
+// Writing: components never start media until a control is pressed.
+for (const root of document.querySelectorAll<HTMLElement>('[data-media-switch]')) initMediaSwitch(root);
+for (const root of document.querySelectorAll<HTMLElement>('[data-annotated-media]')) initAnnotatedMedia(root);
 
 const list = $<HTMLElement>('[data-work-list]');
 if (list) renderProjects(list);
