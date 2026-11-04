@@ -167,24 +167,11 @@
 .intro__role--stem { margin-left: -$lsb-stem-medium; }
 
 .intro__role-line {
-  display: block;
+  display: inline;
 
-  // "Design…" starts on a D stem.
+  // "Design..." starts on a D stem; "Engineer" continues on the same line.
   &:first-child {
     margin-left: -$lsb-stem-medium;
-  }
-
-  // On mobile "Engineer" starts its own line on an E stem.
-  &:last-child {
-    margin-left: -$lsb-stem-medium;
-  }
-
-  @include desktop {
-    display: inline;
-
-    &:last-child {
-      margin-left: 0;
-    }
   }
 }
 

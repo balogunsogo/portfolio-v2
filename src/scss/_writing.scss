@@ -2,6 +2,14 @@
 @use 'case';
 
 // Shared editorial layout. Article-specific demos live in posts/.
+.writing-index .intro__lead {
+  @include below-desktop {
+    // Remove the empty second title line from the subtitle gap while retaining
+    // the shared header tracks, so the navigation stays in exactly the same place.
+    margin-top: calc(-1 * var(--section-title-size) * var(--section-title-leading));
+  }
+}
+
 .writing-index__title { margin-left: -$lsb-w-medium; }
 
 .writing-index__bottom {
@@ -63,7 +71,7 @@
   align-items: end;
 
   .index__meta { padding: 0; }
-  @include desktop { margin-top: 0; padding-top: 0; padding-bottom: 4px; }
+  @include desktop { margin-top: 0; padding-top: 0; }
 }
 
 .writing-head { display: flex; flex-direction: column; gap: 16px; }

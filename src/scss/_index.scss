@@ -9,11 +9,11 @@
 //   work
 //   aside → 2 columns: time + location on the left, links right-aligned on the right
 //
-// Desktop (12 columns, 2 rows):
-//   cols 1–4   row 1: heading     row 2: work list, flush left under the name
-//   cols 5–8   row 1: project type row 2: description (hover / focus only)
+// Desktop (12 columns, navigation / flexible spacer / content):
+//   cols 1–4   row 1: heading     row 3: bottom-aligned work list, flush left under the name
+//   cols 5–8   row 1: project type row 3: description (hover / focus only)
 //   cols 9–12  rows 2–3: aside, resting at the bottom (the counterweight)
-//   cols 9–12  rows 1–2: hover preview. While it shows, the aside fades out.
+//   cols 9–12  rows 1–3: hover preview. While it shows, the aside fades out.
 
 // Vertical padding on each project link. The aside reuses this spacing at its bottom.
 $work-pad-mobile: 7px;
@@ -29,18 +29,17 @@ $work-pad-desktop: 9px;
   @include desktop {
     display: grid;
     grid-template-columns: repeat($columns, minmax(0, 1fr));
-    grid-template-rows: auto auto 1fr;
-
-    // Work and its preview keep their intrinsic height; the aside stays at the bottom.
-    > .index__aside { grid-row: 2 / span 2; }
+    grid-template-rows: auto minmax(16px, 1fr) auto;
     column-gap: $gutter;
-    row-gap: 16px;
+    row-gap: 0;
+
+    > .index__aside { grid-row: 2 / span 2; }
     align-items: start;
     font-size: 1rem;
   }
 }
 
-// The navigation occupies the first row; Work and About share the second.
+// The navigation occupies the first row; Work and About share the content below it.
 // On desktop this wrapper steps aside so its children use the page's 12 columns.
 .index__stage {
   position: relative;
@@ -125,8 +124,9 @@ $work-pad-desktop: 9px;
 
   @include desktop {
     grid-column: 1 / span 4;
-    grid-row: 2;
+    grid-row: 3;
     justify-self: start; // the list hugs its longest title
+    align-self: end;
     margin-top: 0;
   }
 }
@@ -155,7 +155,7 @@ $work-pad-desktop: 9px;
 
 // Description column (desktop, "Description in its own column" on the canvas).
 // The type/role line sits on the "Work" line (row 1) and the description
-// starts level with the first project (row 2), in columns 5–8 between the list and
+// starts level with the first project (row 3), in columns 5–8 between the list and
 // the image. 20px sits between the 16px labels and the 30px titles in the type scale.
 $preview-ease: $ease-out;
 
@@ -195,7 +195,12 @@ $preview-ease: $ease-out;
 
 .preview-text {
   @include hover-desktop {
-    grid-row: 2;
+    // Anchor every description to the list's row without its length moving the list.
+    position: absolute;
+    grid-row: 3;
+    top: 0;
+    left: 0;
+    right: 0;
     max-width: 26ch;
     // Puts the first line's cap height level with the first project title's.
     padding-top: 12px;
@@ -351,7 +356,7 @@ $preview-ease: $ease-out;
   @include hover-desktop {
     display: block;
     grid-column: 9 / span 4;
-    grid-row: 1 / span 2;
+    grid-row: 1 / span 3;
     align-self: stretch;
     position: relative;
     overflow: hidden;
@@ -630,11 +635,14 @@ $sheet-duration: 0.42s; // keep in sync with TRANSITION_MS in ts/modal.ts
 
   @include desktop {
     grid-column: 1 / span 8;
-    grid-row: 2;
+    grid-row: 2 / span 2;
+    margin-top: 16px;
     display: grid;
     grid-template-columns: repeat(8, minmax(0, 1fr));
     column-gap: $gutter;
+    align-self: end;
     align-items: end;
+    padding-bottom: $work-pad-desktop;
   }
 }
 
