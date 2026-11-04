@@ -234,7 +234,7 @@
 
 .writing-foot .case-foot__next { gap: 12px; }
 .writing-foot__label { color: $color-muted; }
-.writing-foot__link { margin-left: -$lsb-w-medium; }
+.writing-foot__link { align-self: flex-start; margin-left: -$lsb-w-medium; }
 .writing-foot .case-foot__meta { color: $color-muted; }
 @include below-desktop {
   .writing-index__aside .links a,
