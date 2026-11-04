@@ -1,8 +1,13 @@
 @use 'tokens' as *;
 
-// Page shell: intro at the top, index at the bottom when there is room.
-// Only a minimum: taller content stays in document flow and scrolls naturally.
+// Shared Work / About / Writing shell. The intro reserves the same title and description
+// slots in every view; content grows below the navigation instead of moving it.
 .page {
+  --section-title-size: clamp(3.5rem, 16.4vw, 7rem);
+  --section-title-leading: 0.9;
+  --section-title-lines: 2;
+  --section-lead-size: clamp(1.5rem, 1rem + 2.28vw, 3.5rem);
+  --section-lead-lines: 4;
   min-height: 100vh;
   min-height: 100svh;
   display: flex;
@@ -32,15 +37,24 @@
     }
   }
 
+  // Fewer reserved description lines as the available text measure widens.
+  @media (min-width: 600px) { --section-lead-lines: 3; }
+  @media (min-width: 900px) { --section-lead-lines: 2; }
+
   @include desktop {
+    --section-title-size: clamp(6rem, 9.45vw, 11.5rem);
+    --section-title-leading: 0.88;
+    --section-title-lines: 1;
     gap: 56px;
     padding: 48px 64px 56px;
   }
 }
 
 .intro {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows:
+    calc(var(--section-title-size) * var(--section-title-leading) * var(--section-title-lines))
+    calc(var(--section-lead-size) * 1.12 * var(--section-lead-lines));
   gap: 14px;
 
   @include desktop {
@@ -50,14 +64,12 @@
 
 // 64px at 390 wide (mobile board) → 136px at 1440 wide (desktop board).
 .intro__name {
-  font-size: clamp(3.5rem, 16.4vw, 7rem);
+  font-size: var(--section-title-size);
   font-weight: $weight-medium;
-  line-height: 0.9;
+  line-height: var(--section-title-leading);
   letter-spacing: -0.045em;
 
   @include desktop {
-    font-size: clamp(6rem, 9.45vw, 11.5rem);
-    line-height: 0.88;
     white-space: nowrap;
   }
 }
@@ -135,20 +147,24 @@
   }
 }
 
-// The role line and the statement share one place. The statement is laid over the role
-// (out of flow), so the default layout doesn't change; it runs into the space below.
+// Both descriptions share a grid cell inside the reserved description track. Its
+// height stays the same when opening About or loading the display font.
 .intro__lead {
-  position: relative;
+  display: grid;
+  align-items: start;
 }
 
 // 24px on mobile → 48px at 1440. The About's statement uses the same type.
 .intro__role,
 .intro__statement {
-  font-size: clamp(1.5rem, 1rem + 2.28vw, 3.5rem);
+  grid-area: 1 / 1;
+  font-size: var(--section-lead-size);
   font-weight: $weight-medium;
   line-height: 1.12;
   letter-spacing: -0.022em;
 }
+
+.intro__role--stem { margin-left: -$lsb-stem-medium; }
 
 .intro__role-line {
   display: block;
@@ -181,31 +197,17 @@
   .page.is-about-open & {
     @include about-layer-hidden($rise: false);
   }
-
-  .page.is-about-flow & {
-    display: none;
-  }
 }
 
 .intro__statement {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
   margin-left: -$lsb-stem-medium; // "I…" starts on a stem
   @include about-layer-hidden;
 
   @include desktop {
-    max-width: 23em; // two lines, breaking after "gets"
+    max-width: 23em; // keep the statement on two lines across desktop widths
   }
 
   .page.is-about-open & {
     @include about-layer-shown;
-  }
-
-  // Not enough room for the About to rise above the work list (see ts/about.ts):
-  // the statement takes the role's place in the flow and the page scrolls.
-  .page.is-about-flow & {
-    position: static;
   }
 }

@@ -12,11 +12,10 @@
 // Desktop (12 columns, 2 rows):
 //   cols 1–4   row 1: heading     row 2: work list, flush left under the name
 //   cols 5–8   row 1: project type row 2: description (hover / focus only)
-//   cols 9–12  row 2: aside, sitting on the last project's line (the counterweight)
+//   cols 9–12  rows 2–3: aside, resting at the bottom (the counterweight)
 //   cols 9–12  rows 1–2: hover preview. While it shows, the aside fades out.
 
-// Vertical padding on each project link. The aside reuses it so its last line sits
-// level with the last project.
+// Vertical padding on each project link. The aside reuses this spacing at its bottom.
 $work-pad-mobile: 7px;
 $work-pad-desktop: 9px;
 
@@ -24,13 +23,16 @@ $work-pad-desktop: 9px;
   position: relative; // the About is positioned against the work list's grid area
   display: flex;
   flex-direction: column;
-  margin-top: auto;
+  flex: 1;
   font-size: 0.9375rem;
 
   @include desktop {
     display: grid;
     grid-template-columns: repeat($columns, minmax(0, 1fr));
-    grid-template-rows: auto auto;
+    grid-template-rows: auto auto 1fr;
+
+    // Work and its preview keep their intrinsic height; the aside stays at the bottom.
+    > .index__aside { grid-row: 2 / span 2; }
     column-gap: $gutter;
     row-gap: 16px;
     align-items: start;
@@ -38,10 +40,18 @@ $work-pad-desktop: 9px;
   }
 }
 
-// The heading and the list, plus the About laid over them. Below desktop it's the box the
-// About rises from; on desktop it steps aside so its children stay items of the grid.
+// The navigation occupies the first row; Work and About share the second.
+// On desktop this wrapper steps aside so its children use the page's 12 columns.
 .index__stage {
   position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 12px;
+
+  @include below-desktop {
+    > .index__heading { grid-area: 1 / 1; }
+    > .work, > .about { grid-area: 2 / 1; }
+  }
 
   @include desktop {
     display: contents;
@@ -111,7 +121,7 @@ $work-pad-desktop: 9px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-top: 8px;
+  margin-top: 0;
 
   @include desktop {
     grid-column: 1 / span 4;
@@ -219,7 +229,8 @@ $preview-ease: $ease-out;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   column-gap: 16px;
-  margin-top: var(--meta-gap, 40px);
+  margin-top: auto;
+  padding-top: var(--meta-gap, 40px);
   transition:
     opacity 0.2s ease,
     visibility 0s linear 0s;
@@ -235,6 +246,7 @@ $preview-ease: $ease-out;
     align-items: end;
     column-gap: $gutter;
     margin-top: 0;
+    padding-top: 0;
     padding-bottom: $work-pad-desktop;
   }
 }
@@ -588,12 +600,8 @@ $sheet-duration: 0.42s; // keep in sync with TRANSITION_MS in ts/modal.ts
   }
 }
 
-// About ("D · Portrait in the name" on the canvas). Hidden until the portrait is hovered,
-// tapped or toggled from the keyboard (ts/about.ts sets .page.is-about-open). It's laid over the work list and
-// anchored to the list's last line, so it grows upward and never moves the default layout.
-//   Mobile:  heading, bio, then Now / Open to on the aside's two columns.
-//   Desktop: heading and bio in columns 1–4, Now / Open to in columns 5–8.
-.index__heading,
+// Work and About share the content row below the stationary navigation. About joins
+// the grid when opened; a taller bio grows the page downward, leaving the intro intact.
 .work {
   transition:
     opacity 0.24s ease $about-delay,
@@ -601,36 +609,6 @@ $sheet-duration: 0.42s; // keep in sync with TRANSITION_MS in ts/modal.ts
 
   .page.is-about-open & {
     @include about-layer-hidden($rise: false);
-  }
-
-  .page.is-about-flow & {
-    display: none;
-  }
-}
-
-// Keep the same switch row visible in both states at every size. Mobile reserves its closed
-// position while the taller About flows beneath it; the page can grow downward.
-.page.is-about-open .index__heading.index__switch {
-  opacity: 1;
-  visibility: visible;
-  transition: none;
-}
-
-.page.is-about-flow .index__heading.index__switch {
-  display: flex;
-}
-
-@include below-desktop {
-  // Keep the hidden statement out of flow. Reserving its taller grid row also
-  // reserved blank space in Work, pushing the footer below short initial viewports.
-  // Opening About uses the existing .is-about-flow rules to fit the visible text.
-
-  .page.is-about-open .index {
-    margin-top: var(--about-switch-offset, 0px);
-  }
-
-  .page.is-about-flow .about {
-    margin-top: 12px;
   }
 }
 
@@ -641,25 +619,22 @@ $sheet-duration: 0.42s; // keep in sync with TRANSITION_MS in ts/modal.ts
   bottom: 0;
   display: flex;
   flex-direction: column;
+  align-self: start;
   gap: 20px;
   pointer-events: none;
 
   .page.is-about-open & {
+    position: static;
     pointer-events: auto;
   }
 
   @include desktop {
     grid-column: 1 / span 8;
     grid-row: 2;
-    bottom: $work-pad-desktop; // level with the last project's line, like the aside
     display: grid;
     grid-template-columns: repeat(8, minmax(0, 1fr));
     column-gap: $gutter;
     align-items: end;
-  }
-
-  .page.is-about-flow & {
-    position: static;
   }
 }
 
