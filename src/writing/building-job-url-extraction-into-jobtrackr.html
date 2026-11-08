@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Building Job URL Extraction into JobTrackr — Balogun Oluwasogo</title>
+  <meta name="description" content="How a small improvement to adding job applications turned into a series of product decisions, engineering challenges, and lessons from shipping.">
+  <meta name="theme-color" content="#FAFAF8">
+  <link rel="canonical" href="https://www.balogunoluwasogo.com/writing/building-job-url-extraction-into-jobtrackr">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Building Job URL Extraction into JobTrackr — Balogun Oluwasogo">
+  <meta property="og:description" content="How a small improvement to adding job applications turned into a series of product decisions, engineering challenges, and lessons from shipping.">
+  <meta property="og:url" content="https://www.balogunoluwasogo.com/writing/building-job-url-extraction-into-jobtrackr">
+  <meta property="og:image" content="https://www.balogunoluwasogo.com/assets/images/writing/job-url-extraction-og.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Building Job URL Extraction into JobTrackr, by Balogun Oluwasogo">
+  <meta property="article:published_time" content="2026-11-08">
+  <meta property="article:author" content="Balogun Oluwasogo">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Building Job URL Extraction into JobTrackr — Balogun Oluwasogo">
+  <meta name="twitter:description" content="How a small improvement to adding job applications turned into a series of product decisions, engineering challenges, and lessons from shipping.">
+  <meta name="twitter:image" content="https://www.balogunoluwasogo.com/assets/images/writing/job-url-extraction-og.jpg">
+  <link rel="icon" href="/assets/favicon.ico?v=3" sizes="32x32">
+  <link rel="icon" href="/assets/favicon.svg?v=3" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <link rel="preload" href="/assets/fonts/PPNeueMontreal-Regular.otf" as="font" type="font/otf" crossorigin>
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Building Job URL Extraction into JobTrackr","description":"How a small improvement to adding job applications turned into a series of product decisions, engineering challenges, and lessons from shipping.","datePublished":"2026-11-08","dateModified":"2026-11-08","author":{"@type":"Person","name":"Balogun Oluwasogo","url":"https://www.balogunoluwasogo.com/"},"image":"https://www.balogunoluwasogo.com/assets/images/writing/job-url-extraction-og.jpg","mainEntityOfPage":"https://www.balogunoluwasogo.com/writing/building-job-url-extraction-into-jobtrackr","inLanguage":"en"}</script>
+  <script type="module" src="/assets/js/main.js"></script>
+  <script type="module" src="/assets/js/posts/job-url-extraction/main.js"></script>
+</head>
+<body>
+  <div class="case writing jx-essay">
+    <header class="case-top" data-case-top><a class="case-top__name" href="/">Balogun Oluwasogo</a><a class="writing-top-link" href="/writing">Writing</a></header>
+    <main><article>
+      <header class="writing-head"><h1 class="writing-title writing-title--stem">Building Job URL Extraction into JobTrackr</h1><p class="writing-subtitle">How a small improvement to adding job applications turned into a series of product decisions, engineering challenges, and lessons from shipping.</p></header>
+      <div class="writing-body">
+
+<section class="writing-section" aria-label="Introduction" aria-labelledby="introduction-heading"><h2 class="visually-hidden" id="introduction-heading">Introduction</h2><div class="writing-row writing-row--intro"><dl class="writing-meta"><div><dt>Published</dt><dd><time datetime="2026-11-08">8 November 2026</time></dd></div><div><dt>Reading time</dt><dd>10 minutes</dd></div></dl><div class="writing-prose"><p>One thing I’ve been intentional about with JobTrackr is making the experience of tracking job applications as straightforward as possible.</p>
+<p>Adding an application was already pretty simple. You only needed two fields: the job role and the company. Everything else was optional.</p>
+<p>But there was something I kept thinking about.</p>
+<p>Most times, when you’re adding an application to a tracker, you already have the job posting open somewhere. The role, company, location, description, and other details are right there.</p>
+<p>Yet you’re still copying information from one place to another.</p>
+<p>It wasn’t a particularly difficult process, but I felt it could be more seamless.</p>
+<p>And I wasn’t the only one who thought so. Feedback from a few early JobTrackr users reinforced that feeling.</p>
+<p>So I started thinking: what if you could just paste the job posting URL and let JobTrackr retrieve whatever information was available?</p>
+<p>You’d still review everything before saving. You just wouldn’t have to start from scratch every time.</p>
+<p>That was the idea.</p>
+<p>Building it, however, came with a few more considerations than I initially expected.</p></div></div></section>
+
+<section class="writing-section" aria-labelledby="url-heading"><div class="writing-row"><h2 class="writing-heading writing-heading--stem" id="url-heading">Making the URL do some of the work</h2><div class="writing-prose"><p>I wanted the feature to fit naturally into the existing application form rather than introduce another workflow.</p>
+<p>The experience I had in mind was simple.</p>
+<p>Paste a job URL, let JobTrackr retrieve the relevant details, review or correct whatever comes back, and save when you’re ready.</p>
+<p>If extraction doesn’t work, you can still enter the information yourself.</p>
+<p>One thing I was particular about was keeping the user in control.</p>
+<p>An extracted job title might not be the title someone wants to use in their tracker. A company might appear under a different name on the job board. Some fields might be missing altogether.</p>
+<p>So I didn’t want extraction to automatically create an application or make decisions on someone’s behalf.</p>
+<p>It needed to assist, not take over.</p>
+<p>That decision shaped quite a bit of the implementation.</p></div></div><div data-annotated-media>
+<figure class="writing-demo"><div class="writing-plate"><div class="writing-frame jx-media-frame"><video class="writing-video" muted playsinline preload="none" controls src="/assets/video/writing/jobtrackr-url-extraction.mp4" poster="/assets/images/writing/jobtrackr-url-extraction-poster.webp" aria-label="JobTrackr, signed in with a test account: a public job URL is pasted into Add application, the role and company fill in, Source is set to Company website, and the application is added." data-media-video></video></div><div class="writing-controls" data-media-controls hidden><p class="writing-controls__label">Pasting a job URL, reviewing the details, then adding the application</p><div class="writing-control-group writing-controls__actions"><button class="writing-control" type="button" data-media-replay hidden>Replay</button><button class="writing-control writing-control--ink" type="button" data-media-toggle>Play</button></div></div></div><figcaption class="writing-row writing-caption"><p>Recorded on jobtrackr.site with a test account and a public job posting. Nothing is saved until Add application is pressed.</p></figcaption></figure>
+</div></section>
+
+<section class="writing-section" aria-labelledby="ai-heading"><div class="writing-row"><h2 class="writing-heading writing-heading--w" id="ai-heading">Why I didn’t use AI for extraction</h2><div class="writing-prose"><p>This was a deliberate decision.</p>
+<p>I didn’t want to use AI for job details extraction.</p>
+<p>Not because I’m against AI or wouldn’t consider introducing it into JobTrackr. I’ve just been intentional about what I add to the application.</p>
+<p>I don’t want to introduce an AI-powered workflow simply because I can. There has to be a genuine need for it, and it has to fit naturally into the product.</p>
+<p>For this feature, I felt there was a more straightforward approach worth exploring first.</p>
+<p>A lot of job posting platforms already expose structured information. Some have public endpoints for retrieving job details, while others include structured data in their pages to help search engines understand the content.</p>
+<p>That gave me somewhere to start.</p>
+<p>I implemented provider-specific extraction for Greenhouse and Lever, alongside support for JobPosting structured data, commonly represented as JSON-LD.</p>
+<p>JSON-LD is essentially a way for websites to describe their content in a format that software can understand. For a job posting, that might include the title, hiring organization, location, employment type, or salary.</p>
+<p>Where the more structured approaches don’t provide enough information, JobTrackr can also inspect limited page metadata, such as a title or description. Those less certain values are presented as suggestions rather than automatically filling the form.</p>
+<p>The idea was to work with information that was already available instead of introducing a model to interpret every posting.</p>
+<p>I also had to be realistic about the scope.</p>
+<p>JobTrackr is still a relatively small product, with fewer than 100 users at the moment. I didn’t see the need to build an extraction system that tried to support every job board from day one.</p>
+<p>Start small, see how it performs, and expand when there’s a reason to.</p>
+<p>Of course, that meant accepting that not every URL would work.</p>
+<p>Some websites don’t expose useful structured data. Others require authentication, block automated requests, or rely on JavaScript to display important information.</p>
+<p>And even when a page contains structured data, it isn’t always complete or reliable.</p>
+<p>Which raised another question: what should happen when JobTrackr can retrieve some information, but not everything?</p></div></div>
+<figure class="writing-demo" aria-labelledby="d2-name" data-sources-demo><div class="jxp">
+<div class="jxp__side">
+<div class="jxp__top"><p class="jxp__name" id="d2-name">Where the details come from</p>
+<fieldset class="jxp__pick"><legend class="visually-hidden">Example link</legend><span class="jxp__label" aria-hidden="true">Example link</span><label class="jx-option"><input data-demo-control type="radio" value="0" checked disabled data-option>Greenhouse posting</label><label class="jx-option"><input data-demo-control type="radio" value="1" disabled data-option>Careers page with job data</label><label class="jx-option"><input data-demo-control type="radio" value="2" disabled data-option>Title and description only</label><label class="jx-option"><input data-demo-control type="radio" value="3" disabled data-option>Blocked page</label></fieldset>
+<p class="jxp__prompt" data-source-prompt>Press Extract details in the form to see what JobTrackr finds for this link.</p></div>
+<div class="jxp__flow" hidden data-source-flow><p class="jxp__note" role="status" hidden data-saved-note></p><div class="jxp__how" hidden data-how-wrap><button data-demo-control class="textbtn" type="button" disabled aria-expanded="false" aria-controls="d2-how" data-how-toggle>How did JobTrackr get these details?</button><div class="jxp__how" id="d2-how" hidden data-how><ol class="jxp__path" aria-label="Where JobTrackr looked, in order" data-path></ol><div class="jxp__text" data-explanation></div></div></div></div>
+<div class="jxp__end"><a class="jxp__cta" href="https://jobtrackr.site" target="_blank" rel="noopener">Try it with your own job links on JobTrackr<span class="visually-hidden"> (opens in a new tab)</span></a><div class="jxp__foot"><p data-demo-note>This demo needs JavaScript. Nothing you type is sent or stored.</p><button data-demo-control class="opt" type="button" disabled data-reset>Reset</button></div></div></div><div class="jt" role="group" aria-labelledby="d2-title" data-drawer=""><div class="jt__grab" aria-hidden="true"></div>
+<div class="jt__head"><h3 class="jt__title" id="d2-title">Add application</h3><button data-demo-control class="jt__close" type="button" aria-label="Close" data-cancel="" disabled=""><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button></div>
+<div class="jt__body" data-drawer-body="">
+<form class="jt__form" id="d2-form" novalidate="" data-drawer-form="">
+<div class="jf"><label class="jf__label" for="d2-url">Job URL</label><div class="jc"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg><input data-demo-control class="jc__input" id="d2-url" type="url" readonly="" value="https://job-boards.greenhouse.io/northwind/jobs/4012345" placeholder="https://" aria-describedby="d2-url-note" data-field="url" disabled=""></div><p class="visually-hidden" id="d2-url-note">Example link. Choose another example beside the form.</p></div>
+<section class="jfb" aria-label="Job details extraction" data-feedback=""><button data-demo-control class="jbtn" type="button" aria-busy="false" aria-disabled="false" data-extract="" disabled="">Extract details</button><p role="status" aria-live="polite" data-extraction-status="">Paste a public job URL to fill available details automatically.</p><ul hidden="" data-warnings=""></ul><p hidden="" id="d2-salary-hint" data-salary-hint="">Salary suggestions replace minimum, maximum and currency together. Missing bounds are cleared.</p><div data-suggestions="" hidden=""></div></section>
+
+<div class="jf"><label class="jf__label" for="d2-role">Role<span class="jf__req" aria-hidden="true">*</span></label><div class="jc" data-control="role"><input data-demo-control class="jc__input" id="d2-role" type="text" value="" placeholder="e.g. Frontend Engineer" maxlength="255" aria-required="true" aria-invalid="false" aria-describedby="d2-role-error" data-field="role" disabled=""></div><p id="d2-role-error" class="jf__error" hidden="" data-error="role"></p></div>
+<div class="jf"><label class="jf__label" for="d2-company">Company<span class="jf__req" aria-hidden="true">*</span></label><div class="jc" data-control="company"><input data-demo-control class="jc__input" id="d2-company" type="text" value="" placeholder="e.g. Linear" maxlength="255" aria-required="true" aria-invalid="false" aria-describedby="d2-company-error" data-field="company" disabled=""></div><p id="d2-company-error" class="jf__error" hidden="" data-error="company"></p></div>
+<div class="jrow">
+<div class="jf"><label class="jf__label" id="d2-source-label" for="d2-source">Source</label><div class="jc jc--sel"><button data-demo-control class="jc__trigger" id="d2-source" type="button" role="combobox" aria-labelledby="d2-source-label" aria-haspopup="listbox" aria-expanded="false" aria-controls="d2-source-list" data-select="source" disabled=""><span class="jc__value" data-select-value="">Select source</span></button><span class="jc__chev" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polyline points="6 9 12 15 18 9"></polyline></svg></span></div></div>
+<div class="jf"><label class="jf__label" id="d2-status-label" for="d2-status">Status</label><div class="jc jc--sel"><button data-demo-control class="jc__trigger" id="d2-status" type="button" role="combobox" aria-labelledby="d2-status-label" aria-haspopup="listbox" aria-expanded="false" aria-controls="d2-status-list" data-select="status" disabled=""><span class="jc__value" data-select-value="">Applied</span></button><span class="jc__chev" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polyline points="6 9 12 15 18 9"></polyline></svg></span></div></div></div><div class="jf jnarrow" data-date-field=""><label class="jf__label" for="d2-date">Date applied</label><div class="jc jc--mono"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg><input data-demo-control class="jc__input" id="d2-date" type="date" value="2026-11-08" data-field="date" disabled=""></div><p class="jf__hint" id="d2-date-hint">Leave blank if unknown. Undated applications appear in all-time totals, not date-based charts.</p></div><p class="jmuted" hidden="" data-saved-status="">Saved jobs are not counted as submitted applications. You can add the application date when you apply.</p><button data-demo-control class="jmore" type="button" aria-expanded="false" aria-controls="d2-details" data-more="" disabled="">+ More details</button>
+<div class="jt__details" id="d2-details" data-details="" hidden="">
+<div class="jf"><label class="jf__label" for="d2-companyUrl">Company URL</label><div class="jc"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg><input data-demo-control class="jc__input" id="d2-companyUrl" type="url" value="" placeholder="https://" maxlength="2048" data-field="companyUrl" disabled=""></div><p class="jf__hint" id="d2-companyUrl-hint">The company’s website. We’ll use its icon as the logo when we can find one.</p></div>
+<div class="jf"><label class="jf__label" for="d2-location">Location</label><div class="jc"><input data-demo-control class="jc__input" id="d2-location" type="text" value="" maxlength="255" data-field="location" disabled=""></div></div>
+<div class="jrow">
+<div class="jf"><label class="jf__label" id="d2-workMode-label" for="d2-workMode">Work mode</label><div class="jc jc--sel"><button data-demo-control class="jc__trigger" id="d2-workMode" type="button" role="combobox" aria-labelledby="d2-workMode-label" aria-haspopup="listbox" aria-expanded="false" aria-controls="d2-workMode-list" data-select="workMode" disabled=""><span class="jc__value" data-select-value="">Not specified</span></button><span class="jc__chev" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polyline points="6 9 12 15 18 9"></polyline></svg></span></div></div>
+<div class="jf"><label class="jf__label" id="d2-employment-label" for="d2-employment">Employment type</label><div class="jc jc--sel"><button data-demo-control class="jc__trigger" id="d2-employment" type="button" role="combobox" aria-labelledby="d2-employment-label" aria-haspopup="listbox" aria-expanded="false" aria-controls="d2-employment-list" data-select="employment" disabled=""><span class="jc__value" data-select-value="">Not specified</span></button><span class="jc__chev" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polyline points="6 9 12 15 18 9"></polyline></svg></span></div></div></div>
+<div class="jf"><label class="jf__label" id="d2-priority-label" for="d2-priority">Priority</label><div class="jc jc--sel"><button data-demo-control class="jc__trigger" id="d2-priority" type="button" role="combobox" aria-labelledby="d2-priority-label" aria-haspopup="listbox" aria-expanded="false" aria-controls="d2-priority-list" data-select="priority" disabled=""><span class="jc__value" data-select-value="">Medium</span></button><span class="jc__chev" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polyline points="6 9 12 15 18 9"></polyline></svg></span></div></div>
+<div class="jrow">
+<div class="jf"><label class="jf__label" for="d2-salMin">Salary minimum</label><div class="jc jc--mono"><input data-demo-control class="jc__input" id="d2-salMin" type="number" value="" min="0" step="0.01" data-field="salMin" disabled=""></div></div>
+<div class="jf"><label class="jf__label" for="d2-salMax">Salary maximum</label><div class="jc jc--mono"><input data-demo-control class="jc__input" id="d2-salMax" type="number" value="" min="0" step="0.01" data-field="salMax" disabled=""></div></div></div><div class="jf jnarrow"><label class="jf__label" for="d2-currency">Currency</label><div class="jc"><input data-demo-control class="jc__input" id="d2-currency" type="text" value="" placeholder="USD" maxlength="3" data-field="currency" disabled=""></div></div>
+<div class="jf"><label class="jf__label" for="d2-desc">Job description</label><div class="jc jc--area"><textarea data-demo-control class="jc__area" id="d2-desc" rows="5" data-field="desc" disabled=""></textarea></div></div>
+<div class="jf"><label class="jf__label" for="d2-notes">Notes</label><div class="jc jc--area"><textarea data-demo-control class="jc__area" id="d2-notes" rows="4" data-field="notes" disabled=""></textarea></div></div></div></form>
+</div>
+<div class="jt__foot"><button data-demo-control class="jbtn" type="button" data-cancel="" disabled="">Cancel</button><button data-demo-control class="jbtn jbtn--primary" type="submit" form="d2-form" disabled="">Add application</button></div></div></div><figcaption class="writing-row writing-caption"><p>Recognised Greenhouse and Lever links use the job board’s public API. Other pages can still describe the job with JobPosting data. A page title or description is only ever a suggestion.</p></figcaption></figure>
+</section>
+
+<section class="writing-section" aria-labelledby="data-heading"><div class="writing-row"><h2 class="writing-heading writing-heading--round" id="data-heading">Getting the data was only part of the problem</h2><div class="writing-prose"><p>On the surface, extraction sounds pretty straightforward.</p>
+<p>Fetch a page. Find the relevant information. Put it into the form.</p>
+<p>But the more interesting engineering challenges came from thinking about what someone might be doing while that process was happening.</p>
+<p>Say you paste a URL and immediately start typing the company name yourself.</p>
+<p>What happens if extraction finishes a second later and returns a different company name?</p>
+<p>Should it replace what you typed?</p>
+<p>I didn’t think so.</p>
+<p>The same goes for deliberately clearing a field. An empty field doesn’t always mean someone forgot to fill it. Sometimes they simply don’t want that value.</p>
+<p>So I needed to distinguish between information JobTrackr had filled automatically and information the user had deliberately entered or changed.</p>
+<p>The implementation keeps track of those differences.</p>
+<p>When extraction returns, it can populate eligible blank fields without overwriting fields the user has manually touched. Less certain information is presented as suggestions that can be accepted or dismissed.</p>
+<p>It might seem like a small interaction detail, but it makes a difference to how the feature feels.</p>
+<p>There was another scenario to consider.</p>
+<p>What if someone pastes one URL, changes their mind, and pastes another before the first extraction finishes?</p>
+<p>The second request might finish before the first.</p>
+<p>Without handling that properly, an older response could end up filling the form with details from the wrong job.</p>
+<p>I handled this by tracking which extraction request belongs to the current form state and ignoring responses that are no longer relevant.</p>
+<p>The user doesn’t need to know any of that is happening.</p>
+<p>They should just be able to use the form without unexpected values appearing or disappearing.</p></div></div>
+<figure class="writing-demo" aria-labelledby="d3-name" data-edits-demo><div class="jxp">
+<div class="jxp__side">
+<div class="jxp__top"><p class="jxp__name" id="d3-name">Your edits win</p>
+<fieldset class="jxp__pick"><legend class="visually-hidden">Scenario</legend><span class="jxp__label" aria-hidden="true">Try</span><label class="jx-option"><input data-demo-control type="radio" value="0" checked disabled data-option>Edit while it looks</label><label class="jx-option"><input data-demo-control type="radio" value="1" disabled data-option>Change the URL</label></fieldset>
+<div class="jxp__task" aria-live="polite"><p class="jxp__prompt jxp__prompt--ink" data-task-prompt>Paste the example URL, then change the Role while JobTrackr is looking.</p><div class="jxp__actions"><button data-demo-control class="textbtn" type="button" disabled data-paste>Paste example URL</button><button data-demo-control class="textbtn" type="button" disabled hidden data-change-role>Change it for me</button></div><p class="jxp__log" data-log></p></div></div>
+<div class="jxp__end"><div class="jxp__foot"><p data-demo-note>This demo needs JavaScript. Nothing you type is sent or stored.</p><button data-demo-control class="opt" type="button" disabled data-reset>Reset</button></div></div></div><div class="jt" role="group" aria-labelledby="d3-title" data-drawer=""><div class="jt__grab" aria-hidden="true"></div>
+<div class="jt__head"><h3 class="jt__title" id="d3-title">Add application</h3><button data-demo-control class="jt__close" type="button" aria-label="Close" data-cancel="" disabled=""><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button></div>
+<div class="jt__body" data-drawer-body="">
+<form class="jt__form" id="d3-form" novalidate="" data-drawer-form="">
+<div class="jf"><label class="jf__label" for="d3-url">Job URL</label><div class="jc"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg><input data-demo-control class="jc__input" id="d3-url" type="url" readonly="" value="" placeholder="https://" aria-describedby="d3-url-note" data-field="url" disabled=""></div><p class="visually-hidden" id="d3-url-note">Example link, pasted from beside the form.</p></div>
+<section class="jfb" aria-label="Job details extraction" data-feedback=""><button data-demo-control class="jbtn" type="button" aria-busy="false" aria-disabled="false" data-extract="" disabled="">Extract details</button><p role="status" aria-live="polite" data-extraction-status="">Paste a public job URL to fill available details automatically.</p><ul hidden="" data-warnings=""></ul><p hidden="" id="d3-salary-hint" data-salary-hint="">Salary suggestions replace minimum, maximum and currency together. Missing bounds are cleared.</p><div data-suggestions="" hidden=""></div></section>
+
+<div class="jf"><label class="jf__label" for="d3-role">Role<span class="jf__req" aria-hidden="true">*</span></label><div class="jc" data-control="role"><input data-demo-control class="jc__input" id="d3-role" type="text" value="" placeholder="e.g. Frontend Engineer" maxlength="255" aria-required="true" aria-invalid="false" aria-describedby="d3-role-error" data-field="role" disabled=""></div><p id="d3-role-error" class="jf__error" hidden="" data-error="role"></p></div>
+<div class="jf"><label class="jf__label" for="d3-company">Company<span class="jf__req" aria-hidden="true">*</span></label><div class="jc" data-control="company"><input data-demo-control class="jc__input" id="d3-company" type="text" value="" placeholder="e.g. Linear" maxlength="255" aria-required="true" aria-invalid="false" aria-describedby="d3-company-error" data-field="company" disabled=""></div><p id="d3-company-error" class="jf__error" hidden="" data-error="company"></p></div>
+<div class="jrow">
+<div class="jf"><label class="jf__label" id="d3-source-label" for="d3-source">Source</label><div class="jc jc--sel"><button data-demo-control class="jc__trigger" id="d3-source" type="button" role="combobox" aria-labelledby="d3-source-label" aria-haspopup="listbox" aria-expanded="false" aria-controls="d3-source-list" data-select="source" disabled=""><span class="jc__value" data-select-value="">Select source</span></button><span class="jc__chev" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polyline points="6 9 12 15 18 9"></polyline></svg></span></div></div>
+<div class="jf"><label class="jf__label" id="d3-status-label" for="d3-status">Status</label><div class="jc jc--sel"><button data-demo-control class="jc__trigger" id="d3-status" type="button" role="combobox" aria-labelledby="d3-status-label" aria-haspopup="listbox" aria-expanded="false" aria-controls="d3-status-list" data-select="status" disabled=""><span class="jc__value" data-select-value="">Applied</span></button><span class="jc__chev" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polyline points="6 9 12 15 18 9"></polyline></svg></span></div></div></div><div class="jf jnarrow" data-date-field=""><label class="jf__label" for="d3-date">Date applied</label><div class="jc jc--mono"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg><input data-demo-control class="jc__input" id="d3-date" type="date" value="2026-11-08" data-field="date" disabled=""></div><p class="jf__hint" id="d3-date-hint">Leave blank if unknown. Undated applications appear in all-time totals, not date-based charts.</p></div><p class="jmuted" hidden="" data-saved-status="">Saved jobs are not counted as submitted applications. You can add the application date when you apply.</p><button data-demo-control class="jmore" type="button" aria-expanded="false" aria-controls="d3-details" data-more="" disabled="">+ More details</button>
+<div class="jt__details" id="d3-details" data-details="" hidden="">
+<div class="jf"><label class="jf__label" for="d3-companyUrl">Company URL</label><div class="jc"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg><input data-demo-control class="jc__input" id="d3-companyUrl" type="url" value="" placeholder="https://" maxlength="2048" data-field="companyUrl" disabled=""></div><p class="jf__hint" id="d3-companyUrl-hint">The company’s website. We’ll use its icon as the logo when we can find one.</p></div>
+<div class="jf"><label class="jf__label" for="d3-location">Location</label><div class="jc"><input data-demo-control class="jc__input" id="d3-location" type="text" value="" maxlength="255" data-field="location" disabled=""></div></div>
+<div class="jrow">
+<div class="jf"><label class="jf__label" id="d3-workMode-label" for="d3-workMode">Work mode</label><div class="jc jc--sel"><button data-demo-control class="jc__trigger" id="d3-workMode" type="button" role="combobox" aria-labelledby="d3-workMode-label" aria-haspopup="listbox" aria-expanded="false" aria-controls="d3-workMode-list" data-select="workMode" disabled=""><span class="jc__value" data-select-value="">Not specified</span></button><span class="jc__chev" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polyline points="6 9 12 15 18 9"></polyline></svg></span></div></div>
+<div class="jf"><label class="jf__label" id="d3-employment-label" for="d3-employment">Employment type</label><div class="jc jc--sel"><button data-demo-control class="jc__trigger" id="d3-employment" type="button" role="combobox" aria-labelledby="d3-employment-label" aria-haspopup="listbox" aria-expanded="false" aria-controls="d3-employment-list" data-select="employment" disabled=""><span class="jc__value" data-select-value="">Not specified</span></button><span class="jc__chev" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polyline points="6 9 12 15 18 9"></polyline></svg></span></div></div></div>
+<div class="jf"><label class="jf__label" id="d3-priority-label" for="d3-priority">Priority</label><div class="jc jc--sel"><button data-demo-control class="jc__trigger" id="d3-priority" type="button" role="combobox" aria-labelledby="d3-priority-label" aria-haspopup="listbox" aria-expanded="false" aria-controls="d3-priority-list" data-select="priority" disabled=""><span class="jc__value" data-select-value="">Medium</span></button><span class="jc__chev" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polyline points="6 9 12 15 18 9"></polyline></svg></span></div></div>
+<div class="jrow">
+<div class="jf"><label class="jf__label" for="d3-salMin">Salary minimum</label><div class="jc jc--mono"><input data-demo-control class="jc__input" id="d3-salMin" type="number" value="" min="0" step="0.01" data-field="salMin" disabled=""></div></div>
+<div class="jf"><label class="jf__label" for="d3-salMax">Salary maximum</label><div class="jc jc--mono"><input data-demo-control class="jc__input" id="d3-salMax" type="number" value="" min="0" step="0.01" data-field="salMax" disabled=""></div></div></div><div class="jf jnarrow"><label class="jf__label" for="d3-currency">Currency</label><div class="jc"><input data-demo-control class="jc__input" id="d3-currency" type="text" value="" placeholder="USD" maxlength="3" data-field="currency" disabled=""></div></div>
+<div class="jf"><label class="jf__label" for="d3-desc">Job description</label><div class="jc jc--area"><textarea data-demo-control class="jc__area" id="d3-desc" rows="5" data-field="desc" disabled=""></textarea></div></div>
+<div class="jf"><label class="jf__label" for="d3-notes">Notes</label><div class="jc jc--area"><textarea data-demo-control class="jc__area" id="d3-notes" rows="4" data-field="notes" disabled=""></textarea></div></div></div></form>
+</div>
+<div class="jt__foot"><button data-demo-control class="jbtn" type="button" data-cancel="" disabled="">Cancel</button><button data-demo-control class="jbtn jbtn--primary" type="submit" form="d3-form" disabled="">Add application</button></div></div></div><figcaption class="writing-row writing-caption"><p>The status lines are JobTrackr’s own. Untouched blank fields fill; a field you’ve changed keeps your value, and the incoming one is offered as a suggestion.</p></figcaption></figure>
+<div class="writing-row writing-after"><div class="writing-prose"><p>There were also decisions around specific types of information.</p>
+<p>Salary was one example.</p>
+<p>Job postings express compensation in different ways: annual salaries, hourly rates, monthly amounts, ranges, and sometimes figures without a clear pay period.</p>
+<p>JobTrackr’s extraction supports annual salary information where the amount, currency, and period can be established reliably.</p>
+<p>I didn’t want it making assumptions about unclear figures or quietly converting compensation into something the posting hadn’t specified.</p>
+<p>If the information isn’t clear enough, I’d rather leave the field for the user to complete than fill it with a potentially misleading value.</p>
+<p>Expired postings needed similar care. When a posting contains a past application deadline but still has useful details, JobTrackr asks for confirmation before applying them.</p>
+<p>It all came back to the same thing: extracting information is useful, but the application also needs to handle uncertainty properly.</p></div></div></section>
+
+<section class="writing-section" aria-labelledby="safe-heading"><div class="writing-row"><h2 class="writing-heading writing-heading--stem" id="safe-heading">Making it safe enough to ship</h2><div class="writing-prose"><p>There was another side to this feature that wasn’t immediately visible in the interface.</p>
+<p>JobTrackr was now accepting URLs from users and retrieving information from external websites.</p>
+<p>That introduces risks beyond whether extraction succeeds.</p>
+<p>For example, the server shouldn’t be allowed to follow an arbitrary URL into a private network or internal service. It also shouldn’t follow redirects endlessly or try to process an unexpectedly large response.</p>
+<p>So I needed safeguards around which destinations could be accessed, how redirects were handled, how much information could be downloaded, and how long retrieval could take.</p>
+<p>I also added rate limiting and shared request controls to keep extraction bounded.</p>
+<p>The initial allowance was 10 attempts per rolling hour. I later increased it to 20 after the earlier limit proved restrictive for people processing multiple applications.</p>
+<p>Most of this isn’t visible when someone pastes a URL into a form.</p>
+<p>But it’s part of what makes a feature ready for real usage, rather than something that only works under ideal conditions.</p></div></div></section>
+
+<section class="writing-section" aria-labelledby="prod-heading"><div class="writing-row"><h2 class="writing-heading writing-heading--round" id="prod-heading">Getting it into production</h2><div class="writing-prose"><p>The first production rollout didn’t go as planned.</p>
+<p>After merging the feature and deploying it, one of the smoke tests timed out during verification. I rolled back the deployment rather than leave the new release running without completing the checks.</p>
+<p>At that point, I still needed to understand what had gone wrong.</p>
+<p>What I eventually found was interesting.</p>
+<p>The test was supposed to replace one job URL with another. Instead, its simulated paste action inserted the second URL into the existing value, producing a combined URL that wasn’t a valid job posting path.</p>
+<p>The extraction feature handled it as unavailable, but the test continued waiting for a suggestion that wasn’t supposed to appear.</p>
+<p>Eventually, it timed out.</p>
+<p>The problem was in the test interaction and expectation, not the extraction logic I’d initially been investigating.</p>
+<p>The fix was to make the URL replacement explicit and verify the behaviour that actually mattered: the request settles, the form remains usable, and manual entry still works.</p>
+<p>That wasn’t the only issue during release verification. A separate Lever request also experienced a genuine timeout, which reinforced the importance of distinguishing unreliable external responses from problems within the application.</p>
+<p>The feature was subsequently released successfully.</p>
+<p>The experience reinforced something important for me: reliable tests and useful diagnostics matter just as much as getting the implementation right.</p>
+<p>A failing test tells you something needs attention. It doesn’t automatically tell you what’s broken.</p>
+<p>And when external websites are involved, there’s a difference between testing whether your application behaves correctly and expecting a third-party page to return exactly the same information every time.</p>
+<p>That’s a distinction I appreciate more now.</p></div></div>
+<figure class="jx-timeline-figure" aria-labelledby="tl-cap"><ol class="jx-timeline"><li class="writing-row"><p class="jx-timeline__when">21 October, 22:28</p><p class="jx-timeline__what">Merged and deployed the feature. A smoke test timed out during verification, so I rolled the frontend and API back. The additive database migration stayed in place.</p></li><li class="writing-row"><p class="jx-timeline__when">21 October, 22:52</p><p class="jx-timeline__what">Fixed the test, not the feature. Its second paste had been inserted into the first URL, and it then waited for a suggestion that shouldn’t appear.</p></li><li class="writing-row"><p class="jx-timeline__when">21 October, 23:01</p><p class="jx-timeline__what">Released again with the corrected checks. A separate Lever request genuinely timed out during verification.</p></li><li class="writing-row"><p class="jx-timeline__when">22 October, 00:32</p><p class="jx-timeline__what">Added extraction analytics to Insights.</p></li><li class="writing-row"><p class="jx-timeline__when">22 October, 15:32</p><p class="jx-timeline__what">Raised the allowance from 10 to 20 attempts per rolling hour.</p></li></ol><figcaption class="writing-row"><p class="writing-caption" id="tl-cap">Release timeline. Times come from the commit history, in West Africa Time.</p></figcaption></figure>
+</section>
+
+<section class="writing-section" aria-labelledby="useful-heading"><div class="writing-row"><h2 class="writing-heading writing-heading--w" id="useful-heading">Working wasn’t the same as being useful</h2><div class="writing-prose"><p>After getting extraction into production, I wanted to understand what was actually happening when people used it.</p>
+<p>I already had an Analytics/Insights module in JobTrackr tracking different aspects of the application, so extending it to cover extraction made sense.</p>
+<p>It wasn’t part of the initial implementation. I added it afterwards because I wanted a better way to evaluate the feature beyond my own testing.</p>
+<p>Testing it myself could tell me whether it worked for the URLs and scenarios I tried.</p>
+<p>But that alone couldn’t tell me whether people were actually using it, where they were running into problems, or whether extraction attempts were leading to saved applications.</p>
+<p>That was what I was most interested in.</p>
+<p>The additional tracking records extraction outcomes, how long attempts take, which fields are returned, and whether an attempt is later associated with a saved application.</p>
+<p>It also distinguishes between information that was extracted and information the user had to complete manually.</p>
+<p>In one early 30-day snapshot, JobTrackr recorded 28 extraction attempts. Of those, 27 returned usable information, including partial results, and 19 were associated with saved applications.</p>
+<p>Those are encouraging observations, but it’s still a small sample. Attempts aren’t unique users, and a saved application doesn’t necessarily mean every extracted value was used.</p>
+<p>The numbers also don’t tell me whether extraction is faster than manual entry. I don’t have that comparison yet.</p>
+<p>And that’s fine.</p>
+<p>I wasn’t expecting a handful of early numbers to determine whether the feature was successful.</p>
+<p>I wanted visibility into what was happening beyond my own testing.</p>
+<p>Now I have a starting point.</p></div></div>
+<figure class="writing-row jx-numbers" aria-label="Early usage snapshot"><div class="jx-numbers__body">
+<div class="jx-numbers__row"><div class="jx-number"><p class="jx-number__value">28</p><p class="jx-number__label">recorded extraction attempts</p></div><div class="jx-number"><p class="jx-number__value">27</p><p class="jx-number__label">returned usable information, including partial results</p></div><div class="jx-number"><p class="jx-number__value jx-number__value--one">19</p><p class="jx-number__label">were linked to a saved application</p></div></div>
+<figcaption class="jx-numbers__note">An early 30-day snapshot from JobTrackr’s extraction analytics, taken on 8 November 2026. Attempts aren’t unique users, and analytics started after launch. Saved applications can include details completed by hand. None of this measures time saved.</figcaption>
+</div></figure>
+</section>
+
+<section class="writing-section" aria-labelledby="next-heading"><div class="writing-row"><h2 class="writing-heading writing-heading--w" id="next-heading">What comes next</h2><div class="writing-prose"><p>There are still things I’d like to improve about job URL extraction.</p>
+<p>Supporting more posting platforms is one possibility. So is improving the completeness of the information returned and making partial results easier to work with.</p>
+<p>AI-assisted extraction isn’t off the table either.</p>
+<p>If the existing approach starts running into limitations that matter to users, and AI offers a meaningful way to address them, I’d be open to exploring it.</p>
+<p>But I don’t see a reason to introduce it just yet.</p>
+<p>For now, I’d rather gather more production usage data, understand where the friction actually is, and let that inform the next iteration.</p>
+<p>Looking back, what started as a small improvement to an application form ended up involving much more than retrieving job details from a URL.</p>
+<p>It meant thinking about incomplete information, protecting what someone has already entered, retrieving external data safely, testing the experience reliably, and understanding what happens after release.</p>
+<p>I’m glad I built it.</p>
+<p>And I’m interested in seeing what actual usage tells me about where to take it next.</p></div></div></section>
+
+<section class="writing-section" aria-labelledby="cta-heading"><div class="writing-row"><h2 class="writing-heading writing-heading--s" id="cta-heading">See it in action</h2><div class="writing-prose"><p>Job URL extraction is available in JobTrackr. Paste a job posting link, review the details it can retrieve, and add the application to your tracker.</p>
+<p><a class="jx-cta" href="https://jobtrackr.site" target="_blank" rel="noopener">Try JobTrackr<span class="visually-hidden"> (opens in a new tab)</span></a></p></div></div></section>
+
+      </div>
+    </article></main>
+    <footer class="case-foot writing-foot">
+      <div class="case-foot__next"><p class="writing-foot__label">Next essay</p><a class="writing-foot__essay case-display--t" href="/writing/space-between-design-and-engineering">The Space Between Design and Engineering</a></div>
+      <div class="case-foot__aside">
+        <div class="case-foot__meta">
+          <svg class="index__clock" viewBox="0 0 96 96" aria-hidden="true" focusable="false">
+            <circle class="index__clock-face" cx="48" cy="48" r="47.5"/>
+            <text class="index__clock-readout" x="25" y="48" data-clock-readout>--:--</text>
+            <text class="index__clock-readout" x="71" y="48">GMT+1</text>
+            <line class="index__clock-hand index__clock-hand--hour" data-clock-hour x1="48" y1="48" x2="48" y2="24"/>
+            <line class="index__clock-hand" data-clock-minute x1="48" y1="48" x2="48" y2="8"/>
+            <circle class="index__clock-pivot" cx="48" cy="48" r="2.5"/>
+          </svg>
+          <p class="index__time visually-hidden">GMT+1 <time data-clock datetime="">--:--</time></p>
+          <p class="index__location visually-hidden">Lagos, Nigeria</p>
+        </div>
+
+        <nav class="index__links" aria-label="Elsewhere">
+          <ul class="links">
+            <li><a href="https://www.linkedin.com/in/sogobalogun/" target="_blank" rel="me noopener">LinkedIn<span class="visually-hidden"> (opens in a new tab)</span></a></li>
+            <li><a href="https://github.com/balogunsogo" target="_blank" rel="me noopener">GitHub<span class="visually-hidden"> (opens in a new tab)</span></a></li>
+            <li><a href="https://contra.com/balogun_oluwasogo" target="_blank" rel="me noopener">Contra<span class="visually-hidden"> (opens in a new tab)</span></a></li>
+            <li><a href="mailto:balogunoluwasogo@gmail.com">Email</a></li>
+          </ul>
+        </nav>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

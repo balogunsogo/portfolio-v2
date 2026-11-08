@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1440">
+<title>Status dropdown open.</title>
+<style>
+@font-face{font-family:'PP Neue Montreal';src:url('../../../../src/assets/fonts/PPNeueMontreal-Regular.otf') format('opentype');font-weight:400 500;font-style:normal}
+@font-face{font-family:'Geist';src:url('../../../../src/assets/fonts/geist/Geist-Variable.woff2') format('woff2');font-weight:100 900;font-style:normal}
+@font-face{font-family:'Geist Mono';src:url('../../../../src/assets/fonts/geist/GeistMono-Regular.woff2') format('woff2');font-weight:400;font-style:normal}
+*, ::before, ::after { box-sizing: border-box; }
+html { overflow-x: hidden; }
+body { margin: 0; background: #FAFAF8; color: #111110; font-family: 'PP Neue Montreal', 'Helvetica Neue', Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; text-rendering: optimizelegibility; }
+h1, h2, h3, p, dl, dd, figure, ol, ul { margin: 0; }
+ol, ul { padding: 0; list-style: none; }
+a { color: inherit; text-decoration: none; transition: color 0.15s; }
+a:hover { color: #65635D; }
+a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid currentcolor; outline-offset: 3px; }
+.vh { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+.opt { position: relative; margin: 0; padding: 0; border: 0; background: none; font: inherit; color: #65635D; cursor: pointer; transition: color 0.15s; text-align: left; }
+.opt:hover { color: #111110; }
+.opt.is-on { color: #111110; cursor: default; }
+.opt--ink { color: #111110; }
+.opt--ink:hover { color: #65635D; }
+.opt:disabled { color: #8F8C85; cursor: default; }
+.page { width: 1440px; min-height: 0px; padding: 48px 64px 160px; display: flex; flex-direction: column; }
+.page--cont { padding-top: 120px; }
+.top { display: flex; justify-content: space-between; align-items: baseline; font-size: 16px; line-height: 1.4; }
+.top__name { font-weight: 500; }
+.head { margin-top: 104px; display: flex; flex-direction: column; gap: 28px; }
+.title { max-width: 1089px; font-size: 96px; font-weight: 500; line-height: 0.92; letter-spacing: -0.04em; margin-left: -0.071em; text-wrap: balance; }
+.sub { max-width: 870px; font-size: 32px; font-weight: 400; line-height: 1.25; letter-spacing: -0.012em; color: #65635D; text-wrap: pretty; }
+.body { display: flex; flex-direction: column; gap: 120px; }
+.head + .body { margin-top: 120px; }
+.sec { display: flex; flex-direction: column; }
+.row { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; align-items: start; }
+.rail { grid-column: 1 / span 3; }
+.h2 { font-size: 30px; font-weight: 500; line-height: 1.2; letter-spacing: -0.02em; text-wrap: balance; }
+.h2--stem { margin-left: -0.071em; } .h2--round { margin-left: -0.036em; } .h2--w { margin-left: -0.014em; } .h2--s { margin-left: -0.024em; }
+.meta { display: flex; flex-direction: column; gap: 16px; padding-top: 4px; font-size: 16px; line-height: 1.4; }
+.meta div { display: flex; flex-direction: column; gap: 2px; }
+.meta dt { color: #65635D; }
+.prose { grid-column: 5 / span 6; max-width: 576px; display: flex; flex-direction: column; gap: 20px; font-size: 20px; line-height: 1.55; letter-spacing: -0.008em; text-wrap: pretty; }
+.after { margin-top: 72px; }
+.demo { margin-top: 72px; display: flex; flex-direction: column; gap: 16px; }
+.cap { grid-column: 5 / span 6; max-width: 576px; font-size: 16px; line-height: 1.45; color: #65635D; text-wrap: pretty; }
+.vplate { padding: 48px 64px 28px; background: #ECEBE6; }
+.frame { position: relative; aspect-ratio: 16 / 10; overflow: hidden; background: #000; }
+.slot { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: 48px; background: #D9D7D0; text-align: center; font-size: 16px; line-height: 1.45; color: #4A4843; }
+.slot__name { font-size: 20px; font-weight: 500; color: #111110; letter-spacing: -0.008em; }
+.ctrl { display: flex; justify-content: space-between; align-items: baseline; margin-top: 20px; font-size: 16px; line-height: 1.4; }
+.ctrl__label { color: #65635D; }
+.group { display: flex; gap: 24px; }
+.opt::after { content: ""; position: absolute; inset: -12px -8px; }
+/* Visual 04 */
+.tl { margin-top: 72px; display: flex; flex-direction: column; gap: 28px; }
+.tl__when { grid-column: 1 / span 3; font-size: 16px; line-height: 1.4; color: #65635D; padding-top: 3px; }
+.tl__what { grid-column: 5 / span 6; max-width: 576px; font-size: 20px; line-height: 1.5; letter-spacing: -0.008em; text-wrap: pretty; }
+/* Visual 05 */
+.nums { margin-top: 72px; }
+.nums__body { grid-column: 5 / span 6; max-width: 576px; display: flex; flex-direction: column; gap: 20px; }
+.nums__row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 24px; }
+.num { display: flex; flex-direction: column; gap: 8px; }
+.num__n { margin-left: -0.028em; font-size: 96px; font-weight: 500; line-height: 0.9; letter-spacing: -0.03em; font-variant-numeric: proportional-nums; }
+.num__n--one { margin-left: -0.013em; }
+.num__l { font-size: 16px; line-height: 1.4; color: #65635D; text-wrap: pretty; }
+.nums__note { font-size: 16px; line-height: 1.45; color: #65635D; text-wrap: pretty; }
+/* CTA */
+.cta__link { display: inline-block; margin-top: 8px; font-size: 48px; font-weight: 500; line-height: 1.1; letter-spacing: -0.022em; margin-left: -0.015em; }
+/* Footer */
+.foot { margin-top: auto; padding-top: 160px; align-items: end; }
+.foot__next { grid-column: 1 / span 8; display: flex; flex-direction: column; gap: 12px; }
+.foot__label { font-size: 16px; line-height: 1.4; color: #65635D; }
+.foot__link { max-width: 900px; font-size: 72px; font-weight: 500; line-height: 0.95; letter-spacing: -0.04em; margin-left: -0.015em; text-wrap: balance; }
+.aside { grid-column: 9 / span 4; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 24px; align-items: end; font-size: 16px; line-height: 1.4; }
+.clock { position: relative; width: 96px; height: 96px; color: #65635D; }
+.clock svg { display: block; width: 96px; height: 96px; fill: none; stroke-linecap: round; }
+.clock__face { stroke: currentcolor; stroke-width: 1; }
+.clock__readout { fill: currentcolor; font-size: 11px; text-anchor: middle; dominant-baseline: central; }
+.clock__hand { stroke: #111110; stroke-width: 1; }
+.clock__hand--hour { stroke-width: 2.25; }
+.clock__pivot { fill: #FAFAF8; stroke: #111110; stroke-width: 1; }
+.clock__time { position: absolute; left: 25px; top: 48px; transform: translate(-50%, -50%); font-size: 11px; line-height: 1; white-space: nowrap; pointer-events: none; }
+.links { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; text-align: right; }
+/* JobTrackr Add application replica (light tokens) */
+.jt { display: flex; flex-direction: column; min-width: 0; min-height: 0; background: #FFFFFF; color: #171717; font-family: 'Geist', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif; font-size: 14px; line-height: normal; letter-spacing: 0; -webkit-font-smoothing: antialiased; }
+.jt svg { fill: none; stroke: currentcolor; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+.jt button { font-family: inherit; }
+.jt__grab { display: none; }
+.jt__head { display: flex; flex-shrink: 0; align-items: flex-start; justify-content: space-between; gap: 12px; padding: 20px 20px 16px; border-bottom: 1px solid #EBEBEB; }
+.jt__title { margin: 0; font-size: 16px; font-weight: 600; line-height: 24px; letter-spacing: -0.01em; }
+.jt__close { display: inline-flex; flex-shrink: 0; align-items: center; justify-content: center; width: 32px; height: 32px; margin: -4px -6px 0 0; padding: 0; border: 1px solid transparent; border-radius: 4px; color: #6B6B6B; background: transparent; cursor: pointer; transition: background-color 120ms cubic-bezier(0.2, 0, 0, 1), color 120ms cubic-bezier(0.2, 0, 0, 1); }
+.jt__close:hover { color: #171717; background: #F4F4F4; }
+.jt__close svg { width: 16px; height: 16px; }
+.jt__body { flex-grow: 1; min-height: 0; padding: 20px; overflow: auto; overscroll-behavior: auto; }
+.jt__form { display: flex; flex-direction: column; gap: 16px; margin-top: 12px; }
+.jt__details { display: flex; flex-direction: column; gap: 16px; }
+.jt__foot { display: flex; flex-shrink: 0; align-items: center; justify-content: flex-end; gap: 8px; padding: 14px 20px; border-top: 1px solid #EBEBEB; background: #FFFFFF; }
+.jt :focus-visible { outline: 2px solid #0B63E5; outline-offset: 2px; }
+.jf { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.jf__label { color: #171717; font-size: 13px; font-weight: 500; line-height: 18px; }
+.jf__req { margin-left: 2px; color: #C4281C; }
+.jf__hint { margin: 0; color: #6B6B6B; font-size: 12px; line-height: 16px; }
+.jf__error { display: flex; align-items: center; gap: 6px; margin: 0; color: #C4281C; font-size: 13px; line-height: 18px; }
+.jf__error svg { flex-shrink: 0; width: 14px; height: 14px; stroke-width: 2; }
+.jc { position: relative; display: flex; align-items: center; gap: 8px; height: 40px; padding: 0 12px; border: 1px solid #DEDEDE; border-radius: 6px; color: #6B6B6B; background: #FFFFFF; transition: border-color 120ms cubic-bezier(0.2, 0, 0, 1), box-shadow 120ms cubic-bezier(0.2, 0, 0, 1); }
+.jc:hover { border-color: #C2C2C2; }
+.jc:focus-within { border-color: #171717; box-shadow: 0 0 0 3px rgb(23 23 23 / 8%); }
+.jc:has(:focus-visible) { outline: 2px solid #0B63E5; outline-offset: 2px; }
+.jc > svg { flex-shrink: 0; width: 16px; height: 16px; }
+.jc__input, .jc__area { flex: 1; min-width: 0; height: 100%; margin: 0; padding: 0; border: 0; border-radius: 0; outline: 0; color: #171717; background: transparent; font: inherit; font-size: 14px; }
+.jc__input::placeholder, .jc__area::placeholder { color: #6B6B6B; opacity: 1; }
+.jc__input:focus-visible, .jc__trigger:focus-visible, .jc__area:focus-visible { outline: 0; }
+.jc__input[type="date"] { min-width: 0; }
+.jc__input[type="number"] { -moz-appearance: textfield; }
+.jc__input::-webkit-outer-spin-button, .jc__input::-webkit-inner-spin-button { margin: 0; -webkit-appearance: none; }
+.jc--sel { padding-right: 40px; cursor: pointer; }
+.jc__trigger { flex: 1; min-width: 0; height: 100%; margin: 0; padding: 0; border: 0; outline: 0; color: #171717; background: transparent; font: inherit; font-size: 14px; text-align: left; cursor: inherit; }
+.jc__value { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.jc__chev { position: absolute; right: 12px; display: inline-flex; color: #6B6B6B; pointer-events: none; }
+.jc__chev svg { width: 14px; height: 14px; stroke-width: 2; }
+/* JobTrackr Select, desktop: a menu-styled listbox 4px below the field, as wide as the field */
+.jlist__catch { position: fixed; inset: 0; z-index: 4; cursor: default; }
+.jlist { position: absolute; top: calc(100% + 5px); left: -1px; right: -1px; z-index: 5; display: flex; flex-direction: column; gap: 1px; max-height: 296px; padding: 6px; overflow-y: auto; border: 1px solid #EBEBEB; border-radius: 8px; color: #171717; background: #FFFFFF; box-shadow: 0 1px 2px rgb(0 0 0 / 4%), 0 12px 32px -8px rgb(0 0 0 / 16%); cursor: default; animation: jt-pop 180ms cubic-bezier(0.2, 0, 0, 1); }
+.jopt { display: flex; flex-shrink: 0; align-items: center; gap: 10px; min-height: 32px; padding: 0 8px; border-radius: 6px; font-size: 13px; line-height: 18px; cursor: pointer; }
+.jopt:hover, .jopt.is-active { background: #F4F4F4; }
+.jopt__label { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.jopt svg { flex-shrink: 0; width: 14px; height: 14px; color: #171717; stroke-width: 2; }
+@keyframes jt-pop { from { opacity: 0; transform: translateY(4px) scale(0.98); } to { opacity: 1; transform: none; } }
+@keyframes jt-up { from { opacity: 0.6; transform: translateY(24px); } to { opacity: 1; transform: none; } }
+@keyframes jt-fade { from { opacity: 0; } to { opacity: 1; } }
+.jc--mono .jc__input { font-family: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; font-variant-numeric: tabular-nums; }
+.jc--area { align-items: flex-start; height: auto; padding: 10px 12px; }
+.jc__area { display: block; min-height: 60px; height: auto; line-height: 20px; resize: vertical; }
+.jc.is-invalid, .jc.is-invalid:hover { border-color: #D92D20; }
+.jc.is-invalid:focus-within { border-color: #D92D20; box-shadow: 0 0 0 3px rgb(217 45 32 / 10%); }
+.jrow { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.jnarrow { width: min(200px, 100%); }
+.jmuted { margin: 0; color: #6B6B6B; font-size: 13px; }
+.jmore { align-self: flex-start; padding: 4px 0; border: 0; color: #171717; background: transparent; font-size: 13px; font-weight: 500; cursor: pointer; }
+.jmore:hover { text-decoration: underline; text-underline-offset: 3px; }
+.jbtn { display: inline-flex; flex-shrink: 0; align-items: center; justify-content: center; gap: 8px; height: 36px; padding: 0 14px; border: 1px solid #DEDEDE; border-radius: 6px; color: #171717; background: #FFFFFF; font-size: 14px; font-weight: 500; letter-spacing: -0.005em; line-height: 1; white-space: nowrap; cursor: pointer; transition: background-color 120ms cubic-bezier(0.2, 0, 0, 1), border-color 120ms cubic-bezier(0.2, 0, 0, 1); }
+.jbtn:hover { background: #F4F4F4; border-color: #C2C2C2; }
+.jbtn--primary { border-color: transparent; color: #FFFFFF; background: #171717; }
+.jbtn--primary:hover { border-color: transparent; color: #FFFFFF; background: #383838; }
+.jbtn.is-busy, .jbtn.is-busy:hover { border-color: #EBEBEB; color: #8F8F8F; background: #F4F4F4; cursor: progress; }
+.jspin { display: inline-block; flex-shrink: 0; width: 14px; height: 14px; border: 2px solid rgb(23 23 23 / 15%); border-top-color: #171717; border-radius: 50%; animation: jt-spin 0.7s linear infinite; }
+@keyframes jt-spin { to { transform: rotate(360deg); } }
+.jfb { display: grid; gap: 8px; font-size: 12px; line-height: 1.5; overflow-wrap: anywhere; }
+.jfb > .jbtn { justify-self: start; }
+.jfb p { margin: 0; }
+.jfb ul { margin: 0; padding-left: 18px; list-style: disc; }
+.jfb strong { font-weight: 600; }
+.jsug { padding: 10px 0; border-top: 1px solid #e5e7eb; }
+.jsug > div { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+@media (prefers-reduced-motion: reduce) { .jspin { animation-duration: 1.8s; } .jc, .jbtn, .jt__close { transition: none; } .jlist, .jss__scrim, .jss__sheet { animation: jt-fade 120ms linear; } }
+/* Plate around the replica */
+.jxp { display: grid; grid-template-columns: minmax(0, 1fr) 480px; height: 800px; background: #ECEBE6; }
+.jxp .jt { height: 800px; }
+.jxp__side { display: flex; flex-direction: column; gap: 32px; min-width: 0; min-height: 0; padding: 32px 40px; overflow: auto; font-size: 16px; line-height: 1.4; }
+.jxp__name { font-weight: 500; }
+.jxp__pick { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
+.jxp__label { margin-bottom: 2px; color: #65635D; }
+.jxp__prompt { max-width: 440px; line-height: 1.45; color: #65635D; text-wrap: pretty; }
+.jxp__prompt--ink { color: #111110; font-weight: 500; }
+.jxp__note { max-width: 440px; line-height: 1.45; text-wrap: pretty; }
+.jxp__how { display: flex; flex-direction: column; align-items: flex-start; gap: 20px; max-width: 520px; line-height: 1.45; }
+.jxp__path { display: flex; flex-direction: column; gap: 10px; }
+.jxp__step { display: grid; grid-template-columns: 236px minmax(0, 1fr); column-gap: 24px; color: #65635D; }
+.jxp__step.is-used span:first-child { color: #111110; }
+.jxp__text { display: flex; flex-direction: column; gap: 10px; text-wrap: pretty; }
+.jxp__task { display: flex; flex-direction: column; align-items: flex-start; gap: 14px; max-width: 440px; line-height: 1.45; }
+.jxp__actions { display: flex; flex-wrap: wrap; gap: 24px; }
+.jxp__log { color: #65635D; text-wrap: pretty; }
+.jxp__log.is-on { color: #111110; }
+.jxp__end { display: flex; flex-direction: column; gap: 20px; margin-top: auto; }
+.jxp__cta { align-self: flex-start; font-weight: 500; }
+.jxp__foot { display: flex; justify-content: space-between; align-items: baseline; gap: 24px; font-size: 14px; line-height: 1.4; color: #65635D; }
+.jxp__foot .opt { flex: none; }
+.textbtn { position: relative; margin: 0; padding: 0; border: 0; background: none; font: inherit; font-weight: 500; color: #111110; cursor: pointer; text-align: left; transition: color 0.15s; }
+.textbtn::after { content: ""; position: absolute; inset: -12px -8px; }
+.textbtn:hover { color: #65635D; }
+.textbtn:disabled { color: #8F8C85; cursor: default; }
+
+</style>
+</head>
+<body data-scroll="0">
+<div style="width: 1440px; padding: 48px 64px; background: #FAFAF8"><div class="jxp" aria-labelledby="d2-name"><div class="jxp__side"><p class="jxp__name" id="d2-name">Where the details come from</p><div class="jxp__pick" role="radiogroup" aria-label="Example link"><span class="jxp__label" aria-hidden="true">Example link</span><button class="opt is-on" type="button" role="radio" aria-checked="true">Greenhouse posting</button><button class="opt" type="button" role="radio" aria-checked="false">Careers page with job data</button><button class="opt" type="button" role="radio" aria-checked="false">Title and description only</button><button class="opt" type="button" role="radio" aria-checked="false">Blocked page</button></div><p class="jxp__prompt">Press Extract details in the form to see what JobTrackr finds for this link.</p><div class="jxp__end"><a class="jxp__cta" href="https://jobtrackr.site" target="_blank" rel="noopener">Try it with your own job links on JobTrackr<span class="vh"> (opens in a new tab)</span></a><div class="jxp__foot"><p>Interactive simulation. It runs in your browser and doesn’t contact JobTrackr. Nothing you type is sent or saved.</p><button class="opt" type="button">Reset</button></div></div></div><div class="jt" role="group" aria-labelledby="d2-title"><div class="jt__grab" aria-hidden="true"></div><div class="jt__head"><h3 class="jt__title" id="d2-title">Add application</h3><button class="jt__close" type="button" aria-label="Close"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button></div><div class="jt__body"><div class="jt__form"><div class="jf"><label class="jf__label" for="d2-url">Job URL</label><div class="jc"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg><input class="jc__input" id="d2-url" type="url" readonly value="https://job-boards.greenhouse.io/northwind/jobs/4012345" placeholder="https://" aria-describedby="d2-url-note"/></div><p class="vh" id="d2-url-note">Example link. Choose another example beside the form.</p></div><section class="jfb" aria-label="Job details extraction"><button class="jbtn" type="button" aria-busy="false" aria-disabled="false">Extract details</button><p role="status" aria-live="polite">Paste a public job URL to fill available details automatically.</p></section><div class="jf"><label class="jf__label" for="d2-role">Role<span class="jf__req" aria-hidden="true">*</span></label><div class="jc"><input class="jc__input" id="d2-role" type="text" value="" placeholder="e.g. Frontend Engineer" maxlength="255" aria-required="true" aria-invalid="false" aria-describedby="d2-role-error"/></div></div><div class="jf"><label class="jf__label" for="d2-company">Company<span class="jf__req" aria-hidden="true">*</span></label><div class="jc"><input class="jc__input" id="d2-company" type="text" value="" placeholder="e.g. Linear" maxlength="255" aria-required="true" aria-invalid="false" aria-describedby="d2-company-error"/></div></div><div class="jrow"><div class="jf"><label class="jf__label" id="d2-source-label" for="d2-source">Source</label><div class="jc jc--sel"><button class="jc__trigger" id="d2-source" type="button" role="combobox" aria-labelledby="d2-source-label" aria-haspopup="listbox" aria-expanded="false" aria-controls="d2-source-list"><span class="jc__value">Select source</span></button><span class="jc__chev" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polyline points="6 9 12 15 18 9"></polyline></svg></span></div></div><div class="jf"><label class="jf__label" id="d2-status-label" for="d2-status">Status</label><div class="jc jc--sel"><button class="jc__trigger" id="d2-status" type="button" role="combobox" aria-labelledby="d2-status-label" aria-haspopup="listbox" aria-expanded="true" aria-controls="d2-status-list"><span class="jc__value">Applied</span></button><span class="jc__chev" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polyline points="6 9 12 15 18 9"></polyline></svg></span><div class="jlist__catch"></div><div class="jlist" id="d2-status-list" role="listbox" aria-labelledby="d2-status-label"><div class="jopt" id="d2-status-option-0" role="option" aria-selected="false"><span class="jopt__label">Saved</span></div><div class="jopt" id="d2-status-option-1" role="option" aria-selected="true"><span class="jopt__label">Applied</span><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polyline points="20 6 9 17 4 12"></polyline></svg></div><div class="jopt" id="d2-status-option-2" role="option" aria-selected="false"><span class="jopt__label">Assessment</span></div><div class="jopt" id="d2-status-option-3" role="option" aria-selected="false"><span class="jopt__label">Interviewing</span></div></div></div></div></div><div class="jf jnarrow"><label class="jf__label" for="d2-date">Date applied</label><div class="jc jc--mono"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg><input class="jc__input" id="d2-date" type="date" value="2026-11-08"/></div><p class="jf__hint" id="d2-date-hint">Leave blank if unknown. Undated applications appear in all-time totals, not date-based charts.</p></div><button class="jmore" type="button" aria-expanded="false" aria-controls="d2-details">+ More details</button></div></div><div class="jt__foot"><button class="jbtn" type="button">Cancel</button><button class="jbtn jbtn--primary" type="button">Add application</button></div></div></div></div>
+</body>
+</html>

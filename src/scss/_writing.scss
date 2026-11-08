@@ -257,3 +257,17 @@
     &::after { content: ''; position: absolute; inset: -12px -8px; }
   }
 }
+
+// Optical edges and essay-to-essay navigation.
+.writing-title--stem { margin-left: -$lsb-stem-medium; }
+.writing-heading--stem { margin-left: -$lsb-stem-medium; }
+.writing-heading--w { margin-left: -$lsb-w-medium; }
+.writing-foot__essay {
+  align-self: flex-start;
+  font-size: 40px;
+  font-weight: $weight-medium;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  text-wrap: balance;
+  @include desktop { max-width: 900px; font-size: 72px; }
+}

@@ -9,6 +9,13 @@ export interface Post {
 
 export const posts: readonly Post[] = [
   {
+    slug: 'building-job-url-extraction-into-jobtrackr',
+    title: 'Building Job URL Extraction into JobTrackr',
+    description: 'How a small improvement to adding job applications turned into a series of product decisions, engineering challenges, and lessons from shipping.',
+    published: '2026-11-08',
+    readingMinutes: 10, // 1,948 words of body copy, at about 200 words a minute.
+  },
+  {
     slug: 'space-between-design-and-engineering',
     title: 'The Space Between Design and Engineering',
     description: 'Some thoughts on how learning to build software changed the way I think about design.',

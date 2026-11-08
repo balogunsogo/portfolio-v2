@@ -11,6 +11,8 @@ $color-muted-difference: #95979b;
 
 // Type
 $font-sans: 'PP Neue Montreal', 'Neue Montreal', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$font-jobtrackr: 'Geist', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+$font-jobtrackr-mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
 $weight-regular: 400;
 $weight-medium: 500;
 
@@ -29,6 +31,9 @@ $lsb-j-medium: 0.018em; // J in Medium
 $lsb-t: 0.015em; // T in Medium and Book
 $lsb-w-medium: 0.014em; // W in Medium
 $lsb-w-book: 0.017em; // W in Book
+
+$lsb-two: 0.029em; // Proportional display figures starting with 2
+$lsb-one: 0.013em; // Proportional display figures starting with 1
 
 // Layout
 $columns: 12;

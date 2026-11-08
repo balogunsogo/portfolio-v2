@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=390">
+<title>Careers page result, scrolled, with the explanation open. The drawer body is scrolled 520px.</title>
+<style>
+@font-face{font-family:'PP Neue Montreal';src:url('../../../../src/assets/fonts/PPNeueMontreal-Regular.otf') format('opentype');font-weight:400 500;font-style:normal}
+@font-face{font-family:'Geist';src:url('../../../../src/assets/fonts/geist/Geist-Variable.woff2') format('woff2');font-weight:100 900;font-style:normal}
+@font-face{font-family:'Geist Mono';src:url('../../../../src/assets/fonts/geist/GeistMono-Regular.woff2') format('woff2');font-weight:400;font-style:normal}
+*, ::before, ::after { box-sizing: border-box; }
+html { overflow-x: hidden; }
+body { margin: 0; background: #FAFAF8; color: #111110; font-family: 'PP Neue Montreal', 'Helvetica Neue', Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; text-rendering: optimizelegibility; }
+h1, h2, h3, p, dl, dd, figure, ol, ul { margin: 0; }
+ol, ul { padding: 0; list-style: none; }
+a { color: inherit; text-decoration: none; transition: color 0.15s; }
+a:hover { color: #65635D; }
+a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid currentcolor; outline-offset: 3px; }
+.vh { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+.opt { position: relative; margin: 0; padding: 0; border: 0; background: none; font: inherit; color: #65635D; cursor: pointer; transition: color 0.15s; text-align: left; }
+.opt:hover { color: #111110; }
+.opt.is-on { color: #111110; cursor: default; }
+.opt--ink { color: #111110; }
+.opt--ink:hover { color: #65635D; }
+.opt:disabled { color: #8F8C85; cursor: default; }
+.page { width: 390px; min-height: 0px; padding: 28px 20px 32px; display: flex; flex-direction: column; }
+.page--cont { padding-top: 56px; }
+.top { display: flex; justify-content: space-between; align-items: baseline; font-size: 15px; line-height: 1.4; }
+.top__name { font-weight: 500; }
+.head { margin-top: 56px; display: flex; flex-direction: column; gap: 16px; }
+.title { font-size: 40px; font-weight: 500; line-height: 0.95; letter-spacing: -0.04em; margin-left: -0.071em; text-wrap: balance; }
+.sub { font-size: 20px; line-height: 1.3; letter-spacing: -0.01em; color: #65635D; text-wrap: pretty; }
+.meta { margin-top: 16px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 16px; font-size: 15px; line-height: 1.4; }
+.meta div { display: flex; flex-direction: column; gap: 2px; }
+.meta dt { color: #65635D; }
+.body { display: flex; flex-direction: column; gap: 80px; }
+.row { display: flex; flex-direction: column; gap: 16px; }
+.head + .body { margin-top: 48px; }
+.sec { display: flex; flex-direction: column; gap: 16px; }
+.h2 { font-size: 26px; font-weight: 500; line-height: 1.15; letter-spacing: -0.02em; text-wrap: balance; }
+.h2--stem { margin-left: -0.071em; } .h2--round { margin-left: -0.036em; } .h2--w { margin-left: -0.014em; } .h2--s { margin-left: -0.024em; }
+.prose { display: flex; flex-direction: column; gap: 16px; font-size: 17px; line-height: 1.55; letter-spacing: -0.005em; text-wrap: pretty; }
+.after { margin-top: 32px; }
+.demo { margin-top: 32px; display: flex; flex-direction: column; gap: 12px; }
+.cap { font-size: 15px; line-height: 1.45; color: #65635D; text-wrap: pretty; }
+.vplate { padding: 12px 12px 4px; background: #ECEBE6; }
+.frame { position: relative; aspect-ratio: 16 / 10; overflow: hidden; background: #000; }
+.slot { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; padding: 16px; background: #D9D7D0; text-align: center; font-size: 12px; line-height: 1.4; color: #4A4843; }
+.slot__name { font-size: 14px; font-weight: 500; color: #111110; }
+.ctrl { display: flex; justify-content: flex-end; align-items: center; min-height: 44px; font-size: 15px; line-height: 1.4; }
+.ctrl__label { display: none; }
+.group { display: flex; gap: 16px; }
+.opt::after { content: ""; position: absolute; inset: -12px -6px; }
+/* Visual 04 */
+.tl { margin-top: 32px; display: flex; flex-direction: column; gap: 20px; }
+.tl .row { display: flex; flex-direction: column; gap: 4px; }
+.tl__when { font-size: 14px; line-height: 1.4; color: #65635D; }
+.tl__what { font-size: 17px; line-height: 1.5; letter-spacing: -0.005em; text-wrap: pretty; }
+/* Visual 05 */
+.nums { margin-top: 32px; }
+.nums__body { display: flex; flex-direction: column; gap: 16px; }
+.nums__row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 16px; }
+.num { display: flex; flex-direction: column; gap: 6px; }
+.num__n { margin-left: -0.028em; font-size: 56px; font-weight: 500; line-height: 0.9; letter-spacing: -0.025em; font-variant-numeric: proportional-nums; }
+.num__n--one { margin-left: -0.013em; }
+.num__l { font-size: 13px; line-height: 1.4; color: #65635D; text-wrap: pretty; }
+.nums__note { font-size: 14px; line-height: 1.45; color: #65635D; text-wrap: pretty; }
+/* CTA */
+.cta__link { display: inline-flex; align-items: center; min-height: 44px; font-size: 28px; font-weight: 500; line-height: 1.1; letter-spacing: -0.022em; margin-left: -0.015em; }
+/* Footer */
+.foot { margin-top: auto; padding-top: 104px; display: flex; flex-direction: column; gap: 40px; }
+.foot__next { display: flex; flex-direction: column; gap: 8px; }
+.foot__label { font-size: 15px; line-height: 1.4; color: #65635D; }
+.foot__link { font-size: 40px; font-weight: 500; line-height: 0.95; letter-spacing: -0.04em; margin-left: -0.015em; text-wrap: balance; }
+.aside { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 16px; align-items: end; font-size: 15px; line-height: 1.4; }
+.clock { position: relative; width: 88px; height: 88px; color: #65635D; }
+.clock svg { display: block; width: 88px; height: 88px; fill: none; stroke-linecap: round; }
+.clock__face { stroke: currentcolor; stroke-width: 1; }
+.clock__readout { fill: currentcolor; font-size: 11px; text-anchor: middle; dominant-baseline: central; }
+.clock__hand { stroke: #111110; stroke-width: 1; }
+.clock__hand--hour { stroke-width: 2.25; }
+.clock__pivot { fill: #FAFAF8; stroke: #111110; stroke-width: 1; }
+.clock__time { position: absolute; left: 23px; top: 44px; transform: translate(-50%, -50%); font-size: 11px; line-height: 1; white-space: nowrap; pointer-events: none; }
+.links { display: flex; flex-direction: column; align-items: flex-end; text-align: right; }
+.links a { display: inline-block; padding: 6px 0; }
+/* JobTrackr Add application replica (light tokens) */
+.jt { display: flex; flex-direction: column; min-width: 0; min-height: 0; background: #FFFFFF; color: #171717; font-family: 'Geist', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif; font-size: 14px; line-height: normal; letter-spacing: 0; -webkit-font-smoothing: antialiased; }
+.jt svg { fill: none; stroke: currentcolor; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+.jt button { font-family: inherit; }
+.jt__grab { display: none; }
+.jt__head { display: flex; flex-shrink: 0; align-items: flex-start; justify-content: space-between; gap: 12px; padding: 20px 20px 16px; border-bottom: 1px solid #EBEBEB; }
+.jt__title { margin: 0; font-size: 16px; font-weight: 600; line-height: 24px; letter-spacing: -0.01em; }
+.jt__close { display: inline-flex; flex-shrink: 0; align-items: center; justify-content: center; width: 32px; height: 32px; margin: -4px -6px 0 0; padding: 0; border: 1px solid transparent; border-radius: 4px; color: #6B6B6B; background: transparent; cursor: pointer; transition: background-color 120ms cubic-bezier(0.2, 0, 0, 1), color 120ms cubic-bezier(0.2, 0, 0, 1); }
+.jt__close:hover { color: #171717; background: #F4F4F4; }
+.jt__close svg { width: 16px; height: 16px; }
+.jt__body { flex-grow: 1; min-height: 0; padding: 20px; overflow: auto; overscroll-behavior: auto; }
+.jt__form { display: flex; flex-direction: column; gap: 16px; margin-top: 12px; }
+.jt__details { display: flex; flex-direction: column; gap: 16px; }
+.jt__foot { display: flex; flex-shrink: 0; align-items: center; justify-content: flex-end; gap: 8px; padding: 14px 20px; border-top: 1px solid #EBEBEB; background: #FFFFFF; }
+.jt :focus-visible { outline: 2px solid #0B63E5; outline-offset: 2px; }
+.jf { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.jf__label { color: #171717; font-size: 13px; font-weight: 500; line-height: 18px; }
+.jf__req { margin-left: 2px; color: #C4281C; }
+.jf__hint { margin: 0; color: #6B6B6B; font-size: 12px; line-height: 16px; }
+.jf__error { display: flex; align-items: center; gap: 6px; margin: 0; color: #C4281C; font-size: 13px; line-height: 18px; }
+.jf__error svg { flex-shrink: 0; width: 14px; height: 14px; stroke-width: 2; }
+.jc { position: relative; display: flex; align-items: center; gap: 8px; height: 40px; padding: 0 12px; border: 1px solid #DEDEDE; border-radius: 6px; color: #6B6B6B; background: #FFFFFF; transition: border-color 120ms cubic-bezier(0.2, 0, 0, 1), box-shadow 120ms cubic-bezier(0.2, 0, 0, 1); }
+.jc:hover { border-color: #C2C2C2; }
+.jc:focus-within { border-color: #171717; box-shadow: 0 0 0 3px rgb(23 23 23 / 8%); }
+.jc:has(:focus-visible) { outline: 2px solid #0B63E5; outline-offset: 2px; }
+.jc > svg { flex-shrink: 0; width: 16px; height: 16px; }
+.jc__input, .jc__area { flex: 1; min-width: 0; height: 100%; margin: 0; padding: 0; border: 0; border-radius: 0; outline: 0; color: #171717; background: transparent; font: inherit; font-size: 14px; }
+.jc__input::placeholder, .jc__area::placeholder { color: #6B6B6B; opacity: 1; }
+.jc__input:focus-visible, .jc__trigger:focus-visible, .jc__area:focus-visible { outline: 0; }
+.jc__input[type="date"] { min-width: 0; }
+.jc__input[type="number"] { -moz-appearance: textfield; }
+.jc__input::-webkit-outer-spin-button, .jc__input::-webkit-inner-spin-button { margin: 0; -webkit-appearance: none; }
+.jc--sel { padding-right: 40px; cursor: pointer; }
+.jc__trigger { flex: 1; min-width: 0; height: 100%; margin: 0; padding: 0; border: 0; outline: 0; color: #171717; background: transparent; font: inherit; font-size: 14px; text-align: left; cursor: inherit; }
+.jc__value { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.jc__chev { position: absolute; right: 12px; display: inline-flex; color: #6B6B6B; pointer-events: none; }
+.jc__chev svg { width: 14px; height: 14px; stroke-width: 2; }
+/* JobTrackr Select, desktop: a menu-styled listbox 4px below the field, as wide as the field */
+.jlist__catch { position: fixed; inset: 0; z-index: 4; cursor: default; }
+.jlist { position: absolute; top: calc(100% + 5px); left: -1px; right: -1px; z-index: 5; display: flex; flex-direction: column; gap: 1px; max-height: 296px; padding: 6px; overflow-y: auto; border: 1px solid #EBEBEB; border-radius: 8px; color: #171717; background: #FFFFFF; box-shadow: 0 1px 2px rgb(0 0 0 / 4%), 0 12px 32px -8px rgb(0 0 0 / 16%); cursor: default; animation: jt-pop 180ms cubic-bezier(0.2, 0, 0, 1); }
+.jopt { display: flex; flex-shrink: 0; align-items: center; gap: 10px; min-height: 32px; padding: 0 8px; border-radius: 6px; font-size: 13px; line-height: 18px; cursor: pointer; }
+.jopt:hover, .jopt.is-active { background: #F4F4F4; }
+.jopt__label { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.jopt svg { flex-shrink: 0; width: 14px; height: 14px; color: #171717; stroke-width: 2; }
+@keyframes jt-pop { from { opacity: 0; transform: translateY(4px) scale(0.98); } to { opacity: 1; transform: none; } }
+@keyframes jt-up { from { opacity: 0.6; transform: translateY(24px); } to { opacity: 1; transform: none; } }
+@keyframes jt-fade { from { opacity: 0; } to { opacity: 1; } }
+.jc--mono .jc__input { font-family: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; font-variant-numeric: tabular-nums; }
+.jc--area { align-items: flex-start; height: auto; padding: 10px 12px; }
+.jc__area { display: block; min-height: 60px; height: auto; line-height: 20px; resize: vertical; }
+.jc.is-invalid, .jc.is-invalid:hover { border-color: #D92D20; }
+.jc.is-invalid:focus-within { border-color: #D92D20; box-shadow: 0 0 0 3px rgb(217 45 32 / 10%); }
+.jrow { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.jnarrow { width: min(200px, 100%); }
+.jmuted { margin: 0; color: #6B6B6B; font-size: 13px; }
+.jmore { align-self: flex-start; padding: 4px 0; border: 0; color: #171717; background: transparent; font-size: 13px; font-weight: 500; cursor: pointer; }
+.jmore:hover { text-decoration: underline; text-underline-offset: 3px; }
+.jbtn { display: inline-flex; flex-shrink: 0; align-items: center; justify-content: center; gap: 8px; height: 36px; padding: 0 14px; border: 1px solid #DEDEDE; border-radius: 6px; color: #171717; background: #FFFFFF; font-size: 14px; font-weight: 500; letter-spacing: -0.005em; line-height: 1; white-space: nowrap; cursor: pointer; transition: background-color 120ms cubic-bezier(0.2, 0, 0, 1), border-color 120ms cubic-bezier(0.2, 0, 0, 1); }
+.jbtn:hover { background: #F4F4F4; border-color: #C2C2C2; }
+.jbtn--primary { border-color: transparent; color: #FFFFFF; background: #171717; }
+.jbtn--primary:hover { border-color: transparent; color: #FFFFFF; background: #383838; }
+.jbtn.is-busy, .jbtn.is-busy:hover { border-color: #EBEBEB; color: #8F8F8F; background: #F4F4F4; cursor: progress; }
+.jspin { display: inline-block; flex-shrink: 0; width: 14px; height: 14px; border: 2px solid rgb(23 23 23 / 15%); border-top-color: #171717; border-radius: 50%; animation: jt-spin 0.7s linear infinite; }
+@keyframes jt-spin { to { transform: rotate(360deg); } }
+.jfb { display: grid; gap: 8px; font-size: 12px; line-height: 1.5; overflow-wrap: anywhere; }
+.jfb > .jbtn { justify-self: start; }
+.jfb p { margin: 0; }
+.jfb ul { margin: 0; padding-left: 18px; list-style: disc; }
+.jfb strong { font-weight: 600; }
+.jsug { padding: 10px 0; border-top: 1px solid #e5e7eb; }
+.jsug > div { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+@media (prefers-reduced-motion: reduce) { .jspin { animation-duration: 1.8s; } .jc, .jbtn, .jt__close { transition: none; } .jlist, .jss__scrim, .jss__sheet { animation: jt-fade 120ms linear; } }
+.jt { position: relative; height: 600px; overflow: hidden; border-radius: 16px 16px 0 0; }
+/* JobTrackr Select below 1024: a bottom sheet titled by the field label (contained in the drawer here) */
+.jss { position: absolute; inset: 0; z-index: 5; }
+.jss__scrim { position: absolute; inset: 0; background: rgb(10 10 10 / 32%); animation: jt-fade 180ms cubic-bezier(0.2, 0, 0, 1); }
+.jss__sheet { position: absolute; right: 0; bottom: 0; left: 0; display: flex; flex-direction: column; max-height: 88%; border-radius: 16px 16px 0 0; color: #171717; background: #FFFFFF; box-shadow: 0 -12px 40px -12px rgb(0 0 0 / 25%); animation: jt-up 240ms cubic-bezier(0.2, 0, 0, 1); }
+.jss__head { display: flex; flex-shrink: 0; align-items: flex-start; justify-content: space-between; gap: 12px; padding: 12px 8px 12px 20px; }
+.jss__title { margin: 0; font-size: 17px; font-weight: 600; line-height: 24px; letter-spacing: -0.01em; }
+.jss__close { display: inline-flex; flex-shrink: 0; align-items: center; justify-content: center; width: 44px; height: 44px; margin: -10px 0; padding: 0; border: 1px solid transparent; border-radius: 4px; color: #6B6B6B; background: transparent; cursor: pointer; }
+.jss__close svg { width: 20px; height: 20px; }
+.jss__body { display: flex; flex-grow: 1; flex-direction: column; min-height: 0; padding-bottom: 32px; overflow: auto; overscroll-behavior: contain; }
+.jss__list { display: flex; flex-direction: column; padding-bottom: 8px; }
+.jss__row { display: flex; align-items: center; gap: 12px; width: 100%; min-height: 48px; padding: 0 20px; border: 0; color: #171717; background: transparent; font-size: 16px; text-align: left; cursor: pointer; }
+.jss__row:hover { background: #F4F4F4; }
+.jss__row:focus-visible { outline: 2px solid #0B63E5; outline-offset: -2px; }
+.jss__row svg { flex-shrink: 0; width: 18px; height: 18px; color: #171717; stroke-width: 2; }
+.jt__grab { display: block; flex-shrink: 0; width: 36px; height: 4px; margin: 8px auto 0; border-radius: 2px; background: #DEDEDE; }
+.jt__head { padding: 12px 8px 12px 20px; border-bottom: 0; }
+.jt__title { font-size: 17px; }
+.jt__close { width: 44px; height: 44px; margin: -10px 0; }
+.jt__close svg { width: 20px; height: 20px; }
+.jt__body { padding: 4px 20px 20px; }
+.jt__foot { padding: 12px 20px 20px; }
+.jt__foot .jbtn { flex: 1 1 0; }
+.jt__foot .jbtn--primary { flex-grow: 2; }
+.jc { height: 44px; }
+.jc--area { height: auto; }
+.jc__input, .jc__trigger, .jc__area, .jc--mono .jc__input { font-size: 16px; }
+.jbtn { height: 44px; padding: 0 16px; font-size: 15px; }
+.jrow { grid-template-columns: minmax(0, 1fr); }
+.jnarrow { width: 100%; }
+/* Plate around the replica */
+.jxp { display: flex; flex-direction: column; padding-top: 20px; background: #ECEBE6; }
+.jxp__top { display: flex; flex-direction: column; gap: 14px; padding: 0 20px 16px; font-size: 15px; line-height: 1.4; }
+.jxp__name { font-weight: 500; }
+.jxp__pick { display: flex; flex-direction: column; align-items: flex-start; margin: -4px 0; }
+.jxp__pick .opt { display: inline-flex; align-items: center; min-height: 44px; }
+.jxp__label { display: none; }
+.jxp__prompt { line-height: 1.45; color: #65635D; text-wrap: pretty; }
+.jxp__prompt--ink { color: #111110; font-weight: 500; }
+.jxp__after { display: flex; flex-direction: column; gap: 20px; padding: 20px; font-size: 15px; line-height: 1.45; }
+.jxp__note { text-wrap: pretty; }
+.jxp__how { display: flex; flex-direction: column; align-items: flex-start; gap: 16px; }
+.jxp__how > .textbtn { display: inline-flex; align-items: center; min-height: 44px; margin: -10px 0; }
+.jxp__path { display: flex; flex-direction: column; gap: 8px; }
+.jxp__step { display: flex; flex-direction: column; color: #65635D; }
+.jxp__step.is-used span:first-child { color: #111110; }
+.jxp__text { display: flex; flex-direction: column; gap: 8px; text-wrap: pretty; }
+.jxp__task { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; line-height: 1.45; }
+.jxp__actions { display: flex; flex-wrap: wrap; gap: 0 20px; }
+.jxp__actions .textbtn { display: inline-flex; align-items: center; min-height: 44px; }
+.jxp__log { color: #65635D; text-wrap: pretty; }
+.jxp__log.is-on { color: #111110; }
+.jxp__cta { display: inline-flex; align-items: center; align-self: flex-start; min-height: 44px; margin: -10px 0; font-weight: 500; }
+.jxp__foot { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; font-size: 13px; line-height: 1.4; color: #65635D; }
+.jxp__foot .opt { flex: none; }
+.textbtn { position: relative; margin: 0; padding: 0; border: 0; background: none; font: inherit; font-weight: 500; color: #111110; cursor: pointer; text-align: left; }
+.textbtn:disabled { color: #8F8C85; cursor: default; }
+
+</style>
+</head>
+<body data-scroll="520">
+<div style="width: 390px; padding: 24px 20px; background: #FAFAF8"><div class="jxp" aria-labelledby="d2-name"><div class="jxp__top"><p class="jxp__name" id="d2-name">Where the details come from</p><div class="jxp__pick" role="radiogroup" aria-label="Example link"><span class="jxp__label" aria-hidden="true">Example link</span><button class="opt" type="button" role="radio" aria-checked="false">Greenhouse posting</button><button class="opt is-on" type="button" role="radio" aria-checked="true">Careers page with job data</button><button class="opt" type="button" role="radio" aria-checked="false">Title and description only</button><button class="opt" type="button" role="radio" aria-checked="false">Blocked page</button></div></div><div class="jt" role="group" aria-labelledby="d2-title"><div class="jt__grab" aria-hidden="true"></div><div class="jt__head"><h3 class="jt__title" id="d2-title">Add application</h3><button class="jt__close" type="button" aria-label="Close"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button></div><div class="jt__body"><div class="jt__form"><div class="jf"><label class="jf__label" for="d2-url">Job URL</label><div class="jc"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg><input class="jc__input" id="d2-url" type="url" readonly value="https://careers.haldenlabs.example/jobs/ux-engineer" placeholder="https://" aria-describedby="d2-url-note"/></div><p class="vh" id="d2-url-note">Example link. Choose another example beside the form.</p></div><section class="jfb" aria-label="Job details extraction"><button class="jbtn" type="button" aria-busy="false" aria-disabled="false">Retry extraction</button><p role="status" aria-live="polite">Details added. Review them before saving.</p></section><div class="jf"><label class="jf__label" for="d2-role">Role<span class="jf__req" aria-hidden="true">*</span></label><div class="jc"><input class="jc__input" id="d2-role" type="text" value="UX Engineer" placeholder="e.g. Frontend Engineer" maxlength="255" aria-required="true" aria-invalid="false" aria-describedby="d2-role-error"/></div></div><div class="jf"><label class="jf__label" for="d2-company">Company<span class="jf__req" aria-hidden="true">*</span></label><div class="jc"><input class="jc__input" id="d2-company" type="text" value="Halden Labs" placeholder="e.g. Linear" maxlength="255" aria-required="true" aria-invalid="false" aria-describedby="d2-company-error"/></div></div><div class="jrow"><div class="jf"><label class="jf__label" id="d2-source-label" for="d2-source">Source</label><div class="jc jc--sel"><button class="jc__trigger" id="d2-source" type="button" role="combobox" aria-labelledby="d2-source-label" aria-haspopup="listbox" aria-expanded="false" aria-controls="d2-source-list"><span class="jc__value">Select source</span></button><span class="jc__chev" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polyline points="6 9 12 15 18 9"></polyline></svg></span></div></div><div class="jf"><label class="jf__label" id="d2-status-label" for="d2-status">Status</label><div class="jc jc--sel"><button class="jc__trigger" id="d2-status" type="button" role="combobox" aria-labelledby="d2-status-label" aria-haspopup="listbox" aria-expanded="false" aria-controls="d2-status-list"><span class="jc__value">Applied</span></button><span class="jc__chev" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polyline points="6 9 12 15 18 9"></polyline></svg></span></div></div></div><div class="jf jnarrow"><label class="jf__label" for="d2-date">Date applied</label><div class="jc jc--mono"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg><input class="jc__input" id="d2-date" type="date" value="2026-11-08"/></div><p class="jf__hint" id="d2-date-hint">Leave blank if unknown. Undated applications appear in all-time totals, not date-based charts.</p></div><button class="jmore" type="button" aria-expanded="true" aria-controls="d2-details">− Fewer details</button><div class="jt__details" id="d2-details"><div class="jf"><label class="jf__label" for="d2-companyUrl">Company URL</label><div class="jc"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg><input class="jc__input" id="d2-companyUrl" type="url" value="https://haldenlabs.example" placeholder="https://" maxlength="2048"/></div><p class="jf__hint" id="d2-companyUrl-hint">The company’s website. We’ll use its icon as the logo when we can find one.</p></div><div class="jf"><label class="jf__label" for="d2-location">Location</label><div class="jc"><input class="jc__input" id="d2-location" type="text" value="Remote — United Kingdom" maxlength="255"/></div></div><div class="jrow"><div class="jf"><label class="jf__label" id="d2-workMode-label" for="d2-workMode">Work mode</label><div class="jc jc--sel"><button class="jc__trigger" id="d2-workMode" type="button" role="combobox" aria-labelledby="d2-workMode-label" aria-haspopup="listbox" aria-expanded="false" aria-controls="d2-workMode-list"><span class="jc__value">Remote</span></button><span class="jc__chev" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polyline points="6 9 12 15 18 9"></polyline></svg></span></div></div><div class="jf"><label class="jf__label" id="d2-employment-label" for="d2-employment">Employment type</label><div class="jc jc--sel"><button class="jc__trigger" id="d2-employment" type="button" role="combobox" aria-labelledby="d2-employment-label" aria-haspopup="listbox" aria-expanded="false" aria-controls="d2-employment-list"><span class="jc__value">Full-time</span></button><span class="jc__chev" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polyline points="6 9 12 15 18 9"></polyline></svg></span></div></div></div><div class="jf"><label class="jf__label" id="d2-priority-label" for="d2-priority">Priority</label><div class="jc jc--sel"><button class="jc__trigger" id="d2-priority" type="button" role="combobox" aria-labelledby="d2-priority-label" aria-haspopup="listbox" aria-expanded="false" aria-controls="d2-priority-list"><span class="jc__value">Medium</span></button><span class="jc__chev" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polyline points="6 9 12 15 18 9"></polyline></svg></span></div></div><div class="jrow"><div class="jf"><label class="jf__label" for="d2-salMin">Salary minimum</label><div class="jc jc--mono"><input class="jc__input" id="d2-salMin" type="number" value="70000" min="0" step="0.01"/></div></div><div class="jf"><label class="jf__label" for="d2-salMax">Salary maximum</label><div class="jc jc--mono"><input class="jc__input" id="d2-salMax" type="number" value="85000" min="0" step="0.01"/></div></div></div><div class="jf jnarrow"><label class="jf__label" for="d2-currency">Currency</label><div class="jc"><input class="jc__input" id="d2-currency" type="text" value="GBP" placeholder="USD" maxlength="3"/></div></div><div class="jf"><label class="jf__label" for="d2-desc">Job description</label><div class="jc jc--area"><textarea class="jc__area" id="d2-desc" rows="5">Halden Labs builds research tools for small teams. As a UX engineer you’ll turn designs into accessible, production-ready interfaces.</textarea></div></div><div class="jf"><label class="jf__label" for="d2-notes">Notes</label><div class="jc jc--area"><textarea class="jc__area" id="d2-notes" rows="4"></textarea></div></div></div></div></div><div class="jt__foot"><button class="jbtn" type="button">Cancel</button><button class="jbtn jbtn--primary" type="button">Add application</button></div></div><div class="jxp__after"><div class="jxp__how"><button class="textbtn" type="button" aria-expanded="true" aria-controls="d2-how">How did JobTrackr get these details?</button><div class="jxp__how" id="d2-how"><ol class="jxp__path" aria-label="Where JobTrackr looked, in order"><li class="jxp__step"><span>Greenhouse or Lever API</span><span>Not a Greenhouse or Lever link</span></li><li class="jxp__step is-used"><span>JobPosting data on the page</span><span>Used</span></li><li class="jxp__step"><span>Page title and description</span><span>Not needed</span></li></ol><div class="jxp__text"><p>This careers page isn’t on Greenhouse or Lever, so JobTrackr read the page itself and found JobPosting structured data, written as JSON-LD.</p><p>That data names the role, the hiring organisation, the location, the employment type, the salary and the description. Salary only fills when the page gives an annual amount with a currency.</p></div></div></div><a class="jxp__cta" href="https://jobtrackr.site" target="_blank" rel="noopener">Try it with your own job links on JobTrackr<span class="vh"> (opens in a new tab)</span></a><div class="jxp__foot"><p>Interactive simulation. It runs in your browser and doesn’t contact JobTrackr. Nothing you type is sent or saved.</p><button class="opt" type="button">Reset</button></div></div></div></div>
+</body>
+</html>

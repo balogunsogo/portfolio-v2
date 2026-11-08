@@ -1,0 +1,715 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=390">
+<title>Building Job URL Extraction into JobTrackr, mobile</title>
+<style>
+@font-face{font-family:'PP Neue Montreal';src:url('../../../../src/assets/fonts/PPNeueMontreal-Regular.otf') format('opentype');font-weight:400 500;font-style:normal}
+@font-face{font-family:'Geist';src:url('../../../../src/assets/fonts/geist/Geist-Variable.woff2') format('woff2');font-weight:100 900;font-style:normal}
+@font-face{font-family:'Geist Mono';src:url('../../../../src/assets/fonts/geist/GeistMono-Regular.woff2') format('woff2');font-weight:400;font-style:normal}
+*, ::before, ::after { box-sizing: border-box; }
+html { overflow-x: hidden; }
+body { margin: 0; background: #FAFAF8; color: #111110; font-family: 'PP Neue Montreal', 'Helvetica Neue', Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; text-rendering: optimizelegibility; }
+.part-0 h1, .part-0 h2, .part-0 h3, .part-0 p, .part-0 dl, .part-0 dd, .part-0 figure, .part-0 ol, .part-0 ul { margin: 0; }
+.part-0 ol, .part-0 ul { padding: 0; list-style: none; }
+.part-0 a { color: inherit; text-decoration: none; transition: color 0.15s; }
+.part-0 a:hover { color: #65635D; }
+.part-0 a:focus-visible, .part-0 button:focus-visible, .part-0 input:focus-visible { outline: 2px solid currentcolor; outline-offset: 3px; }
+.part-0 .vh { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+.part-0 .opt { position: relative; margin: 0; padding: 0; border: 0; background: none; font: inherit; color: #65635D; cursor: pointer; transition: color 0.15s; text-align: left; }
+.part-0 .opt:hover { color: #111110; }
+.part-0 .opt.is-on { color: #111110; cursor: default; }
+.part-0 .opt--ink { color: #111110; }
+.part-0 .opt--ink:hover { color: #65635D; }
+.part-0 .opt:disabled { color: #8F8C85; cursor: default; }
+.part-0 .page { width: 390px;  padding: 28px 20px 32px; display: flex; flex-direction: column; }
+.part-0 .page--cont { padding-top: 56px; }
+.part-0 .top { display: flex; justify-content: space-between; align-items: baseline; font-size: 15px; line-height: 1.4; }
+.part-0 .top__name { font-weight: 500; }
+.part-0 .head { margin-top: 56px; display: flex; flex-direction: column; gap: 16px; }
+.part-0 .title { font-size: 40px; font-weight: 500; line-height: 0.95; letter-spacing: -0.04em; margin-left: -0.071em; text-wrap: balance; }
+.part-0 .sub { font-size: 20px; line-height: 1.3; letter-spacing: -0.01em; color: #65635D; text-wrap: pretty; }
+.part-0 .meta { margin-top: 16px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 16px; font-size: 15px; line-height: 1.4; }
+.part-0 .meta div { display: flex; flex-direction: column; gap: 2px; }
+.part-0 .meta dt { color: #65635D; }
+.part-0 .body { display: flex; flex-direction: column; gap: 80px; }
+.part-0 .row { display: flex; flex-direction: column; gap: 16px; }
+.part-0 .head + .body { margin-top: 48px; }
+.part-0 .sec { display: flex; flex-direction: column; gap: 16px; }
+.part-0 .h2 { font-size: 26px; font-weight: 500; line-height: 1.15; letter-spacing: -0.02em; text-wrap: balance; }
+.part-0 .h2--stem { margin-left: -0.071em; }
+.part-0 .h2--round { margin-left: -0.036em; }
+.part-0 .h2--w { margin-left: -0.014em; }
+.part-0 .h2--s { margin-left: -0.024em; }
+.part-0 .prose { display: flex; flex-direction: column; gap: 16px; font-size: 17px; line-height: 1.55; letter-spacing: -0.005em; text-wrap: pretty; }
+.part-0 .after { margin-top: 32px; }
+.part-0 .demo { margin-top: 32px; display: flex; flex-direction: column; gap: 12px; }
+.part-0 .cap { font-size: 15px; line-height: 1.45; color: #65635D; text-wrap: pretty; }
+.part-0 .vplate { padding: 12px 12px 4px; background: #ECEBE6; }
+.part-0 .frame { position: relative; aspect-ratio: 16 / 10; overflow: hidden; background: #000; }
+.part-0 .slot { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; padding: 16px; background: #D9D7D0; text-align: center; font-size: 12px; line-height: 1.4; color: #4A4843; }
+.part-0 .slot__name { font-size: 14px; font-weight: 500; color: #111110; }
+.part-0 .ctrl { display: flex; justify-content: flex-end; align-items: center; min-height: 44px; font-size: 15px; line-height: 1.4; }
+.part-0 .ctrl__label { display: none; }
+.part-0 .group { display: flex; gap: 16px; }
+.part-0 .opt::after { content: ""; position: absolute; inset: -12px -6px; }
+.part-0 /* Visual 04 */
+.tl { margin-top: 32px; display: flex; flex-direction: column; gap: 20px; }
+.part-0 .tl .row { display: flex; flex-direction: column; gap: 4px; }
+.part-0 .tl__when { font-size: 14px; line-height: 1.4; color: #65635D; }
+.part-0 .tl__what { font-size: 17px; line-height: 1.5; letter-spacing: -0.005em; text-wrap: pretty; }
+.part-0 /* Visual 05 */
+.nums { margin-top: 32px; }
+.part-0 .nums__body { display: flex; flex-direction: column; gap: 16px; }
+.part-0 .nums__row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 16px; }
+.part-0 .num { display: flex; flex-direction: column; gap: 6px; }
+.part-0 .num__n { margin-left: -0.028em; font-size: 56px; font-weight: 500; line-height: 0.9; letter-spacing: -0.025em; font-variant-numeric: proportional-nums; }
+.part-0 .num__n--one { margin-left: -0.013em; }
+.part-0 .num__l { font-size: 13px; line-height: 1.4; color: #65635D; text-wrap: pretty; }
+.part-0 .nums__note { font-size: 14px; line-height: 1.45; color: #65635D; text-wrap: pretty; }
+.part-0 /* CTA */
+.cta__link { display: inline-flex; align-items: center; min-height: 44px; font-size: 28px; font-weight: 500; line-height: 1.1; letter-spacing: -0.022em; margin-left: -0.015em; }
+.part-0 /* Footer */
+.foot { margin-top: auto; padding-top: 104px; display: flex; flex-direction: column; gap: 40px; }
+.part-0 .foot__next { display: flex; flex-direction: column; gap: 8px; }
+.part-0 .foot__label { font-size: 15px; line-height: 1.4; color: #65635D; }
+.part-0 .foot__link { font-size: 40px; font-weight: 500; line-height: 0.95; letter-spacing: -0.04em; margin-left: -0.015em; text-wrap: balance; }
+.part-0 .aside { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 16px; align-items: end; font-size: 15px; line-height: 1.4; }
+.part-0 .clock { position: relative; width: 88px; height: 88px; color: #65635D; }
+.part-0 .clock svg { display: block; width: 88px; height: 88px; fill: none; stroke-linecap: round; }
+.part-0 .clock__face { stroke: currentcolor; stroke-width: 1; }
+.part-0 .clock__readout { fill: currentcolor; font-size: 11px; text-anchor: middle; dominant-baseline: central; }
+.part-0 .clock__hand { stroke: #111110; stroke-width: 1; }
+.part-0 .clock__hand--hour { stroke-width: 2.25; }
+.part-0 .clock__pivot { fill: #FAFAF8; stroke: #111110; stroke-width: 1; }
+.part-0 .clock__time { position: absolute; left: 23px; top: 44px; transform: translate(-50%, -50%); font-size: 11px; line-height: 1; white-space: nowrap; pointer-events: none; }
+.part-0 .links { display: flex; flex-direction: column; align-items: flex-end; text-align: right; }
+.part-0 .links a { display: inline-block; padding: 6px 0; }
+*, ::before, ::after { box-sizing: border-box; }
+html { overflow-x: hidden; }
+body { margin: 0; background: #FAFAF8; color: #111110; font-family: 'PP Neue Montreal', 'Helvetica Neue', Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; text-rendering: optimizelegibility; }
+.part-1 h1, .part-1 h2, .part-1 h3, .part-1 p, .part-1 dl, .part-1 dd, .part-1 figure, .part-1 ol, .part-1 ul { margin: 0; }
+.part-1 ol, .part-1 ul { padding: 0; list-style: none; }
+.part-1 a { color: inherit; text-decoration: none; transition: color 0.15s; }
+.part-1 a:hover { color: #65635D; }
+.part-1 a:focus-visible, .part-1 button:focus-visible, .part-1 input:focus-visible { outline: 2px solid currentcolor; outline-offset: 3px; }
+.part-1 .vh { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+.part-1 .opt { position: relative; margin: 0; padding: 0; border: 0; background: none; font: inherit; color: #65635D; cursor: pointer; transition: color 0.15s; text-align: left; }
+.part-1 .opt:hover { color: #111110; }
+.part-1 .opt.is-on { color: #111110; cursor: default; }
+.part-1 .opt--ink { color: #111110; }
+.part-1 .opt--ink:hover { color: #65635D; }
+.part-1 .opt:disabled { color: #8F8C85; cursor: default; }
+.part-1 .page { width: 390px;  padding: 28px 20px 32px; display: flex; flex-direction: column; }
+.part-1 .page--cont { padding-top: 56px; }
+.part-1 .top { display: flex; justify-content: space-between; align-items: baseline; font-size: 15px; line-height: 1.4; }
+.part-1 .top__name { font-weight: 500; }
+.part-1 .head { margin-top: 56px; display: flex; flex-direction: column; gap: 16px; }
+.part-1 .title { font-size: 40px; font-weight: 500; line-height: 0.95; letter-spacing: -0.04em; margin-left: -0.071em; text-wrap: balance; }
+.part-1 .sub { font-size: 20px; line-height: 1.3; letter-spacing: -0.01em; color: #65635D; text-wrap: pretty; }
+.part-1 .meta { margin-top: 16px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 16px; font-size: 15px; line-height: 1.4; }
+.part-1 .meta div { display: flex; flex-direction: column; gap: 2px; }
+.part-1 .meta dt { color: #65635D; }
+.part-1 .body { display: flex; flex-direction: column; gap: 80px; }
+.part-1 .row { display: flex; flex-direction: column; gap: 16px; }
+.part-1 .head + .body { margin-top: 48px; }
+.part-1 .sec { display: flex; flex-direction: column; gap: 16px; }
+.part-1 .h2 { font-size: 26px; font-weight: 500; line-height: 1.15; letter-spacing: -0.02em; text-wrap: balance; }
+.part-1 .h2--stem { margin-left: -0.071em; }
+.part-1 .h2--round { margin-left: -0.036em; }
+.part-1 .h2--w { margin-left: -0.014em; }
+.part-1 .h2--s { margin-left: -0.024em; }
+.part-1 .prose { display: flex; flex-direction: column; gap: 16px; font-size: 17px; line-height: 1.55; letter-spacing: -0.005em; text-wrap: pretty; }
+.part-1 .after { margin-top: 32px; }
+.part-1 .demo { margin-top: 32px; display: flex; flex-direction: column; gap: 12px; }
+.part-1 .cap { font-size: 15px; line-height: 1.45; color: #65635D; text-wrap: pretty; }
+.part-1 .vplate { padding: 12px 12px 4px; background: #ECEBE6; }
+.part-1 .frame { position: relative; aspect-ratio: 16 / 10; overflow: hidden; background: #000; }
+.part-1 .slot { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; padding: 16px; background: #D9D7D0; text-align: center; font-size: 12px; line-height: 1.4; color: #4A4843; }
+.part-1 .slot__name { font-size: 14px; font-weight: 500; color: #111110; }
+.part-1 .ctrl { display: flex; justify-content: flex-end; align-items: center; min-height: 44px; font-size: 15px; line-height: 1.4; }
+.part-1 .ctrl__label { display: none; }
+.part-1 .group { display: flex; gap: 16px; }
+.part-1 .opt::after { content: ""; position: absolute; inset: -12px -6px; }
+.part-1 /* Visual 04 */
+.tl { margin-top: 32px; display: flex; flex-direction: column; gap: 20px; }
+.part-1 .tl .row { display: flex; flex-direction: column; gap: 4px; }
+.part-1 .tl__when { font-size: 14px; line-height: 1.4; color: #65635D; }
+.part-1 .tl__what { font-size: 17px; line-height: 1.5; letter-spacing: -0.005em; text-wrap: pretty; }
+.part-1 /* Visual 05 */
+.nums { margin-top: 32px; }
+.part-1 .nums__body { display: flex; flex-direction: column; gap: 16px; }
+.part-1 .nums__row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 16px; }
+.part-1 .num { display: flex; flex-direction: column; gap: 6px; }
+.part-1 .num__n { margin-left: -0.028em; font-size: 56px; font-weight: 500; line-height: 0.9; letter-spacing: -0.025em; font-variant-numeric: proportional-nums; }
+.part-1 .num__n--one { margin-left: -0.013em; }
+.part-1 .num__l { font-size: 13px; line-height: 1.4; color: #65635D; text-wrap: pretty; }
+.part-1 .nums__note { font-size: 14px; line-height: 1.45; color: #65635D; text-wrap: pretty; }
+.part-1 /* CTA */
+.cta__link { display: inline-flex; align-items: center; min-height: 44px; font-size: 28px; font-weight: 500; line-height: 1.1; letter-spacing: -0.022em; margin-left: -0.015em; }
+.part-1 /* Footer */
+.foot { margin-top: auto; padding-top: 104px; display: flex; flex-direction: column; gap: 40px; }
+.part-1 .foot__next { display: flex; flex-direction: column; gap: 8px; }
+.part-1 .foot__label { font-size: 15px; line-height: 1.4; color: #65635D; }
+.part-1 .foot__link { font-size: 40px; font-weight: 500; line-height: 0.95; letter-spacing: -0.04em; margin-left: -0.015em; text-wrap: balance; }
+.part-1 .aside { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 16px; align-items: end; font-size: 15px; line-height: 1.4; }
+.part-1 .clock { position: relative; width: 88px; height: 88px; color: #65635D; }
+.part-1 .clock svg { display: block; width: 88px; height: 88px; fill: none; stroke-linecap: round; }
+.part-1 .clock__face { stroke: currentcolor; stroke-width: 1; }
+.part-1 .clock__readout { fill: currentcolor; font-size: 11px; text-anchor: middle; dominant-baseline: central; }
+.part-1 .clock__hand { stroke: #111110; stroke-width: 1; }
+.part-1 .clock__hand--hour { stroke-width: 2.25; }
+.part-1 .clock__pivot { fill: #FAFAF8; stroke: #111110; stroke-width: 1; }
+.part-1 .clock__time { position: absolute; left: 23px; top: 44px; transform: translate(-50%, -50%); font-size: 11px; line-height: 1; white-space: nowrap; pointer-events: none; }
+.part-1 .links { display: flex; flex-direction: column; align-items: flex-end; text-align: right; }
+.part-1 .links a { display: inline-block; padding: 6px 0; }
+.part-1 /* JobTrackr Add application replica (light tokens) */
+.jt { display: flex; flex-direction: column; min-width: 0; min-height: 0; background: #FFFFFF; color: #171717; font-family: 'Geist', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif; font-size: 14px; line-height: normal; letter-spacing: 0; -webkit-font-smoothing: antialiased; }
+.part-1 .jt svg { fill: none; stroke: currentcolor; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+.part-1 .jt button { font-family: inherit; }
+.part-1 .jt__grab { display: none; }
+.part-1 .jt__head { display: flex; flex-shrink: 0; align-items: flex-start; justify-content: space-between; gap: 12px; padding: 20px 20px 16px; border-bottom: 1px solid #EBEBEB; }
+.part-1 .jt__title { margin: 0; font-size: 16px; font-weight: 600; line-height: 24px; letter-spacing: -0.01em; }
+.part-1 .jt__close { display: inline-flex; flex-shrink: 0; align-items: center; justify-content: center; width: 32px; height: 32px; margin: -4px -6px 0 0; padding: 0; border: 1px solid transparent; border-radius: 4px; color: #6B6B6B; background: transparent; cursor: pointer; transition: background-color 120ms cubic-bezier(0.2, 0, 0, 1), color 120ms cubic-bezier(0.2, 0, 0, 1); }
+.part-1 .jt__close:hover { color: #171717; background: #F4F4F4; }
+.part-1 .jt__close svg { width: 16px; height: 16px; }
+.part-1 .jt__body { flex-grow: 1; min-height: 0; padding: 20px; overflow: auto; overscroll-behavior: auto; }
+.part-1 .jt__form { display: flex; flex-direction: column; gap: 16px; margin-top: 12px; }
+.part-1 .jt__details { display: flex; flex-direction: column; gap: 16px; }
+.part-1 .jt__foot { display: flex; flex-shrink: 0; align-items: center; justify-content: flex-end; gap: 8px; padding: 14px 20px; border-top: 1px solid #EBEBEB; background: #FFFFFF; }
+.part-1 .jt :focus-visible { outline: 2px solid #0B63E5; outline-offset: 2px; }
+.part-1 .jf { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.part-1 .jf__label { color: #171717; font-size: 13px; font-weight: 500; line-height: 18px; }
+.part-1 .jf__req { margin-left: 2px; color: #C4281C; }
+.part-1 .jf__hint { margin: 0; color: #6B6B6B; font-size: 12px; line-height: 16px; }
+.part-1 .jf__error { display: flex; align-items: center; gap: 6px; margin: 0; color: #C4281C; font-size: 13px; line-height: 18px; }
+.part-1 .jf__error svg { flex-shrink: 0; width: 14px; height: 14px; stroke-width: 2; }
+.part-1 .jc { position: relative; display: flex; align-items: center; gap: 8px; height: 40px; padding: 0 12px; border: 1px solid #DEDEDE; border-radius: 6px; color: #6B6B6B; background: #FFFFFF; transition: border-color 120ms cubic-bezier(0.2, 0, 0, 1), box-shadow 120ms cubic-bezier(0.2, 0, 0, 1); }
+.part-1 .jc:hover { border-color: #C2C2C2; }
+.part-1 .jc:focus-within { border-color: #171717; box-shadow: 0 0 0 3px rgb(23 23 23 / 8%); }
+.part-1 .jc:has(:focus-visible) { outline: 2px solid #0B63E5; outline-offset: 2px; }
+.part-1 .jc > svg { flex-shrink: 0; width: 16px; height: 16px; }
+.part-1 .jc__input, .part-1 .jc__area { flex: 1; min-width: 0; height: 100%; margin: 0; padding: 0; border: 0; border-radius: 0; outline: 0; color: #171717; background: transparent; font: inherit; font-size: 14px; }
+.part-1 .jc__input::placeholder, .part-1 .jc__area::placeholder { color: #6B6B6B; opacity: 1; }
+.part-1 .jc__input:focus-visible, .part-1 .jc__trigger:focus-visible, .part-1 .jc__area:focus-visible { outline: 0; }
+.part-1 .jc__input[type="date"] { min-width: 0; }
+.part-1 .jc__input[type="number"] { -moz-appearance: textfield; }
+.part-1 .jc__input::-webkit-outer-spin-button, .part-1 .jc__input::-webkit-inner-spin-button { margin: 0; -webkit-appearance: none; }
+.part-1 .jc--sel { padding-right: 40px; cursor: pointer; }
+.part-1 .jc__trigger { flex: 1; min-width: 0; height: 100%; margin: 0; padding: 0; border: 0; outline: 0; color: #171717; background: transparent; font: inherit; font-size: 14px; text-align: left; cursor: inherit; }
+.part-1 .jc__value { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.part-1 .jc__chev { position: absolute; right: 12px; display: inline-flex; color: #6B6B6B; pointer-events: none; }
+.part-1 .jc__chev svg { width: 14px; height: 14px; stroke-width: 2; }
+.part-1 /* JobTrackr Select, .part-1 desktop: a menu-styled listbox 4px below the field, .part-1 as wide as the field */
+.jlist__catch { position: fixed; inset: 0; z-index: 4; cursor: default; }
+.part-1 .jlist { position: absolute; top: calc(100% + 5px); left: -1px; right: -1px; z-index: 5; display: flex; flex-direction: column; gap: 1px; max-height: 296px; padding: 6px; overflow-y: auto; border: 1px solid #EBEBEB; border-radius: 8px; color: #171717; background: #FFFFFF; box-shadow: 0 1px 2px rgb(0 0 0 / 4%), 0 12px 32px -8px rgb(0 0 0 / 16%); cursor: default; animation: jt-pop 180ms cubic-bezier(0.2, 0, 0, 1); }
+.part-1 .jopt { display: flex; flex-shrink: 0; align-items: center; gap: 10px; min-height: 32px; padding: 0 8px; border-radius: 6px; font-size: 13px; line-height: 18px; cursor: pointer; }
+.part-1 .jopt:hover, .part-1 .jopt.is-active { background: #F4F4F4; }
+.part-1 .jopt__label { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.part-1 .jopt svg { flex-shrink: 0; width: 14px; height: 14px; color: #171717; stroke-width: 2; }
+@keyframes jt-pop { from { opacity: 0; transform: translateY(4px) scale(0.98); } to { opacity: 1; transform: none; } }
+@keyframes jt-up { from { opacity: 0.6; transform: translateY(24px); } to { opacity: 1; transform: none; } }
+@keyframes jt-fade { from { opacity: 0; } to { opacity: 1; } }
+.part-1 .jc--mono .jc__input { font-family: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; font-variant-numeric: tabular-nums; }
+.part-1 .jc--area { align-items: flex-start; height: auto; padding: 10px 12px; }
+.part-1 .jc__area { display: block; min-height: 60px; height: auto; line-height: 20px; resize: vertical; }
+.part-1 .jc.is-invalid, .part-1 .jc.is-invalid:hover { border-color: #D92D20; }
+.part-1 .jc.is-invalid:focus-within { border-color: #D92D20; box-shadow: 0 0 0 3px rgb(217 45 32 / 10%); }
+.part-1 .jrow { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.part-1 .jnarrow { width: min(200px, 100%); }
+.part-1 .jmuted { margin: 0; color: #6B6B6B; font-size: 13px; }
+.part-1 .jmore { align-self: flex-start; padding: 4px 0; border: 0; color: #171717; background: transparent; font-size: 13px; font-weight: 500; cursor: pointer; }
+.part-1 .jmore:hover { text-decoration: underline; text-underline-offset: 3px; }
+.part-1 .jbtn { display: inline-flex; flex-shrink: 0; align-items: center; justify-content: center; gap: 8px; height: 36px; padding: 0 14px; border: 1px solid #DEDEDE; border-radius: 6px; color: #171717; background: #FFFFFF; font-size: 14px; font-weight: 500; letter-spacing: -0.005em; line-height: 1; white-space: nowrap; cursor: pointer; transition: background-color 120ms cubic-bezier(0.2, 0, 0, 1), border-color 120ms cubic-bezier(0.2, 0, 0, 1); }
+.part-1 .jbtn:hover { background: #F4F4F4; border-color: #C2C2C2; }
+.part-1 .jbtn--primary { border-color: transparent; color: #FFFFFF; background: #171717; }
+.part-1 .jbtn--primary:hover { border-color: transparent; color: #FFFFFF; background: #383838; }
+.part-1 .jbtn.is-busy, .part-1 .jbtn.is-busy:hover { border-color: #EBEBEB; color: #8F8F8F; background: #F4F4F4; cursor: progress; }
+.part-1 .jspin { display: inline-block; flex-shrink: 0; width: 14px; height: 14px; border: 2px solid rgb(23 23 23 / 15%); border-top-color: #171717; border-radius: 50%; animation: jt-spin 0.7s linear infinite; }
+@keyframes jt-spin { to { transform: rotate(360deg); } }
+.part-1 .jfb { display: grid; gap: 8px; font-size: 12px; line-height: 1.5; overflow-wrap: anywhere; }
+.part-1 .jfb > .jbtn { justify-self: start; }
+.part-1 .jfb p { margin: 0; }
+.part-1 .jfb ul { margin: 0; padding-left: 18px; list-style: disc; }
+.part-1 .jfb strong { font-weight: 600; }
+.part-1 .jsug { padding: 10px 0; border-top: 1px solid #e5e7eb; }
+.part-1 .jsug > div { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+@media (prefers-reduced-motion: reduce) {.part-1 .jspin { animation-duration: 1.8s; }
+.part-1 .jc, .part-1 .jbtn, .part-1 .jt__close { transition: none; }
+.part-1 .jlist, .part-1 .jss__scrim, .part-1 .jss__sheet { animation: jt-fade 120ms linear; }}
+.part-1 .jt { position: relative; height: 600px; overflow: hidden; border-radius: 16px 16px 0 0; }
+.part-1 /* JobTrackr Select below 1024: a bottom sheet titled by the field label (contained in the drawer here) */
+.jss { position: absolute; inset: 0; z-index: 5; }
+.part-1 .jss__scrim { position: absolute; inset: 0; background: rgb(10 10 10 / 32%); animation: jt-fade 180ms cubic-bezier(0.2, 0, 0, 1); }
+.part-1 .jss__sheet { position: absolute; right: 0; bottom: 0; left: 0; display: flex; flex-direction: column; max-height: 88%; border-radius: 16px 16px 0 0; color: #171717; background: #FFFFFF; box-shadow: 0 -12px 40px -12px rgb(0 0 0 / 25%); animation: jt-up 240ms cubic-bezier(0.2, 0, 0, 1); }
+.part-1 .jss__head { display: flex; flex-shrink: 0; align-items: flex-start; justify-content: space-between; gap: 12px; padding: 12px 8px 12px 20px; }
+.part-1 .jss__title { margin: 0; font-size: 17px; font-weight: 600; line-height: 24px; letter-spacing: -0.01em; }
+.part-1 .jss__close { display: inline-flex; flex-shrink: 0; align-items: center; justify-content: center; width: 44px; height: 44px; margin: -10px 0; padding: 0; border: 1px solid transparent; border-radius: 4px; color: #6B6B6B; background: transparent; cursor: pointer; }
+.part-1 .jss__close svg { width: 20px; height: 20px; }
+.part-1 .jss__body { display: flex; flex-grow: 1; flex-direction: column; min-height: 0; padding-bottom: 32px; overflow: auto; overscroll-behavior: contain; }
+.part-1 .jss__list { display: flex; flex-direction: column; padding-bottom: 8px; }
+.part-1 .jss__row { display: flex; align-items: center; gap: 12px; width: 100%; min-height: 48px; padding: 0 20px; border: 0; color: #171717; background: transparent; font-size: 16px; text-align: left; cursor: pointer; }
+.part-1 .jss__row:hover { background: #F4F4F4; }
+.part-1 .jss__row:focus-visible { outline: 2px solid #0B63E5; outline-offset: -2px; }
+.part-1 .jss__row svg { flex-shrink: 0; width: 18px; height: 18px; color: #171717; stroke-width: 2; }
+.part-1 .jt__grab { display: block; flex-shrink: 0; width: 36px; height: 4px; margin: 8px auto 0; border-radius: 2px; background: #DEDEDE; }
+.part-1 .jt__head { padding: 12px 8px 12px 20px; border-bottom: 0; }
+.part-1 .jt__title { font-size: 17px; }
+.part-1 .jt__close { width: 44px; height: 44px; margin: -10px 0; }
+.part-1 .jt__close svg { width: 20px; height: 20px; }
+.part-1 .jt__body { padding: 4px 20px 20px; }
+.part-1 .jt__foot { padding: 12px 20px 20px; }
+.part-1 .jt__foot .jbtn { flex: 1 1 0; }
+.part-1 .jt__foot .jbtn--primary { flex-grow: 2; }
+.part-1 .jc { height: 44px; }
+.part-1 .jc--area { height: auto; }
+.part-1 .jc__input, .part-1 .jc__trigger, .part-1 .jc__area, .part-1 .jc--mono .jc__input { font-size: 16px; }
+.part-1 .jbtn { height: 44px; padding: 0 16px; font-size: 15px; }
+.part-1 .jrow { grid-template-columns: minmax(0, 1fr); }
+.part-1 .jnarrow { width: 100%; }
+.part-1 /* Plate around the replica */
+.jxp { display: flex; flex-direction: column; padding-top: 20px; background: #ECEBE6; }
+.part-1 .jxp__top { display: flex; flex-direction: column; gap: 14px; padding: 0 20px 16px; font-size: 15px; line-height: 1.4; }
+.part-1 .jxp__name { font-weight: 500; }
+.part-1 .jxp__pick { display: flex; flex-direction: column; align-items: flex-start; margin: -4px 0; }
+.part-1 .jxp__pick .opt { display: inline-flex; align-items: center; min-height: 44px; }
+.part-1 .jxp__label { display: none; }
+.part-1 .jxp__prompt { line-height: 1.45; color: #65635D; text-wrap: pretty; }
+.part-1 .jxp__prompt--ink { color: #111110; font-weight: 500; }
+.part-1 .jxp__after { display: flex; flex-direction: column; gap: 20px; padding: 20px; font-size: 15px; line-height: 1.45; }
+.part-1 .jxp__note { text-wrap: pretty; }
+.part-1 .jxp__how { display: flex; flex-direction: column; align-items: flex-start; gap: 16px; }
+.part-1 .jxp__how > .textbtn { display: inline-flex; align-items: center; min-height: 44px; margin: -10px 0; }
+.part-1 .jxp__path { display: flex; flex-direction: column; gap: 8px; }
+.part-1 .jxp__step { display: flex; flex-direction: column; color: #65635D; }
+.part-1 .jxp__step.is-used span:first-child { color: #111110; }
+.part-1 .jxp__text { display: flex; flex-direction: column; gap: 8px; text-wrap: pretty; }
+.part-1 .jxp__task { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; line-height: 1.45; }
+.part-1 .jxp__actions { display: flex; flex-wrap: wrap; gap: 0 20px; }
+.part-1 .jxp__actions .textbtn { display: inline-flex; align-items: center; min-height: 44px; }
+.part-1 .jxp__log { color: #65635D; text-wrap: pretty; }
+.part-1 .jxp__log.is-on { color: #111110; }
+.part-1 .jxp__cta { display: inline-flex; align-items: center; align-self: flex-start; min-height: 44px; margin: -10px 0; font-weight: 500; }
+.part-1 .jxp__foot { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; font-size: 13px; line-height: 1.4; color: #65635D; }
+.part-1 .jxp__foot .opt { flex: none; }
+.part-1 .textbtn { position: relative; margin: 0; padding: 0; border: 0; background: none; font: inherit; font-weight: 500; color: #111110; cursor: pointer; text-align: left; }
+.part-1 .textbtn:disabled { color: #8F8C85; cursor: default; }
+*, ::before, ::after { box-sizing: border-box; }
+html { overflow-x: hidden; }
+body { margin: 0; background: #FAFAF8; color: #111110; font-family: 'PP Neue Montreal', 'Helvetica Neue', Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; text-rendering: optimizelegibility; }
+.part-2 h1, .part-2 h2, .part-2 h3, .part-2 p, .part-2 dl, .part-2 dd, .part-2 figure, .part-2 ol, .part-2 ul { margin: 0; }
+.part-2 ol, .part-2 ul { padding: 0; list-style: none; }
+.part-2 a { color: inherit; text-decoration: none; transition: color 0.15s; }
+.part-2 a:hover { color: #65635D; }
+.part-2 a:focus-visible, .part-2 button:focus-visible, .part-2 input:focus-visible { outline: 2px solid currentcolor; outline-offset: 3px; }
+.part-2 .vh { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+.part-2 .opt { position: relative; margin: 0; padding: 0; border: 0; background: none; font: inherit; color: #65635D; cursor: pointer; transition: color 0.15s; text-align: left; }
+.part-2 .opt:hover { color: #111110; }
+.part-2 .opt.is-on { color: #111110; cursor: default; }
+.part-2 .opt--ink { color: #111110; }
+.part-2 .opt--ink:hover { color: #65635D; }
+.part-2 .opt:disabled { color: #8F8C85; cursor: default; }
+.part-2 .page { width: 390px;  padding: 28px 20px 32px; display: flex; flex-direction: column; }
+.part-2 .page--cont { padding-top: 56px; }
+.part-2 .top { display: flex; justify-content: space-between; align-items: baseline; font-size: 15px; line-height: 1.4; }
+.part-2 .top__name { font-weight: 500; }
+.part-2 .head { margin-top: 56px; display: flex; flex-direction: column; gap: 16px; }
+.part-2 .title { font-size: 40px; font-weight: 500; line-height: 0.95; letter-spacing: -0.04em; margin-left: -0.071em; text-wrap: balance; }
+.part-2 .sub { font-size: 20px; line-height: 1.3; letter-spacing: -0.01em; color: #65635D; text-wrap: pretty; }
+.part-2 .meta { margin-top: 16px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 16px; font-size: 15px; line-height: 1.4; }
+.part-2 .meta div { display: flex; flex-direction: column; gap: 2px; }
+.part-2 .meta dt { color: #65635D; }
+.part-2 .body { display: flex; flex-direction: column; gap: 80px; }
+.part-2 .row { display: flex; flex-direction: column; gap: 16px; }
+.part-2 .head + .body { margin-top: 48px; }
+.part-2 .sec { display: flex; flex-direction: column; gap: 16px; }
+.part-2 .h2 { font-size: 26px; font-weight: 500; line-height: 1.15; letter-spacing: -0.02em; text-wrap: balance; }
+.part-2 .h2--stem { margin-left: -0.071em; }
+.part-2 .h2--round { margin-left: -0.036em; }
+.part-2 .h2--w { margin-left: -0.014em; }
+.part-2 .h2--s { margin-left: -0.024em; }
+.part-2 .prose { display: flex; flex-direction: column; gap: 16px; font-size: 17px; line-height: 1.55; letter-spacing: -0.005em; text-wrap: pretty; }
+.part-2 .after { margin-top: 32px; }
+.part-2 .demo { margin-top: 32px; display: flex; flex-direction: column; gap: 12px; }
+.part-2 .cap { font-size: 15px; line-height: 1.45; color: #65635D; text-wrap: pretty; }
+.part-2 .vplate { padding: 12px 12px 4px; background: #ECEBE6; }
+.part-2 .frame { position: relative; aspect-ratio: 16 / 10; overflow: hidden; background: #000; }
+.part-2 .slot { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; padding: 16px; background: #D9D7D0; text-align: center; font-size: 12px; line-height: 1.4; color: #4A4843; }
+.part-2 .slot__name { font-size: 14px; font-weight: 500; color: #111110; }
+.part-2 .ctrl { display: flex; justify-content: flex-end; align-items: center; min-height: 44px; font-size: 15px; line-height: 1.4; }
+.part-2 .ctrl__label { display: none; }
+.part-2 .group { display: flex; gap: 16px; }
+.part-2 .opt::after { content: ""; position: absolute; inset: -12px -6px; }
+.part-2 /* Visual 04 */
+.tl { margin-top: 32px; display: flex; flex-direction: column; gap: 20px; }
+.part-2 .tl .row { display: flex; flex-direction: column; gap: 4px; }
+.part-2 .tl__when { font-size: 14px; line-height: 1.4; color: #65635D; }
+.part-2 .tl__what { font-size: 17px; line-height: 1.5; letter-spacing: -0.005em; text-wrap: pretty; }
+.part-2 /* Visual 05 */
+.nums { margin-top: 32px; }
+.part-2 .nums__body { display: flex; flex-direction: column; gap: 16px; }
+.part-2 .nums__row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 16px; }
+.part-2 .num { display: flex; flex-direction: column; gap: 6px; }
+.part-2 .num__n { margin-left: -0.028em; font-size: 56px; font-weight: 500; line-height: 0.9; letter-spacing: -0.025em; font-variant-numeric: proportional-nums; }
+.part-2 .num__n--one { margin-left: -0.013em; }
+.part-2 .num__l { font-size: 13px; line-height: 1.4; color: #65635D; text-wrap: pretty; }
+.part-2 .nums__note { font-size: 14px; line-height: 1.45; color: #65635D; text-wrap: pretty; }
+.part-2 /* CTA */
+.cta__link { display: inline-flex; align-items: center; min-height: 44px; font-size: 28px; font-weight: 500; line-height: 1.1; letter-spacing: -0.022em; margin-left: -0.015em; }
+.part-2 /* Footer */
+.foot { margin-top: auto; padding-top: 104px; display: flex; flex-direction: column; gap: 40px; }
+.part-2 .foot__next { display: flex; flex-direction: column; gap: 8px; }
+.part-2 .foot__label { font-size: 15px; line-height: 1.4; color: #65635D; }
+.part-2 .foot__link { font-size: 40px; font-weight: 500; line-height: 0.95; letter-spacing: -0.04em; margin-left: -0.015em; text-wrap: balance; }
+.part-2 .aside { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 16px; align-items: end; font-size: 15px; line-height: 1.4; }
+.part-2 .clock { position: relative; width: 88px; height: 88px; color: #65635D; }
+.part-2 .clock svg { display: block; width: 88px; height: 88px; fill: none; stroke-linecap: round; }
+.part-2 .clock__face { stroke: currentcolor; stroke-width: 1; }
+.part-2 .clock__readout { fill: currentcolor; font-size: 11px; text-anchor: middle; dominant-baseline: central; }
+.part-2 .clock__hand { stroke: #111110; stroke-width: 1; }
+.part-2 .clock__hand--hour { stroke-width: 2.25; }
+.part-2 .clock__pivot { fill: #FAFAF8; stroke: #111110; stroke-width: 1; }
+.part-2 .clock__time { position: absolute; left: 23px; top: 44px; transform: translate(-50%, -50%); font-size: 11px; line-height: 1; white-space: nowrap; pointer-events: none; }
+.part-2 .links { display: flex; flex-direction: column; align-items: flex-end; text-align: right; }
+.part-2 .links a { display: inline-block; padding: 6px 0; }
+.part-2 /* JobTrackr Add application replica (light tokens) */
+.jt { display: flex; flex-direction: column; min-width: 0; min-height: 0; background: #FFFFFF; color: #171717; font-family: 'Geist', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif; font-size: 14px; line-height: normal; letter-spacing: 0; -webkit-font-smoothing: antialiased; }
+.part-2 .jt svg { fill: none; stroke: currentcolor; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+.part-2 .jt button { font-family: inherit; }
+.part-2 .jt__grab { display: none; }
+.part-2 .jt__head { display: flex; flex-shrink: 0; align-items: flex-start; justify-content: space-between; gap: 12px; padding: 20px 20px 16px; border-bottom: 1px solid #EBEBEB; }
+.part-2 .jt__title { margin: 0; font-size: 16px; font-weight: 600; line-height: 24px; letter-spacing: -0.01em; }
+.part-2 .jt__close { display: inline-flex; flex-shrink: 0; align-items: center; justify-content: center; width: 32px; height: 32px; margin: -4px -6px 0 0; padding: 0; border: 1px solid transparent; border-radius: 4px; color: #6B6B6B; background: transparent; cursor: pointer; transition: background-color 120ms cubic-bezier(0.2, 0, 0, 1), color 120ms cubic-bezier(0.2, 0, 0, 1); }
+.part-2 .jt__close:hover { color: #171717; background: #F4F4F4; }
+.part-2 .jt__close svg { width: 16px; height: 16px; }
+.part-2 .jt__body { flex-grow: 1; min-height: 0; padding: 20px; overflow: auto; overscroll-behavior: auto; }
+.part-2 .jt__form { display: flex; flex-direction: column; gap: 16px; margin-top: 12px; }
+.part-2 .jt__details { display: flex; flex-direction: column; gap: 16px; }
+.part-2 .jt__foot { display: flex; flex-shrink: 0; align-items: center; justify-content: flex-end; gap: 8px; padding: 14px 20px; border-top: 1px solid #EBEBEB; background: #FFFFFF; }
+.part-2 .jt :focus-visible { outline: 2px solid #0B63E5; outline-offset: 2px; }
+.part-2 .jf { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.part-2 .jf__label { color: #171717; font-size: 13px; font-weight: 500; line-height: 18px; }
+.part-2 .jf__req { margin-left: 2px; color: #C4281C; }
+.part-2 .jf__hint { margin: 0; color: #6B6B6B; font-size: 12px; line-height: 16px; }
+.part-2 .jf__error { display: flex; align-items: center; gap: 6px; margin: 0; color: #C4281C; font-size: 13px; line-height: 18px; }
+.part-2 .jf__error svg { flex-shrink: 0; width: 14px; height: 14px; stroke-width: 2; }
+.part-2 .jc { position: relative; display: flex; align-items: center; gap: 8px; height: 40px; padding: 0 12px; border: 1px solid #DEDEDE; border-radius: 6px; color: #6B6B6B; background: #FFFFFF; transition: border-color 120ms cubic-bezier(0.2, 0, 0, 1), box-shadow 120ms cubic-bezier(0.2, 0, 0, 1); }
+.part-2 .jc:hover { border-color: #C2C2C2; }
+.part-2 .jc:focus-within { border-color: #171717; box-shadow: 0 0 0 3px rgb(23 23 23 / 8%); }
+.part-2 .jc:has(:focus-visible) { outline: 2px solid #0B63E5; outline-offset: 2px; }
+.part-2 .jc > svg { flex-shrink: 0; width: 16px; height: 16px; }
+.part-2 .jc__input, .part-2 .jc__area { flex: 1; min-width: 0; height: 100%; margin: 0; padding: 0; border: 0; border-radius: 0; outline: 0; color: #171717; background: transparent; font: inherit; font-size: 14px; }
+.part-2 .jc__input::placeholder, .part-2 .jc__area::placeholder { color: #6B6B6B; opacity: 1; }
+.part-2 .jc__input:focus-visible, .part-2 .jc__trigger:focus-visible, .part-2 .jc__area:focus-visible { outline: 0; }
+.part-2 .jc__input[type="date"] { min-width: 0; }
+.part-2 .jc__input[type="number"] { -moz-appearance: textfield; }
+.part-2 .jc__input::-webkit-outer-spin-button, .part-2 .jc__input::-webkit-inner-spin-button { margin: 0; -webkit-appearance: none; }
+.part-2 .jc--sel { padding-right: 40px; cursor: pointer; }
+.part-2 .jc__trigger { flex: 1; min-width: 0; height: 100%; margin: 0; padding: 0; border: 0; outline: 0; color: #171717; background: transparent; font: inherit; font-size: 14px; text-align: left; cursor: inherit; }
+.part-2 .jc__value { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.part-2 .jc__chev { position: absolute; right: 12px; display: inline-flex; color: #6B6B6B; pointer-events: none; }
+.part-2 .jc__chev svg { width: 14px; height: 14px; stroke-width: 2; }
+.part-2 /* JobTrackr Select, .part-2 desktop: a menu-styled listbox 4px below the field, .part-2 as wide as the field */
+.jlist__catch { position: fixed; inset: 0; z-index: 4; cursor: default; }
+.part-2 .jlist { position: absolute; top: calc(100% + 5px); left: -1px; right: -1px; z-index: 5; display: flex; flex-direction: column; gap: 1px; max-height: 296px; padding: 6px; overflow-y: auto; border: 1px solid #EBEBEB; border-radius: 8px; color: #171717; background: #FFFFFF; box-shadow: 0 1px 2px rgb(0 0 0 / 4%), 0 12px 32px -8px rgb(0 0 0 / 16%); cursor: default; animation: jt-pop 180ms cubic-bezier(0.2, 0, 0, 1); }
+.part-2 .jopt { display: flex; flex-shrink: 0; align-items: center; gap: 10px; min-height: 32px; padding: 0 8px; border-radius: 6px; font-size: 13px; line-height: 18px; cursor: pointer; }
+.part-2 .jopt:hover, .part-2 .jopt.is-active { background: #F4F4F4; }
+.part-2 .jopt__label { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.part-2 .jopt svg { flex-shrink: 0; width: 14px; height: 14px; color: #171717; stroke-width: 2; }
+@keyframes jt-pop { from { opacity: 0; transform: translateY(4px) scale(0.98); } to { opacity: 1; transform: none; } }
+@keyframes jt-up { from { opacity: 0.6; transform: translateY(24px); } to { opacity: 1; transform: none; } }
+@keyframes jt-fade { from { opacity: 0; } to { opacity: 1; } }
+.part-2 .jc--mono .jc__input { font-family: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; font-variant-numeric: tabular-nums; }
+.part-2 .jc--area { align-items: flex-start; height: auto; padding: 10px 12px; }
+.part-2 .jc__area { display: block; min-height: 60px; height: auto; line-height: 20px; resize: vertical; }
+.part-2 .jc.is-invalid, .part-2 .jc.is-invalid:hover { border-color: #D92D20; }
+.part-2 .jc.is-invalid:focus-within { border-color: #D92D20; box-shadow: 0 0 0 3px rgb(217 45 32 / 10%); }
+.part-2 .jrow { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.part-2 .jnarrow { width: min(200px, 100%); }
+.part-2 .jmuted { margin: 0; color: #6B6B6B; font-size: 13px; }
+.part-2 .jmore { align-self: flex-start; padding: 4px 0; border: 0; color: #171717; background: transparent; font-size: 13px; font-weight: 500; cursor: pointer; }
+.part-2 .jmore:hover { text-decoration: underline; text-underline-offset: 3px; }
+.part-2 .jbtn { display: inline-flex; flex-shrink: 0; align-items: center; justify-content: center; gap: 8px; height: 36px; padding: 0 14px; border: 1px solid #DEDEDE; border-radius: 6px; color: #171717; background: #FFFFFF; font-size: 14px; font-weight: 500; letter-spacing: -0.005em; line-height: 1; white-space: nowrap; cursor: pointer; transition: background-color 120ms cubic-bezier(0.2, 0, 0, 1), border-color 120ms cubic-bezier(0.2, 0, 0, 1); }
+.part-2 .jbtn:hover { background: #F4F4F4; border-color: #C2C2C2; }
+.part-2 .jbtn--primary { border-color: transparent; color: #FFFFFF; background: #171717; }
+.part-2 .jbtn--primary:hover { border-color: transparent; color: #FFFFFF; background: #383838; }
+.part-2 .jbtn.is-busy, .part-2 .jbtn.is-busy:hover { border-color: #EBEBEB; color: #8F8F8F; background: #F4F4F4; cursor: progress; }
+.part-2 .jspin { display: inline-block; flex-shrink: 0; width: 14px; height: 14px; border: 2px solid rgb(23 23 23 / 15%); border-top-color: #171717; border-radius: 50%; animation: jt-spin 0.7s linear infinite; }
+@keyframes jt-spin { to { transform: rotate(360deg); } }
+.part-2 .jfb { display: grid; gap: 8px; font-size: 12px; line-height: 1.5; overflow-wrap: anywhere; }
+.part-2 .jfb > .jbtn { justify-self: start; }
+.part-2 .jfb p { margin: 0; }
+.part-2 .jfb ul { margin: 0; padding-left: 18px; list-style: disc; }
+.part-2 .jfb strong { font-weight: 600; }
+.part-2 .jsug { padding: 10px 0; border-top: 1px solid #e5e7eb; }
+.part-2 .jsug > div { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+@media (prefers-reduced-motion: reduce) {.part-2 .jspin { animation-duration: 1.8s; }
+.part-2 .jc, .part-2 .jbtn, .part-2 .jt__close { transition: none; }
+.part-2 .jlist, .part-2 .jss__scrim, .part-2 .jss__sheet { animation: jt-fade 120ms linear; }}
+.part-2 .jt { position: relative; height: 600px; overflow: hidden; border-radius: 16px 16px 0 0; }
+.part-2 /* JobTrackr Select below 1024: a bottom sheet titled by the field label (contained in the drawer here) */
+.jss { position: absolute; inset: 0; z-index: 5; }
+.part-2 .jss__scrim { position: absolute; inset: 0; background: rgb(10 10 10 / 32%); animation: jt-fade 180ms cubic-bezier(0.2, 0, 0, 1); }
+.part-2 .jss__sheet { position: absolute; right: 0; bottom: 0; left: 0; display: flex; flex-direction: column; max-height: 88%; border-radius: 16px 16px 0 0; color: #171717; background: #FFFFFF; box-shadow: 0 -12px 40px -12px rgb(0 0 0 / 25%); animation: jt-up 240ms cubic-bezier(0.2, 0, 0, 1); }
+.part-2 .jss__head { display: flex; flex-shrink: 0; align-items: flex-start; justify-content: space-between; gap: 12px; padding: 12px 8px 12px 20px; }
+.part-2 .jss__title { margin: 0; font-size: 17px; font-weight: 600; line-height: 24px; letter-spacing: -0.01em; }
+.part-2 .jss__close { display: inline-flex; flex-shrink: 0; align-items: center; justify-content: center; width: 44px; height: 44px; margin: -10px 0; padding: 0; border: 1px solid transparent; border-radius: 4px; color: #6B6B6B; background: transparent; cursor: pointer; }
+.part-2 .jss__close svg { width: 20px; height: 20px; }
+.part-2 .jss__body { display: flex; flex-grow: 1; flex-direction: column; min-height: 0; padding-bottom: 32px; overflow: auto; overscroll-behavior: contain; }
+.part-2 .jss__list { display: flex; flex-direction: column; padding-bottom: 8px; }
+.part-2 .jss__row { display: flex; align-items: center; gap: 12px; width: 100%; min-height: 48px; padding: 0 20px; border: 0; color: #171717; background: transparent; font-size: 16px; text-align: left; cursor: pointer; }
+.part-2 .jss__row:hover { background: #F4F4F4; }
+.part-2 .jss__row:focus-visible { outline: 2px solid #0B63E5; outline-offset: -2px; }
+.part-2 .jss__row svg { flex-shrink: 0; width: 18px; height: 18px; color: #171717; stroke-width: 2; }
+.part-2 .jt__grab { display: block; flex-shrink: 0; width: 36px; height: 4px; margin: 8px auto 0; border-radius: 2px; background: #DEDEDE; }
+.part-2 .jt__head { padding: 12px 8px 12px 20px; border-bottom: 0; }
+.part-2 .jt__title { font-size: 17px; }
+.part-2 .jt__close { width: 44px; height: 44px; margin: -10px 0; }
+.part-2 .jt__close svg { width: 20px; height: 20px; }
+.part-2 .jt__body { padding: 4px 20px 20px; }
+.part-2 .jt__foot { padding: 12px 20px 20px; }
+.part-2 .jt__foot .jbtn { flex: 1 1 0; }
+.part-2 .jt__foot .jbtn--primary { flex-grow: 2; }
+.part-2 .jc { height: 44px; }
+.part-2 .jc--area { height: auto; }
+.part-2 .jc__input, .part-2 .jc__trigger, .part-2 .jc__area, .part-2 .jc--mono .jc__input { font-size: 16px; }
+.part-2 .jbtn { height: 44px; padding: 0 16px; font-size: 15px; }
+.part-2 .jrow { grid-template-columns: minmax(0, 1fr); }
+.part-2 .jnarrow { width: 100%; }
+.part-2 /* Plate around the replica */
+.jxp { display: flex; flex-direction: column; padding-top: 20px; background: #ECEBE6; }
+.part-2 .jxp__top { display: flex; flex-direction: column; gap: 14px; padding: 0 20px 16px; font-size: 15px; line-height: 1.4; }
+.part-2 .jxp__name { font-weight: 500; }
+.part-2 .jxp__pick { display: flex; flex-direction: column; align-items: flex-start; margin: -4px 0; }
+.part-2 .jxp__pick .opt { display: inline-flex; align-items: center; min-height: 44px; }
+.part-2 .jxp__label { display: none; }
+.part-2 .jxp__prompt { line-height: 1.45; color: #65635D; text-wrap: pretty; }
+.part-2 .jxp__prompt--ink { color: #111110; font-weight: 500; }
+.part-2 .jxp__after { display: flex; flex-direction: column; gap: 20px; padding: 20px; font-size: 15px; line-height: 1.45; }
+.part-2 .jxp__note { text-wrap: pretty; }
+.part-2 .jxp__how { display: flex; flex-direction: column; align-items: flex-start; gap: 16px; }
+.part-2 .jxp__how > .textbtn { display: inline-flex; align-items: center; min-height: 44px; margin: -10px 0; }
+.part-2 .jxp__path { display: flex; flex-direction: column; gap: 8px; }
+.part-2 .jxp__step { display: flex; flex-direction: column; color: #65635D; }
+.part-2 .jxp__step.is-used span:first-child { color: #111110; }
+.part-2 .jxp__text { display: flex; flex-direction: column; gap: 8px; text-wrap: pretty; }
+.part-2 .jxp__task { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; line-height: 1.45; }
+.part-2 .jxp__actions { display: flex; flex-wrap: wrap; gap: 0 20px; }
+.part-2 .jxp__actions .textbtn { display: inline-flex; align-items: center; min-height: 44px; }
+.part-2 .jxp__log { color: #65635D; text-wrap: pretty; }
+.part-2 .jxp__log.is-on { color: #111110; }
+.part-2 .jxp__cta { display: inline-flex; align-items: center; align-self: flex-start; min-height: 44px; margin: -10px 0; font-weight: 500; }
+.part-2 .jxp__foot { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; font-size: 13px; line-height: 1.4; color: #65635D; }
+.part-2 .jxp__foot .opt { flex: none; }
+.part-2 .textbtn { position: relative; margin: 0; padding: 0; border: 0; background: none; font: inherit; font-weight: 500; color: #111110; cursor: pointer; text-align: left; }
+.part-2 .textbtn:disabled { color: #8F8C85; cursor: default; }
+*, ::before, ::after { box-sizing: border-box; }
+html { overflow-x: hidden; }
+body { margin: 0; background: #FAFAF8; color: #111110; font-family: 'PP Neue Montreal', 'Helvetica Neue', Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; text-rendering: optimizelegibility; }
+.part-3 h1, .part-3 h2, .part-3 h3, .part-3 p, .part-3 dl, .part-3 dd, .part-3 figure, .part-3 ol, .part-3 ul { margin: 0; }
+.part-3 ol, .part-3 ul { padding: 0; list-style: none; }
+.part-3 a { color: inherit; text-decoration: none; transition: color 0.15s; }
+.part-3 a:hover { color: #65635D; }
+.part-3 a:focus-visible, .part-3 button:focus-visible, .part-3 input:focus-visible { outline: 2px solid currentcolor; outline-offset: 3px; }
+.part-3 .vh { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+.part-3 .opt { position: relative; margin: 0; padding: 0; border: 0; background: none; font: inherit; color: #65635D; cursor: pointer; transition: color 0.15s; text-align: left; }
+.part-3 .opt:hover { color: #111110; }
+.part-3 .opt.is-on { color: #111110; cursor: default; }
+.part-3 .opt--ink { color: #111110; }
+.part-3 .opt--ink:hover { color: #65635D; }
+.part-3 .opt:disabled { color: #8F8C85; cursor: default; }
+.part-3 .page { width: 390px;  padding: 28px 20px 32px; display: flex; flex-direction: column; }
+.part-3 .page--cont { padding-top: 56px; }
+.part-3 .top { display: flex; justify-content: space-between; align-items: baseline; font-size: 15px; line-height: 1.4; }
+.part-3 .top__name { font-weight: 500; }
+.part-3 .head { margin-top: 56px; display: flex; flex-direction: column; gap: 16px; }
+.part-3 .title { font-size: 40px; font-weight: 500; line-height: 0.95; letter-spacing: -0.04em; margin-left: -0.071em; text-wrap: balance; }
+.part-3 .sub { font-size: 20px; line-height: 1.3; letter-spacing: -0.01em; color: #65635D; text-wrap: pretty; }
+.part-3 .meta { margin-top: 16px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 16px; font-size: 15px; line-height: 1.4; }
+.part-3 .meta div { display: flex; flex-direction: column; gap: 2px; }
+.part-3 .meta dt { color: #65635D; }
+.part-3 .body { display: flex; flex-direction: column; gap: 80px; }
+.part-3 .row { display: flex; flex-direction: column; gap: 16px; }
+.part-3 .head + .body { margin-top: 48px; }
+.part-3 .sec { display: flex; flex-direction: column; gap: 16px; }
+.part-3 .h2 { font-size: 26px; font-weight: 500; line-height: 1.15; letter-spacing: -0.02em; text-wrap: balance; }
+.part-3 .h2--stem { margin-left: -0.071em; }
+.part-3 .h2--round { margin-left: -0.036em; }
+.part-3 .h2--w { margin-left: -0.014em; }
+.part-3 .h2--s { margin-left: -0.024em; }
+.part-3 .prose { display: flex; flex-direction: column; gap: 16px; font-size: 17px; line-height: 1.55; letter-spacing: -0.005em; text-wrap: pretty; }
+.part-3 .after { margin-top: 32px; }
+.part-3 .demo { margin-top: 32px; display: flex; flex-direction: column; gap: 12px; }
+.part-3 .cap { font-size: 15px; line-height: 1.45; color: #65635D; text-wrap: pretty; }
+.part-3 .vplate { padding: 12px 12px 4px; background: #ECEBE6; }
+.part-3 .frame { position: relative; aspect-ratio: 16 / 10; overflow: hidden; background: #000; }
+.part-3 .slot { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; padding: 16px; background: #D9D7D0; text-align: center; font-size: 12px; line-height: 1.4; color: #4A4843; }
+.part-3 .slot__name { font-size: 14px; font-weight: 500; color: #111110; }
+.part-3 .ctrl { display: flex; justify-content: flex-end; align-items: center; min-height: 44px; font-size: 15px; line-height: 1.4; }
+.part-3 .ctrl__label { display: none; }
+.part-3 .group { display: flex; gap: 16px; }
+.part-3 .opt::after { content: ""; position: absolute; inset: -12px -6px; }
+.part-3 /* Visual 04 */
+.tl { margin-top: 32px; display: flex; flex-direction: column; gap: 20px; }
+.part-3 .tl .row { display: flex; flex-direction: column; gap: 4px; }
+.part-3 .tl__when { font-size: 14px; line-height: 1.4; color: #65635D; }
+.part-3 .tl__what { font-size: 17px; line-height: 1.5; letter-spacing: -0.005em; text-wrap: pretty; }
+.part-3 /* Visual 05 */
+.nums { margin-top: 32px; }
+.part-3 .nums__body { display: flex; flex-direction: column; gap: 16px; }
+.part-3 .nums__row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 16px; }
+.part-3 .num { display: flex; flex-direction: column; gap: 6px; }
+.part-3 .num__n { margin-left: -0.028em; font-size: 56px; font-weight: 500; line-height: 0.9; letter-spacing: -0.025em; font-variant-numeric: proportional-nums; }
+.part-3 .num__n--one { margin-left: -0.013em; }
+.part-3 .num__l { font-size: 13px; line-height: 1.4; color: #65635D; text-wrap: pretty; }
+.part-3 .nums__note { font-size: 14px; line-height: 1.45; color: #65635D; text-wrap: pretty; }
+.part-3 /* CTA */
+.cta__link { display: inline-flex; align-items: center; min-height: 44px; font-size: 28px; font-weight: 500; line-height: 1.1; letter-spacing: -0.022em; margin-left: -0.015em; }
+.part-3 /* Footer */
+.foot { margin-top: auto; padding-top: 104px; display: flex; flex-direction: column; gap: 40px; }
+.part-3 .foot__next { display: flex; flex-direction: column; gap: 8px; }
+.part-3 .foot__label { font-size: 15px; line-height: 1.4; color: #65635D; }
+.part-3 .foot__link { font-size: 40px; font-weight: 500; line-height: 0.95; letter-spacing: -0.04em; margin-left: -0.015em; text-wrap: balance; }
+.part-3 .aside { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 16px; align-items: end; font-size: 15px; line-height: 1.4; }
+.part-3 .clock { position: relative; width: 88px; height: 88px; color: #65635D; }
+.part-3 .clock svg { display: block; width: 88px; height: 88px; fill: none; stroke-linecap: round; }
+.part-3 .clock__face { stroke: currentcolor; stroke-width: 1; }
+.part-3 .clock__readout { fill: currentcolor; font-size: 11px; text-anchor: middle; dominant-baseline: central; }
+.part-3 .clock__hand { stroke: #111110; stroke-width: 1; }
+.part-3 .clock__hand--hour { stroke-width: 2.25; }
+.part-3 .clock__pivot { fill: #FAFAF8; stroke: #111110; stroke-width: 1; }
+.part-3 .clock__time { position: absolute; left: 23px; top: 44px; transform: translate(-50%, -50%); font-size: 11px; line-height: 1; white-space: nowrap; pointer-events: none; }
+.part-3 .links { display: flex; flex-direction: column; align-items: flex-end; text-align: right; }
+.part-3 .links a { display: inline-block; padding: 6px 0; }
+*, ::before, ::after { box-sizing: border-box; }
+html { overflow-x: hidden; }
+body { margin: 0; background: #FAFAF8; color: #111110; font-family: 'PP Neue Montreal', 'Helvetica Neue', Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; text-rendering: optimizelegibility; }
+.part-4 h1, .part-4 h2, .part-4 h3, .part-4 p, .part-4 dl, .part-4 dd, .part-4 figure, .part-4 ol, .part-4 ul { margin: 0; }
+.part-4 ol, .part-4 ul { padding: 0; list-style: none; }
+.part-4 a { color: inherit; text-decoration: none; transition: color 0.15s; }
+.part-4 a:hover { color: #65635D; }
+.part-4 a:focus-visible, .part-4 button:focus-visible, .part-4 input:focus-visible { outline: 2px solid currentcolor; outline-offset: 3px; }
+.part-4 .vh { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+.part-4 .opt { position: relative; margin: 0; padding: 0; border: 0; background: none; font: inherit; color: #65635D; cursor: pointer; transition: color 0.15s; text-align: left; }
+.part-4 .opt:hover { color: #111110; }
+.part-4 .opt.is-on { color: #111110; cursor: default; }
+.part-4 .opt--ink { color: #111110; }
+.part-4 .opt--ink:hover { color: #65635D; }
+.part-4 .opt:disabled { color: #8F8C85; cursor: default; }
+.part-4 .page { width: 390px;  padding: 28px 20px 32px; display: flex; flex-direction: column; }
+.part-4 .page--cont { padding-top: 56px; }
+.part-4 .top { display: flex; justify-content: space-between; align-items: baseline; font-size: 15px; line-height: 1.4; }
+.part-4 .top__name { font-weight: 500; }
+.part-4 .head { margin-top: 56px; display: flex; flex-direction: column; gap: 16px; }
+.part-4 .title { font-size: 40px; font-weight: 500; line-height: 0.95; letter-spacing: -0.04em; margin-left: -0.071em; text-wrap: balance; }
+.part-4 .sub { font-size: 20px; line-height: 1.3; letter-spacing: -0.01em; color: #65635D; text-wrap: pretty; }
+.part-4 .meta { margin-top: 16px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 16px; font-size: 15px; line-height: 1.4; }
+.part-4 .meta div { display: flex; flex-direction: column; gap: 2px; }
+.part-4 .meta dt { color: #65635D; }
+.part-4 .body { display: flex; flex-direction: column; gap: 80px; }
+.part-4 .row { display: flex; flex-direction: column; gap: 16px; }
+.part-4 .head + .body { margin-top: 48px; }
+.part-4 .sec { display: flex; flex-direction: column; gap: 16px; }
+.part-4 .h2 { font-size: 26px; font-weight: 500; line-height: 1.15; letter-spacing: -0.02em; text-wrap: balance; }
+.part-4 .h2--stem { margin-left: -0.071em; }
+.part-4 .h2--round { margin-left: -0.036em; }
+.part-4 .h2--w { margin-left: -0.014em; }
+.part-4 .h2--s { margin-left: -0.024em; }
+.part-4 .prose { display: flex; flex-direction: column; gap: 16px; font-size: 17px; line-height: 1.55; letter-spacing: -0.005em; text-wrap: pretty; }
+.part-4 .after { margin-top: 32px; }
+.part-4 .demo { margin-top: 32px; display: flex; flex-direction: column; gap: 12px; }
+.part-4 .cap { font-size: 15px; line-height: 1.45; color: #65635D; text-wrap: pretty; }
+.part-4 .vplate { padding: 12px 12px 4px; background: #ECEBE6; }
+.part-4 .frame { position: relative; aspect-ratio: 16 / 10; overflow: hidden; background: #000; }
+.part-4 .slot { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; padding: 16px; background: #D9D7D0; text-align: center; font-size: 12px; line-height: 1.4; color: #4A4843; }
+.part-4 .slot__name { font-size: 14px; font-weight: 500; color: #111110; }
+.part-4 .ctrl { display: flex; justify-content: flex-end; align-items: center; min-height: 44px; font-size: 15px; line-height: 1.4; }
+.part-4 .ctrl__label { display: none; }
+.part-4 .group { display: flex; gap: 16px; }
+.part-4 .opt::after { content: ""; position: absolute; inset: -12px -6px; }
+.part-4 /* Visual 04 */
+.tl { margin-top: 32px; display: flex; flex-direction: column; gap: 20px; }
+.part-4 .tl .row { display: flex; flex-direction: column; gap: 4px; }
+.part-4 .tl__when { font-size: 14px; line-height: 1.4; color: #65635D; }
+.part-4 .tl__what { font-size: 17px; line-height: 1.5; letter-spacing: -0.005em; text-wrap: pretty; }
+.part-4 /* Visual 05 */
+.nums { margin-top: 32px; }
+.part-4 .nums__body { display: flex; flex-direction: column; gap: 16px; }
+.part-4 .nums__row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 16px; }
+.part-4 .num { display: flex; flex-direction: column; gap: 6px; }
+.part-4 .num__n { margin-left: -0.028em; font-size: 56px; font-weight: 500; line-height: 0.9; letter-spacing: -0.025em; font-variant-numeric: proportional-nums; }
+.part-4 .num__n--one { margin-left: -0.013em; }
+.part-4 .num__l { font-size: 13px; line-height: 1.4; color: #65635D; text-wrap: pretty; }
+.part-4 .nums__note { font-size: 14px; line-height: 1.45; color: #65635D; text-wrap: pretty; }
+.part-4 /* CTA */
+.cta__link { display: inline-flex; align-items: center; min-height: 44px; font-size: 28px; font-weight: 500; line-height: 1.1; letter-spacing: -0.022em; margin-left: -0.015em; }
+.part-4 /* Footer */
+.foot { margin-top: auto; padding-top: 104px; display: flex; flex-direction: column; gap: 40px; }
+.part-4 .foot__next { display: flex; flex-direction: column; gap: 8px; }
+.part-4 .foot__label { font-size: 15px; line-height: 1.4; color: #65635D; }
+.part-4 .foot__link { font-size: 40px; font-weight: 500; line-height: 0.95; letter-spacing: -0.04em; margin-left: -0.015em; text-wrap: balance; }
+.part-4 .aside { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 16px; align-items: end; font-size: 15px; line-height: 1.4; }
+.part-4 .clock { position: relative; width: 88px; height: 88px; color: #65635D; }
+.part-4 .clock svg { display: block; width: 88px; height: 88px; fill: none; stroke-linecap: round; }
+.part-4 .clock__face { stroke: currentcolor; stroke-width: 1; }
+.part-4 .clock__readout { fill: currentcolor; font-size: 11px; text-anchor: middle; dominant-baseline: central; }
+.part-4 .clock__hand { stroke: #111110; stroke-width: 1; }
+.part-4 .clock__hand--hour { stroke-width: 2.25; }
+.part-4 .clock__pivot { fill: #FAFAF8; stroke: #111110; stroke-width: 1; }
+.part-4 .clock__time { position: absolute; left: 23px; top: 44px; transform: translate(-50%, -50%); font-size: 11px; line-height: 1; white-space: nowrap; pointer-events: none; }
+.part-4 .links { display: flex; flex-direction: column; align-items: flex-end; text-align: right; }
+.part-4 .links a { display: inline-block; padding: 6px 0; }
+.part-0 .page { padding-bottom: 0 !important; }
+.part-1 .page { padding-bottom: 0 !important; }
+.part-2 .page { padding-bottom: 0 !important; }
+.part-3 .page { padding-bottom: 0 !important; }
+.part-1 .page { padding-top: 80px !important; }
+.part-2 .page { padding-top: 80px !important; }
+.part-3 .page { padding-top: 80px !important; }
+.part-4 .page { padding-top: 80px !important; }
+
+</style>
+</head>
+<body>
+<div class="part-0">
+
+<div style="width: 390px; background: #FAFAF8">
+<div class="page"><header class="top"><a class="top__name" href="#">Balogun Oluwasogo</a><a href="#">Writing</a></header><article><header class="head"><h1 class="title">Building Job URL Extraction into JobTrackr</h1><p class="sub">How a small improvement to adding job applications turned into a series of product decisions, engineering challenges, and lessons from shipping.</p><dl class="meta"><div><dt>Published</dt><dd><time datetime="2026-11-08">8 November 2026</time></dd></div><div><dt>Reading time</dt><dd>10 minutes</dd></div></dl></header><div class="body"><section class="sec" aria-label="Introduction"><div class="row"><div class="prose"><p>One thing I’ve been intentional about with JobTrackr is making the experience of tracking job applications as straightforward as possible.</p><p>Adding an application was already pretty simple. You only needed two fields: the job role and the company. Everything else was optional.</p><p>But there was something I kept thinking about.</p><p>Most times, when you’re adding an application to a tracker, you already have the job posting open somewhere. The role, company, location, description, and other details are right there.</p><p>Yet you’re still copying information from one place to another.</p><p>It wasn’t a particularly difficult process, but I felt it could be more seamless.</p><p>And I wasn’t the only one who thought so. Feedback from a few early JobTrackr users reinforced that feeling.</p><p>So I started thinking: what if you could just paste the job posting URL and let JobTrackr retrieve whatever information was available?</p><p>You’d still review everything before saving. You just wouldn’t have to start from scratch every time.</p><p>That was the idea.</p><p>Building it, however, came with a few more considerations than I initially expected.</p></div></div></section><section class="sec" aria-labelledby="s-url"><div class="row"><h2 class="rail h2 h2--stem" id="s-url">Making the URL do some of the work</h2><div class="prose"><p>I wanted the feature to fit naturally into the existing application form rather than introduce another workflow.</p><p>The experience I had in mind was simple.</p><p>Paste a job URL, let JobTrackr retrieve the relevant details, review or correct whatever comes back, and save when you’re ready.</p><p>If extraction doesn’t work, you can still enter the information yourself.</p><p>One thing I was particular about was keeping the user in control.</p><p>An extracted job title might not be the title someone wants to use in their tracker. A company might appear under a different name on the job board. Some fields might be missing altogether.</p><p>So I didn’t want extraction to automatically create an application or make decisions on someone’s behalf.</p><p>It needed to assist, not take over.</p><p>That decision shaped quite a bit of the implementation.</p></div></div><figure class="demo" aria-label="JobTrackr: pasting a job URL, reviewing the details, and adding the application">
+<div class="vplate">
+<div class="frame" style="aspect-ratio: 1316 / 720"><img src="../../../../src/assets/images/writing/jobtrackr-url-extraction-poster.webp" alt="JobTrackr’s Add application drawer after pasting a job URL: Role reads Senior Frontend Engineer, Marketing Website, Company reads Synthesia, and the status says Details added. Review them before saving." style="display: block; width: 100%; height: 100%; object-fit: cover"/></div>
+<div class="ctrl"><p class="ctrl__label">Pasting a job URL, reviewing the details, then adding the application</p><div class="group"><button class="opt opt--ink" type="button">Play</button></div></div>
+</div>
+<figcaption class="row"><p class="cap">Recorded on jobtrackr.site with a test account and a public job posting. Nothing is saved until Add application is pressed.</p></figcaption>
+</figure></section></div></article></div>
+</div>
+</div>
+<div class="part-1">
+
+<div style="width: 390px; background: #FAFAF8">
+<div class="page page--cont"><div class="body"><section class="sec" aria-labelledby="s-ai"><div class="row"><h2 class="rail h2 h2--w" id="s-ai">Why I didn’t use AI for extraction</h2><div class="prose"><p>This was a deliberate decision.</p><p>I didn’t want to use AI for job details extraction.</p><p>Not because I’m against AI or wouldn’t consider introducing it into JobTrackr. I’ve just been intentional about what I add to the application.</p><p>I don’t want to introduce an AI-powered workflow simply because I can. There has to be a genuine need for it, and it has to fit naturally into the product.</p><p>For this feature, I felt there was a more straightforward approach worth exploring first.</p><p>A lot of job posting platforms already expose structured information. Some have public endpoints for retrieving job details, while others include structured data in their pages to help search engines understand the content.</p><p>That gave me somewhere to start.</p><p>I implemented provider-specific extraction for Greenhouse and Lever, alongside support for JobPosting structured data, commonly represented as JSON-LD.</p><p>JSON-LD is essentially a way for websites to describe their content in a format that software can understand. For a job posting, that might include the title, hiring organization, location, employment type, or salary.</p><p>Where the more structured approaches don’t provide enough information, JobTrackr can also inspect limited page metadata, such as a title or description. Those less certain values are presented as suggestions rather than automatically filling the form.</p><p>The idea was to work with information that was already available instead of introducing a model to interpret every posting.</p><p>I also had to be realistic about the scope.</p><p>JobTrackr is still a relatively small product, with fewer than 100 users at the moment. I didn’t see the need to build an extraction system that tried to support every job board from day one.</p><p>Start small, see how it performs, and expand when there’s a reason to.</p><p>Of course, that meant accepting that not every URL would work.</p><p>Some websites don’t expose useful structured data. Others require authentication, block automated requests, or rely on JavaScript to display important information.</p><p>And even when a page contains structured data, it isn’t always complete or reliable.</p><p>Which raised another question: what should happen when JobTrackr can retrieve some information, but not everything?</p></div></div><figure class="demo" aria-labelledby="d2-name"><div class="jxp" aria-labelledby="d2-name"><div class="jxp__top"><p class="jxp__name" id="d2-name">Where the details come from</p><div class="jxp__pick" role="radiogroup" aria-label="Example link"><span class="jxp__label" aria-hidden="true">Example link</span><button class="opt is-on" type="button" role="radio" aria-checked="true">Greenhouse posting</button><button class="opt" type="button" role="radio" aria-checked="false">Careers page with job data</button><button class="opt" type="button" role="radio" aria-checked="false">Title and description only</button><button class="opt" type="button" role="radio" aria-checked="false">Blocked page</button></div><p class="jxp__prompt">Press Extract details in the form to see what JobTrackr finds for this link.</p></div><div class="jt" role="group" aria-labelledby="d2-title"><div class="jt__grab" aria-hidden="true"></div><div class="jt__head"><h3 class="jt__title" id="d2-title">Add application</h3><button class="jt__close" type="button" aria-label="Close"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button></div><div class="jt__body"><div class="jt__form"><div class="jf"><label class="jf__label" for="d2-url">Job URL</label><div class="jc"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg><input class="jc__input" id="d2-url" type="url" readonly value="https://job-boards.greenhouse.io/northwind/jobs/4012345" placeholder="https://" aria-describedby="d2-url-note"/></div><p class="vh" id="d2-url-note">Example link. Choose another example beside the form.</p></div><section class="jfb" aria-label="Job details extraction"><button class="jbtn" type="button" aria-busy="false" aria-disabled="false">Extract details</button><p role="status" aria-live="polite">Paste a public job URL to fill available details automatically.</p></section><div class="jf"><label class="jf__label" for="d2-role">Role<span class="jf__req" aria-hidden="true">*</span></label><div class="jc"><input class="jc__input" id="d2-role" type="text" value="" placeholder="e.g. Frontend Engineer" maxlength="255" aria-required="true" aria-invalid="false" aria-describedby="d2-role-error"/></div></div><div class="jf"><label class="jf__label" for="d2-company">Company<span class="jf__req" aria-hidden="true">*</span></label><div class="jc"><input class="jc__input" id="d2-company" type="text" value="" placeholder="e.g. Linear" maxlength="255" aria-required="true" aria-invalid="false" aria-describedby="d2-company-error"/></div></div><div class="jrow"><div class="jf"><label class="jf__label" id="d2-source-label" for="d2-source">Source</label><div class="jc jc--sel"><button class="jc__trigger" id="d2-source" type="button" role="combobox" aria-labelledby="d2-source-label" aria-haspopup="listbox" aria-expanded="" aria-controls="d2-source-list"><span class="jc__value"></span></button><span class="jc__chev" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polyline points="6 9 12 15 18 9"></polyline></svg></span></div></div><div class="jf"><label class="jf__label" id="d2-status-label" for="d2-status">Status</label><div class="jc jc--sel"><button class="jc__trigger" id="d2-status" type="button" role="combobox" aria-labelledby="d2-status-label" aria-haspopup="listbox" aria-expanded="" aria-controls="d2-status-list"><span class="jc__value"></span></button><span class="jc__chev" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polyline points="6 9 12 15 18 9"></polyline></svg></span></div></div></div><div class="jf jnarrow"><label class="jf__label" for="d2-date">Date applied</label><div class="jc jc--mono"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg><input class="jc__input" id="d2-date" type="date" value="2026-11-08"/></div><p class="jf__hint" id="d2-date-hint">Leave blank if unknown. Undated applications appear in all-time totals, not date-based charts.</p></div><button class="jmore" type="button" aria-expanded="false" aria-controls="d2-details">+ More details</button></div></div><div class="jt__foot"><button class="jbtn" type="button">Cancel</button><button class="jbtn jbtn--primary" type="button">Add application</button></div></div><div class="jxp__after"><a class="jxp__cta" href="https://jobtrackr.site" target="_blank" rel="noopener">Try it with your own job links on JobTrackr<span class="vh"> (opens in a new tab)</span></a><div class="jxp__foot"><p>Interactive simulation. It runs in your browser and doesn’t contact JobTrackr. Nothing you type is sent or saved.</p><button class="opt" type="button">Reset</button></div></div></div><figcaption class="row"><p class="cap">Recognised Greenhouse and Lever links use the job board’s public API. Other pages can still describe the job with JobPosting data. A page title or description is only ever a suggestion.</p></figcaption></figure></section></div></div>
+</div>
+</div>
+<div class="part-2">
+
+<div style="width: 390px; background: #FAFAF8">
+<div class="page page--cont"><div class="body"><section class="sec" aria-labelledby="s-data"><div class="row"><h2 class="rail h2 h2--round" id="s-data">Getting the data was only part of the problem</h2><div class="prose"><p>On the surface, extraction sounds pretty straightforward.</p><p>Fetch a page. Find the relevant information. Put it into the form.</p><p>But the more interesting engineering challenges came from thinking about what someone might be doing while that process was happening.</p><p>Say you paste a URL and immediately start typing the company name yourself.</p><p>What happens if extraction finishes a second later and returns a different company name?</p><p>Should it replace what you typed?</p><p>I didn’t think so.</p><p>The same goes for deliberately clearing a field. An empty field doesn’t always mean someone forgot to fill it. Sometimes they simply don’t want that value.</p><p>So I needed to distinguish between information JobTrackr had filled automatically and information the user had deliberately entered or changed.</p><p>The implementation keeps track of those differences.</p><p>When extraction returns, it can populate eligible blank fields without overwriting fields the user has manually touched. Less certain information is presented as suggestions that can be accepted or dismissed.</p><p>It might seem like a small interaction detail, but it makes a difference to how the feature feels.</p><p>There was another scenario to consider.</p><p>What if someone pastes one URL, changes their mind, and pastes another before the first extraction finishes?</p><p>The second request might finish before the first.</p><p>Without handling that properly, an older response could end up filling the form with details from the wrong job.</p><p>I handled this by tracking which extraction request belongs to the current form state and ignoring responses that are no longer relevant.</p><p>The user doesn’t need to know any of that is happening.</p><p>They should just be able to use the form without unexpected values appearing or disappearing.</p></div></div><figure class="demo" aria-labelledby="d3-name"><div class="jxp" aria-labelledby="d3-name"><div class="jxp__top"><p class="jxp__name" id="d3-name">Your edits win</p><div class="jxp__pick" role="radiogroup" aria-label="Scenario"><span class="jxp__label" aria-hidden="true">Try</span><button class="opt is-on" type="button" role="radio" aria-checked="true">Edit while it looks</button><button class="opt" type="button" role="radio" aria-checked="false">Change the URL</button></div><div class="jxp__task" aria-live="polite"><p class="jxp__prompt jxp__prompt--ink">Paste the example URL, then change the Role while JobTrackr is looking.</p><div class="jxp__actions"><button class="textbtn" type="button">Paste example URL</button></div><p class="jxp__log"></p></div></div><div class="jt" role="group" aria-labelledby="d3-title"><div class="jt__grab" aria-hidden="true"></div><div class="jt__head"><h3 class="jt__title" id="d3-title">Add application</h3><button class="jt__close" type="button" aria-label="Close"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button></div><div class="jt__body"><div class="jt__form"><div class="jf"><label class="jf__label" for="d3-url">Job URL</label><div class="jc"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg><input class="jc__input" id="d3-url" type="url" readonly value="" placeholder="https://" aria-describedby="d3-url-note"/></div><p class="vh" id="d3-url-note">Example link, pasted from beside the form.</p></div><section class="jfb" aria-label="Job details extraction"><button class="jbtn" type="button" aria-busy="false" aria-disabled="false">Extract details</button><p role="status" aria-live="polite">Paste a public job URL to fill available details automatically.</p></section><div class="jf"><label class="jf__label" for="d3-role">Role<span class="jf__req" aria-hidden="true">*</span></label><div class="jc"><input class="jc__input" id="d3-role" type="text" value="" placeholder="e.g. Frontend Engineer" maxlength="255" aria-required="true" aria-invalid="false" aria-describedby="d3-role-error"/></div></div><div class="jf"><label class="jf__label" for="d3-company">Company<span class="jf__req" aria-hidden="true">*</span></label><div class="jc"><input class="jc__input" id="d3-company" type="text" value="" placeholder="e.g. Linear" maxlength="255" aria-required="true" aria-invalid="false" aria-describedby="d3-company-error"/></div></div><div class="jrow"><div class="jf"><label class="jf__label" id="d3-source-label" for="d3-source">Source</label><div class="jc jc--sel"><button class="jc__trigger" id="d3-source" type="button" role="combobox" aria-labelledby="d3-source-label" aria-haspopup="listbox" aria-expanded="" aria-controls="d3-source-list"><span class="jc__value"></span></button><span class="jc__chev" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polyline points="6 9 12 15 18 9"></polyline></svg></span></div></div><div class="jf"><label class="jf__label" id="d3-status-label" for="d3-status">Status</label><div class="jc jc--sel"><button class="jc__trigger" id="d3-status" type="button" role="combobox" aria-labelledby="d3-status-label" aria-haspopup="listbox" aria-expanded="" aria-controls="d3-status-list"><span class="jc__value"></span></button><span class="jc__chev" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><polyline points="6 9 12 15 18 9"></polyline></svg></span></div></div></div><div class="jf jnarrow"><label class="jf__label" for="d3-date">Date applied</label><div class="jc jc--mono"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg><input class="jc__input" id="d3-date" type="date" value="2026-11-08"/></div><p class="jf__hint" id="d3-date-hint">Leave blank if unknown. Undated applications appear in all-time totals, not date-based charts.</p></div><button class="jmore" type="button" aria-expanded="false" aria-controls="d3-details">+ More details</button></div></div><div class="jt__foot"><button class="jbtn" type="button">Cancel</button><button class="jbtn jbtn--primary" type="button">Add application</button></div></div><div class="jxp__after"><div class="jxp__foot"><p>A simulation running in your browser. It doesn’t contact JobTrackr.</p><button class="opt" type="button">Reset</button></div></div></div><figcaption class="row"><p class="cap">The status lines are JobTrackr’s own. Untouched blank fields fill; a field you’ve changed keeps your value, and the incoming one is offered as a suggestion.</p></figcaption></figure><div class="row after"><div class="prose"><p>There were also decisions around specific types of information.</p><p>Salary was one example.</p><p>Job postings express compensation in different ways: annual salaries, hourly rates, monthly amounts, ranges, and sometimes figures without a clear pay period.</p><p>JobTrackr’s extraction supports annual salary information where the amount, currency, and period can be established reliably.</p><p>I didn’t want it making assumptions about unclear figures or quietly converting compensation into something the posting hadn’t specified.</p><p>If the information isn’t clear enough, I’d rather leave the field for the user to complete than fill it with a potentially misleading value.</p><p>Expired postings needed similar care. When a posting contains a past application deadline but still has useful details, JobTrackr asks for confirmation before applying them.</p><p>It all came back to the same thing: extracting information is useful, but the application also needs to handle uncertainty properly.</p></div></div></section></div></div>
+</div>
+</div>
+<div class="part-3">
+
+<div style="width: 390px; background: #FAFAF8">
+<div class="page page--cont"><div class="body"><section class="sec" aria-labelledby="s-safe"><div class="row"><h2 class="rail h2 h2--stem" id="s-safe">Making it safe enough to ship</h2><div class="prose"><p>There was another side to this feature that wasn’t immediately visible in the interface.</p><p>JobTrackr was now accepting URLs from users and retrieving information from external websites.</p><p>That introduces risks beyond whether extraction succeeds.</p><p>For example, the server shouldn’t be allowed to follow an arbitrary URL into a private network or internal service. It also shouldn’t follow redirects endlessly or try to process an unexpectedly large response.</p><p>So I needed safeguards around which destinations could be accessed, how redirects were handled, how much information could be downloaded, and how long retrieval could take.</p><p>I also added rate limiting and shared request controls to keep extraction bounded.</p><p>The initial allowance was 10 attempts per rolling hour. I later increased it to 20 after the earlier limit proved restrictive for people processing multiple applications.</p><p>Most of this isn’t visible when someone pastes a URL into a form.</p><p>But it’s part of what makes a feature ready for real usage, rather than something that only works under ideal conditions.</p></div></div></section><section class="sec" aria-labelledby="s-prod"><div class="row"><h2 class="rail h2 h2--round" id="s-prod">Getting it into production</h2><div class="prose"><p>The first production rollout didn’t go as planned.</p><p>After merging the feature and deploying it, one of the smoke tests timed out during verification. I rolled back the deployment rather than leave the new release running without completing the checks.</p><p>At that point, I still needed to understand what had gone wrong.</p><p>What I eventually found was interesting.</p><p>The test was supposed to replace one job URL with another. Instead, its simulated paste action inserted the second URL into the existing value, producing a combined URL that wasn’t a valid job posting path.</p><p>The extraction feature handled it as unavailable, but the test continued waiting for a suggestion that wasn’t supposed to appear.</p><p>Eventually, it timed out.</p><p>The problem was in the test interaction and expectation, not the extraction logic I’d initially been investigating.</p><p>The fix was to make the URL replacement explicit and verify the behaviour that actually mattered: the request settles, the form remains usable, and manual entry still works.</p><p>That wasn’t the only issue during release verification. A separate Lever request also experienced a genuine timeout, which reinforced the importance of distinguishing unreliable external responses from problems within the application.</p><p>The feature was subsequently released successfully.</p><p>The experience reinforced something important for me: reliable tests and useful diagnostics matter just as much as getting the implementation right.</p><p>A failing test tells you something needs attention. It doesn’t automatically tell you what’s broken.</p><p>And when external websites are involved, there’s a difference between testing whether your application behaves correctly and expecting a third-party page to return exactly the same information every time.</p><p>That’s a distinction I appreciate more now.</p></div></div><figure class="tl-fig" aria-labelledby="tl-cap"><ol class="tl"><li class="row"><p class="tl__when">21 October, 22:28</p><p class="tl__what">Merged and deployed the feature. A smoke test timed out during verification, so I rolled the frontend and API back. The additive database migration stayed in place.</p></li><li class="row"><p class="tl__when">21 October, 22:52</p><p class="tl__what">Fixed the test, not the feature. Its second paste had been inserted into the first URL, and it then waited for a suggestion that shouldn’t appear.</p></li><li class="row"><p class="tl__when">21 October, 23:01</p><p class="tl__what">Released again with the corrected checks. A separate Lever request genuinely timed out during verification.</p></li><li class="row"><p class="tl__when">22 October, 00:32</p><p class="tl__what">Added extraction analytics to Insights.</p></li><li class="row"><p class="tl__when">22 October, 15:32</p><p class="tl__what">Raised the allowance from 10 to 20 attempts per rolling hour.</p></li></ol><figcaption class="row" style="margin-top: 24px"><p class="cap" id="tl-cap">Release timeline. Times come from the commit history, in West Africa Time.</p></figcaption></figure></section></div></div>
+</div>
+</div>
+<div class="part-4">
+
+<div style="width: 390px; background: #FAFAF8">
+<div class="page page--cont"><div class="body"><section class="sec" aria-labelledby="s-useful"><div class="row"><h2 class="rail h2 h2--w" id="s-useful">Working wasn’t the same as being useful</h2><div class="prose"><p>After getting extraction into production, I wanted to understand what was actually happening when people used it.</p><p>I already had an Analytics/Insights module in JobTrackr tracking different aspects of the application, so extending it to cover extraction made sense.</p><p>It wasn’t part of the initial implementation. I added it afterwards because I wanted a better way to evaluate the feature beyond my own testing.</p><p>Testing it myself could tell me whether it worked for the URLs and scenarios I tried.</p><p>But that alone couldn’t tell me whether people were actually using it, where they were running into problems, or whether extraction attempts were leading to saved applications.</p><p>That was what I was most interested in.</p><p>The additional tracking records extraction outcomes, how long attempts take, which fields are returned, and whether an attempt is later associated with a saved application.</p><p>It also distinguishes between information that was extracted and information the user had to complete manually.</p><p>In one early 30-day snapshot, JobTrackr recorded 28 extraction attempts. Of those, 27 returned usable information, including partial results, and 19 were associated with saved applications.</p><p>Those are encouraging observations, but it’s still a small sample. Attempts aren’t unique users, and a saved application doesn’t necessarily mean every extracted value was used.</p><p>The numbers also don’t tell me whether extraction is faster than manual entry. I don’t have that comparison yet.</p><p>And that’s fine.</p><p>I wasn’t expecting a handful of early numbers to determine whether the feature was successful.</p><p>I wanted visibility into what was happening beyond my own testing.</p><p>Now I have a starting point.</p></div></div><figure class="row nums" aria-label="Early usage snapshot"><div class="nums__body">
+<div class="nums__row"><div class="num"><p class="num__n">28</p><p class="num__l">recorded extraction attempts</p></div><div class="num"><p class="num__n">27</p><p class="num__l">returned usable information, including partial results</p></div><div class="num"><p class="num__n num__n--one">19</p><p class="num__l">were linked to a saved application</p></div></div>
+<figcaption class="nums__note">An early 30-day snapshot from JobTrackr’s extraction analytics, taken on 8 November 2026. Attempts aren’t unique users, and analytics started after launch. Saved applications can include details completed by hand. None of this measures time saved.</figcaption>
+</div></figure></section><section class="sec" aria-labelledby="s-next"><div class="row"><h2 class="rail h2 h2--w" id="s-next">What comes next</h2><div class="prose"><p>There are still things I’d like to improve about job URL extraction.</p><p>Supporting more posting platforms is one possibility. So is improving the completeness of the information returned and making partial results easier to work with.</p><p>AI-assisted extraction isn’t off the table either.</p><p>If the existing approach starts running into limitations that matter to users, and AI offers a meaningful way to address them, I’d be open to exploring it.</p><p>But I don’t see a reason to introduce it just yet.</p><p>For now, I’d rather gather more production usage data, understand where the friction actually is, and let that inform the next iteration.</p><p>Looking back, what started as a small improvement to an application form ended up involving much more than retrieving job details from a URL.</p><p>It meant thinking about incomplete information, protecting what someone has already entered, retrieving external data safely, testing the experience reliably, and understanding what happens after release.</p><p>I’m glad I built it.</p><p>And I’m interested in seeing what actual usage tells me about where to take it next.</p></div></div></section><section class="sec" aria-labelledby="s-cta"><div class="row"><h2 class="rail h2 h2--s" id="s-cta">See it in action</h2><div class="prose"><p>Job URL extraction is available in JobTrackr. Paste a job posting link, review the details it can retrieve, and add the application to your tracker.</p><p><a class="cta__link" href="https://jobtrackr.site">Try JobTrackr<span class="vh"> (opens in a new tab)</span></a></p></div></div></section></div><footer class="foot"><div class="foot__next"><p class="foot__label">Next essay</p><a class="foot__link" href="#">The Space Between Design and Engineering</a></div><div class="aside"><div class="clock"><svg aria-hidden="true" focusable="false" viewBox="0 0 96 96"><circle class="clock__face" cx="48" cy="48" r="47.5"></circle><text class="clock__readout" x="71" y="48">GMT+1</text><line class="clock__hand clock__hand--hour" transform="rotate(332.5 48 48)" x1="48" x2="48" y1="48" y2="24"></line><line class="clock__hand" transform="rotate(30 48 48)" x1="48" x2="48" y1="48" y2="8"></line><circle class="clock__pivot" cx="48" cy="48" r="2.5"></circle></svg><span class="clock__time" aria-hidden="true">11:05</span><p class="vh">GMT+1 11:05, Lagos, Nigeria</p></div><nav aria-label="Elsewhere"><ul class="links"><li><a href="#">LinkedIn<span class="vh"> (opens in a new tab)</span></a></li><li><a href="#">GitHub<span class="vh"> (opens in a new tab)</span></a></li><li><a href="#">Contra<span class="vh"> (opens in a new tab)</span></a></li><li><a href="#">Email</a></li></ul></nav></div></footer></div>
+</div>
+</div>
+</body>
+</html>
