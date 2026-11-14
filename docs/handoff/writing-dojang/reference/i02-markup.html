@@ -1,0 +1,49 @@
+<!-- Interactive 02: the exact markup for src/writing/making-a-fighting-game-feel-right-in-the-browser.html.
+     Without JS: both versions show (stacked), with the real 14 November screenshot and disabled controls.
+     With JS (controls-demo.ts): one version at a time, the switch, the live replica over the clean frame. -->
+<div class="writing-demo dj-touch" data-touch-demo>
+<figure class="writing-version" data-touch-version="First layout" data-touch-coverage="Covers 32.4% of the screen">
+  <div class="writing-plate" data-touch-plate>
+    <div class="dj-stage"><img class="dj-stage__shot" src="/assets/images/writing/dojang-touch-first.webp" alt="DOJANG’s first touch layout on an iPhone SE-sized screen: a joystick on the left and, on the right, eight round buttons for Body, Dash, Guard, Back, Side, Punch, Front and Round. Lock-on, switch-stance and pause buttons sit under the scoreboard." width="1334" height="750" loading="lazy" decoding="async"></div>
+  </div>
+  <figcaption class="writing-row writing-caption"><p>The first touch layout on an iPhone SE-sized screen (667 × 375), captured on 1 November 2026. Coverage is the share of the screen under the scoreboard and controls, measured the same way for both.<span class="dj-phone-note"> On a phone, the figure shows the right side of the screen at its real size.</span></p></figcaption>
+</figure>
+<figure class="writing-version" data-touch-version="Compact layout" data-touch-coverage="Covers 17.6% of the screen">
+  <div class="writing-plate" data-touch-plate>
+    <div class="dj-stage" data-touch-stage>
+      <img class="dj-stage__shot" src="/assets/images/writing/dojang-touch-compact.webp" alt="DOJANG’s compact touch layout on an iPhone SE-sized screen, captured on 14 November 2026: a joystick on the left and, on the right, a large Kick button labelled Round, with Guard, Punch, Dash, a stance switch and a Body chip around it." width="1334" height="750" loading="lazy" decoding="async" data-touch-shot data-live-src="/assets/images/writing/dojang-touch-frame.webp" data-live-alt="A frame from the current build on an iPhone SE-sized screen, with the scoreboard across the top and the two fighters squaring up.">
+      <div class="dj-stage__layer" hidden data-touch-layer>
+      <div class="djt">
+        <button class="djt__stickzone" type="button" aria-label="Joystick: move" disabled data-touch-stick></button>
+        <div class="djt__base" data-touch-base><div class="djt__knob" data-touch-knob></div></div>
+        <div class="djt__cluster" data-touch-cluster>
+          <div class="djt__wheel" aria-hidden="true" hidden data-touch-wheel>
+            <div class="djt__ring djt__ring--head"></div><div class="djt__ring djt__ring--lead"></div>
+        <div class="djt__item djt__item--lead" style="transform: translate(-5.06px, -57.78px)" data-touch-item="leadFront"><span class="l">L·Front</span><span class="s" data-touch-item-sub>lead</span></div>
+        <div class="djt__item djt__item--lead" style="transform: translate(-44.43px, -37.28px)" data-touch-item="leadRound"><span class="l">L·Round</span><span class="s" data-touch-item-sub>lead</span></div>
+        <div class="djt__item djt__item--lead" style="transform: translate(-57.78px, 5.06px)" data-touch-item="leadSide"><span class="l">L·Side</span><span class="s" data-touch-item-sub>cut</span></div>
+        <div class="djt__item" style="transform: translate(-4.12px, -117.93px)" data-touch-item="front"><span class="l">Front</span><span class="s" data-touch-item-sub>Ap</span></div>
+        <div class="djt__item is-sel" style="transform: translate(-71.01px, -94.24px)" data-touch-item="round"><span class="l">Round</span><span class="s" data-touch-item-sub>Dollyeo</span></div>
+        <div class="djt__item" style="transform: translate(-112.22px, -36.46px)" data-touch-item="side"><span class="l">Side</span><span class="s" data-touch-item-sub>Yeop</span></div>
+        <div class="djt__item" style="transform: translate(-112.84px, 34.5px)" data-touch-item="back"><span class="l">Back</span><span class="s" data-touch-item-sub>Dwi</span></div>
+          </div>
+          <button class="djt__b djt__kick" type="button" aria-label="Kick: Roundhouse kick. Hold or slide for the wheel." disabled data-touch-kick><span class="l" data-touch-kick-label>Round</span><span class="s" data-touch-kick-sub>Dollyeo</span><span class="djt__arc" aria-hidden="true"></span></button>
+          <button class="djt__b djt__guard" type="button" aria-label="Guard" disabled data-touch-hold="guard"><span class="l">Guard</span></button>
+          <button class="djt__b djt__dash" type="button" aria-label="Dash" disabled data-touch-tap="dash"><span class="l">Dash</span></button>
+          <button class="djt__b djt__punch" type="button" aria-label="Punch" disabled data-touch-tap="punch"><span class="l">Punch</span></button>
+          <button class="djt__b djt__switch" type="button" aria-label="Switch stance" disabled data-touch-tap="switch"><span class="l">⇄</span></button>
+          <button class="djt__b djt__b--chip djt__high" type="button" aria-label="Target height" aria-pressed="false" disabled data-touch-high><span class="l" data-touch-high-label>Body</span></button>
+        </div>
+        <button class="djt__t djt__t--pause" type="button" aria-label="Pause" disabled data-touch-tap="pause">❚❚</button>
+        <button class="djt__t djt__t--lock" type="button" aria-label="Lock-on" disabled data-touch-tap="lock">◎</button>
+      </div>
+      </div>
+    </div>
+    <div class="dj-touch__bar" data-touch-bar>
+      <div class="writing-controls dj-touch__controls" hidden data-touch-controls><div class="writing-control-group" role="group" aria-label="Layout" data-touch-versions></div><p class="dj-touch__read" data-touch-read></p></div>
+      <p class="dj-touch__say" aria-live="polite" data-touch-say>Trying these controls needs JavaScript.</p>
+    </div>
+  </div>
+  <figcaption class="writing-row writing-caption"><p>The compact layout on the same screen. The controls are a working copy built from DOJANG’s own layout and styles, over a frame from the current build captured on 14 November 2026. Coverage is the share of the screen under the scoreboard and controls, measured the same way for both.<span class="dj-phone-note"> On a phone, the figure shows the right side of the screen at its real size.</span></p></figcaption>
+</figure>
+</div>

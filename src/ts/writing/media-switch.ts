@@ -82,5 +82,6 @@ export function initMediaSwitch(root: HTMLElement): void {
   }
   // Both native videos are present without JS. Only the shared video is used with JS.
   videos.slice(1).forEach((item) => { item!.parentElement!.remove(); });
-  select(window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 1 : 0);
+  const start = root.dataset.mediaStart;
+  select(start !== undefined ? Number(start) : window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 1 : 0);
 }

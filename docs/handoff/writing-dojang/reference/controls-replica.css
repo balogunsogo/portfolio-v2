@@ -1,0 +1,38 @@
+/* Reference only. Port into src/scss/posts/_dojang.scss under .dj-essay. Interactive 02: replica of DOJANG's compact touch controls (src/styles.css, main b34f80c). Values resolved for an
+   iPhone SE in landscape: --edge-r 14px, --edge-b 10px, --bp-scale 0.88, --ctl-opacity 0.7. */
+.djt { position: absolute; inset: 0; font-family: 'IBM Plex Sans', system-ui, sans-serif; -webkit-user-select: none; user-select: none; touch-action: none; }
+.djt button { -webkit-appearance: none; appearance: none; margin: 0; padding: 0; font-family: inherit; line-height: normal; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.djt button:focus-visible { outline: 2px solid #FFFFFF; outline-offset: 2px; }
+.djt__stickzone { position: absolute; left: 0; top: 24%; bottom: 0; width: 42%; border: 0; background: none; touch-action: none; }
+.djt__base { position: absolute; left: 36px; top: 229px; width: 104px; height: 104px; border-radius: 50%; border: 1.5px solid rgba(255, 255, 255, 0.22); background: rgba(0, 0, 0, 0.1); pointer-events: none; opacity: 0.45; transition: opacity 120ms; transform: scale(0.9); }
+.djt__base.is-active { opacity: 0.95; }
+.djt__knob { position: absolute; left: 29px; top: 29px; width: 46px; height: 46px; border-radius: 50%; background: rgba(255, 255, 255, 0.42); }
+.djt__cluster { position: absolute; right: 14px; bottom: 10px; width: 236px; height: 200px; transform: scale(0.88); transform-origin: bottom right; pointer-events: none; }
+.djt__b { position: absolute; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(20, 16, 12, 0.32); border: 1.5px solid rgba(255, 255, 255, 0.24); color: rgba(255, 255, 255, 0.82); pointer-events: auto; touch-action: none; font-size: 11px; font-weight: 700; letter-spacing: 0.02em; opacity: 0.7; transition: transform 60ms, background 60ms; }
+.djt__b .s { font-size: 8px; font-weight: 500; opacity: 0.65; }
+.djt__b.is-down { transform: scale(0.93); background: rgba(232, 195, 74, 0.5); border-color: #E8C34A; color: #FFFFFF; opacity: 1; }
+.djt__b--chip { border-radius: 14px; height: 30px; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; }
+.djt__b--chip.is-on { background: rgba(232, 195, 74, 0.75); color: #16130F; border-color: #E8C34A; }
+.djt__kick { right: 0; bottom: 0; width: 84px; height: 84px; font-size: 13px; background: rgba(122, 43, 31, 0.42); border-color: rgba(255, 190, 150, 0.45); }
+.djt__kick.is-head { box-shadow: 0 0 0 3px rgba(232, 195, 74, 0.6); }
+.djt__arc { position: absolute; inset: -7px; border-radius: 50%; border: 2px dashed rgba(255, 255, 255, 0.16); border-right-color: transparent; border-bottom-color: transparent; transform: rotate(-45deg); pointer-events: none; }
+.djt__guard { right: 98px; bottom: 2px; width: 64px; height: 64px; border-color: rgba(143, 178, 255, 0.45); }
+.djt__dash { right: 6px; bottom: 100px; width: 50px; height: 50px; }
+.djt__punch { right: 176px; bottom: 6px; width: 50px; height: 50px; }
+.djt__switch { right: 172px; bottom: 70px; width: 44px; height: 44px; font-size: 15px; }
+.djt__high { right: 76px; bottom: 98px; width: 64px; }
+.djt__cluster.is-open .djt__b:not(.djt__kick) { opacity: 0.12; }
+.djt__wheel { position: absolute; right: 42px; bottom: 42px; width: 0; height: 0; pointer-events: none; z-index: 2; }
+.djt__ring { position: absolute; left: 0; top: 0; transform: translate(-50%, -50%); border-radius: 50%; }
+.djt__ring--head { width: 320px; height: 320px; border: 1.5px dashed rgba(232, 195, 74, 0.45); }
+.djt__ring--lead { width: 172px; height: 172px; border: 1px solid rgba(143, 220, 190, 0.35); background: rgba(20, 40, 32, 0.25); }
+.djt__item { position: absolute; left: -28px; top: -28px; width: 56px; height: 56px; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(20, 16, 12, 0.72); border: 1.5px solid rgba(255, 255, 255, 0.35); color: #FFFFFF; font-size: 12px; font-weight: 700; }
+.djt__item .s { font-size: 8px; opacity: 0.7; }
+.djt__item--lead { left: -23px; top: -23px; width: 46px; height: 46px; font-size: 10px; border-color: rgba(143, 220, 190, 0.6); }
+.djt__item.is-sel { border-color: rgba(255, 190, 150, 0.8); }
+.djt__item.is-on { background: rgba(232, 195, 74, 0.85); color: #16130F; border-color: #E8C34A; }
+.djt__item.djt__item--lead.is-on { background: rgba(143, 220, 190, 0.9); border-color: #8FDCBE; }
+.djt__item.is-on.is-head { background: #F4E27A; box-shadow: 0 0 0 4px rgba(232, 195, 74, 0.5); }
+.djt__t { position: absolute; top: 40px; width: 32px; height: 32px; border-radius: 50%; background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.18); font-size: 12px; color: rgba(255, 255, 255, 0.8); }
+.djt__t--pause { left: 14px; }
+.djt__t--lock { right: 14px; }

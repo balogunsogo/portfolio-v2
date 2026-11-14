@@ -36,7 +36,7 @@ Balogun Oluwasogo's personal portfolio: a home page, a Writing index (`/writing`
 
 - **Typeface:** PP Neue Montreal, weight 400 for small text and 500 for display, list items and role. The fallback stack is in `$font-sans`.
 - **Colour:** ground `#FAFAF8`, ink `#111110`, muted `#65635D`. There are no accent colours.
-- **Decoration:** no rules or borders, no numbering, no italics. Spacing does the separating. Four deliberate exceptions: the clock ring, diagram connectors, the form-field underline in Writing Demo 01, and the JobTrackr drawer replica in the second essay. Inside that replica only, JobTrackr’s styling applies: Geist, 1px borders and hairlines, 6px radii and its colours.
+- **Decoration:** no rules or borders, no numbering, no italics. Spacing does the separating. Five deliberate exceptions: the clock ring, diagram connectors, the form-field underline in Writing Demo 01, the JobTrackr drawer replica in the second essay, and the DOJANG touch-controls replica in the third essay. Inside the JobTrackr replica only, JobTrackr’s styling applies: Geist, 1px borders and hairlines, 6px radii and its colours.
 - **Type scale (desktop board at 1440):** name 136px, role 48px, projects 30px, meta 16px.
 - **Type scale (mobile board at 390):** name 64px on two lines, role 24px on one line, projects 28px, meta 15px.
 - **Fluid sizes:** implemented with `clamp()` in `_layout.scss` and `_index.scss`.
@@ -183,8 +183,18 @@ Spec and visual references: `docs/handoff/writing/README.md` and `reference/`. T
 - **Second essay’s code:** `src/ts/posts/job-url-extraction/` and `src/scss/posts/_job-url-extraction.scss`; its module is loaded only by that essay. Interactions 02 and 03 share a JobTrackr Add application replica. Copy, field order, styles and dropdowns (JobTrackr’s Select: desktop listbox, sheet below 1024) come from JobTrackr `main` `f6d264a`, with the extraction rules in spec §6. The demos send nothing, store nothing and record nothing. Source examples resolve after 0.9s; edit/request scenarios use 4s and 1.2s. Newer generations win; touched values are protected and salary suggestions apply as a group. Reset, example/scenario changes and pagehide clear timers; persisted pageshow resets the current choice.
   - **Focus:** accepting a suggestion focuses its field (Salary minimum for the group); dismissing focuses the next suggestion’s first button or Extract details. Validation focuses the first invalid field. Cancel and × reset and focus Extract details. Example/scenario changes keep focus on the option. Busy extraction uses `aria-disabled`, keeps focus and ignores presses. Dropdowns support arrows, Home/End, PageUp/PageDown, typeahead, Enter/Space, Alt+ArrowUp, Tab and Escape; Escape stops propagation. The 600px phone sheet scrolls inside and allows page scrolling at its ends.
 - **Replica fonts:** Geist and Geist Mono ship as WOFF2, used only inside this replica, without preloads. OFL: `docs/font-licenses/Geist-OFL.txt`.
-- **Essay footers:** “Next essay” links to the other essay’s title using `.writing-foot__essay`. When a third essay arrives, decide which essay each footer points to.
+- **Essay footers:** “Next essay” links use `.writing-foot__essay`. The essays form a loop, newest to oldest: DOJANG → JobTrackr → Space Between → DOJANG.
 - **Display numbers:** proportional digits with the `$lsb-two` / `$lsb-one` optical edges.
+
+- **Third essay:** “Making a Fighting Game Feel Right in the Browser”, 14 November 2026. Spec, references and provenance: `docs/handoff/writing-dojang/`. Its prose comes from `reference/article-desktop.html`, with the author’s later revision to the paragraph beginning “I believe in iterating over time” (rushing or 'one-shotting'). Its meta sits in the header (`.writing-meta--head`) because it opens with a titled section.
+- **Third essay’s code:** `src/ts/posts/dojang/` and `src/scss/posts/_dojang.scss`, loaded only by that essay.
+  - Interactive 01 uses `media-switch.ts` with `data-media-start="0"`. Without the attribute the switch keeps its reduced-motion default.
+  - Media 03 uses `image-switch.ts`. The sound comparison uses `sound-compare.ts`: one clip at a time, explicit play.
+  - Interactive 02 replicates DOJANG’s compact touch controls from DOJANG `main` `b34f80c`: the 200ms hold, 14px slop, wheel thresholds 26 / 86 / 160 and exact status-line copy in spec §5. Phones see the stage at real size, cropped to the right side. It sends, stores and records nothing. Version changes and pagehide cancel gestures and clear the hold timer; persisted pageshow resets the replica. The stage and status area keep their height; captions retain their natural reference heights (author-approved clarification of spec §5).
+- **Fifth design-rule exception:** inside the DOJANG touch-controls replica only, DOJANG’s own styling applies: IBM Plex Sans, translucent fills, thin light borders, round buttons, the dashed arc, gold press colour and glow rings.
+- **DOJANG fonts:** IBM Plex Sans 500 and 600 (OFL, `docs/font-licenses/IBMPlexSans-OFL.txt`), used only by that replica, without preloads.
+- **Audio:** `assets/audio/writing/` MP3s; `dev.mjs` serves `.mp3` as `audio/mpeg`.
+- **Captions:** recordings are dated and say what they show. Never caption a later recording as an earlier moment.
 
 ## Open items
 

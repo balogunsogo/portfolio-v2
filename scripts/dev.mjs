@@ -26,6 +26,7 @@ const types = {
   '.woff': 'font/woff',
   '.otf': 'font/otf',
   '.mp4': 'video/mp4',
+  '.mp3': 'audio/mpeg',
 };
 
 clean();

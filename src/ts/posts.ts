@@ -9,6 +9,13 @@ export interface Post {
 
 export const posts: readonly Post[] = [
   {
+    slug: 'making-a-fighting-game-feel-right-in-the-browser',
+    title: 'Making a Fighting Game Feel Right in the Browser',
+    description: 'How $100 in expiring Claude credits turned into DOJANG, a playable 3D Taekwondo game, and the iterations that followed.',
+    published: '2026-11-14',
+    readingMinutes: 9, // 1,786 words of body copy, at about 200 words a minute.
+  },
+  {
     slug: 'building-job-url-extraction-into-jobtrackr',
     title: 'Building Job URL Extraction into JobTrackr',
     description: 'How a small improvement to adding job applications turned into a series of product decisions, engineering challenges, and lessons from shipping.',

@@ -1,0 +1,530 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1440">
+<title>Making a Fighting Game Feel Right in the Browser, desktop</title>
+<style>
+@font-face{font-family:'PP Neue Montreal';src:url('../../../../src/assets/fonts/PPNeueMontreal-Regular.otf') format('opentype');font-weight:400 500;font-style:normal}
+@font-face{font-family:'IBM Plex Sans';src:url('../../../../src/assets/fonts/ibm-plex-sans/plex-sans-latin-500.woff2') format('woff2');font-weight:500;font-style:normal}
+@font-face{font-family:'IBM Plex Sans';src:url('../../../../src/assets/fonts/ibm-plex-sans/plex-sans-latin-600.woff2') format('woff2');font-weight:600;font-style:normal}
+*, ::before, ::after { box-sizing: border-box; }
+html { overflow-x: hidden; }
+body { margin: 0; background: #FAFAF8; color: #111110; font-family: 'PP Neue Montreal', 'Helvetica Neue', Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; text-rendering: optimizelegibility; }
+.part-0 h1, .part-0 h2, .part-0 h3, .part-0 p, .part-0 dl, .part-0 dd, .part-0 figure, .part-0 ol, .part-0 ul { margin: 0; }
+.part-0 ol, .part-0 ul { padding: 0; list-style: none; }
+.part-0 a { color: inherit; text-decoration: none; transition: color 0.15s; }
+.part-0 a:hover { color: #65635D; }
+.part-0 a:focus-visible, .part-0 button:focus-visible, .part-0 input:focus-visible { outline: 2px solid currentcolor; outline-offset: 3px; }
+.part-0 .vh { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+.part-0 .opt { position: relative; margin: 0; padding: 0; border: 0; background: none; font: inherit; color: #65635D; cursor: pointer; transition: color 0.15s; text-align: left; }
+.part-0 .opt:hover { color: #111110; }
+.part-0 .opt.is-on { color: #111110; cursor: default; }
+.part-0 .opt--ink { color: #111110; }
+.part-0 .opt--ink:hover { color: #65635D; }
+.part-0 .opt:disabled { color: #8F8C85; cursor: default; }
+.part-0 .page { width: 1440px;  padding: 48px 64px 160px; display: flex; flex-direction: column; }
+.part-0 .page--cont { padding-top: 120px; }
+.part-0 .top { display: flex; justify-content: space-between; align-items: baseline; font-size: 16px; line-height: 1.4; }
+.part-0 .top__name { font-weight: 500; }
+.part-0 .head { margin-top: 104px; display: flex; flex-direction: column; gap: 28px; }
+.part-0 .title { max-width: 1089px; font-size: 96px; font-weight: 500; line-height: 0.92; letter-spacing: -0.04em; margin-left: -0.071em; text-wrap: balance; }
+.part-0 .sub { max-width: 870px; font-size: 32px; font-weight: 400; line-height: 1.25; letter-spacing: -0.012em; color: #65635D; text-wrap: pretty; }
+.part-0 .body { display: flex; flex-direction: column; gap: 120px; }
+.part-0 .head + .body { margin-top: 120px; }
+.part-0 .sec { display: flex; flex-direction: column; }
+.part-0 .row { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; align-items: start; }
+.part-0 .rail { grid-column: 1 / span 3; }
+.part-0 .h2 { font-size: 30px; font-weight: 500; line-height: 1.2; letter-spacing: -0.02em; text-wrap: balance; }
+.part-0 .h2--stem { margin-left: -0.071em; }
+.part-0 .h2--round { margin-left: -0.036em; }
+.part-0 .h2--w { margin-left: -0.014em; }
+.part-0 .h2--s { margin-left: -0.024em; }
+.part-0 .meta { display: flex; flex-direction: column; gap: 16px; padding-top: 4px; font-size: 16px; line-height: 1.4; }
+.part-0 .meta div { display: flex; flex-direction: column; gap: 2px; }
+.part-0 .meta dt { color: #65635D; }
+.part-0 .prose { grid-column: 5 / span 6; max-width: 576px; display: flex; flex-direction: column; gap: 20px; font-size: 20px; line-height: 1.55; letter-spacing: -0.008em; text-wrap: pretty; }
+.part-0 .after { margin-top: 72px; }
+.part-0 .demo { margin-top: 72px; display: flex; flex-direction: column; gap: 16px; }
+.part-0 .cap { grid-column: 5 / span 6; max-width: 576px; font-size: 16px; line-height: 1.45; color: #65635D; text-wrap: pretty; }
+.part-0 .vplate { padding: 48px 64px 28px; background: #ECEBE6; }
+.part-0 .frame { position: relative; aspect-ratio: 16 / 10; overflow: hidden; background: #000; }
+.part-0 .slot { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: 48px; background: #D9D7D0; text-align: center; font-size: 16px; line-height: 1.45; color: #4A4843; }
+.part-0 .slot__name { font-size: 20px; font-weight: 500; color: #111110; letter-spacing: -0.008em; }
+.part-0 .ctrl { display: flex; justify-content: space-between; align-items: baseline; margin-top: 20px; font-size: 16px; line-height: 1.4; }
+.part-0 .ctrl__label { color: #65635D; }
+.part-0 .group { display: flex; gap: 24px; }
+.part-0 .opt::after { content: ""; position: absolute; inset: -12px -8px; }
+.part-0 .tl { margin-top: 72px; display: flex; flex-direction: column; gap: 28px; }
+.part-0 .tl__when { grid-column: 1 / span 3; font-size: 16px; line-height: 1.4; color: #65635D; padding-top: 3px; }
+.part-0 .tl__what { grid-column: 5 / span 6; max-width: 576px; font-size: 20px; line-height: 1.5; letter-spacing: -0.008em; text-wrap: pretty; }
+.part-0 .nums { margin-top: 72px; }
+.part-0 .nums__body { grid-column: 5 / span 6; max-width: 576px; display: flex; flex-direction: column; gap: 20px; }
+.part-0 .nums__row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 24px; }
+.part-0 .num { display: flex; flex-direction: column; gap: 8px; }
+.part-0 .num__n { margin-left: -0.028em; font-size: 96px; font-weight: 500; line-height: 0.9; letter-spacing: -0.03em; font-variant-numeric: proportional-nums; }
+.part-0 .num__n--one { margin-left: -0.013em; }
+.part-0 .num__l { font-size: 16px; line-height: 1.4; color: #65635D; text-wrap: pretty; }
+.part-0 .nums__note { font-size: 16px; line-height: 1.45; color: #65635D; text-wrap: pretty; }
+.part-0 .cta__link { display: inline-block; margin-top: 8px; font-size: 48px; font-weight: 500; line-height: 1.1; letter-spacing: -0.022em; margin-left: -0.015em; }
+.part-0 .foot { margin-top: auto; padding-top: 160px; align-items: end; }
+.part-0 .foot__next { grid-column: 1 / span 8; display: flex; flex-direction: column; gap: 12px; }
+.part-0 .foot__label { font-size: 16px; line-height: 1.4; color: #65635D; }
+.part-0 .foot__link { max-width: 900px; font-size: 72px; font-weight: 500; line-height: 0.95; letter-spacing: -0.04em; margin-left: -0.015em; text-wrap: balance; }
+.part-0 .aside { grid-column: 9 / span 4; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 24px; align-items: end; font-size: 16px; line-height: 1.4; }
+.part-0 .clock { position: relative; width: 96px; height: 96px; color: #65635D; }
+.part-0 .clock svg { display: block; width: 96px; height: 96px; fill: none; stroke-linecap: round; }
+.part-0 .clock__face { stroke: currentcolor; stroke-width: 1; }
+.part-0 .clock__readout { fill: currentcolor; font-size: 11px; text-anchor: middle; dominant-baseline: central; }
+.part-0 .clock__hand { stroke: #111110; stroke-width: 1; }
+.part-0 .clock__hand--hour { stroke-width: 2.25; }
+.part-0 .clock__pivot { fill: #FAFAF8; stroke: #111110; stroke-width: 1; }
+.part-0 .clock__time { position: absolute; left: 25px; top: 48px; transform: translate(-50%, -50%); font-size: 11px; line-height: 1; white-space: nowrap; pointer-events: none; }
+.part-0 .links { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; text-align: right; }
+.part-0 .meta--head { flex-direction: row; gap: 48px; padding-top: 0; margin-top: 12px; }
+.part-0 .fill { display: block; width: 100%; height: 100%; object-fit: cover; }
+.part-0 .duo { margin-top: 72px; display: flex; flex-direction: column; gap: 16px; }
+.part-0 .duo__imgs { grid-column: 5 / span 8; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 24px; }
+.part-0 .duo__imgs img { display: block; width: 100%; aspect-ratio: 3 / 4; object-fit: cover; }
+.part-0 .pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 24px; }
+.part-0 .halves { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 0; margin-top: 12px; font-size: 16px; line-height: 1.4; color: #65635D; }
+.part-0 .ab { margin-top: 56px; }
+.part-0 .ab__body { grid-column: 5 / span 6; max-width: 576px; display: flex; flex-direction: column; gap: 12px; }
+.part-0 .ab__label { font-size: 16px; line-height: 1.4; color: #65635D; }
+.part-0 .ab__cap { font-size: 16px; line-height: 1.45; color: #65635D; text-wrap: pretty; }
+.part-0 .ab + .after { margin-top: 56px; }
+.part-0 .ab .group { display: flex; gap: 32px; font-size: 20px; line-height: 1.4; }
+.part-0 .i2stage { position: relative; aspect-ratio: 667 / 375; overflow: hidden; background: #15120F; }
+.part-0 .i2screen { position: absolute; left: 0; top: 0; width: 667px; height: 375px; transform: scale(1.775112); transform-origin: 0 0; }
+.part-0 .i2shot { display: block; width: 667px; height: 375px; }
+.part-0 .i2ctrl { align-items: baseline; }
+.part-0 .i2read { font-size: 16px; line-height: 1.4; color: #65635D; font-variant-numeric: proportional-nums; }
+.part-0 .i2say { margin-top: 12px; min-height: 22px; font-size: 16px; line-height: 1.4; color: #111110; }
+.part-0 .i2say.is-off { visibility: hidden; }
+*, ::before, ::after { box-sizing: border-box; }
+html { overflow-x: hidden; }
+body { margin: 0; background: #FAFAF8; color: #111110; font-family: 'PP Neue Montreal', 'Helvetica Neue', Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; text-rendering: optimizelegibility; }
+.part-1 h1, .part-1 h2, .part-1 h3, .part-1 p, .part-1 dl, .part-1 dd, .part-1 figure, .part-1 ol, .part-1 ul { margin: 0; }
+.part-1 ol, .part-1 ul { padding: 0; list-style: none; }
+.part-1 a { color: inherit; text-decoration: none; transition: color 0.15s; }
+.part-1 a:hover { color: #65635D; }
+.part-1 a:focus-visible, .part-1 button:focus-visible, .part-1 input:focus-visible { outline: 2px solid currentcolor; outline-offset: 3px; }
+.part-1 .vh { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+.part-1 .opt { position: relative; margin: 0; padding: 0; border: 0; background: none; font: inherit; color: #65635D; cursor: pointer; transition: color 0.15s; text-align: left; }
+.part-1 .opt:hover { color: #111110; }
+.part-1 .opt.is-on { color: #111110; cursor: default; }
+.part-1 .opt--ink { color: #111110; }
+.part-1 .opt--ink:hover { color: #65635D; }
+.part-1 .opt:disabled { color: #8F8C85; cursor: default; }
+.part-1 .page { width: 1440px;  padding: 48px 64px 160px; display: flex; flex-direction: column; }
+.part-1 .page--cont { padding-top: 120px; }
+.part-1 .top { display: flex; justify-content: space-between; align-items: baseline; font-size: 16px; line-height: 1.4; }
+.part-1 .top__name { font-weight: 500; }
+.part-1 .head { margin-top: 104px; display: flex; flex-direction: column; gap: 28px; }
+.part-1 .title { max-width: 1089px; font-size: 96px; font-weight: 500; line-height: 0.92; letter-spacing: -0.04em; margin-left: -0.071em; text-wrap: balance; }
+.part-1 .sub { max-width: 870px; font-size: 32px; font-weight: 400; line-height: 1.25; letter-spacing: -0.012em; color: #65635D; text-wrap: pretty; }
+.part-1 .body { display: flex; flex-direction: column; gap: 120px; }
+.part-1 .head + .body { margin-top: 120px; }
+.part-1 .sec { display: flex; flex-direction: column; }
+.part-1 .row { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; align-items: start; }
+.part-1 .rail { grid-column: 1 / span 3; }
+.part-1 .h2 { font-size: 30px; font-weight: 500; line-height: 1.2; letter-spacing: -0.02em; text-wrap: balance; }
+.part-1 .h2--stem { margin-left: -0.071em; }
+.part-1 .h2--round { margin-left: -0.036em; }
+.part-1 .h2--w { margin-left: -0.014em; }
+.part-1 .h2--s { margin-left: -0.024em; }
+.part-1 .meta { display: flex; flex-direction: column; gap: 16px; padding-top: 4px; font-size: 16px; line-height: 1.4; }
+.part-1 .meta div { display: flex; flex-direction: column; gap: 2px; }
+.part-1 .meta dt { color: #65635D; }
+.part-1 .prose { grid-column: 5 / span 6; max-width: 576px; display: flex; flex-direction: column; gap: 20px; font-size: 20px; line-height: 1.55; letter-spacing: -0.008em; text-wrap: pretty; }
+.part-1 .after { margin-top: 72px; }
+.part-1 .demo { margin-top: 72px; display: flex; flex-direction: column; gap: 16px; }
+.part-1 .cap { grid-column: 5 / span 6; max-width: 576px; font-size: 16px; line-height: 1.45; color: #65635D; text-wrap: pretty; }
+.part-1 .vplate { padding: 48px 64px 28px; background: #ECEBE6; }
+.part-1 .frame { position: relative; aspect-ratio: 16 / 10; overflow: hidden; background: #000; }
+.part-1 .slot { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: 48px; background: #D9D7D0; text-align: center; font-size: 16px; line-height: 1.45; color: #4A4843; }
+.part-1 .slot__name { font-size: 20px; font-weight: 500; color: #111110; letter-spacing: -0.008em; }
+.part-1 .ctrl { display: flex; justify-content: space-between; align-items: baseline; margin-top: 20px; font-size: 16px; line-height: 1.4; }
+.part-1 .ctrl__label { color: #65635D; }
+.part-1 .group { display: flex; gap: 24px; }
+.part-1 .opt::after { content: ""; position: absolute; inset: -12px -8px; }
+.part-1 .tl { margin-top: 72px; display: flex; flex-direction: column; gap: 28px; }
+.part-1 .tl__when { grid-column: 1 / span 3; font-size: 16px; line-height: 1.4; color: #65635D; padding-top: 3px; }
+.part-1 .tl__what { grid-column: 5 / span 6; max-width: 576px; font-size: 20px; line-height: 1.5; letter-spacing: -0.008em; text-wrap: pretty; }
+.part-1 .nums { margin-top: 72px; }
+.part-1 .nums__body { grid-column: 5 / span 6; max-width: 576px; display: flex; flex-direction: column; gap: 20px; }
+.part-1 .nums__row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 24px; }
+.part-1 .num { display: flex; flex-direction: column; gap: 8px; }
+.part-1 .num__n { margin-left: -0.028em; font-size: 96px; font-weight: 500; line-height: 0.9; letter-spacing: -0.03em; font-variant-numeric: proportional-nums; }
+.part-1 .num__n--one { margin-left: -0.013em; }
+.part-1 .num__l { font-size: 16px; line-height: 1.4; color: #65635D; text-wrap: pretty; }
+.part-1 .nums__note { font-size: 16px; line-height: 1.45; color: #65635D; text-wrap: pretty; }
+.part-1 .cta__link { display: inline-block; margin-top: 8px; font-size: 48px; font-weight: 500; line-height: 1.1; letter-spacing: -0.022em; margin-left: -0.015em; }
+.part-1 .foot { margin-top: auto; padding-top: 160px; align-items: end; }
+.part-1 .foot__next { grid-column: 1 / span 8; display: flex; flex-direction: column; gap: 12px; }
+.part-1 .foot__label { font-size: 16px; line-height: 1.4; color: #65635D; }
+.part-1 .foot__link { max-width: 900px; font-size: 72px; font-weight: 500; line-height: 0.95; letter-spacing: -0.04em; margin-left: -0.015em; text-wrap: balance; }
+.part-1 .aside { grid-column: 9 / span 4; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 24px; align-items: end; font-size: 16px; line-height: 1.4; }
+.part-1 .clock { position: relative; width: 96px; height: 96px; color: #65635D; }
+.part-1 .clock svg { display: block; width: 96px; height: 96px; fill: none; stroke-linecap: round; }
+.part-1 .clock__face { stroke: currentcolor; stroke-width: 1; }
+.part-1 .clock__readout { fill: currentcolor; font-size: 11px; text-anchor: middle; dominant-baseline: central; }
+.part-1 .clock__hand { stroke: #111110; stroke-width: 1; }
+.part-1 .clock__hand--hour { stroke-width: 2.25; }
+.part-1 .clock__pivot { fill: #FAFAF8; stroke: #111110; stroke-width: 1; }
+.part-1 .clock__time { position: absolute; left: 25px; top: 48px; transform: translate(-50%, -50%); font-size: 11px; line-height: 1; white-space: nowrap; pointer-events: none; }
+.part-1 .links { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; text-align: right; }
+.part-1 .meta--head { flex-direction: row; gap: 48px; padding-top: 0; margin-top: 12px; }
+.part-1 .fill { display: block; width: 100%; height: 100%; object-fit: cover; }
+.part-1 .duo { margin-top: 72px; display: flex; flex-direction: column; gap: 16px; }
+.part-1 .duo__imgs { grid-column: 5 / span 8; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 24px; }
+.part-1 .duo__imgs img { display: block; width: 100%; aspect-ratio: 3 / 4; object-fit: cover; }
+.part-1 .pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 24px; }
+.part-1 .halves { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 0; margin-top: 12px; font-size: 16px; line-height: 1.4; color: #65635D; }
+.part-1 .ab { margin-top: 56px; }
+.part-1 .ab__body { grid-column: 5 / span 6; max-width: 576px; display: flex; flex-direction: column; gap: 12px; }
+.part-1 .ab__label { font-size: 16px; line-height: 1.4; color: #65635D; }
+.part-1 .ab__cap { font-size: 16px; line-height: 1.45; color: #65635D; text-wrap: pretty; }
+.part-1 .ab + .after { margin-top: 56px; }
+.part-1 .ab .group { display: flex; gap: 32px; font-size: 20px; line-height: 1.4; }
+.part-1 .i2stage { position: relative; aspect-ratio: 667 / 375; overflow: hidden; background: #15120F; }
+.part-1 .i2screen { position: absolute; left: 0; top: 0; width: 667px; height: 375px; transform: scale(1.775112); transform-origin: 0 0; }
+.part-1 .i2shot { display: block; width: 667px; height: 375px; }
+.part-1 .i2ctrl { align-items: baseline; }
+.part-1 .i2read { font-size: 16px; line-height: 1.4; color: #65635D; font-variant-numeric: proportional-nums; }
+.part-1 .i2say { margin-top: 12px; min-height: 22px; font-size: 16px; line-height: 1.4; color: #111110; }
+.part-1 .i2say.is-off { visibility: hidden; }
+*, ::before, ::after { box-sizing: border-box; }
+html { overflow-x: hidden; }
+body { margin: 0; background: #FAFAF8; color: #111110; font-family: 'PP Neue Montreal', 'Helvetica Neue', Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; text-rendering: optimizelegibility; }
+.part-2 h1, .part-2 h2, .part-2 h3, .part-2 p, .part-2 dl, .part-2 dd, .part-2 figure, .part-2 ol, .part-2 ul { margin: 0; }
+.part-2 ol, .part-2 ul { padding: 0; list-style: none; }
+.part-2 a { color: inherit; text-decoration: none; transition: color 0.15s; }
+.part-2 a:hover { color: #65635D; }
+.part-2 a:focus-visible, .part-2 button:focus-visible, .part-2 input:focus-visible { outline: 2px solid currentcolor; outline-offset: 3px; }
+.part-2 .vh { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+.part-2 .opt { position: relative; margin: 0; padding: 0; border: 0; background: none; font: inherit; color: #65635D; cursor: pointer; transition: color 0.15s; text-align: left; }
+.part-2 .opt:hover { color: #111110; }
+.part-2 .opt.is-on { color: #111110; cursor: default; }
+.part-2 .opt--ink { color: #111110; }
+.part-2 .opt--ink:hover { color: #65635D; }
+.part-2 .opt:disabled { color: #8F8C85; cursor: default; }
+.part-2 .page { width: 1440px;  padding: 48px 64px 160px; display: flex; flex-direction: column; }
+.part-2 .page--cont { padding-top: 120px; }
+.part-2 .top { display: flex; justify-content: space-between; align-items: baseline; font-size: 16px; line-height: 1.4; }
+.part-2 .top__name { font-weight: 500; }
+.part-2 .head { margin-top: 104px; display: flex; flex-direction: column; gap: 28px; }
+.part-2 .title { max-width: 1089px; font-size: 96px; font-weight: 500; line-height: 0.92; letter-spacing: -0.04em; margin-left: -0.071em; text-wrap: balance; }
+.part-2 .sub { max-width: 870px; font-size: 32px; font-weight: 400; line-height: 1.25; letter-spacing: -0.012em; color: #65635D; text-wrap: pretty; }
+.part-2 .body { display: flex; flex-direction: column; gap: 120px; }
+.part-2 .head + .body { margin-top: 120px; }
+.part-2 .sec { display: flex; flex-direction: column; }
+.part-2 .row { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; align-items: start; }
+.part-2 .rail { grid-column: 1 / span 3; }
+.part-2 .h2 { font-size: 30px; font-weight: 500; line-height: 1.2; letter-spacing: -0.02em; text-wrap: balance; }
+.part-2 .h2--stem { margin-left: -0.071em; }
+.part-2 .h2--round { margin-left: -0.036em; }
+.part-2 .h2--w { margin-left: -0.014em; }
+.part-2 .h2--s { margin-left: -0.024em; }
+.part-2 .meta { display: flex; flex-direction: column; gap: 16px; padding-top: 4px; font-size: 16px; line-height: 1.4; }
+.part-2 .meta div { display: flex; flex-direction: column; gap: 2px; }
+.part-2 .meta dt { color: #65635D; }
+.part-2 .prose { grid-column: 5 / span 6; max-width: 576px; display: flex; flex-direction: column; gap: 20px; font-size: 20px; line-height: 1.55; letter-spacing: -0.008em; text-wrap: pretty; }
+.part-2 .after { margin-top: 72px; }
+.part-2 .demo { margin-top: 72px; display: flex; flex-direction: column; gap: 16px; }
+.part-2 .cap { grid-column: 5 / span 6; max-width: 576px; font-size: 16px; line-height: 1.45; color: #65635D; text-wrap: pretty; }
+.part-2 .vplate { padding: 48px 64px 28px; background: #ECEBE6; }
+.part-2 .frame { position: relative; aspect-ratio: 16 / 10; overflow: hidden; background: #000; }
+.part-2 .slot { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: 48px; background: #D9D7D0; text-align: center; font-size: 16px; line-height: 1.45; color: #4A4843; }
+.part-2 .slot__name { font-size: 20px; font-weight: 500; color: #111110; letter-spacing: -0.008em; }
+.part-2 .ctrl { display: flex; justify-content: space-between; align-items: baseline; margin-top: 20px; font-size: 16px; line-height: 1.4; }
+.part-2 .ctrl__label { color: #65635D; }
+.part-2 .group { display: flex; gap: 24px; }
+.part-2 .opt::after { content: ""; position: absolute; inset: -12px -8px; }
+.part-2 .tl { margin-top: 72px; display: flex; flex-direction: column; gap: 28px; }
+.part-2 .tl__when { grid-column: 1 / span 3; font-size: 16px; line-height: 1.4; color: #65635D; padding-top: 3px; }
+.part-2 .tl__what { grid-column: 5 / span 6; max-width: 576px; font-size: 20px; line-height: 1.5; letter-spacing: -0.008em; text-wrap: pretty; }
+.part-2 .nums { margin-top: 72px; }
+.part-2 .nums__body { grid-column: 5 / span 6; max-width: 576px; display: flex; flex-direction: column; gap: 20px; }
+.part-2 .nums__row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 24px; }
+.part-2 .num { display: flex; flex-direction: column; gap: 8px; }
+.part-2 .num__n { margin-left: -0.028em; font-size: 96px; font-weight: 500; line-height: 0.9; letter-spacing: -0.03em; font-variant-numeric: proportional-nums; }
+.part-2 .num__n--one { margin-left: -0.013em; }
+.part-2 .num__l { font-size: 16px; line-height: 1.4; color: #65635D; text-wrap: pretty; }
+.part-2 .nums__note { font-size: 16px; line-height: 1.45; color: #65635D; text-wrap: pretty; }
+.part-2 .cta__link { display: inline-block; margin-top: 8px; font-size: 48px; font-weight: 500; line-height: 1.1; letter-spacing: -0.022em; margin-left: -0.015em; }
+.part-2 .foot { margin-top: auto; padding-top: 160px; align-items: end; }
+.part-2 .foot__next { grid-column: 1 / span 8; display: flex; flex-direction: column; gap: 12px; }
+.part-2 .foot__label { font-size: 16px; line-height: 1.4; color: #65635D; }
+.part-2 .foot__link { max-width: 900px; font-size: 72px; font-weight: 500; line-height: 0.95; letter-spacing: -0.04em; margin-left: -0.015em; text-wrap: balance; }
+.part-2 .aside { grid-column: 9 / span 4; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 24px; align-items: end; font-size: 16px; line-height: 1.4; }
+.part-2 .clock { position: relative; width: 96px; height: 96px; color: #65635D; }
+.part-2 .clock svg { display: block; width: 96px; height: 96px; fill: none; stroke-linecap: round; }
+.part-2 .clock__face { stroke: currentcolor; stroke-width: 1; }
+.part-2 .clock__readout { fill: currentcolor; font-size: 11px; text-anchor: middle; dominant-baseline: central; }
+.part-2 .clock__hand { stroke: #111110; stroke-width: 1; }
+.part-2 .clock__hand--hour { stroke-width: 2.25; }
+.part-2 .clock__pivot { fill: #FAFAF8; stroke: #111110; stroke-width: 1; }
+.part-2 .clock__time { position: absolute; left: 25px; top: 48px; transform: translate(-50%, -50%); font-size: 11px; line-height: 1; white-space: nowrap; pointer-events: none; }
+.part-2 .links { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; text-align: right; }
+.part-2 .meta--head { flex-direction: row; gap: 48px; padding-top: 0; margin-top: 12px; }
+.part-2 .fill { display: block; width: 100%; height: 100%; object-fit: cover; }
+.part-2 .duo { margin-top: 72px; display: flex; flex-direction: column; gap: 16px; }
+.part-2 .duo__imgs { grid-column: 5 / span 8; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 24px; }
+.part-2 .duo__imgs img { display: block; width: 100%; aspect-ratio: 3 / 4; object-fit: cover; }
+.part-2 .pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 24px; }
+.part-2 .halves { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 0; margin-top: 12px; font-size: 16px; line-height: 1.4; color: #65635D; }
+.part-2 .ab { margin-top: 56px; }
+.part-2 .ab__body { grid-column: 5 / span 6; max-width: 576px; display: flex; flex-direction: column; gap: 12px; }
+.part-2 .ab__label { font-size: 16px; line-height: 1.4; color: #65635D; }
+.part-2 .ab__cap { font-size: 16px; line-height: 1.45; color: #65635D; text-wrap: pretty; }
+.part-2 .ab + .after { margin-top: 56px; }
+.part-2 .ab .group { display: flex; gap: 32px; font-size: 20px; line-height: 1.4; }
+.part-2 .i2stage { position: relative; aspect-ratio: 667 / 375; overflow: hidden; background: #15120F; }
+.part-2 .i2screen { position: absolute; left: 0; top: 0; width: 667px; height: 375px; transform: scale(1.775112); transform-origin: 0 0; }
+.part-2 .i2shot { display: block; width: 667px; height: 375px; }
+.part-2 .i2ctrl { align-items: baseline; }
+.part-2 .i2read { font-size: 16px; line-height: 1.4; color: #65635D; font-variant-numeric: proportional-nums; }
+.part-2 .i2say { margin-top: 12px; min-height: 22px; font-size: 16px; line-height: 1.4; color: #111110; }
+.part-2 .i2say.is-off { visibility: hidden; }
+.part-2 .djt { position: absolute; inset: 0; font-family: 'IBM Plex Sans', system-ui, sans-serif; -webkit-user-select: none; user-select: none; touch-action: none; }
+.part-2 .djt button { -webkit-appearance: none; appearance: none; margin: 0; padding: 0; font-family: inherit; line-height: normal; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.part-2 .djt button:focus-visible { outline: 2px solid #FFFFFF; outline-offset: 2px; }
+.part-2 .djt__stickzone { position: absolute; left: 0; top: 24%; bottom: 0; width: 42%; border: 0; background: none; touch-action: none; }
+.part-2 .djt__base { position: absolute; left: 36px; top: 229px; width: 104px; height: 104px; border-radius: 50%; border: 1.5px solid rgba(255, 255, 255, 0.22); background: rgba(0, 0, 0, 0.1); pointer-events: none; opacity: 0.45; transition: opacity 120ms; transform: scale(0.9); }
+.part-2 .djt__base.is-active { opacity: 0.95; }
+.part-2 .djt__knob { position: absolute; left: 29px; top: 29px; width: 46px; height: 46px; border-radius: 50%; background: rgba(255, 255, 255, 0.42); }
+.part-2 .djt__cluster { position: absolute; right: 14px; bottom: 10px; width: 236px; height: 200px; transform: scale(0.88); transform-origin: bottom right; pointer-events: none; }
+.part-2 .djt__b { position: absolute; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(20, 16, 12, 0.32); border: 1.5px solid rgba(255, 255, 255, 0.24); color: rgba(255, 255, 255, 0.82); pointer-events: auto; touch-action: none; font-size: 11px; font-weight: 700; letter-spacing: 0.02em; opacity: 0.7; transition: transform 60ms, background 60ms; }
+.part-2 .djt__b .s { font-size: 8px; font-weight: 500; opacity: 0.65; }
+.part-2 .djt__b.is-down { transform: scale(0.93); background: rgba(232, 195, 74, 0.5); border-color: #E8C34A; color: #FFFFFF; opacity: 1; }
+.part-2 .djt__b--chip { border-radius: 14px; height: 30px; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; }
+.part-2 .djt__b--chip.is-on { background: rgba(232, 195, 74, 0.75); color: #16130F; border-color: #E8C34A; }
+.part-2 .djt__kick { right: 0; bottom: 0; width: 84px; height: 84px; font-size: 13px; background: rgba(122, 43, 31, 0.42); border-color: rgba(255, 190, 150, 0.45); }
+.part-2 .djt__kick.is-head { box-shadow: 0 0 0 3px rgba(232, 195, 74, 0.6); }
+.part-2 .djt__arc { position: absolute; inset: -7px; border-radius: 50%; border: 2px dashed rgba(255, 255, 255, 0.16); border-right-color: transparent; border-bottom-color: transparent; transform: rotate(-45deg); pointer-events: none; }
+.part-2 .djt__guard { right: 98px; bottom: 2px; width: 64px; height: 64px; border-color: rgba(143, 178, 255, 0.45); }
+.part-2 .djt__dash { right: 6px; bottom: 100px; width: 50px; height: 50px; }
+.part-2 .djt__punch { right: 176px; bottom: 6px; width: 50px; height: 50px; }
+.part-2 .djt__switch { right: 172px; bottom: 70px; width: 44px; height: 44px; font-size: 15px; }
+.part-2 .djt__high { right: 76px; bottom: 98px; width: 64px; }
+.part-2 .djt__cluster.is-open .djt__b:not(.djt__kick) { opacity: 0.12; }
+.part-2 .djt__wheel { position: absolute; right: 42px; bottom: 42px; width: 0; height: 0; pointer-events: none; z-index: 2; }
+.part-2 .djt__ring { position: absolute; left: 0; top: 0; transform: translate(-50%, -50%); border-radius: 50%; }
+.part-2 .djt__ring--head { width: 320px; height: 320px; border: 1.5px dashed rgba(232, 195, 74, 0.45); }
+.part-2 .djt__ring--lead { width: 172px; height: 172px; border: 1px solid rgba(143, 220, 190, 0.35); background: rgba(20, 40, 32, 0.25); }
+.part-2 .djt__item { position: absolute; left: -28px; top: -28px; width: 56px; height: 56px; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(20, 16, 12, 0.72); border: 1.5px solid rgba(255, 255, 255, 0.35); color: #FFFFFF; font-size: 12px; font-weight: 700; }
+.part-2 .djt__item .s { font-size: 8px; opacity: 0.7; }
+.part-2 .djt__item--lead { left: -23px; top: -23px; width: 46px; height: 46px; font-size: 10px; border-color: rgba(143, 220, 190, 0.6); }
+.part-2 .djt__item.is-sel { border-color: rgba(255, 190, 150, 0.8); }
+.part-2 .djt__item.is-on { background: rgba(232, 195, 74, 0.85); color: #16130F; border-color: #E8C34A; }
+.part-2 .djt__item.djt__item--lead.is-on { background: rgba(143, 220, 190, 0.9); border-color: #8FDCBE; }
+.part-2 .djt__item.is-on.is-head { background: #F4E27A; box-shadow: 0 0 0 4px rgba(232, 195, 74, 0.5); }
+.part-2 .djt__t { position: absolute; top: 40px; width: 32px; height: 32px; border-radius: 50%; background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.18); font-size: 12px; color: rgba(255, 255, 255, 0.8); }
+.part-2 .djt__t--pause { left: 14px; }
+.part-2 .djt__t--lock { right: 14px; }
+*, ::before, ::after { box-sizing: border-box; }
+html { overflow-x: hidden; }
+body { margin: 0; background: #FAFAF8; color: #111110; font-family: 'PP Neue Montreal', 'Helvetica Neue', Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; text-rendering: optimizelegibility; }
+.part-3 h1, .part-3 h2, .part-3 h3, .part-3 p, .part-3 dl, .part-3 dd, .part-3 figure, .part-3 ol, .part-3 ul { margin: 0; }
+.part-3 ol, .part-3 ul { padding: 0; list-style: none; }
+.part-3 a { color: inherit; text-decoration: none; transition: color 0.15s; }
+.part-3 a:hover { color: #65635D; }
+.part-3 a:focus-visible, .part-3 button:focus-visible, .part-3 input:focus-visible { outline: 2px solid currentcolor; outline-offset: 3px; }
+.part-3 .vh { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+.part-3 .opt { position: relative; margin: 0; padding: 0; border: 0; background: none; font: inherit; color: #65635D; cursor: pointer; transition: color 0.15s; text-align: left; }
+.part-3 .opt:hover { color: #111110; }
+.part-3 .opt.is-on { color: #111110; cursor: default; }
+.part-3 .opt--ink { color: #111110; }
+.part-3 .opt--ink:hover { color: #65635D; }
+.part-3 .opt:disabled { color: #8F8C85; cursor: default; }
+.part-3 .page { width: 1440px;  padding: 48px 64px 160px; display: flex; flex-direction: column; }
+.part-3 .page--cont { padding-top: 120px; }
+.part-3 .top { display: flex; justify-content: space-between; align-items: baseline; font-size: 16px; line-height: 1.4; }
+.part-3 .top__name { font-weight: 500; }
+.part-3 .head { margin-top: 104px; display: flex; flex-direction: column; gap: 28px; }
+.part-3 .title { max-width: 1089px; font-size: 96px; font-weight: 500; line-height: 0.92; letter-spacing: -0.04em; margin-left: -0.071em; text-wrap: balance; }
+.part-3 .sub { max-width: 870px; font-size: 32px; font-weight: 400; line-height: 1.25; letter-spacing: -0.012em; color: #65635D; text-wrap: pretty; }
+.part-3 .body { display: flex; flex-direction: column; gap: 120px; }
+.part-3 .head + .body { margin-top: 120px; }
+.part-3 .sec { display: flex; flex-direction: column; }
+.part-3 .row { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; align-items: start; }
+.part-3 .rail { grid-column: 1 / span 3; }
+.part-3 .h2 { font-size: 30px; font-weight: 500; line-height: 1.2; letter-spacing: -0.02em; text-wrap: balance; }
+.part-3 .h2--stem { margin-left: -0.071em; }
+.part-3 .h2--round { margin-left: -0.036em; }
+.part-3 .h2--w { margin-left: -0.014em; }
+.part-3 .h2--s { margin-left: -0.024em; }
+.part-3 .meta { display: flex; flex-direction: column; gap: 16px; padding-top: 4px; font-size: 16px; line-height: 1.4; }
+.part-3 .meta div { display: flex; flex-direction: column; gap: 2px; }
+.part-3 .meta dt { color: #65635D; }
+.part-3 .prose { grid-column: 5 / span 6; max-width: 576px; display: flex; flex-direction: column; gap: 20px; font-size: 20px; line-height: 1.55; letter-spacing: -0.008em; text-wrap: pretty; }
+.part-3 .after { margin-top: 72px; }
+.part-3 .demo { margin-top: 72px; display: flex; flex-direction: column; gap: 16px; }
+.part-3 .cap { grid-column: 5 / span 6; max-width: 576px; font-size: 16px; line-height: 1.45; color: #65635D; text-wrap: pretty; }
+.part-3 .vplate { padding: 48px 64px 28px; background: #ECEBE6; }
+.part-3 .frame { position: relative; aspect-ratio: 16 / 10; overflow: hidden; background: #000; }
+.part-3 .slot { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: 48px; background: #D9D7D0; text-align: center; font-size: 16px; line-height: 1.45; color: #4A4843; }
+.part-3 .slot__name { font-size: 20px; font-weight: 500; color: #111110; letter-spacing: -0.008em; }
+.part-3 .ctrl { display: flex; justify-content: space-between; align-items: baseline; margin-top: 20px; font-size: 16px; line-height: 1.4; }
+.part-3 .ctrl__label { color: #65635D; }
+.part-3 .group { display: flex; gap: 24px; }
+.part-3 .opt::after { content: ""; position: absolute; inset: -12px -8px; }
+.part-3 .tl { margin-top: 72px; display: flex; flex-direction: column; gap: 28px; }
+.part-3 .tl__when { grid-column: 1 / span 3; font-size: 16px; line-height: 1.4; color: #65635D; padding-top: 3px; }
+.part-3 .tl__what { grid-column: 5 / span 6; max-width: 576px; font-size: 20px; line-height: 1.5; letter-spacing: -0.008em; text-wrap: pretty; }
+.part-3 .nums { margin-top: 72px; }
+.part-3 .nums__body { grid-column: 5 / span 6; max-width: 576px; display: flex; flex-direction: column; gap: 20px; }
+.part-3 .nums__row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 24px; }
+.part-3 .num { display: flex; flex-direction: column; gap: 8px; }
+.part-3 .num__n { margin-left: -0.028em; font-size: 96px; font-weight: 500; line-height: 0.9; letter-spacing: -0.03em; font-variant-numeric: proportional-nums; }
+.part-3 .num__n--one { margin-left: -0.013em; }
+.part-3 .num__l { font-size: 16px; line-height: 1.4; color: #65635D; text-wrap: pretty; }
+.part-3 .nums__note { font-size: 16px; line-height: 1.45; color: #65635D; text-wrap: pretty; }
+.part-3 .cta__link { display: inline-block; margin-top: 8px; font-size: 48px; font-weight: 500; line-height: 1.1; letter-spacing: -0.022em; margin-left: -0.015em; }
+.part-3 .foot { margin-top: auto; padding-top: 160px; align-items: end; }
+.part-3 .foot__next { grid-column: 1 / span 8; display: flex; flex-direction: column; gap: 12px; }
+.part-3 .foot__label { font-size: 16px; line-height: 1.4; color: #65635D; }
+.part-3 .foot__link { max-width: 900px; font-size: 72px; font-weight: 500; line-height: 0.95; letter-spacing: -0.04em; margin-left: -0.015em; text-wrap: balance; }
+.part-3 .aside { grid-column: 9 / span 4; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 24px; align-items: end; font-size: 16px; line-height: 1.4; }
+.part-3 .clock { position: relative; width: 96px; height: 96px; color: #65635D; }
+.part-3 .clock svg { display: block; width: 96px; height: 96px; fill: none; stroke-linecap: round; }
+.part-3 .clock__face { stroke: currentcolor; stroke-width: 1; }
+.part-3 .clock__readout { fill: currentcolor; font-size: 11px; text-anchor: middle; dominant-baseline: central; }
+.part-3 .clock__hand { stroke: #111110; stroke-width: 1; }
+.part-3 .clock__hand--hour { stroke-width: 2.25; }
+.part-3 .clock__pivot { fill: #FAFAF8; stroke: #111110; stroke-width: 1; }
+.part-3 .clock__time { position: absolute; left: 25px; top: 48px; transform: translate(-50%, -50%); font-size: 11px; line-height: 1; white-space: nowrap; pointer-events: none; }
+.part-3 .links { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; text-align: right; }
+.part-3 .meta--head { flex-direction: row; gap: 48px; padding-top: 0; margin-top: 12px; }
+.part-3 .fill { display: block; width: 100%; height: 100%; object-fit: cover; }
+.part-3 .duo { margin-top: 72px; display: flex; flex-direction: column; gap: 16px; }
+.part-3 .duo__imgs { grid-column: 5 / span 8; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 24px; }
+.part-3 .duo__imgs img { display: block; width: 100%; aspect-ratio: 3 / 4; object-fit: cover; }
+.part-3 .pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 24px; }
+.part-3 .halves { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 0; margin-top: 12px; font-size: 16px; line-height: 1.4; color: #65635D; }
+.part-3 .ab { margin-top: 56px; }
+.part-3 .ab__body { grid-column: 5 / span 6; max-width: 576px; display: flex; flex-direction: column; gap: 12px; }
+.part-3 .ab__label { font-size: 16px; line-height: 1.4; color: #65635D; }
+.part-3 .ab__cap { font-size: 16px; line-height: 1.45; color: #65635D; text-wrap: pretty; }
+.part-3 .ab + .after { margin-top: 56px; }
+.part-3 .ab .group { display: flex; gap: 32px; font-size: 20px; line-height: 1.4; }
+.part-3 .i2stage { position: relative; aspect-ratio: 667 / 375; overflow: hidden; background: #15120F; }
+.part-3 .i2screen { position: absolute; left: 0; top: 0; width: 667px; height: 375px; transform: scale(1.775112); transform-origin: 0 0; }
+.part-3 .i2shot { display: block; width: 667px; height: 375px; }
+.part-3 .i2ctrl { align-items: baseline; }
+.part-3 .i2read { font-size: 16px; line-height: 1.4; color: #65635D; font-variant-numeric: proportional-nums; }
+.part-3 .i2say { margin-top: 12px; min-height: 22px; font-size: 16px; line-height: 1.4; color: #111110; }
+.part-3 .i2say.is-off { visibility: hidden; }
+*, ::before, ::after { box-sizing: border-box; }
+html { overflow-x: hidden; }
+body { margin: 0; background: #FAFAF8; color: #111110; font-family: 'PP Neue Montreal', 'Helvetica Neue', Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; text-rendering: optimizelegibility; }
+.part-4 h1, .part-4 h2, .part-4 h3, .part-4 p, .part-4 dl, .part-4 dd, .part-4 figure, .part-4 ol, .part-4 ul { margin: 0; }
+.part-4 ol, .part-4 ul { padding: 0; list-style: none; }
+.part-4 a { color: inherit; text-decoration: none; transition: color 0.15s; }
+.part-4 a:hover { color: #65635D; }
+.part-4 a:focus-visible, .part-4 button:focus-visible, .part-4 input:focus-visible { outline: 2px solid currentcolor; outline-offset: 3px; }
+.part-4 .vh { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+.part-4 .opt { position: relative; margin: 0; padding: 0; border: 0; background: none; font: inherit; color: #65635D; cursor: pointer; transition: color 0.15s; text-align: left; }
+.part-4 .opt:hover { color: #111110; }
+.part-4 .opt.is-on { color: #111110; cursor: default; }
+.part-4 .opt--ink { color: #111110; }
+.part-4 .opt--ink:hover { color: #65635D; }
+.part-4 .opt:disabled { color: #8F8C85; cursor: default; }
+.part-4 .page { width: 1440px;  padding: 48px 64px 160px; display: flex; flex-direction: column; }
+.part-4 .page--cont { padding-top: 120px; }
+.part-4 .top { display: flex; justify-content: space-between; align-items: baseline; font-size: 16px; line-height: 1.4; }
+.part-4 .top__name { font-weight: 500; }
+.part-4 .head { margin-top: 104px; display: flex; flex-direction: column; gap: 28px; }
+.part-4 .title { max-width: 1089px; font-size: 96px; font-weight: 500; line-height: 0.92; letter-spacing: -0.04em; margin-left: -0.071em; text-wrap: balance; }
+.part-4 .sub { max-width: 870px; font-size: 32px; font-weight: 400; line-height: 1.25; letter-spacing: -0.012em; color: #65635D; text-wrap: pretty; }
+.part-4 .body { display: flex; flex-direction: column; gap: 120px; }
+.part-4 .head + .body { margin-top: 120px; }
+.part-4 .sec { display: flex; flex-direction: column; }
+.part-4 .row { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; align-items: start; }
+.part-4 .rail { grid-column: 1 / span 3; }
+.part-4 .h2 { font-size: 30px; font-weight: 500; line-height: 1.2; letter-spacing: -0.02em; text-wrap: balance; }
+.part-4 .h2--stem { margin-left: -0.071em; }
+.part-4 .h2--round { margin-left: -0.036em; }
+.part-4 .h2--w { margin-left: -0.014em; }
+.part-4 .h2--s { margin-left: -0.024em; }
+.part-4 .meta { display: flex; flex-direction: column; gap: 16px; padding-top: 4px; font-size: 16px; line-height: 1.4; }
+.part-4 .meta div { display: flex; flex-direction: column; gap: 2px; }
+.part-4 .meta dt { color: #65635D; }
+.part-4 .prose { grid-column: 5 / span 6; max-width: 576px; display: flex; flex-direction: column; gap: 20px; font-size: 20px; line-height: 1.55; letter-spacing: -0.008em; text-wrap: pretty; }
+.part-4 .after { margin-top: 72px; }
+.part-4 .demo { margin-top: 72px; display: flex; flex-direction: column; gap: 16px; }
+.part-4 .cap { grid-column: 5 / span 6; max-width: 576px; font-size: 16px; line-height: 1.45; color: #65635D; text-wrap: pretty; }
+.part-4 .vplate { padding: 48px 64px 28px; background: #ECEBE6; }
+.part-4 .frame { position: relative; aspect-ratio: 16 / 10; overflow: hidden; background: #000; }
+.part-4 .slot { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: 48px; background: #D9D7D0; text-align: center; font-size: 16px; line-height: 1.45; color: #4A4843; }
+.part-4 .slot__name { font-size: 20px; font-weight: 500; color: #111110; letter-spacing: -0.008em; }
+.part-4 .ctrl { display: flex; justify-content: space-between; align-items: baseline; margin-top: 20px; font-size: 16px; line-height: 1.4; }
+.part-4 .ctrl__label { color: #65635D; }
+.part-4 .group { display: flex; gap: 24px; }
+.part-4 .opt::after { content: ""; position: absolute; inset: -12px -8px; }
+.part-4 .tl { margin-top: 72px; display: flex; flex-direction: column; gap: 28px; }
+.part-4 .tl__when { grid-column: 1 / span 3; font-size: 16px; line-height: 1.4; color: #65635D; padding-top: 3px; }
+.part-4 .tl__what { grid-column: 5 / span 6; max-width: 576px; font-size: 20px; line-height: 1.5; letter-spacing: -0.008em; text-wrap: pretty; }
+.part-4 .nums { margin-top: 72px; }
+.part-4 .nums__body { grid-column: 5 / span 6; max-width: 576px; display: flex; flex-direction: column; gap: 20px; }
+.part-4 .nums__row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 24px; }
+.part-4 .num { display: flex; flex-direction: column; gap: 8px; }
+.part-4 .num__n { margin-left: -0.028em; font-size: 96px; font-weight: 500; line-height: 0.9; letter-spacing: -0.03em; font-variant-numeric: proportional-nums; }
+.part-4 .num__n--one { margin-left: -0.013em; }
+.part-4 .num__l { font-size: 16px; line-height: 1.4; color: #65635D; text-wrap: pretty; }
+.part-4 .nums__note { font-size: 16px; line-height: 1.45; color: #65635D; text-wrap: pretty; }
+.part-4 .cta__link { display: inline-block; margin-top: 8px; font-size: 48px; font-weight: 500; line-height: 1.1; letter-spacing: -0.022em; margin-left: -0.015em; }
+.part-4 .foot { margin-top: auto; padding-top: 160px; align-items: end; }
+.part-4 .foot__next { grid-column: 1 / span 8; display: flex; flex-direction: column; gap: 12px; }
+.part-4 .foot__label { font-size: 16px; line-height: 1.4; color: #65635D; }
+.part-4 .foot__link { max-width: 900px; font-size: 72px; font-weight: 500; line-height: 0.95; letter-spacing: -0.04em; margin-left: -0.015em; text-wrap: balance; }
+.part-4 .aside { grid-column: 9 / span 4; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 24px; align-items: end; font-size: 16px; line-height: 1.4; }
+.part-4 .clock { position: relative; width: 96px; height: 96px; color: #65635D; }
+.part-4 .clock svg { display: block; width: 96px; height: 96px; fill: none; stroke-linecap: round; }
+.part-4 .clock__face { stroke: currentcolor; stroke-width: 1; }
+.part-4 .clock__readout { fill: currentcolor; font-size: 11px; text-anchor: middle; dominant-baseline: central; }
+.part-4 .clock__hand { stroke: #111110; stroke-width: 1; }
+.part-4 .clock__hand--hour { stroke-width: 2.25; }
+.part-4 .clock__pivot { fill: #FAFAF8; stroke: #111110; stroke-width: 1; }
+.part-4 .clock__time { position: absolute; left: 25px; top: 48px; transform: translate(-50%, -50%); font-size: 11px; line-height: 1; white-space: nowrap; pointer-events: none; }
+.part-4 .links { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; text-align: right; }
+.part-4 .meta--head { flex-direction: row; gap: 48px; padding-top: 0; margin-top: 12px; }
+.part-4 .fill { display: block; width: 100%; height: 100%; object-fit: cover; }
+.part-4 .duo { margin-top: 72px; display: flex; flex-direction: column; gap: 16px; }
+.part-4 .duo__imgs { grid-column: 5 / span 8; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 24px; }
+.part-4 .duo__imgs img { display: block; width: 100%; aspect-ratio: 3 / 4; object-fit: cover; }
+.part-4 .pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 24px; }
+.part-4 .halves { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 0; margin-top: 12px; font-size: 16px; line-height: 1.4; color: #65635D; }
+.part-4 .ab { margin-top: 56px; }
+.part-4 .ab__body { grid-column: 5 / span 6; max-width: 576px; display: flex; flex-direction: column; gap: 12px; }
+.part-4 .ab__label { font-size: 16px; line-height: 1.4; color: #65635D; }
+.part-4 .ab__cap { font-size: 16px; line-height: 1.45; color: #65635D; text-wrap: pretty; }
+.part-4 .ab + .after { margin-top: 56px; }
+.part-4 .ab .group { display: flex; gap: 32px; font-size: 20px; line-height: 1.4; }
+.part-4 .i2stage { position: relative; aspect-ratio: 667 / 375; overflow: hidden; background: #15120F; }
+.part-4 .i2screen { position: absolute; left: 0; top: 0; width: 667px; height: 375px; transform: scale(1.775112); transform-origin: 0 0; }
+.part-4 .i2shot { display: block; width: 667px; height: 375px; }
+.part-4 .i2ctrl { align-items: baseline; }
+.part-4 .i2read { font-size: 16px; line-height: 1.4; color: #65635D; font-variant-numeric: proportional-nums; }
+.part-4 .i2say { margin-top: 12px; min-height: 22px; font-size: 16px; line-height: 1.4; color: #111110; }
+.part-4 .i2say.is-off { visibility: hidden; }
+.part-0 .page { padding-bottom: 0 !important; }
+.part-1 .page { padding-bottom: 0 !important; }
+.part-2 .page { padding-bottom: 0 !important; }
+.part-3 .page { padding-bottom: 0 !important; }
+.part-1 .page { padding-top: 120px !important; }
+.part-2 .page { padding-top: 120px !important; }
+.part-3 .page { padding-top: 120px !important; }
+.part-4 .page { padding-top: 120px !important; }
+
+</style>
+</head>
+<body>
+<div class="part-0"><div style="width: 1440px; background: #FAFAF8"><div class="page"><header class="top"><a class="top__name" href="WrHome.dc.html">Balogun Oluwasogo</a><a href="WrIndex.dc.html">Writing</a></header><article><header class="head"><h1 class="title">Making a Fighting Game Feel Right in the Browser</h1><p class="sub">How $100 in expiring Claude credits turned into DOJANG, a playable 3D Taekwondo game, and the iterations that followed.</p><dl class="meta meta--head"><div><dt>Published</dt><dd><time datetime="2026-11-14">14 November 2026</time></dd></div><div><dt>Reading time</dt><dd>9 minutes</dd></div></dl></header><div class="body"><section class="sec" aria-labelledby="s-start"><div class="row"><h2 class="rail h2 h2--stem" id="s-start">It started with $100 I didn’t want to waste</h2><div class="prose"><p>I had $100 in Claude credits that were about to expire.</p><p>There were about three or four days left to use them, and I figured I might as well build something rather than let them go to waste.</p><p>I’d already been thinking about experimenting with Three.js, 3D graphics, and interactive experiences in the browser. I had a few ideas, but nothing I’d committed to building yet.</p><p>I’ve also practised Taekwondo since 2015, when I started university. I haven’t been training as consistently in recent years, but it’s something I’ve enjoyed for a long time.</p><p>During a short brainstorming session, those two interests came together.</p><p>What if I built a 3D Taekwondo game that runs in the browser?</p><p>That’s how DOJANG started.</p></div></div><figure class="duo" aria-label="Me, training at home in 2020 and in my dobok in November 2025"><div class="row"><div class="duo__imgs"><img class="" src="../../../../src/assets/images/writing/dojang-taekwondo-2020-1200.webp" alt="Me at home in 2020, in a dobok and red belt, holding a high kick with my foot above my head." decoding="async"/><img class="" src="../../../../src/assets/images/writing/dojang-taekwondo-2025-1200.webp" alt="Me in November 2025, standing on an outdoor court in a dobok with a yellow belt." decoding="async"/></div></div><figcaption class="row"><p class="cap">Training at home in 2020, and in my dobok in November 2025.</p></figcaption></figure><div class="row after"><div class="prose"><p>I wasn’t trying to build the next big fighting game. I wanted to explore an idea, see what was possible, and hopefully have something playable before those credits expired.</p></div></div></section><section class="sec" aria-labelledby="s-first"><div class="row"><h2 class="rail h2 h2--round" id="s-first">Getting the first version working</h2><div class="prose"><p>I approached DOJANG the same way I approach most of my projects: with a plan.</p><p>I started by working through the idea with ChatGPT. I had a vision for the game and gathered references of Taekwondo practitioners sparring, training halls, and the general atmosphere I wanted to create.</p><p>Once I was happy with the direction, I moved into implementation with Claude.</p><p>The first version was surprisingly promising.</p><p>I could move fighters around a 3D dojang, control the camera, throw kicks, and actually register hits. The playing area looked good, and the camera angles were already quite nice.</p><p>Of course, there were rough edges.</p><p>The characters looked somewhat like stick figures, their movements were stiff, and some of the kicks didn’t look quite right. But I wasn’t particularly concerned about those things yet.</p><p>I believe in iterating over time. I don’t believe in rushing things. Most things that are good, or, I believe most things take time to get right.</p><p>The important thing was that I had something working.</p><p>And now that I could actually play it, I had a much better idea of what needed improving.</p></div></div><figure class="demo" aria-label="The first version of DOJANG"><div class="vplate"><div class="pair"><div class="frame" style="aspect-ratio: 16 / 9"><img class="fill" src="../../../../src/assets/images/writing/dojang-first-exchange.webp" alt="The first version: the two fighters squaring up on the mat, with health bars, a round timer and a performance readout at the top." decoding="async"/></div><div class="frame" style="aspect-ratio: 16 / 9"><img class="fill" src="../../../../src/assets/images/writing/dojang-first-roundhouse.webp" alt="The first version: the blue fighter’s roundhouse kick landing on the red fighter’s body." decoding="async"/></div></div></div><figcaption class="row"><p class="cap">The first version, on 1 November 2026: the fighters squaring up, then a roundhouse kick landing. The figures at the top left are the game’s performance readout.</p></figcaption></figure></section></div></article></div></div></div>
+<div class="part-1"><div style="width: 1440px; background: #FAFAF8"><div class="page page--cont"><div class="body"><section class="sec" aria-labelledby="s-fighters"><div class="row"><h2 class="rail h2 h2--stem" id="s-fighters">Making the fighters feel like Taekwondo practitioners</h2><div class="prose"><p>One advantage of having practised Taekwondo myself is that I already had a reference for how sparring should look and feel.</p><p>Not that I’m an expert, but I’ve spent enough time training to recognise when something feels off.</p><p>Take the footwork, for example.</p><p>When Taekwondo practitioners spar, there’s a rhythm to their movement. They’re bouncing lightly, adjusting their distance, shifting their weight, stepping in and out, and preparing to react.</p></div></div><figure class="demo" aria-label="Sparring in November 2025"><div class="vplate"><div class="frame" style="aspect-ratio: 16 / 9"><img class="fill" src="../../../../src/assets/images/writing/dojang-sparring-poster.webp" alt="Sparring outdoors: I throw a high kick at my partner, both of us in chest protectors." decoding="async"/></div><div class="ctrl"><p class="ctrl__label">Sparring in November 2025</p><div class="group"><button class="opt opt--ink" type="button">Play</button></div></div></div><figcaption class="row"><p class="cap">Cut from a longer recording down to the busiest exchanges. I’m the one in the white dobok.</p></figcaption></figure><div class="row after"><div class="prose"><p>The first version of DOJANG didn’t really capture that.</p><p>The fighters could move across the mat and throw kicks, but their movements felt mechanical. Their feet sometimes appeared to slide, and the transitions between standing, moving, kicking, and recovering weren’t particularly convincing.</p><p>So I started describing what I wanted to Claude.</p><p>I explained the bounce, the footwork, how fighters should move forward and backward, and how they should settle after throwing a kick. I also provided references and asked the agent to look at footage of real Taekwondo sparring.</p><p>The distinctions between techniques mattered too. A roundhouse kick shouldn’t look like a side kick. The way a fighter prepares, rotates, extends the leg, and recovers is part of what makes each technique recognisable.</p><p>Over several iterations, the fighters became much more convincing.</p><p>The game uses procedural animation rather than relying entirely on prerecorded movement. In simple terms, it calculates and adjusts parts of the fighters’ movements as the game runs. That made it possible to refine things like foot placement, balance, and how a fighter recovers after a kick.</p><p>I wasn’t personally writing those animation systems. My role was to explain what I wanted, review what the coding agent implemented, play the game, and identify what still needed attention.</p></div></div><figure class="demo" aria-label="The same exchange in the first version and now"><div class="vplate"><div class="frame" style="aspect-ratio: 16 / 9"><img class="fill" src="../../../../src/assets/images/writing/dojang-motion-first-poster.webp" alt="The first version: thin, jointed figures in blue and red, the blue one landing a roundhouse kick." decoding="async"/></div><div class="ctrl ctrl--split"><div class="group" role="group" aria-label="Version"><button class="opt is-on" type="button" aria-pressed="true">First version</button><button class="opt" type="button" aria-pressed="false">Now</button></div><div class="group"><button class="opt opt--ink" type="button">Play</button></div></div></div><figcaption class="row"><p class="cap">DOJANG’s first version, from 1 November 2026. Both clips run the same scripted exchange through that build’s own simulation and animation: a roundhouse kick that lands, a blocked side kick, a back kick and a head kick. Rendered on 14 November 2026 with the same fixed camera.</p></figcaption></figure><div class="row after"><div class="prose"><p>The characters themselves went through a similar process.</p><p>At one point, they had faces without any real facial features. Just smooth, featureless surfaces where their faces were supposed to be. It looked a little jarring.</p><p>I didn’t need photorealistic faces. I just wanted simple details like eyes, noses, and mouths to make the characters feel more natural.</p><p>The same applied to their uniforms and protective equipment. Over time, the fighters got their doboks, hogu, headgear, gloves, and foot protectors.</p><p>Those details helped bring the characters closer to what I had in mind.</p></div></div><figure class="demo" aria-label="The fighters and their faces, before and after"><div class="vplate"><div class="pair"><div class="frame" style="aspect-ratio: 16 / 9"><img class="fill" src="../../../../src/assets/images/writing/dojang-fighters-before.webp" alt="Before: two thin, painted figures squaring up in the dojang." decoding="async"/></div><div class="frame" style="aspect-ratio: 16 / 9"><img class="fill" src="../../../../src/assets/images/writing/dojang-faces-before.webp" alt="Before: four close-ups of the fighters’ heads in headgear, with smooth, featureless faces." decoding="async"/></div></div><div class="ctrl ctrl--split"><div class="group" role="group" aria-label="Characters"><button class="opt is-on" type="button" aria-pressed="true">Before</button><button class="opt" type="button" aria-pressed="false">After</button></div></div></div><figcaption class="row"><p class="cap">Before: the fighters as painted figures, and their first faces, with no features. Both changes were made on 3 November 2026.</p></figcaption></figure><div class="row after"><div class="prose"><p>I also had to keep my expectations realistic.</p><p>I’m not a AAA game studio. I’m just a guy trying to make a Taekwondo game in the browser.</p><p>I wanted it to be playable and enjoyable, both for myself and for anyone else who might come across it.</p></div></div></section></div></div></div></div>
+<div class="part-2"><div style="width: 1440px; background: #FAFAF8"><div class="page page--cont"><div class="body"><section class="sec" aria-labelledby="s-phone"><div class="row"><h2 class="rail h2" id="s-phone">A fighting game still has to feel good on a phone</h2><div class="prose"><p>From the beginning, I wanted DOJANG to work on both desktop and mobile.</p><p>On my PC, I could move around using WASD and use the keyboard for different actions. On mobile, I wanted the gameplay experience to feel practically the same, even though the controls would obviously be different.</p><p>That turned out to be an interesting design problem.</p><p>In the early mobile versions, the buttons took up too much screen space. There were several actions to accommodate: movement, kicks, blocking, dashing, switching stance, controlling the camera, and more.</p><p>Putting a separate button on the screen for everything wasn’t working particularly well.</p><p>At one point, the controls and interface occupied nearly a third of the screen on a smaller phone. That’s a lot of space to lose when you’re trying to follow two fighters moving around a 3D environment.</p><p>After a few rounds of refinement, I settled on a more compact control scheme.</p><p>Instead of having every kick permanently visible, there’s a primary Kick button. You can tap it to repeat your selected technique or slide from it to bring up a wheel of other kicks. The remaining actions are arranged around the playing area.</p><p>There’s a slight learning curve, especially when you’re using the wheel for the first time. But once you get the hang of it, it’s pretty straightforward.</p><p>The changes brought the interface’s screen coverage down from roughly 32% to 18% on an iPhone SE-sized screen.</p><p>More importantly, I could still perform the actions available on desktop without having so many buttons covering the fight.</p></div></div><figure class="demo" aria-label="DOJANG’s touch controls, the first layout and the compact one"><div class="vplate"><div class="i2stage" data-stage=""><div class="i2screen" data-screen=""><img class="i2shot" src="../../../../src/assets/images/writing/dojang-touch-first.webp" alt="DOJANG’s first touch layout on an iPhone SE-sized screen: a joystick on the left and, on the right, eight round buttons for Body, Dash, Guard, Back, Side, Punch, Front and Round. Lock-on, switch-stance and pause buttons sit under the scoreboard." width="667" height="375" decoding="async"/></div></div><div class="ctrl i2ctrl"><div class="group" role="group" aria-label="Layout"><button class="opt is-on" type="button" aria-pressed="true">First layout</button><button class="opt" type="button" aria-pressed="false">Compact layout</button></div><p class="i2read">Covers 32.4% of the screen</p></div><p class="i2say is-off" aria-live="polite">Tap Kick to repeat your selected kick. Slide from it, or hold it, to open the wheel.</p></div><figcaption class="row"><p class="cap">The first touch layout on an iPhone SE-sized screen (667 × 375), captured on 1 November 2026. Coverage is the share of the screen under the scoreboard and controls, measured the same way for both.</p></figcaption></figure><div class="row after"><div class="prose"><p>I still play DOJANG on both my PC and phone, and I’m happy that the overall experience feels consistent between them.</p><p>The controls are different, but I’m still playing the same game.</p></div></div></section></div></div></div></div>
+<div class="part-3"><div style="width: 1440px; background: #FAFAF8"><div class="page page--cont"><div class="body"><section class="sec" aria-labelledby="s-beaten"><div class="row"><h2 class="rail h2 h2--round" id="s-beaten">Getting beaten by my own game</h2><div class="prose"><p>DOJANG has three AI difficulty levels: White Belt, Red Belt, and Black Belt.</p><p>Naturally, the Black Belt is the toughest opponent.</p><p>While testing the game, I played a few matches against it and got my ass whooped.</p><p>That was actually quite satisfying. 😂</p><p>I’d spent all this time working on the game, and here I was having to put in some real effort to beat an opponent in something I’d built.</p><p>It was one of those moments when DOJANG felt less like an experiment and more like an actual game.</p></div></div><figure class="demo" aria-label="Against the Black Belt AI"><div class="vplate"><div class="frame" style="aspect-ratio: 1320 / 720"><img class="fill" src="../../../../src/assets/images/writing/dojang-black-belt-poster.webp" alt="A match against the Black Belt AI: the blue fighter kicking the red fighter in the dojang." decoding="async"/></div><div class="ctrl"><p class="ctrl__label">Against the Black Belt AI</p><div class="group"><button class="opt opt--ink" type="button">Play</button></div></div></div><figcaption class="row"><p class="cap">A recent match, recorded on 14 November 2026 with a keyboard. It knocked me out in the first round, and I came back to win 2–1.</p></figcaption></figure><div class="row after"><div class="prose"><p>I also wanted people to be able to play against each other.</p><p>Eventually, I added local multiplayer, where two people can play on the same device, and online multiplayer, where you can create a room and invite someone using a link.</p><p>One of my favourite moments happened when I tested online multiplayer with a colleague.</p><p>We were standing right beside each other. I created a game, sent him the link on WhatsApp, and we started playing.</p><p>And it worked.</p><p>His actions registered, mine registered, and the match felt responsive. I didn’t notice any obvious synchronization issues during that session.</p><p>I was even pointing out some of the things I’d worked on while we were fighting — the movements, the hits, the knockdowns.</p><p>It was genuinely fun seeing someone else interact with the game in real time.</p><p>Behind that experience is a networking technique called rollback netcode. Rather than making the game wait for every action to travel between players, it keeps the match moving and corrects differences when new information arrives.</p><p>For a fighting game, where timing matters so much, that makes a difference.</p><p>But at that moment, I wasn’t thinking about the networking implementation. I was just enjoying the match.</p></div></div><figure class="demo" aria-label="An online match"><div class="vplate"><div class="frame" style="aspect-ratio: 1320 / 720"><img class="fill" src="../../../../src/assets/images/writing/dojang-online-poster.webp" alt="An online match: the red fighter kicking at the blue fighter, with both players’ names in the scoreboard." decoding="async"/></div><div class="ctrl"><p class="ctrl__label">An online match</p><div class="group"><button class="opt opt--ink" type="button">Play</button></div></div></div><figcaption class="row"><p class="cap">Recorded on 14 November 2026: me on a keyboard, my opponent on a touch screen, joined through a room link. It’s a later match, not the first session with my colleague.</p></figcaption></figure></section></div></div></div></div>
+<div class="part-4"><div style="width: 1440px; background: #FAFAF8"><div class="page page--cont"><div class="body"><section class="sec" aria-labelledby="s-sound"><div class="row"><h2 class="rail h2 h2--stem" id="s-sound">Not everything is where I want it yet</h2><div class="prose"><p>One area I’m still not entirely satisfied with is the sound design.</p><p>The first set of effects felt too synthetic and mechanical, particularly the timing of certain sounds.</p><p>There have been improvements since then. The game now has sounds for footwork, impacts, blocks, and other actions, using a combination of recorded effects and generated audio.</p><p>But I still think there’s room to make it sound more natural.</p></div></div><figure class="row ab" aria-label="The same sequence with the first sound set and the current one"><div class="ab__body"><p class="ab__label">The same four-second sequence</p><div class="group"><button class="opt opt--ink" type="button">Play the first sound set</button><button class="opt opt--ink" type="button">Play the current sound</button></div><figcaption class="ab__cap">Both exported from DOJANG’s sound lab on 3 November 2026: the first set, all generated, then the mix of recorded and generated sounds that replaced it.</figcaption></div></figure><div class="row after"><div class="prose"><p>I spent some time refining it, using real Taekwondo footage as a reference for what different movements and impacts should sound like. Eventually, I decided the improvement was good enough for now.</p><p>I can always return to it later.</p><p>That’s generally how I approach these things. If something isn’t quite where I want it to be, I’ll work on it, but I also try not to get stuck endlessly polishing one part of a project while everything else waits.</p><p>There have also been occasions when I needed to repeat prompts or clarify what I wanted from the coding agent.</p><p>That’s something I’m working on as well: communicating requirements more precisely so there’s less room for misinterpretation.</p><p>My workflow throughout DOJANG has been fairly straightforward. I describe what I want, the agent implements it through a pull request, I test the result by actually playing the game, and we iterate if needed.</p><p>I haven’t been going through the code line by line. Most of my involvement has been in planning, design direction, testing, and deciding what needs to change.</p><p>It’s a workflow that’s worked well for me, even if every first attempt doesn’t always get things right.</p></div></div></section><section class="sec" aria-labelledby="s-still"><div class="row"><h2 class="rail h2 h2--s" id="s-still">Still playing, still improving</h2><div class="prose"><p>A few people have played DOJANG now: friends, my brother, colleagues, and some people who came across it online.</p><p>Someone on X even shared gameplay and suggested adding a knockdown animation, which I later worked into the game.</p><p>I like that. Someone played something I made, noticed something that could make it better, and that suggestion eventually became part of the experience.</p></div></div><figure class="demo" aria-label="The same knockout, before and after"><div class="vplate"><div class="frame" style="aspect-ratio: 1280 / 324"><img class="fill" src="../../../../src/assets/images/writing/dojang-knockdown-poster.webp" alt="The same moment twice, side by side: on the left the knocked-out fighter is still standing, on the right they’re lying on the mat." decoding="async"/></div><div class="halves" aria-hidden="true"><p>Before</p><p>After</p></div><div class="ctrl"><p class="ctrl__label">The same knockout, before and after</p><div class="group"><button class="opt opt--ink" type="button">Play</button></div></div></div><figcaption class="row"><p class="cap">The knockdown fall, added on 9 November 2026. Before it, a knocked-out fighter froze in the pose they were hit in.</p></figcaption></figure><div class="row after"><div class="prose"><p>DOJANG hasn’t really changed how I approach building things.</p><p>I still prefer getting something working first, then improving how it looks, feels, and works over time. It’s the same approach I’ve taken with JobTrackr and my other projects.</p><p>What DOJANG has done is give me another opportunity to explore creative development, 3D experiences, and animation — things I’ve been interested in for a while.</p><p>There’s still more I’d like to do with it.</p><p>But for something that started because I had $100 in credits I didn’t want to waste, I’m pretty happy with how it’s turned out.</p><p>And, more importantly, I actually enjoy playing it.</p></div></div></section><section class="sec" aria-labelledby="s-cta"><div class="row"><h2 class="rail h2 h2--round" id="s-cta">Give DOJANG a try</h2><div class="prose"><p>DOJANG runs in your browser on desktop and mobile. You can spar against the AI, practise your techniques, or challenge a friend.</p><p><a class="cta__link" href="https://dojang.balogunoluwasogo.com">Play DOJANG<span class="vh"> (opens in a new tab)</span></a></p></div></div></section></div><footer class="row foot"><div class="foot__next"><p class="foot__label">Next essay</p><a class="foot__link" href="JxOpen.dc.html">Building Job URL Extraction into JobTrackr</a></div><div class="aside"><div class="clock"><svg aria-hidden="true" focusable="false" viewBox="0 0 96 96"><circle class="clock__face" cx="48" cy="48" r="47.5"></circle><text class="clock__readout" x="71" y="48">GMT+1</text><line class="clock__hand clock__hand--hour" transform="rotate(332.5 48 48)" x1="48" x2="48" y1="48" y2="24"></line><line class="clock__hand" transform="rotate(30 48 48)" x1="48" x2="48" y1="48" y2="8"></line><circle class="clock__pivot" cx="48" cy="48" r="2.5"></circle></svg><span class="clock__time" aria-hidden="true">11:05</span><p class="vh">GMT+1 11:05, Lagos, Nigeria</p></div><nav aria-label="Elsewhere"><ul class="links"><li><a href="#">LinkedIn<span class="vh"> (opens in a new tab)</span></a></li><li><a href="#">GitHub<span class="vh"> (opens in a new tab)</span></a></li><li><a href="#">Contra<span class="vh"> (opens in a new tab)</span></a></li><li><a href="#">Email</a></li></ul></nav></div></footer></div></div></div>
+</body>
+</html>

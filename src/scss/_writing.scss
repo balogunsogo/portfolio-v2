@@ -271,3 +271,8 @@
   text-wrap: balance;
   @include desktop { max-width: 900px; font-size: 72px; }
 }
+
+.writing-meta--head {
+  margin-top: 16px;
+  @include desktop { flex-direction: row; gap: 48px; padding-top: 0; margin-top: 12px; }
+}
