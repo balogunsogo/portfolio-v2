@@ -232,7 +232,6 @@ $jt-colors: (
 .jx-cta { display: inline-flex; align-items: center; min-height: 44px; margin-left: -$lsb-t; font-size: 28px; font-weight: $weight-medium; line-height: 1.1; letter-spacing: -0.022em; }
 
 @include desktop {
-  .jx-essay { padding-bottom: 160px; }
   .jx-timeline { margin-top: 72px; gap: 28px; }
   .jx-timeline .writing-row { column-gap: $gutter; }
   .jx-timeline__when { grid-column: 1 / span 3; padding-top: 3px; font-size: 16px; }

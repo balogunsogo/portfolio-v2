@@ -1,7 +1,6 @@
 @use '../tokens' as *;
 
 .dj-essay {
-  @include desktop { padding-bottom: 160px; }
   [hidden] { display: none !important; }
 
   @include below-desktop { .writing-body { margin-top: 48px; } }
