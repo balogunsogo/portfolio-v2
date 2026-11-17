@@ -5,6 +5,7 @@ import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { projectListMarkup } from './projects.mjs';
 import { postListMarkup } from './posts.mjs';
+import { writeDiscoveryFiles } from './discovery.mjs';
 
 export const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 export const src = join(root, 'src');
@@ -67,6 +68,7 @@ function copyPages(from, to, workList, postList) {
 export function copyStatic() {
   mkdirSync(dist, { recursive: true });
   copyPages(src, dist, projectListMarkup(join(src, 'ts', 'projects.ts')), postListMarkup(join(src, 'ts', 'posts.ts')));
+  writeDiscoveryFiles(dist);
   const assets = join(src, 'assets');
   if (existsSync(assets)) {
     cpSync(assets, join(dist, 'assets'), {
