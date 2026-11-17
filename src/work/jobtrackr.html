@@ -76,7 +76,7 @@
       <section class="case-section" aria-labelledby="problem-heading">
         <div class="case-text">
           <p class="case-label case-label--t case-text__label">The problem</p>
-          <h2 class="case-h case-text__heading" id="problem-heading">A job search spreads across too many places.</h2>
+          <h2 class="case-h case-text__heading" id="problem-heading" data-toc>A job search spreads across too many places.</h2>
           <div class="case-text__body case-copy">
             <p class="case-body">Roles sit on LinkedIn, company sites and job boards. Replies arrive by email. Interviews happen weeks after the application, and each role wants a slightly different resume. After enough applications, it gets hard to say where anything stands.</p>
             <p class="case-body">Most job platforms help you find work, not manage what happens after you apply. I was keeping track in browser tabs, bookmarks and memory but that stopped working after several applications.</p>
@@ -88,7 +88,7 @@
       <section class="case-section case-section--structure" aria-labelledby="structure-heading">
         <div class="case-text">
           <p class="case-label case-label--s case-text__label">Structure</p>
-          <h2 class="case-h case-h--stem case-text__heading" id="structure-heading">Built around the life of an application.</h2>
+          <h2 class="case-h case-h--stem case-text__heading" id="structure-heading" data-toc>Built around the life of an application.</h2>
           <div class="case-text__body case-copy">
             <p class="case-body">Before designing screens, I mapped what actually happens during a search. An application is saved or sent, moves through assessments and interviews, and ends in an offer, a rejection or a withdrawal. Activity, next actions, interview preparation and documents all hang off that journey.</p>
             <p class="case-body">That gave the product five areas. Nothing was added as a standalone feature: everything had to serve the same journey.</p>
@@ -137,7 +137,7 @@
       <section class="case-section" aria-labelledby="overview-heading">
         <div class="case-text">
           <p class="case-label case-label--round case-text__label">Overview</p>
-          <h2 class="case-h case-h--s case-text__heading" id="overview-heading">See what matters. Know what comes next.</h2>
+          <h2 class="case-h case-h--s case-text__heading" id="overview-heading" data-toc>See what matters. Know what comes next.</h2>
           <div class="case-text__body case-copy">
             <p class="case-body">The Overview opens with a sentence welcoming the user rather than a chart. Below it, everything that needs attention is grouped by when it’s due (overdue, today, this week) with the next step right on the row, from joining a call to ticking off a follow-up.</p>
             <p class="case-body">Totals, the pipeline and recent activity sit around it. Colour is kept for status and urgency, so it always carries meaning and nothing else competes for attention.</p>
@@ -172,7 +172,7 @@
       <section class="case-section case-section--applications" aria-labelledby="applications-heading">
         <div class="case-text">
           <p class="case-label case-text__label">Applications</p>
-          <h2 class="case-h case-h--stem case-text__heading" id="applications-heading">Every opportunity keeps its whole story.</h2>
+          <h2 class="case-h case-h--stem case-text__heading" id="applications-heading" data-toc>Every opportunity keeps its whole story.</h2>
           <div class="case-text__body case-copy">
             <p class="case-body">Applications are the centre of JobTrackr. Each one moves from saved to applied, assessment, interviewing and offer, or closes as rejected or withdrawn. The list can be searched, filtered by status and source, sorted and exported as CSV.</p>
             <p class="case-body">Opening one shows far more than a row: a progress line, the next action, an activity log, interviews, linked documents and notes. Status changes and interviews are written to the log automatically; anything else, like a recruiter reply or a follow-up, takes one entry.</p>
@@ -213,7 +213,7 @@
       <section class="case-section case-section--interviews" aria-labelledby="interviews-heading">
         <div class="case-text">
           <p class="case-label case-label--stem case-text__label">Interviews</p>
-          <h2 class="case-h case-h--stem case-text__heading" id="interviews-heading">From tracking to preparation.</h2>
+          <h2 class="case-h case-h--stem case-text__heading" id="interviews-heading" data-toc>From tracking to preparation.</h2>
           <div class="case-text__body case-copy">
             <p class="case-body">Once an application moves forward, the question changes from “where did I apply?” to “am I ready for this conversation?” Interviews became their own workflow, attached to an application.</p>
             <p class="case-body">Each stage has its time, a meeting link, a preparation checklist, topics to review, questions to ask, notes, feedback, and a history that logs reschedules and outcomes as they happen. One application can hold several stages, so a recruiter screen, a technical round and a final read as one process, not three unrelated calendar events.</p>
@@ -237,7 +237,7 @@
       <section class="case-section" aria-labelledby="analytics-heading">
         <div class="case-text">
           <p class="case-label case-text__label">Analytics</p>
-          <h2 class="case-h case-h--stem case-text__heading" id="analytics-heading">Is the search actually working?</h2>
+          <h2 class="case-h case-h--stem case-text__heading" id="analytics-heading" data-toc>Is the search actually working?</h2>
           <div class="case-text__body case-copy">
             <p class="case-body">With structured data underneath, JobTrackr can answer questions a spreadsheet hides: how many applications get a response, where the pipeline stalls, which sources lead to interviews. Analytics shows the funnel from applied to offered, weekly trends, a status breakdown and interview activity for any period.</p>
             <p class="case-body">The key numbers are also written out as sentences, such as which source has the strongest interview rate. The goal isn’t analytics for its own sake; it’s knowing if and when to change the strategy.</p>
@@ -266,7 +266,7 @@
         <div class="case-arch">
           <div class="case-text case-text--stack case-arch__text">
             <p class="case-label case-text__label">Architecture</p>
-            <h2 class="case-h case-h--t case-text__heading" id="architecture-heading">Three layers, each with one job.</h2>
+            <h2 class="case-h case-h--t case-text__heading" id="architecture-heading" data-toc>Three layers, each with one job.</h2>
             <div class="case-text__body case-copy">
               <p class="case-body">The interface is Next.js with React, TypeScript and SCSS Modules. It talks to a separate NestJS API that owns the application logic: validation, business rules and who may touch what. Supabase provides the rest: Postgres for data (modelled and queried with Drizzle ORM), Auth for identity and Storage for documents.</p>
               <p class="case-body">Keeping the API separate puts every rule in one place the browser can’t skip, and lets the frontend concentrate on the experience. Both run on Vercel.</p>
@@ -374,7 +374,7 @@
       <section class="case-section case-section--data" aria-labelledby="data-heading">
         <div class="case-text">
           <p class="case-label case-label--stem case-text__label">Data model</p>
-          <h2 class="case-h case-h--t case-text__heading" id="data-heading">Ten tables, shaped by the journey.</h2>
+          <h2 class="case-h case-h--t case-text__heading" id="data-heading" data-toc>Ten tables, shaped by the journey.</h2>
           <div class="case-text__body case-copy">
             <p class="case-body">The schema mirrors the product. An interview belongs to an application. Preparation items, topics and questions belong to an interview. A document can be linked to many applications. An offer comes from an application, and activity ties the history together.</p>
             <p class="case-body">Rules live in the model, not just the interface: an application has at most one offer and one pending next action, and every table has Row Level Security. Getting these relationships right early made the rest of the product much easier to build.</p>
@@ -489,7 +489,7 @@
       <section class="case-section case-section--process" aria-labelledby="process-heading">
         <div class="case-text">
           <p class="case-label case-label--stem case-text__label">Process</p>
-          <h2 class="case-h case-h--round case-text__heading" id="process-heading">One feature touches every layer.</h2>
+          <h2 class="case-h case-h--round case-text__heading" id="process-heading" data-toc>One feature touches every layer.</h2>
           <div class="case-text__body case-copy">
             <p class="case-body">Adding interviews wasn’t a matter of designing a screen. It was a chain of decisions, and the same chain repeated for every feature.</p>
             <p class="case-body">Working across every layer kept the build faithful to the product thinking, instead of treating design and development as separate phases.</p>
@@ -523,7 +523,7 @@
       <section class="case-section case-section--authentication" aria-labelledby="authentication-heading">
         <div class="case-text">
           <p class="case-label case-text__label">Authentication</p>
-          <h2 class="case-h case-h--w case-text__heading" id="authentication-heading">Who owns the data?</h2>
+          <h2 class="case-h case-h--w case-text__heading" id="authentication-heading" data-toc>Who owns the data?</h2>
           <div class="case-text__body case-copy">
             <p class="case-body">People sign in with Supabase Auth, by email and password or with Google. The Next.js app handles the session server-side, and the NestJS API verifies every request’s token itself, checking its signature against Supabase’s published keys before it touches any data.</p>
             <p class="case-body">Authentication was more than a login screen. OAuth callbacks, protected routes, session restore and the states people pass through before and after signing in all had to be handled.</p>
@@ -566,7 +566,7 @@
       <section class="case-section case-section--security" aria-labelledby="security-heading">
         <div class="case-text">
           <p class="case-label case-label--s case-text__label">Security</p>
-          <h2 class="case-h case-h--s case-text__heading" id="security-heading">Signed in isn’t the same as allowed.</h2>
+          <h2 class="case-h case-h--s case-text__heading" id="security-heading" data-toc>Signed in isn’t the same as allowed.</h2>
           <div class="case-text__body case-copy">
             <p class="case-body">With several people using JobTrackr, the walls between their data became part of the architecture. Knowing, or guessing, an application’s ID must never be enough to read it. So the API never treats an ID as permission: every protected operation checks that the record’s owner matches the user in the verified token.</p>
             <p class="case-body">I tested this with two accounts, requesting each other’s records directly by ID, to confirm neither could see the other’s. That closes the security issue of Insecure Direct Object Reference, or IDOR.</p>
@@ -622,7 +622,7 @@
       <section class="case-section case-section--stack" aria-labelledby="stack-heading">
         <div class="case-text">
           <p class="case-label case-label--s case-text__label">Stack</p>
-          <h2 class="case-h case-h--t case-text__heading" id="stack-heading">Tools chosen around the product.</h2>
+          <h2 class="case-h case-h--t case-text__heading" id="stack-heading" data-toc>Tools chosen around the product.</h2>
         </div>
 
         <dl class="case-stack">
@@ -669,7 +669,7 @@
       <section class="case-section" aria-labelledby="shipping-heading">
         <div class="case-text">
           <p class="case-label case-label--s case-text__label">Shipping</p>
-          <h2 class="case-h case-h--stem case-text__heading" id="shipping-heading">Live, and in beta.</h2>
+          <h2 class="case-h case-h--stem case-text__heading" id="shipping-heading" data-toc>Live, and in beta.</h2>
           <div class="case-text__body case-copy">
             <p class="case-body">Once the core workflows worked end to end, I deployed the frontend and the API to Vercel, backed by production Supabase. That brought its own work: environment configuration, OAuth redirects for each environment, communication between frontend and API, and migrations written to keep existing data and file paths intact.</p>
             <p class="case-body">I didn’t want JobTrackr to stay a polished prototype. The clip below is a real session in production: saving a role from a LinkedIn posting, then opening its record.</p>
@@ -694,7 +694,7 @@
       <section class="case-section" aria-labelledby="beta-heading">
         <div class="case-text">
           <p class="case-label case-label--stem case-text__label">Beta</p>
-          <h2 class="case-h case-h--s case-text__heading" id="beta-heading">Shipping wasn’t the finish line.</h2>
+          <h2 class="case-h case-h--s case-text__heading" id="beta-heading" data-toc>Shipping wasn’t the finish line.</h2>
           <div class="case-text__body case-copy">
             <p class="case-body">A small group of beta testers now use JobTrackr in their own searches, and the app carries an <span class="case-nowrap">early-tester</span> card that leads straight to feedback.</p>
             <p class="case-body">The beta isn’t only for finding bugs. It shows where my assumptions meet real behaviour: what feels obvious, what creates friction, what people ignore and what they expect to happen. That feedback shapes the next round of work.</p>
@@ -704,7 +704,7 @@
 
       <section class="case-section case-section--outcome" aria-labelledby="outcome-label">
         <div class="case-text">
-          <p class="case-label case-label--round case-text__label" id="outcome-label">Outcome</p>
+          <p class="case-label case-label--round case-text__label" id="outcome-label" data-toc>Outcome</p>
           <p class="case-h case-h--j case-text__statement">JobTrackr began as my own problem. Solving it meant owning the whole product, from the first sketch to the database policies.</p>
         </div>
 
@@ -721,7 +721,7 @@
       </section>
     </main>
 
-    <footer class="case-foot">
+    <footer class="case-foot" data-toc-end>
       <div class="case-foot__next">
         <p class="case-label case-label--stem">Next project</p>
         <p class="case-display case-display--stem case-display--balance"><a class="case-foot__link" href="/work/morrow-studio"><span class="case-nowrap"><span class="case-foot__thumb"><img src="/assets/images/projects/morrow-studio-480.webp" width="480" height="320" alt="" loading="lazy" decoding="async"></span>Morrow</span> Studio</a></p>

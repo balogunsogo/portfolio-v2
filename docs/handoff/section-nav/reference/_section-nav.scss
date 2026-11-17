@@ -1,0 +1,123 @@
+// Reference styles: the approved prototype's values, for src/scss/_section-nav.scss.
+@use 'tokens' as *;
+
+.section-nav { display: none; }
+
+@include desktop {
+  // In the right page margin, centred on the screen. Only the marks and the open box take the pointer.
+  .section-nav {
+    position: fixed;
+    top: 50%;
+    right: 0;
+    z-index: 9; // under .case-top (10)
+    display: block;
+    pointer-events: none;
+    transform: translateY(-50%);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0s linear 0.2s;
+  }
+
+  .section-nav.is-visible {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.2s ease;
+  }
+
+  // Collapsed: one 1px mark per section, right-aligned, 20px from the screen edge.
+  .section-nav__marks {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 9px;
+    padding: 20px 20px 20px 24px; // also the hover area around the marks
+    pointer-events: auto;
+    transition: opacity 0.15s ease;
+  }
+
+  .section-nav__mark {
+    display: block;
+    flex: none;
+    width: 14px;
+    height: 1px;
+    background: $color-muted;
+    opacity: 0.45;
+    transition: width 0.2s ease, opacity 0.2s ease, background-color 0.2s ease;
+  }
+
+  .section-nav__mark.is-active {
+    width: 24px;
+    background: $color-ink;
+    opacity: 1;
+  }
+
+  // Open: the titles replace the marks in a small box of the page colour, 16px padding.
+  // right: 4px + 16px padding puts the row marks exactly where the collapsed marks were.
+  .section-nav__panel {
+    position: absolute;
+    top: 50%;
+    right: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: max-content;
+    max-height: calc(100vh - 96px);
+    margin: 0;
+    padding: 16px;
+    overflow-y: auto;
+    list-style: none;
+    background: $color-ground;
+    opacity: 0;
+    pointer-events: none;
+    transform: translate(6px, -50%);
+    transition: opacity 0.15s ease 0.12s, transform 0.2s ease 0.12s;
+  }
+
+  .section-nav:hover .section-nav__panel,
+  .section-nav:focus-within .section-nav__panel {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translate(0, -50%);
+    transition-delay: 0s;
+  }
+
+  .section-nav:hover .section-nav__marks,
+  .section-nav:focus-within .section-nav__marks { opacity: 0; }
+
+  // Right-aligned titles, each with its mark to the right (a fixed 24px column, so nothing shifts).
+  .section-nav__link {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 24px;
+    column-gap: 20px;
+    justify-items: end;
+    padding: 3px 0;
+    font-size: 16px;
+    line-height: 1.4;
+    text-align: right;
+    color: $color-muted;
+    transition: color 0.15s ease;
+
+    &:hover, &.is-active { color: $color-ink; }
+    &:focus-visible { outline: none; }
+    &:focus-visible .section-nav__title { outline: 2px solid currentColor; outline-offset: 3px; }
+
+    .section-nav__mark { align-self: start; margin-top: 11px; } // centred on the first line
+  }
+
+  .section-nav__title { max-width: 260px; text-wrap: balance; }
+}
+
+// The nav is for the full story only.
+.is-tldr .section-nav { display: none; }
+
+[data-toc] { scroll-margin-top: 104px; } // clears the sticky top bar when it reappears
+[data-toc]:focus:not(:focus-visible) { outline: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .section-nav,
+  .section-nav * { transition: none !important; }
+}
+
+@media print {
+  .section-nav { display: none !important; }
+}

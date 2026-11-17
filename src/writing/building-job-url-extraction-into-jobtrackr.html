@@ -49,7 +49,7 @@
 <p>That was the idea.</p>
 <p>Building it, however, came with a few more considerations than I initially expected.</p></div></div></section>
 
-<section class="writing-section" aria-labelledby="url-heading"><div class="writing-row"><h2 class="writing-heading writing-heading--stem" id="url-heading">Making the URL do some of the work</h2><div class="writing-prose"><p>I wanted the feature to fit naturally into the existing application form rather than introduce another workflow.</p>
+<section class="writing-section" aria-labelledby="url-heading"><div class="writing-row"><h2 class="writing-heading writing-heading--stem" id="url-heading" data-toc>Making the URL do some of the work</h2><div class="writing-prose"><p>I wanted the feature to fit naturally into the existing application form rather than introduce another workflow.</p>
 <p>The experience I had in mind was simple.</p>
 <p>Paste a job URL, let JobTrackr retrieve the relevant details, review or correct whatever comes back, and save when you’re ready.</p>
 <p>If extraction doesn’t work, you can still enter the information yourself.</p>
@@ -61,7 +61,7 @@
 <figure class="writing-demo"><div class="writing-plate"><div class="writing-frame jx-media-frame"><video class="writing-video" muted playsinline preload="none" controls src="/assets/video/writing/jobtrackr-url-extraction.mp4" poster="/assets/images/writing/jobtrackr-url-extraction-poster.webp" aria-label="JobTrackr, signed in with a test account: a public job URL is pasted into Add application, the role and company fill in, Source is set to Company website, and the application is added." data-media-video></video></div><div class="writing-controls" data-media-controls hidden><p class="writing-controls__label">Pasting a job URL, reviewing the details, then adding the application</p><div class="writing-control-group writing-controls__actions"><button class="writing-control" type="button" data-media-replay hidden>Replay</button><button class="writing-control writing-control--ink" type="button" data-media-toggle>Play</button></div></div></div><figcaption class="writing-row writing-caption"><p>Recorded on jobtrackr.site with a test account and a public job posting. Nothing is saved until Add application is pressed.</p></figcaption></figure>
 </div></section>
 
-<section class="writing-section" aria-labelledby="ai-heading"><div class="writing-row"><h2 class="writing-heading writing-heading--w" id="ai-heading">Why I didn’t use AI for extraction</h2><div class="writing-prose"><p>This was a deliberate decision.</p>
+<section class="writing-section" aria-labelledby="ai-heading"><div class="writing-row"><h2 class="writing-heading writing-heading--w" id="ai-heading" data-toc>Why I didn’t use AI for extraction</h2><div class="writing-prose"><p>This was a deliberate decision.</p>
 <p>I didn’t want to use AI for job details extraction.</p>
 <p>Not because I’m against AI or wouldn’t consider introducing it into JobTrackr. I’ve just been intentional about what I add to the application.</p>
 <p>I don’t want to introduce an AI-powered workflow simply because I can. There has to be a genuine need for it, and it has to fit naturally into the product.</p>
@@ -113,7 +113,7 @@
 <div class="jt__foot"><button data-demo-control class="jbtn" type="button" data-cancel="" disabled="">Cancel</button><button data-demo-control class="jbtn jbtn--primary" type="submit" form="d2-form" disabled="">Add application</button></div></div></div><figcaption class="writing-row writing-caption"><p>Recognised Greenhouse and Lever links use the job board’s public API. Other pages can still describe the job with JobPosting data. A page title or description is only ever a suggestion.</p></figcaption></figure>
 </section>
 
-<section class="writing-section" aria-labelledby="data-heading"><div class="writing-row"><h2 class="writing-heading writing-heading--round" id="data-heading">Getting the data was only part of the problem</h2><div class="writing-prose"><p>On the surface, extraction sounds pretty straightforward.</p>
+<section class="writing-section" aria-labelledby="data-heading"><div class="writing-row"><h2 class="writing-heading writing-heading--round" id="data-heading" data-toc>Getting the data was only part of the problem</h2><div class="writing-prose"><p>On the surface, extraction sounds pretty straightforward.</p>
 <p>Fetch a page. Find the relevant information. Put it into the form.</p>
 <p>But the more interesting engineering challenges came from thinking about what someone might be doing while that process was happening.</p>
 <p>Say you paste a URL and immediately start typing the company name yourself.</p>
@@ -172,7 +172,7 @@
 <p>Expired postings needed similar care. When a posting contains a past application deadline but still has useful details, JobTrackr asks for confirmation before applying them.</p>
 <p>It all came back to the same thing: extracting information is useful, but the application also needs to handle uncertainty properly.</p></div></div></section>
 
-<section class="writing-section" aria-labelledby="safe-heading"><div class="writing-row"><h2 class="writing-heading writing-heading--stem" id="safe-heading">Making it safe enough to ship</h2><div class="writing-prose"><p>There was another side to this feature that wasn’t immediately visible in the interface.</p>
+<section class="writing-section" aria-labelledby="safe-heading"><div class="writing-row"><h2 class="writing-heading writing-heading--stem" id="safe-heading" data-toc>Making it safe enough to ship</h2><div class="writing-prose"><p>There was another side to this feature that wasn’t immediately visible in the interface.</p>
 <p>JobTrackr was now accepting URLs from users and retrieving information from external websites.</p>
 <p>That introduces risks beyond whether extraction succeeds.</p>
 <p>For example, the server shouldn’t be allowed to follow an arbitrary URL into a private network or internal service. It also shouldn’t follow redirects endlessly or try to process an unexpectedly large response.</p>
@@ -182,7 +182,7 @@
 <p>Most of this isn’t visible when someone pastes a URL into a form.</p>
 <p>But it’s part of what makes a feature ready for real usage, rather than something that only works under ideal conditions.</p></div></div></section>
 
-<section class="writing-section" aria-labelledby="prod-heading"><div class="writing-row"><h2 class="writing-heading writing-heading--round" id="prod-heading">Getting it into production</h2><div class="writing-prose"><p>The first production rollout didn’t go as planned.</p>
+<section class="writing-section" aria-labelledby="prod-heading"><div class="writing-row"><h2 class="writing-heading writing-heading--round" id="prod-heading" data-toc>Getting it into production</h2><div class="writing-prose"><p>The first production rollout didn’t go as planned.</p>
 <p>After merging the feature and deploying it, one of the smoke tests timed out during verification. I rolled back the deployment rather than leave the new release running without completing the checks.</p>
 <p>At that point, I still needed to understand what had gone wrong.</p>
 <p>What I eventually found was interesting.</p>
@@ -200,7 +200,7 @@
 <figure class="jx-timeline-figure" aria-labelledby="tl-cap"><ol class="jx-timeline"><li class="writing-row"><p class="jx-timeline__when">21 October, 22:28</p><p class="jx-timeline__what">Merged and deployed the feature. A smoke test timed out during verification, so I rolled the frontend and API back. The additive database migration stayed in place.</p></li><li class="writing-row"><p class="jx-timeline__when">21 October, 22:52</p><p class="jx-timeline__what">Fixed the test, not the feature. Its second paste had been inserted into the first URL, and it then waited for a suggestion that shouldn’t appear.</p></li><li class="writing-row"><p class="jx-timeline__when">21 October, 23:01</p><p class="jx-timeline__what">Released again with the corrected checks. A separate Lever request genuinely timed out during verification.</p></li><li class="writing-row"><p class="jx-timeline__when">22 October, 00:32</p><p class="jx-timeline__what">Added extraction analytics to Insights.</p></li><li class="writing-row"><p class="jx-timeline__when">22 October, 15:32</p><p class="jx-timeline__what">Raised the allowance from 10 to 20 attempts per rolling hour.</p></li></ol><figcaption class="writing-row"><p class="writing-caption" id="tl-cap">Release timeline. Times come from the commit history, in West Africa Time.</p></figcaption></figure>
 </section>
 
-<section class="writing-section" aria-labelledby="useful-heading"><div class="writing-row"><h2 class="writing-heading writing-heading--w" id="useful-heading">Working wasn’t the same as being useful</h2><div class="writing-prose"><p>After getting extraction into production, I wanted to understand what was actually happening when people used it.</p>
+<section class="writing-section" aria-labelledby="useful-heading"><div class="writing-row"><h2 class="writing-heading writing-heading--w" id="useful-heading" data-toc>Working wasn’t the same as being useful</h2><div class="writing-prose"><p>After getting extraction into production, I wanted to understand what was actually happening when people used it.</p>
 <p>I already had an Analytics/Insights module in JobTrackr tracking different aspects of the application, so extending it to cover extraction made sense.</p>
 <p>It wasn’t part of the initial implementation. I added it afterwards because I wanted a better way to evaluate the feature beyond my own testing.</p>
 <p>Testing it myself could tell me whether it worked for the URLs and scenarios I tried.</p>
@@ -221,16 +221,16 @@
 </div></figure>
 </section>
 
-<section class="writing-section" aria-labelledby="next-heading"><div class="writing-row"><h2 class="writing-heading writing-heading--w" id="next-heading">What comes next</h2><div class="writing-prose"><p>There’s still room to improve job URL extraction. I’d like to support more posting platforms and make partial results more useful.</p>
+<section class="writing-section" aria-labelledby="next-heading"><div class="writing-row"><h2 class="writing-heading writing-heading--w" id="next-heading" data-toc>What comes next</h2><div class="writing-prose"><p>There’s still room to improve job URL extraction. I’d like to support more posting platforms and make partial results more useful.</p>
 <p>AI-assisted extraction is something I might explore eventually, but I don’t see a reason to introduce it just yet.</p>
 <p>For now, I want to see how people actually use the feature before deciding what to build next.</p></div></div></section>
 
-<section class="writing-section" aria-labelledby="cta-heading"><div class="writing-row"><h2 class="writing-heading writing-heading--s" id="cta-heading">See it in action</h2><div class="writing-prose"><p>Job URL extraction is available in JobTrackr. Paste a job posting link, review the details it can retrieve, and add the application to your tracker.</p>
+<section class="writing-section" aria-labelledby="cta-heading"><div class="writing-row"><h2 class="writing-heading writing-heading--s" id="cta-heading" data-toc>See it in action</h2><div class="writing-prose"><p>Job URL extraction is available in JobTrackr. Paste a job posting link, review the details it can retrieve, and add the application to your tracker.</p>
 <p><a class="jx-cta" href="https://jobtrackr.site" target="_blank" rel="noopener">Try JobTrackr<span class="visually-hidden"> (opens in a new tab)</span></a></p></div></div></section>
 
       </div>
     </article></main>
-    <footer class="case-foot writing-foot">
+    <footer class="case-foot writing-foot" data-toc-end>
       <div class="case-foot__next"><p class="writing-foot__label">Next essay</p><a class="writing-foot__essay case-display--t" href="/writing/space-between-design-and-engineering">The Space Between Design and Engineering</a></div>
       <div class="case-foot__aside">
         <div class="case-foot__meta">

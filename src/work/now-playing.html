@@ -82,7 +82,7 @@
       <section class="case-section" aria-labelledby="context-heading">
         <div class="case-text">
           <p class="case-label case-label--round case-text__label">Context</p>
-          <h2 class="case-h case-text__heading" id="context-heading">A page about one thing: the music I'm listening to.</h2>
+          <h2 class="case-h case-text__heading" id="context-heading" data-toc>A page about one thing: the music I'm listening to.</h2>
           <div class="case-text__body case-copy">
             <p class="case-body">Music is part of how I work, so I made a page that shows it as it happens. Now Playing reads my Spotify account and shows the track that’s playing, or the last one if nothing is, with a link to open it in Spotify.</p>
             <p class="case-body">The first version, in May 2026, put the cover over a blurred copy of itself, with a short note about the page. At the end of August I rebuilt how it moves: colours taken from the cover, staged track changes, a tilt on the artwork and a list of recent tracks. Touch got a version of its own in late September.</p>
@@ -114,7 +114,7 @@
       <section class="case-section case-section--rules" aria-labelledby="data-heading">
         <div class="case-text">
           <p class="case-label case-label--stem case-text__label">Live data</p>
-          <h2 class="case-h case-h--t case-text__heading" id="data-heading">Three questions to Spotify, in order.</h2>
+          <h2 class="case-h case-h--t case-text__heading" id="data-heading" data-toc>Three questions to Spotify, in order.</h2>
           <div class="case-text__body case-copy">
             <p class="case-body">The page never calls Spotify’s API itself. Every 10 seconds it asks its own endpoint, a serverless function on Vercel that holds the client secret and a long-lived refresh token. The function trades that token for an access token, keeps it until a minute before it expires while the function stays warm, and never lets two requests refresh it at once.</p>
             <p class="case-body">Then it asks Spotify up to three questions and stops at the first answer. Every response is marked no-store, so a track is never served from a cache.</p>
@@ -144,7 +144,7 @@
       <section class="case-section" aria-labelledby="changes-heading">
         <div class="case-text">
           <p class="case-label case-label--t case-text__label">Track changes</p>
-          <h2 class="case-h case-text__heading" id="changes-heading">A new track waits until it’s ready.</h2>
+          <h2 class="case-h case-text__heading" id="changes-heading" data-toc>A new track waits until it’s ready.</h2>
           <div class="case-text__body case-copy">
             <p class="case-body">When the endpoint returns a different track, nothing moves at first. The next cover is loaded and decoded in the background and its colours are worked out, while the current track stays on screen. Only then does the old one step back, for 180 milliseconds, and the new one arrive: the cover settles into place, the details follow, starting 20 to 220 milliseconds in, and the title comes in word by word.</p>
             <p class="case-body">Each change carries a generation number, so a cover that finishes loading after a newer track has arrived is thrown away. A change of state alone, like pausing, updates the badge and the status line in place instead of replaying the arrival. With reduced motion, the new track simply appears.</p>
@@ -169,7 +169,7 @@
       <section class="case-section" aria-labelledby="scene-heading">
         <div class="case-text">
           <p class="case-label case-label--t case-text__label">The scene</p>
-          <h2 class="case-h case-h--stem case-text__heading" id="scene-heading">Every cover brings its own colours.</h2>
+          <h2 class="case-h case-h--stem case-text__heading" id="scene-heading" data-toc>Every cover brings its own colours.</h2>
           <div class="case-text__body case-copy">
             <p class="case-body">The background is the cover itself, enlarged and blurred behind the page, over soft fields of colour sampled from it. A 32-pixel copy of the artwork gives an average and a most vivid colour, both clamped to a narrow range of brightness, and the result is kept for the last 16 covers.</p>
             <p class="case-body">Two background layers take turns, so a new scene fades in over the old one instead of replacing it. While a track plays, the background drifts slowly and the bars beside the status move; when it’s paused or offline, both stop and the scene dims a little. Double-click the status badge and the cover gets a faint glow in its accent colour.</p>
@@ -205,7 +205,7 @@
       <section class="case-section" aria-labelledby="artwork-heading">
         <div class="case-text">
           <p class="case-label case-label--t case-text__label">The artwork</p>
-          <h2 class="case-h case-h--t case-text__heading" id="artwork-heading">The cover leans toward the pointer.</h2>
+          <h2 class="case-h case-h--t case-text__heading" id="artwork-heading" data-toc>The cover leans toward the pointer.</h2>
           <div class="case-text__body case-copy">
             <p class="case-body">With a mouse or trackpad, the cover tilts toward the pointer and lifts slightly, and a highlight slides across it as it turns. The pointer only sets a target; one animation-frame loop eases toward it, so quick movements stay smooth.</p>
             <p class="case-body">It runs on fine pointers only, stops while the tab is hidden, and is off with reduced motion. When the pointer leaves, the cover settles back flat.</p>
@@ -230,7 +230,7 @@
       <section class="case-section" aria-labelledby="previously-heading">
         <div class="case-text">
           <p class="case-label case-label--stem case-text__label">Previously</p>
-          <h2 class="case-h case-h--stem case-text__heading" id="previously-heading">Four recent tracks, one tap away.</h2>
+          <h2 class="case-h case-h--stem case-text__heading" id="previously-heading" data-toc>Four recent tracks, one tap away.</h2>
           <div class="case-text__body case-copy">
             <p class="case-body">The button in the bottom right corner opens Previously: the last four tracks I played, each a link to Spotify. The list is fetched when the panel opens, from a second endpoint that reads my recent history. Skeleton cards hold its shape while it loads.</p>
             <p class="case-body">The first version of the panel only listed tracks this browser had seen change, so it started empty. Reading Spotify’s history instead fills it from the first visit.</p>
@@ -253,7 +253,7 @@
       <section class="case-section" aria-labelledby="phone-heading">
         <div class="case-text">
           <p class="case-label case-label--round case-text__label">On a phone</p>
-          <h2 class="case-h case-h--s case-text__heading" id="phone-heading">Smaller screens, and shorter ones.</h2>
+          <h2 class="case-h case-h--s case-text__heading" id="phone-heading" data-toc>Smaller screens, and shorter ones.</h2>
           <div class="case-text__body case-copy">
             <p class="case-body">Below 720 pixels the corners tighten, the cover grows to most of the width, and the two buttons sit just above the bottom edge, clear of the home indicator. Heights use the small viewport unit, so the layout holds still while Safari’s toolbars come and go.</p>
             <p class="case-body">Shorter screens get a smaller cover in steps, so the title and the Spotify link stay on screen. Previously becomes a strip you swipe sideways.</p>
@@ -285,7 +285,7 @@
       <section class="case-section case-section--phone" aria-labelledby="touch-heading">
         <div class="case-text">
           <p class="case-label case-label--t case-text__label">Touch</p>
-          <h2 class="case-h case-h--t case-text__heading" id="touch-heading">The cover follows your finger.</h2>
+          <h2 class="case-h case-h--t case-text__heading" id="touch-heading" data-toc>The cover follows your finger.</h2>
           <div class="case-text__body case-copy">
             <p class="case-body">A phone has no pointer to lean toward, so the cover follows a finger instead. Tilt and press run on springs, the angle goes 1.75 times as far as on desktop, and the drag meets more resistance toward the edge. When the page can’t scroll, vertical drags go to the tilt; when it can, they stay with the page.</p>
             <p class="case-body">A tap opens the cover full screen. The real element moves into the viewer and is animated from where it was, with its corners, shadow and perspective scaled so nothing jumps. There the tilt is stronger, the cover shifts toward the finger, the whole screen is the surface, and two fingers still zoom. The page behind is made inert, focus moves to Close when the viewer is opened from a keyboard, and Escape closes it. Artifacts has the same interaction as Ambient Artwork.</p>
@@ -325,7 +325,7 @@
       <section class="case-section case-section--engineering" aria-labelledby="engineering-heading">
         <div class="case-text">
           <p class="case-label case-label--stem case-text__label">Engineering</p>
-          <h2 class="case-h case-h--stem case-text__heading" id="engineering-heading">Doing less, especially in a hidden tab.</h2>
+          <h2 class="case-h case-h--stem case-text__heading" id="engineering-heading" data-toc>Doing less, especially in a hidden tab.</h2>
           <div class="case-text__body case-copy">
             <p class="case-body">The first version polled every 5 seconds whether anyone was looking or not, asked for a new access token every time, and swapped the cover the moment a new address arrived. Most of the work since has been making it do less, and do it in a better order.</p>
             <p class="case-body">Polling now runs only while the page is visible. When the tab is hidden or the page is left, it stops, along with the drifting background and the bars, and it all starts again when you come back, including from the back-forward cache. Each request cancels the one before it, so a slow answer never overwrites a newer one.</p>
@@ -361,7 +361,7 @@
       <section class="case-section case-section--performance" aria-labelledby="performance-heading">
         <div class="case-text">
           <p class="case-label case-label--stem case-text__label">Performance</p>
-          <h2 class="case-h case-h--stem case-text__heading" id="performance-heading">Measured on a mid-range phone.</h2>
+          <h2 class="case-h case-h--stem case-text__heading" id="performance-heading" data-toc>Measured on a mid-range phone.</h2>
         </div>
 
         <dl class="case-scores">
@@ -407,7 +407,7 @@
       <section class="case-section case-section--process" aria-labelledby="process-heading">
         <div class="case-text">
           <p class="case-label case-label--stem case-text__label">Process</p>
-          <h2 class="case-h case-h--stem case-text__heading" id="process-heading">Built in passes, over five months.</h2>
+          <h2 class="case-h case-h--stem case-text__heading" id="process-heading" data-toc>Built in passes, over five months.</h2>
           <div class="case-text__body case-copy">
             <p class="case-body">Now Playing grew in passes, each one small enough to ship on its own. The experimental layers are kept apart, in their own files or in marked blocks, so each one is easy to find and take out.</p>
             <p class="case-body">I directed the design and development, using AI coding agents to help write the code while I guided the implementation and reviewed the results.</p>
@@ -441,7 +441,7 @@
       <section class="case-section case-section--stack" aria-labelledby="stack-heading">
         <div class="case-text">
           <p class="case-label case-label--s case-text__label">Stack</p>
-          <h2 class="case-h case-h--stem case-text__heading" id="stack-heading">No framework, no build step.</h2>
+          <h2 class="case-h case-h--stem case-text__heading" id="stack-heading" data-toc>No framework, no build step.</h2>
         </div>
 
         <dl class="case-stack">
@@ -482,7 +482,7 @@
 
       <section class="case-section case-section--outcome" aria-labelledby="outcome-label">
         <div class="case-text">
-          <p class="case-label case-label--round case-text__label" id="outcome-label">Outcome</p>
+          <p class="case-label case-label--round case-text__label" id="outcome-label" data-toc>Outcome</p>
           <p class="case-h case-text__statement">A small page that changes whenever the music does.</p>
         </div>
 
@@ -499,7 +499,7 @@
       </section>
     </main>
 
-    <footer class="case-foot">
+    <footer class="case-foot" data-toc-end>
       <div class="case-foot__next">
         <p class="case-label case-label--stem">Next project</p>
         <p class="case-display case-display--j"><a class="case-foot__link" href="/work/jobtrackr"><span class="case-foot__thumb"><img src="/assets/images/projects/jobtrackr-480.webp" width="480" height="320" alt="" loading="lazy" decoding="async"></span>JobTrackr</a></p>

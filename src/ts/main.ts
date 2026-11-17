@@ -4,6 +4,7 @@ import { initMedia } from './media.js';
 import { initProjectSheet } from './modal.js';
 import { initPreview } from './preview.js';
 import { renderProjects, shownProjects as projects } from './projects.js';
+import { initSectionNav } from './section-nav.js';
 import { initReadingMode } from './tldr.js';
 import { initTopBar } from './top.js';
 import { initMediaSwitch } from './writing/media-switch.js';
@@ -29,6 +30,9 @@ if (page && aboutToggle && statement && about) initAbout({ page, toggle: aboutTo
 // Case study: the top bar hides on the way down and returns on the way up.
 const topBar = $<HTMLElement>('[data-case-top]');
 const resyncTopBar = topBar ? initTopBar(topBar) : undefined;
+
+// Long pages: section navigation in the desktop margin.
+if (document.querySelector('[data-toc]')) initSectionNav({ onJump: resyncTopBar });
 
 // Case study: the full story or TL;DR, from the switch in the top bar.
 const reading = $<HTMLElement>('[data-reading]');
