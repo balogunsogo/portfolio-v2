@@ -5,7 +5,7 @@
 **What this adds:**
 - the second essay, **Building Job URL Extraction into JobTrackr**, at `/writing/building-job-url-extraction-into-jobtrackr`;
 - one screen recording (Media 01), two interactive demos (Interaction 02 and Interaction 03), a release timeline and an early-numbers figure;
-- a "Next essay" footer on both essays, each linking to the other.
+- a "Next" footer on both essays, each linking to the other.
 
 **It builds on the Writing system that's already merged** (`docs/handoff/writing/README.md`, CLAUDE.md "Writing"):
 - the post registry (`posts.ts`), the index list, the essay shell, `_writing.scss`;
@@ -67,7 +67,7 @@
 **Changed files:**
 - `src/ts/posts.ts`: the new entry (§2).
 - `src/writing/index.html`: add the post to the Blog JSON-LD `blogPosting` array. The list itself is injected at build time.
-- `src/writing/space-between-design-and-engineering.html`: the footer becomes "Next essay" (§3). Nothing else on that page changes.
+- `src/writing/space-between-design-and-engineering.html`: the footer becomes "Next" (§3). Nothing else on that page changes.
 - `src/scss/_writing.scss`: three small reusable additions:
   - heading and title optical-edge modifiers;
   - the essay-to-essay footer link (§3).
@@ -142,9 +142,9 @@ Use the reference for each section's text. Heading edge modifiers follow each he
 
 - **Demos:** each demo figure spans the full content width, like the first essay's demos. Each uses `writing-demo` spacing: 72px above on desktop, 48px below desktop.
 
-### Footer: "Next essay" on both essays
+### Footer: "Next" on both essays
 
-- **The label** changes from "Back to" to **"Next essay"** (`writing-foot__label`).
+- **The label** changes from "Back to" to **"Next"** (`writing-foot__label`).
 - **The link** is the other essay's title:
   - On this essay: "The Space Between Design and Engineering" → `/writing/space-between-design-and-engineering`. It starts on a T, so it takes `$lsb-t`.
   - On the first essay: "Building Job URL Extraction into JobTrackr" → `/writing/building-job-url-extraction-into-jobtrackr`. It starts on a B stem, so it takes `$lsb-stem-medium`.
@@ -551,7 +551,7 @@ Use a `fieldset` of native radios styled as words (the first essay's Demo 01 pat
    - Check every dropdown against `02-status-open` and the keyboard behaviour in §5 "Dropdowns", with mouse, keyboard and touch.
    - Check Add application's errors and focus.
 4. **Index:** two posts, newest first, correct dates (UTC) and reading times, at 1440 × 900, 1320 × 700 and 390 × 844. The Blog JSON-LD lists both.
-5. **First essay:** the footer reads "Next essay / Building Job URL Extraction into JobTrackr" and links correctly. Nothing else on the page changes (pixel-compare the rest).
+5. **First essay:** the footer reads "Next / Building Job URL Extraction into JobTrackr" and links correctly. Nothing else on the page changes (pixel-compare the rest).
 6. **Media 01:** nothing downloads before Play; the Range requests work; Replay restarts; a rejected `play()` restores "Play".
 7. **No JS:** disabled controls with the fallback note, and the native video controls.
 8. **No horizontal overflow** from 320 to 2560 with classic scrollbars, including the drawer's long URL.
@@ -570,5 +570,5 @@ Under "Writing", add:
   - Record the timings (0.9 s; 4 s and 1.2 s) and the focus rules.
 - **Design-rule exception:** inside the JobTrackr drawer replica only, JobTrackr's own styling applies: Geist, 1px borders and hairlines, 6px radii, its colours. Add it to "Decoration" as the fourth deliberate exception.
 - **Fonts:** Geist and Geist Mono (OFL, `docs/font-licenses/Geist-OFL.txt`) ship as WOFF2 and are used only by that replica.
-- **Footer:** essay footers use "Next essay" with the other essay's title (`.writing-foot__essay`). When a third essay arrives, decide which essay each footer points to.
+- **Footer:** essay footers use "Next" with the other essay's title (`.writing-foot__essay`). When a third essay arrives, decide which essay each footer points to.
 - **Numbers:** display figures use proportional digits with the `$lsb-two` / `$lsb-one` edges.

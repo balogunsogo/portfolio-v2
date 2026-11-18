@@ -40,7 +40,7 @@ What's required:
 2. **The essay page (§3):**
    - the header, with the meta under the subtitle (`.writing-meta--head`);
    - the eight sections in order, with each figure where §3's table puts it;
-   - the CTA, and the "Next essay" footer pointing to JobTrackr.
+   - the CTA, and the "Next" footer pointing to JobTrackr.
 3. **The first essay's footer (§3):** it now points to this essay. That's the only change on that page.
 4. **The figures (§4):**
    - the annotated-media videos (sparring, Media 04, 05, 06);

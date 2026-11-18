@@ -233,7 +233,7 @@ The case-study footer (`.case-foot`):
 - **Left:** the label "Back to" (muted), then the `case-display` link "Writing" to `/writing`, with the W optical edge.
 - **Right:** the clock and the four links, as on the case studies.
 - 160px from the last paragraph on desktop, 104px on mobile.
-- When there's more than one post, this becomes "Next essay" and the next title. Not now.
+- When there's more than one post, this becomes "Next" and the next title. Not now.
 
 ### Metadata
 

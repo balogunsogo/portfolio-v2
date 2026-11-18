@@ -34,7 +34,7 @@ How it works now:
 
 What's required:
 1. **Registry and index (§2):** the `posts.ts` entry, and the index's Blog JSON-LD.
-2. **The essay page (§3):** header, metadata, the nine sections in order, and the "Next essay" footer.
+2. **The essay page (§3):** header, metadata, the nine sections in order, and the "Next" footer.
 3. **The first essay's footer (§3):** the only change on that page.
 4. **Media 01 (§4):** an annotated-media figure with no notes, in a 1316:720 frame.
 5. **The drawer replica (§5) and extraction rules (§6),** shared by both demos, under `src/ts/posts/job-url-extraction/` and `src/scss/posts/_job-url-extraction.scss`.

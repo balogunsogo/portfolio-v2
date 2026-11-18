@@ -147,13 +147,13 @@ Take each section's text from the reference. Heading edge modifiers follow each 
 
 ### Footers: the three essays form a loop
 
-| Essay | "Next essay" link | Edge |
+| Essay | "Next" link | Edge |
 |---|---|---|
 | This essay | Building Job URL Extraction into JobTrackr → `/writing/building-job-url-extraction-into-jobtrackr` | `case-display--stem` |
 | The Space Between Design and Engineering | **changes to** Making a Fighting Game Feel Right in the Browser → `/writing/making-a-fighting-game-feel-right-in-the-browser` | `case-display--stem` |
 | Building Job URL Extraction into JobTrackr | unchanged: The Space Between Design and Engineering | unchanged |
 
-- Same markup as today: `.writing-foot__label` "Next essay", then `.writing-foot__essay`. The clock and links are unchanged.
+- Same markup as today: `.writing-foot__label` "Next", then `.writing-foot__essay`. The clock and links are unchanged.
 
 ---
 
