@@ -187,7 +187,7 @@ Spec and visual references: `docs/handoff/writing/README.md` and `reference/`. T
 - **Second essay’s code:** `src/ts/posts/job-url-extraction/` and `src/scss/posts/_job-url-extraction.scss`; its module is loaded only by that essay. Interactions 02 and 03 share a JobTrackr Add application replica. Copy, field order, styles and dropdowns (JobTrackr’s Select: desktop listbox, sheet below 1024) come from JobTrackr `main` `f6d264a`, with the extraction rules in spec §6. The demos send nothing, store nothing and record nothing. Source examples resolve after 0.9s; edit/request scenarios use 4s and 1.2s. Newer generations win; touched values are protected and salary suggestions apply as a group. Reset, example/scenario changes and pagehide clear timers; persisted pageshow resets the current choice.
   - **Focus:** accepting a suggestion focuses its field (Salary minimum for the group); dismissing focuses the next suggestion’s first button or Extract details. Validation focuses the first invalid field. Cancel and × reset and focus Extract details. Example/scenario changes keep focus on the option. Busy extraction uses `aria-disabled`, keeps focus and ignores presses. Dropdowns support arrows, Home/End, PageUp/PageDown, typeahead, Enter/Space, Alt+ArrowUp, Tab and Escape; Escape stops propagation. The 600px phone sheet scrolls inside and allows page scrolling at its ends.
 - **Replica fonts:** Geist and Geist Mono ship as WOFF2, used only inside this replica, without preloads. OFL: `docs/font-licenses/Geist-OFL.txt`.
-- **Essay footers:** “Next” links use `.writing-foot__essay`. The essays form a loop, newest to oldest: DOJANG → JobTrackr → Space Between → DOJANG.
+- **Essay footers:** “Next” links use `.writing-foot__essay`. The essays form a loop, newest to oldest: Explaining What I Do → DOJANG → JobTrackr → Space Between → Explaining What I Do.
 - **Display numbers:** proportional digits with the `$lsb-two` / `$lsb-one` optical edges.
 
 - **Third essay:** “Making a Fighting Game Feel Right in the Browser”, 14 November 2026. Spec, references and provenance: `docs/handoff/writing-dojang/`. Its prose comes from `reference/article-desktop.html`, with the author’s later revision to the paragraph beginning “I believe in iterating over time” (rushing or 'one-shotting'). Its meta sits in the header (`.writing-meta--head`) because it opens with a titled section.
@@ -199,6 +199,8 @@ Spec and visual references: `docs/handoff/writing/README.md` and `reference/`. T
 - **DOJANG fonts:** IBM Plex Sans 500 and 600 (OFL, `docs/font-licenses/IBMPlexSans-OFL.txt`), used only by that replica, without preloads.
 - **Audio:** `assets/audio/writing/` MP3s; `dev.mjs` serves `.mp3` as `audio/mpeg`.
 - **Captions:** recordings are dated and say what they show. Never caption a later recording as an earlier moment.
+
+- **Fourth essay:** “The Challenge of Explaining What I Do”, 20 November 2026, at `/writing/the-challenge-of-explaining-what-i-do`. Text only: the first essay’s shell (intro with the meta rail, three `data-toc` sections), no article-specific code, scripts or media beyond its share image (`assets/images/writing/explaining-what-i-do-og.jpg`). Its approved manuscript is copied exactly, with typographic apostrophes, the italic subtitle set upright and its one bold phrase as `<strong class="case-strong">`.
 
 ## Open items
 
