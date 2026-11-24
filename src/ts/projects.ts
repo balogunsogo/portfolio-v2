@@ -10,6 +10,8 @@ export interface Project {
   /** Optional resolution variants of the same preview, without changing its crop. */
   imageSrcset?: string;
   href: string;
+  /** Optional project-specific action, retaining the default for existing projects. */
+  ctaLabel?: string;
   external?: boolean;
   /** Root-absolute path of the project's case study. When set, the list and the sheet link to it instead of `href`. */
   caseStudy?: string;
@@ -48,6 +50,19 @@ export const projects: readonly Project[] = [
     caseStudy: '/work/morrow-studio',
     previewTone: '#DED6CB',
     previewInk: '#4A443C',
+    stemAligned: true,
+  },
+  {
+    title: 'DOJANG',
+    meta: 'Game · Creative development',
+    description:
+      'A 3D Taekwondo fighting game built for the browser. Spar against AI, practise techniques, or challenge a friend on desktop or mobile.',
+    role: '',
+    image: 'assets/images/writing/dojang-black-belt-poster.webp',
+    href: 'https://www.balogunoluwasogo.com/writing/making-a-fighting-game-feel-right-in-the-browser',
+    ctaLabel: 'Read the article',
+    previewTone: '#305C90',
+    previewInk: '#FAFAF8',
     stemAligned: true,
   },
   {
@@ -118,7 +133,7 @@ export function setProjectImage(image: HTMLImageElement, project: Project, sizes
 
 /** The description and the role as two block spans: the preview and sheet slots are `<p>`s. */
 export function descriptionParts(project: Project, className: string): HTMLSpanElement[] {
-  return [project.description, project.role].map((text) => {
+  return [project.description, project.role].filter(Boolean).map((text) => {
     const part = document.createElement('span');
     part.className = className;
     part.textContent = text;

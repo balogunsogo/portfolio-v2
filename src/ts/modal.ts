@@ -35,7 +35,7 @@ interface SheetElements {
   image: HTMLImageElement;
   description: HTMLElement;
   link: HTMLAnchorElement;
-  /** Visible text of the link: "Visit site" or "Read case study". */
+  /** Visible text of the project's action link. */
   linkLabel: HTMLElement;
   /** Visually hidden "(opens in a new tab)". */
   linkSuffix: HTMLElement;
@@ -91,7 +91,7 @@ export function initProjectSheet(el: SheetElements): void {
     el.link.href = project.caseStudy ?? project.href;
     el.link.target = newTab ? '_blank' : '_self';
     el.link.rel = newTab ? 'noopener' : '';
-    el.linkLabel.textContent = project.caseStudy ? 'Read case study' : 'Visit site';
+    el.linkLabel.textContent = project.ctaLabel ?? (project.caseStudy ? 'Read case study' : 'Visit site');
     el.linkSuffix.hidden = !newTab;
     el.nextTitle.textContent = projects[(index + 1) % projects.length]?.title ?? '';
   };
