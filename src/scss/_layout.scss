@@ -50,15 +50,6 @@
   }
 }
 
-// Work, About and Writing share one desktop navigation baseline.
-// Keep the compact gap in the shell rather than offsetting only the Work grid.
-@include desktop {
-  .page:has(> .index),
-  .page.writing-index {
-    gap: 44px;
-  }
-}
-
 .intro {
   display: grid;
   grid-template-rows:

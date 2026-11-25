@@ -11,12 +11,6 @@ html {
   text-size-adjust: 100%;
 }
 
-// About and Writing can scroll when Work fits. Reserve the same desktop width
-// in every state so the hero and navigation do not reflow as the scrollbar appears.
-@include desktop {
-  html { scrollbar-gutter: stable; }
-}
-
 // A thin muted thumb on no track, on the page and anything else that scrolls.
 * {
   scrollbar-width: thin;
