@@ -27,8 +27,6 @@ $work-pad-desktop: 9px;
   font-size: 0.9375rem;
 
   @include desktop {
-    // Bring the desktop showcase closer to the hero without changing the shared page shell.
-    margin-top: -12px;
     display: grid;
     grid-template-columns: repeat($columns, minmax(0, 1fr));
     // Retain the previous navigation-to-list gap. Reclaimed space belongs below
