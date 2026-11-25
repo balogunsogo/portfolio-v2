@@ -27,9 +27,20 @@ $work-pad-desktop: 9px;
   font-size: 0.9375rem;
 
   @include desktop {
+    // Bring the desktop showcase closer to the hero without changing the shared page shell.
+    margin-top: -12px;
     display: grid;
     grid-template-columns: repeat($columns, minmax(0, 1fr));
-    grid-template-rows: auto minmax(16px, 1fr) auto;
+    // Retain the previous navigation-to-list gap. Reclaimed space belongs below
+    // the shorter list, so reducing its type doesn't push its first item downward.
+    --desktop-intro-height: calc(
+      var(--section-title-size) * var(--section-title-leading) + 20px +
+      var(--section-lead-size) * 1.12 * var(--section-lead-lines)
+    );
+    grid-template-rows:
+      auto
+      max(16px, calc(100svh - var(--desktop-intro-height) - 48px - 56px - 56px - 1.4rem - 6 * (1.875rem * 1.4 + 18px)))
+      minmax(min-content, 1fr);
     column-gap: $gutter;
     row-gap: 0;
 
@@ -126,7 +137,7 @@ $work-pad-desktop: 9px;
     grid-column: 1 / span 4;
     grid-row: 3;
     justify-self: start; // the list hugs its longest title
-    align-self: end;
+    align-self: start;
     margin-top: 0;
   }
 }
@@ -141,9 +152,10 @@ $work-pad-desktop: 9px;
   letter-spacing: -0.02em;
 
   @include desktop {
-    padding: $work-pad-desktop 0;
-    font-size: 1.875rem;
-    line-height: 1.4;
+    // Six projects fit at 720px tall while retaining the mobile tap targets below desktop.
+    padding: 5.5px 0;
+    font-size: 1.75rem;
+    line-height: 1.3;
   }
 }
 
