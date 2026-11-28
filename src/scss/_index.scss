@@ -385,6 +385,11 @@ $preview-ease: $ease-out;
   height: 100%;
   object-fit: cover;
 
+  // Enlarge the supplied AXA preview in place; the frame clips only its backdrop.
+  &[src$='/axa-mansard.webp'] {
+    transform: scale(2);
+  }
+
   &:not([src]),
   &[src=''] {
     display: none;

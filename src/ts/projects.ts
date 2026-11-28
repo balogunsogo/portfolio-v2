@@ -24,6 +24,17 @@ export interface Project {
 
 export const projects: readonly Project[] = [
   {
+    title: 'AXA Mansard',
+    meta: 'Enterprise · Software engineering',
+    description: 'Software engineering for insurance and financial services, across enterprise applications, backend services and systems integration.',
+    role: 'I joined in 2023 and am now an Intermediate Software Engineer.',
+    image: 'assets/images/projects/axa-mansard.webp',
+    href: '/work/axa-mansard',
+    caseStudy: '/work/axa-mansard',
+    previewTone: '#ECEBE6',
+    previewInk: '#3F423F',
+  },
+  {
     title: 'Jobtrackr',
     meta: 'Product · Design and engineering',
     description:

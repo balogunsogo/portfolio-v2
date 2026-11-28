@@ -1,6 +1,6 @@
 # Portfolio V2.1
 
-A portfolio for Balogun Oluwasogo, built with plain HTML, SCSS and TypeScript: the home page and five case studies (`/work/jobtrackr`, `/work/morrow-studio`, `/work/acetrail`, `/work/artifacts` and `/work/now-playing`).
+A portfolio for Balogun Oluwasogo, built with plain HTML, SCSS and TypeScript: the home page and six case studies (`/work/axa-mansard`, `/work/jobtrackr`, `/work/morrow-studio`, `/work/acetrail`, `/work/artifacts` and `/work/now-playing`).
 There is no framework and no bundler: Sass compiles the styles, `tsc` compiles the scripts, and a small Node script serves everything during development.
 
 ## Getting started
@@ -25,7 +25,7 @@ The site is deployed on Vercel from the `main` branch. `vercel.json` pins the se
 - **Build:** `npm run build`
 - **Output:** `dist/`
 - **Headers:** long-lived cache for fonts, a week for images and video, and revalidation for CSS/JS (their filenames aren't hashed).
-- **Routes:** `cleanUrls` serves every page without its extension, so `src/work/jobtrackr.html` is `/work/jobtrackr`, `src/work/morrow-studio.html` is `/work/morrow-studio`, `src/work/acetrail.html` is `/work/acetrail`, `src/work/artifacts.html` is `/work/artifacts` and `src/work/now-playing.html` is `/work/now-playing`. The dev server does the same.
+- **Routes:** `cleanUrls` serves every page without its extension, so `src/work/axa-mansard.html` is `/work/axa-mansard`, `src/work/jobtrackr.html` is `/work/jobtrackr`, `src/work/morrow-studio.html` is `/work/morrow-studio`, `src/work/acetrail.html` is `/work/acetrail`, `src/work/artifacts.html` is `/work/artifacts` and `src/work/now-playing.html` is `/work/now-playing`. The dev server does the same.
 
 Every push to `main` deploys to production.
 
@@ -41,6 +41,7 @@ can be submitted in Google Search Console.
 src/
   index.html            home page markup (build inserts the list from projects.ts)
   work/
+    axa-mansard.html    AXA Mansard case study, served at /work/axa-mansard
     jobtrackr.html      JobTrackr case study, served at /work/jobtrackr
     morrow-studio.html  Morrow Studio case study, served at /work/morrow-studio
     acetrail.html       Acetrail case study, served at /work/acetrail
@@ -90,14 +91,28 @@ docs/handoff/           implementation handoffs (spec, reference pages, diagrams
 
 ## Content
 
-- **Projects:** each project link on the home page points to its live site and opens in a new tab. A project with `caseStudy` set in `projects.ts` (JobTrackr, Morrow Studio, Acetrail, Artifacts and Now Playing) links to its case study in the same tab instead, and the mobile sheet's link reads "Read case study".
+- **Projects:** each project link on the home page points to its live site and opens in a new tab. A project with `caseStudy` set in `projects.ts` (AXA Mansard, JobTrackr, Morrow Studio, Acetrail, Artifacts and Now Playing) links to its case study in the same tab instead, and the mobile sheet's link reads "Read case study".
 - **About:** the home page has no About page. Hovering the portrait in the name (or tapping it on touch) swaps the role line for a statement and the work list for the About; the spec and pixel targets are in `docs/handoff/about/`.
 - **Pages:** any `.html` file under `src/` is copied to `dist/` with its folder. Pages below the root use root-absolute URLs (`/assets/...`).
 - **Case studies:**
+  - **AXA Mansard** (built, first home project): the approved spec, copy, demo rules and pixel targets are in `docs/handoff/axa-mansard/`.
   - **JobTrackr** (built): the spec and pixel targets are in `docs/handoff/jobtrackr/`. The copy is final and was checked against the product.
-  - **Morrow Studio** (built, second project): the spec and pixel targets are in `docs/handoff/morrow-studio/`. It reuses the shared case-study classes and video behaviour. The CMS and Editing sections show the supplied Studio screenshots directly: three art-directed pictures switch at 1024px, and two field crops form a pair without plates. Preview describes document locations and the editors' guide. The copy, migration counts and QA facts were checked against the Morrow repo at `0798ad6` and its reports. Update 1 replaces the project preview images in place with centred framing; the former Studio laptop render and 700px crops are removed.
+  - **Morrow Studio** (built): the spec and pixel targets are in `docs/handoff/morrow-studio/`. It reuses the shared case-study classes and video behaviour. The CMS and Editing sections show the supplied Studio screenshots directly: three art-directed pictures switch at 1024px, and two field crops form a pair without plates. Preview describes document locations and the editors' guide. The copy, migration counts and QA facts were checked against the Morrow repo at `0798ad6` and its reports. Update 1 replaces the project preview images in place with centred framing; the former Studio laptop render and 700px crops are removed.
   - **Acetrail** (built): the spec, pixel targets and implementation prompt are in `docs/handoff/acetrail/`. The copy is final and its facts were checked against the Ace Trail repo and the live site; the Performance numbers are a PageSpeed measurement from 2 October 2026.
   - **Artifacts** (built): the spec, pixel targets and implementation prompt are in `docs/handoff/artifacts/`. The copy and measurements were checked against the Artifacts repo and the live site; the Performance numbers are a PageSpeed measurement from 2 October 2026.
   - **Now Playing** (built): the spec, pixel targets and implementation prompt are in `docs/handoff/now-playing/`. It uses only components the other three pages already had. The copy and measurements were checked against the Now Playing repo and the live site; the Performance numbers are a PageSpeed measurement from 2 October 2026.
-  - **Order:** each case study's footer links to the next one in the same tab, and the chain loops: JobTrackr → Morrow Studio → Acetrail → Artifacts → Now Playing → JobTrackr. All That Is Kim has no case study while its site is redesigned, so the chain skips it, and it's hidden from the home page (`hidden: true` in `projects.ts`) until it has one.
+  - **Order:** each case study's footer links to the next one in the same tab, and the chain loops: AXA Mansard → JobTrackr → Morrow Studio → Acetrail → Artifacts → Now Playing → AXA Mansard. All That Is Kim has no case study while its site is redesigned, so the chain skips it, and it's hidden from the home page (`hidden: true` in `projects.ts`) until it has one.
 - **Links:** LinkedIn, GitHub, Contra and Email (`mailto:balogunoluwasogo@gmail.com`).
+
+## AXA Mansard only
+
+- **Sources and copy:** the approved spec, copy, demo models and pixel targets are in `docs/handoff/axa-mansard/`. All copy and fictional demo data are final. No added employer material, claims, metrics or internal system names. No AXA branding on the case page; the supplied logo is for project previews only. Keep the personal-portfolio disclaimer at the end of Stack in both reading modes.
+- **Files:** `src/work/axa-mansard.html`, `src/scss/work/_axa-mansard.scss`, and page-only `src/ts/work/axa-mansard/main.ts`, with `translator.ts`, `settlement.ts`, `turnaround.ts` and local DOM helpers. Shared case-study SCSS, TL;DR, media and section-nav rules are unchanged.
+- **Components:** contribution matrix, reconstructed public profile card with the untouched supplied QR, staff journey and three demo figures. Light matrix cells, elapsed fill, ignored-event marks and slider track use `$axa-fill-light: #b4b1a9`. Tablets below 1024px use the mobile layout.
+- **Profile figure, author revision:** the card and journey each span six grid columns on desktop (50/50), stacking below 1024px. The smaller four-step journey is Staff login → Create QR code and link → Share with a recipient → Public view. This replaces the original request-order sequence and narrow card in the reference; preserve this later revision. The supplied portrait, QR and profile links remain unchanged.
+- **Demo presentation, author revisions:** Request translator and Settlement allocation figures are temporarily commented out, including captions; preserve their markup and TypeScript for restoration. The Turnaround clock is a guided, fixed example ending at settlement on day 12: three totals, Active/Paused chart lanes, one changing caption and one Play example / Pause / Continue / Replay button. It starts complete (6 active + 4 paused = 10 elapsed days), has no slider, Reset or event checkboxes, and never autoplays. Reduced motion shows the final result immediately; pagehide clears playback and persisted pageshow restores the complete default. These changes supersede the original interactive reference.
+- **AXA home preview, author revision:** the supplied image renders at 2× scale inside the existing clipped desktop preview frame. Other projects, the mobile sheet, case-page media and the source assets are unchanged.
+- **Seventh design-rule exception:** inside the AXA Mansard demos only, form controls use ground-coloured fields without borders; invalid fields use a 2px ink underline (`box-shadow: inset 0 -2px 0`), the slider has a 2px track and square thumb, status lines start with an 8px square (held: filled; OK: outlined), and checkboxes use ink `accent-color`.
+- **Demos:** approved fictional lookup, fixed beneficiary-slot, integer-kobo allocation and synthetic clock rules. DOM APIs and `textContent`, with `data-axa-*` hooks. HTML ships readable defaults with disabled demo controls; page-only initialization enables them. No requests, storage, cookies or analytics events. Reset and edge-case buttons retain focus; paid allocations stay fixed. Reset, scrub and pagehide clear the timer, persisted pageshow resets it, and reduced-motion Play shows the completed example.
+- **Reading and navigation:** hero, five figures, Stack with its disclaimer and footer remain in TL;DR. The profile and demo captions hide; the hero’s confidentiality caption stays, as in the approved TL;DR bitmaps. Six section-nav entries; no Outcome section. Sixth case study and first home Work item. The chain is AXA Mansard → JobTrackr → Morrow Studio → Acetrail → Artifacts → Now Playing → AXA Mansard, all in the same tab. Supplied project images and QR are final; never regenerate, crop or recolour them.
+- **Checks:** handoff §11 covers typecheck/build, full-page reduced-motion screenshot diffs at 1440×900 and 390×844 with fonts loaded and a pinned clock, TL;DR and home references, every §6.4 string, keyboard/touch/mouse, no-JS defaults, timer cleanup, QR decoding, classic-scrollbar overflow from 320–2560px and the full chain.

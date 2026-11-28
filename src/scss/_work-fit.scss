@@ -1,0 +1,32 @@
+@use 'tokens' as *;
+@use 'index' as index;
+
+// Only the desktop Work view adapts to a shorter window. Keep the shared intro,
+// navigation and type sizes intact; use the space left beneath them for the list.
+// Seven visible projects, matching projects.ts. Extremely short windows can still
+// scroll once the links reach their natural line height and the bottom inset is 16px.
+@include desktop {
+  .page[data-page]:not(.is-about-open) {
+    --work-count: 7;
+    --work-line: 2.625rem; // existing 30px type × 1.4 leading
+    --work-intro: calc(
+      var(--section-title-size) * var(--section-title-leading) * var(--section-title-lines)
+      + 20px + var(--section-lead-size) * 1.12 * var(--section-lead-lines)
+    );
+    // Page top, intro/index gap, navigation line, and minimum grid spacer.
+    --work-room: calc(100svh - var(--work-intro) - 48px - 56px - 1.4rem - 16px);
+    --work-bottom: clamp(16px, calc(var(--work-room) - var(--work-count) * var(--work-line)), 56px);
+    --work-pad: clamp(0px, calc(
+      (var(--work-room) - var(--work-bottom) - var(--work-count) * var(--work-line))
+      / (var(--work-count) * 2)
+    ), #{index.$work-pad-desktop});
+
+    padding-bottom: var(--work-bottom);
+
+    .work__link { padding-block: var(--work-pad); }
+
+    // Follow the list's first and last text lines as its link padding tightens.
+    .preview-text { padding-top: calc(var(--work-pad) + 3px); }
+    .index__aside { padding-bottom: var(--work-pad); }
+  }
+}

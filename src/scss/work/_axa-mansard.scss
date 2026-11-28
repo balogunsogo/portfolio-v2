@@ -1,0 +1,306 @@
+@use '../tokens' as *;
+/* AXA Mansard page: the new components only, exactly as approved on the canvas. Everything else on the page is
+   the existing case-study shell (_case.scss). Port this to src/scss/work/_axa-mansard.scss: replace hex values with
+   tokens ($color-ground, $color-ink, $color-muted, $plate-clip, and a new $axa-fill-light: $axa-fill-light), replace the
+   (min-width: 1024px) blocks with @include desktop, and keep every value. The demo plates are content, not media. */
+
+.axa-from-desktop { display: none; }
+@include desktop { .axa-from-desktop { display: inline; } .axa-below-desktop { display: none; } }
+
+/* ---------------------------------------------------------------- Contribution matrix (hero) */
+.axa-map { padding: 20px 16px 18px; }
+.axa-map__body { display: flex; flex-direction: column; gap: 18px; }
+.axa-map__row { display: flex; flex-direction: column; gap: 8px; }
+.axa-map__corner { display: none; }
+.axa-map__name { font-size: 1.0625rem; font-weight: 500; line-height: 1.3; letter-spacing: -0.01em; }
+.axa-map__cols, .axa-map__track { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); column-gap: 4px; }
+.axa-map__col { font-size: 0.75rem; line-height: 1.3; color: $color-muted; white-space: nowrap; }
+.axa-map__cell { height: 16px; background: $color-ground; }
+.axa-map__cell.is-on { background: $color-ink; }
+.axa-map__cell.is-light { background: $axa-fill-light; }
+.axa-map__row--key { margin-top: 4px; }
+.axa-map__keybox { display: flex; flex-direction: column; gap: 6px; }
+.axa-map__key { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 0; font-size: 0.8125rem; line-height: 1.4; color: $color-muted; }
+.axa-map__note { font-size: 0.8125rem; line-height: 1.4; color: $color-muted; text-wrap: pretty; }
+.axa-map__swatch { display: inline-block; width: 10px; height: 10px; margin-right: 8px; background: $color-ink; }
+.axa-map__swatch--light { margin-left: 20px; background: $axa-fill-light; }
+@include desktop {
+  .axa-map { padding: 64px; }
+  .axa-map__body { gap: 28px; }
+  .axa-map__row { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; align-items: center; }
+  .axa-map__row--head { margin-bottom: -6px; }
+  .axa-map__row--key { align-items: start; margin-top: 10px; }
+  .axa-map__corner { display: block; grid-column: 1 / span 4; }
+  .axa-map__name { grid-column: 1 / span 4; font-size: 1.875rem; line-height: 1.2; letter-spacing: -0.02em; }
+  .axa-map__cols, .axa-map__track, .axa-map__keybox { grid-column: 5 / span 8; }
+  .axa-map__cols, .axa-map__track { column-gap: 8px; }
+  .axa-map__col { font-size: 1rem; }
+  .axa-map__cell { height: 22px; }
+  .axa-map__key, .axa-map__note { font-size: 1rem; }
+  .axa-map__swatch { width: 12px; height: 12px; }
+  .axa-map__swatch--light { margin-left: 28px; }
+}
+
+/* ---------------------------------------------------------------- Contact card and sequence */
+.axa-card-plate { display: flex; flex-direction: column; gap: 32px; padding: 16px 16px 24px; }
+.axa-card { display: flex; flex-direction: column; gap: 20px; padding: 24px; background: $color-ground; }
+.axa-card__head { display: flex; align-items: center; gap: 14px; }
+.axa-card__photo { flex: none; width: 56px; height: 56px; object-fit: cover; object-position: 50% 30%; }
+.axa-card__name { font-size: 1.375rem; font-weight: 500; line-height: 1.15; letter-spacing: -0.02em; overflow-wrap: break-word; }
+.axa-card__role { margin-top: 2px; font-size: 0.9375rem; line-height: 1.4; color: $color-muted; }
+.axa-card__rows { display: flex; flex-direction: column; gap: 10px; margin: 0; font-size: 0.9375rem; line-height: 1.4; }
+.axa-card__rows div { display: flex; flex-direction: column; gap: 2px; }
+.axa-card__rows dt { color: $color-muted; }
+.axa-card__rows dd { margin: 0; overflow-wrap: break-word; }
+.axa-card__qr { display: block; align-self: flex-start; width: 160px; margin: -4px 0 -4px -11px; }
+.axa-card__qr img { display: block; width: 100%; height: auto; }
+.axa-card__qr:focus-visible { outline: 2px solid $color-ink; outline-offset: 2px; }
+.axa-card__link { align-self: flex-start; display: inline-flex; align-items: center; min-height: 44px; margin-top: -8px; font-size: 0.9375rem; font-weight: 500; line-height: 1.4; }
+.axa-seq { display: flex; flex-direction: column; gap: 16px; }
+.axa-seq__steps { display: flex; flex-direction: column; gap: 12px; margin: 0; padding: 0; list-style: none; }
+.axa-seq__name { font-size: 1.0625rem; font-weight: 500; line-height: 1.35; letter-spacing: -0.005em; }
+.axa-seq__text, .axa-seq__note { font-size: 0.9375rem; line-height: 1.45; color: $color-muted; text-wrap: pretty; }
+.axa-seq__arrow { display: block; margin-top: 8px; font-size: 1rem; line-height: 1.2; color: $color-muted; }
+@include desktop {
+  .axa-card-plate { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 24px; align-items: center; padding: 64px; }
+  .axa-card { grid-column: 1 / span 6; min-width: 0; gap: 24px; padding: 32px; }
+  .axa-card__name { font-size: 1.75rem; }
+  .axa-card__role, .axa-card__rows, .axa-card__link { font-size: 1rem; }
+  .axa-card__photo { width: 64px; height: 64px; }
+  .axa-card__qr { width: 176px; margin: -6px 0 -6px -12px; }
+  .axa-card__link { min-height: 0; margin-top: -10px; }
+  .axa-seq { grid-column: 7 / span 6; min-width: 0; gap: 20px; }
+  .axa-seq__name { font-size: 1.25rem; line-height: 1.35; letter-spacing: -0.005em; }
+  .axa-seq__text, .axa-seq__note { font-size: 1rem; }
+}
+
+/* ---------------------------------------------------------------- Demos: shared */
+.axa-demo__plate { display: flex; flex-direction: column; gap: 28px; padding: 16px 16px 20px; background: $plate-clip; }
+.axa-demo__bar { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; }
+.axa-demo__title { font-size: 1.0625rem; font-weight: 500; line-height: 1.35; letter-spacing: -0.005em; }
+.axa-demo__tag { font-size: 0.8125rem; line-height: 1.4; color: $color-muted; }
+.axa-btn { position: relative; display: inline-flex; align-items: center; min-height: 44px; margin: 0; padding: 0; border: 0; background: none; font: inherit; font-size: 0.9375rem; line-height: 1.4; color: $color-ink; text-align: left; cursor: pointer; transition: color 0.15s ease; }
+.axa-btn:hover { color: $color-muted; }
+.axa-btn:disabled, .axa-btn:disabled:hover { color: #9C9990; cursor: default; }
+.axa-btn--quiet { color: $color-muted; }
+.axa-btn--quiet:hover { color: $color-ink; }
+.axa-btn:focus-visible, .axa-opt:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+.axa-demo__reset { min-height: 24px; }
+.axa-demo__reset::after { content: ""; position: absolute; inset: -10px -8px; }
+.axa-step { margin-bottom: 14px; font-size: 0.9375rem; line-height: 1.4; color: $color-muted; }
+.axa-field { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.axa-field__label { font-size: 0.8125rem; line-height: 1.4; color: $color-muted; }
+.axa-input { width: 100%; min-width: 0; height: 44px; margin: 0; padding: 0 12px; border: 0; border-radius: 0; background: $color-ground; color: $color-ink; font: inherit; font-size: 1rem; line-height: 1.2; letter-spacing: -0.005em; -webkit-appearance: none; appearance: none; }
+.axa-input:focus { outline: none; }
+.axa-input:focus-visible { outline: 2px solid $color-ink; outline-offset: 2px; }
+.axa-input.is-invalid { box-shadow: inset 0 -2px 0 $color-ink; }
+.axa-input[readonly] { background: transparent; color: $color-muted; }
+.axa-input--num { padding-right: 30px; text-align: right; font-variant-numeric: tabular-nums; }
+.axa-status { font-size: 0.9375rem; font-weight: 500; line-height: 1.4; text-wrap: pretty; }
+.axa-status.is-held { font-weight: 500; }
+.axa-status.is-held::before { content: ""; display: inline-block; width: 8px; height: 8px; margin: 0 10px 1px 0; background: $color-ink; }
+.axa-status.is-ok::before { content: ""; display: inline-block; width: 8px; height: 8px; margin: 0 10px 1px 0; box-shadow: inset 0 0 0 1.5px $color-ink; }
+.axa-try { display: flex; flex-direction: column; gap: 10px; }
+.axa-try__label { font-size: 0.9375rem; line-height: 1.4; color: $color-muted; }
+.axa-try__list { display: flex; flex-wrap: wrap; gap: 8px; }
+.axa-try__btn { padding: 0 12px; background: $color-ground; font-size: 0.875rem; }
+.axa-try__btn:hover { color: $color-ink; background: #F3F2EE; }
+.axa-opts { display: flex; flex-wrap: wrap; gap: 4px 18px; }
+.axa-opt { position: relative; margin: 0; padding: 0; border: 0; background: none; font: inherit; font-size: 1.0625rem; font-weight: 500; line-height: 1.35; letter-spacing: -0.01em; color: $color-muted; cursor: pointer; transition: color 0.15s ease; }
+.axa-opt::after { content: ""; position: absolute; inset: -12px -8px; }
+.axa-opt:hover, .axa-opt.is-on { color: $color-ink; }
+.axa-opt.is-on { cursor: default; }
+@include desktop {
+  .axa-demo__plate { gap: 40px; padding: 40px 48px 36px; }
+  .axa-demo__title { font-size: 1.25rem; letter-spacing: -0.01em; }
+  .axa-demo__tag { font-size: 0.875rem; }
+  .axa-btn { min-height: 0; font-size: 1rem; }
+  .axa-btn::after { content: ""; position: absolute; inset: -8px -6px; }
+  .axa-step { margin-bottom: 18px; font-size: 1rem; }
+  .axa-field__label { font-size: 0.875rem; }
+  .axa-input { font-size: 1.0625rem; }
+  .axa-status { font-size: 1rem; }
+  .axa-try { flex-direction: row; align-items: center; gap: 24px; }
+  .axa-try__label { flex: none; font-size: 1rem; }
+  .axa-try__list { gap: 8px; }
+  .axa-try__btn { min-height: 36px; padding: 0 14px; font-size: 0.9375rem; }
+  .axa-try__btn::after { content: none; }
+  .axa-opts { gap: 6px 24px; }
+  .axa-opt { font-size: 1.25rem; }
+}
+
+/* ---------------------------------------------------------------- Demo 1: request translator */
+.axa-tr { display: flex; flex-direction: column; }
+.axa-tr__col { display: flex; flex-direction: column; min-width: 0; }
+.axa-tr__arrow { padding: 14px 0 12px; font-size: 1.25rem; line-height: 1; color: $color-muted; }
+.axa-fields { display: flex; flex-direction: column; gap: 14px; margin-top: 22px; }
+.axa-bens { display: flex; flex-direction: column; gap: 8px; }
+.axa-ben { display: grid; grid-template-columns: minmax(0, 1fr) 84px auto; align-items: center; gap: 8px; }
+.axa-ben__share { position: relative; display: block; }
+.axa-ben__unit { position: absolute; top: 50%; right: 12px; color: $color-muted; transform: translateY(-50%); pointer-events: none; }
+.axa-ben__remove { padding-left: 4px; font-size: 0.875rem; }
+.axa-bens__add { align-self: flex-start; }
+.axa-checks { display: flex; flex-direction: column; gap: 16px; margin: 0; padding: 0; list-style: none; }
+.axa-check { display: flex; flex-direction: column; gap: 3px; }
+.axa-check__name { font-size: 0.8125rem; line-height: 1.4; color: $color-muted; }
+.axa-check__flow { font-size: 0.9375rem; line-height: 1.4; white-space: pre-wrap; overflow-wrap: anywhere; font-variant-numeric: tabular-nums; }
+.axa-check__result { font-size: 0.9375rem; font-weight: 500; line-height: 1.4; text-wrap: pretty; }
+.axa-check.is-held .axa-check__flow { color: $color-muted; }
+.axa-rec { display: flex; flex-direction: column; gap: 8px; margin: 0; padding: 16px; background: $color-ground; font-variant-numeric: tabular-nums; }
+.axa-rec__row { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+.axa-rec__row dt { font-size: 0.8125rem; line-height: 1.4; letter-spacing: 0.02em; color: $color-muted; }
+.axa-rec__row dd { margin: 0; font-size: 0.9375rem; font-weight: 500; line-height: 1.4; text-align: right; overflow-wrap: anywhere; }
+.axa-rec__row.is-empty dd { font-weight: 400; color: $color-muted; }
+.axa-rec__row.is-held dd { font-weight: 400; color: $color-muted; }
+.axa-tr .axa-status { margin-top: 16px; }
+@include desktop {
+  .axa-tr { display: grid; grid-template-columns: minmax(0, 1fr) 48px minmax(0, 1fr) 48px minmax(0, 1fr); align-items: start; }
+  .axa-tr__arrow { padding: 0; margin-top: 36px; font-size: 1.5rem; text-align: center; }
+  .axa-fields { gap: 16px; margin-top: 28px; }
+  .axa-ben { grid-template-columns: minmax(0, 1fr) 92px auto; }
+  .axa-ben__remove { font-size: 0.9375rem; }
+  .axa-checks { gap: 20px; }
+  .axa-check__name { font-size: 0.875rem; }
+  .axa-check__flow, .axa-check__result { font-size: 1rem; }
+  .axa-rec { gap: 10px; padding: 20px 24px; }
+  .axa-rec__row dt { font-size: 0.875rem; }
+  .axa-rec__row dd { font-size: 1rem; }
+  .axa-tr .axa-status { margin-top: 18px; }
+}
+
+/* ---------------------------------------------------------------- Demo 2: settlement allocation */
+.axa-st { display: flex; flex-direction: column; gap: 16px; }
+.axa-st__top { display: flex; flex-direction: column; gap: 4px; margin-bottom: 4px; }
+.axa-st__amount { max-width: 320px; }
+.axa-st__money { position: relative; display: block; }
+.axa-st__cur { position: absolute; top: 50%; left: 12px; transform: translateY(-50%); pointer-events: none; }
+.axa-input--money { padding-left: 30px; font-variant-numeric: tabular-nums; }
+.axa-input--money[readonly] { padding-left: 30px; }
+.axa-st__tools { display: flex; flex-wrap: wrap; column-gap: 24px; }
+.axa-st__head { display: none; }
+.axa-st__rows { display: flex; flex-direction: column; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.axa-st__row { display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "who who" "share amt" "acts acts"; align-items: center; gap: 12px 16px; padding: 14px 14px 4px; background: $color-ground; }
+.axa-st__row .axa-input { background: $plate-clip; }
+.axa-st__row .axa-input[readonly] { background: transparent; }
+.axa-st__who { grid-area: who; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.axa-st__name { font-size: 1.0625rem; font-weight: 500; line-height: 1.3; letter-spacing: -0.005em; }
+.axa-st__badge { margin-left: 8px; font-size: 0.8125rem; font-weight: 400; color: $color-muted; }
+.axa-st__acct { display: flex; align-items: center; gap: 10px; font-size: 0.8125rem; line-height: 1.4; color: $color-muted; }
+.axa-input--acct { width: 76px; height: 36px; padding: 0 10px; font-size: 0.9375rem; font-variant-numeric: tabular-nums; }
+.axa-st__acct .axa-input--acct[readonly] { padding-left: 0; color: $color-ink; }
+.axa-st__share { grid-area: share; position: relative; display: block; width: 116px; }
+.axa-st__unit { position: absolute; top: 50%; right: 12px; color: $color-muted; transform: translateY(-50%); pointer-events: none; }
+.axa-st__share .axa-input[readonly] { padding-right: 30px; color: $color-ink; }
+.axa-st__amt { grid-area: amt; font-size: 1.0625rem; font-weight: 500; line-height: 1.3; text-align: right; font-variant-numeric: tabular-nums; }
+.axa-st__acts { grid-area: acts; display: flex; flex-wrap: wrap; align-items: center; column-gap: 20px; }
+.axa-st__note { font-size: 0.875rem; line-height: 1.4; color: $color-muted; }
+.axa-st__acts .axa-st__note { min-height: 44px; display: flex; align-items: center; }
+.axa-st__row.is-removed { background: transparent; }
+.axa-st__row.is-removed .axa-st__name, .axa-st__row.is-removed .axa-st__amt { color: $color-muted; }
+.axa-st__sum { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin: 6px 0 0; }
+.axa-st__sum div { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.axa-st__sum dt { font-size: 0.8125rem; line-height: 1.4; color: $color-muted; }
+.axa-st__sum dd { margin: 0; font-size: 1rem; font-weight: 500; line-height: 1.3; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+@include desktop {
+  .axa-st { gap: 18px; }
+  .axa-st__top { flex-direction: row; justify-content: space-between; align-items: flex-end; gap: 24px; margin-bottom: 8px; }
+  .axa-st__amount { width: 320px; }
+  .axa-st__tools { column-gap: 28px; padding-bottom: 12px; }
+  .axa-st__head, .axa-st__row { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 2fr) minmax(0, 2fr) minmax(0, 3fr); grid-template-areas: "who share amt acts"; column-gap: 24px; }
+  .axa-st__head { padding: 0 24px; margin-bottom: -6px; font-size: 0.875rem; line-height: 1.4; color: $color-muted; }
+  .axa-st__head span:nth-child(3) { text-align: right; }
+  .axa-st__row { min-height: 88px; padding: 14px 24px; row-gap: 0; }
+  .axa-st__who { flex-direction: row; align-items: center; justify-content: space-between; gap: 16px; }
+  .axa-st__name { font-size: 1.25rem; letter-spacing: -0.01em; }
+  .axa-st__badge { font-size: 0.875rem; }
+  .axa-st__acct { font-size: 0.875rem; }
+  .axa-st__share { width: 100%; max-width: 132px; }
+  .axa-st__amt { font-size: 1.25rem; letter-spacing: -0.01em; }
+  .axa-st__acts { justify-content: flex-end; column-gap: 24px; }
+  .axa-st__acts .axa-st__note { min-height: 0; }
+  .axa-st__note { font-size: 0.9375rem; }
+  .axa-st__sum { grid-template-columns: repeat(3, max-content); column-gap: 64px; margin-top: 10px; }
+  .axa-st__sum dt { font-size: 0.875rem; }
+  .axa-st__sum dd { font-size: 1.25rem; letter-spacing: -0.01em; }
+}
+
+/* ---------------------------------------------------------------- Demo 3: turnaround clock */
+.axa-tt { display: flex; flex-direction: column; gap: 24px; }
+.axa-tt__guide { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; }
+.axa-tt__message { min-width: 0; font-size: 0.9375rem; line-height: 1.45; }
+.axa-tt__caption { min-height: 4.35em; }
+.axa-tt__summary { color: $color-muted; }
+.axa-tt__summary.is-pending { visibility: hidden; }
+.axa-tt__nums { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px 12px; margin: 0; }
+.axa-tt__num { display: flex; flex-direction: column-reverse; justify-content: flex-end; gap: 4px; min-width: 0; }
+.axa-tt__num dt { font-size: 0.8125rem; line-height: 1.4; color: $color-muted; }
+.axa-tt__num dd { margin: 0 0 0 -0.02em; font-size: 2rem; font-weight: 500; line-height: 1; letter-spacing: -0.03em; font-variant-numeric: proportional-nums; white-space: nowrap; }
+.axa-tt__num--state { grid-column: 1 / -1; }
+.axa-tt__num--state dd { margin-left: 0; font-size: 1.0625rem; line-height: 1.35; letter-spacing: -0.005em; }
+.axa-tt__chart { display: grid; grid-template-columns: 52px minmax(0, 1fr); grid-template-rows: 8px 14px 14px auto; gap: 10px 10px; align-items: center; }
+.axa-tt__spacer { grid-column: 1; grid-row: 1; }
+.axa-tt__marks { position: relative; grid-column: 2; grid-row: 1; height: 8px; }
+.axa-tt__mark { position: absolute; top: 0; left: var(--at); width: 8px; height: 8px; background: $color-ink; transform: translateX(-50%); transition: left 0.2s ease; }
+.axa-tt__mark.is-ignored { background: $axa-fill-light; }
+.axa-tt__lane { display: contents; }
+.axa-tt__lane-name, .axa-tt__axis-name { grid-column: 1; font-size: 0.75rem; line-height: 1.2; color: $color-muted; }
+.axa-tt__track { position: relative; grid-column: 2; height: 14px; background: $color-ground; overflow: hidden; }
+.axa-tt__seg { position: absolute; top: 0; bottom: 0; left: var(--from); width: var(--width); background: $color-ink; transition: left 0.2s ease, width 0.2s ease; }
+.axa-tt__seg.is-paused { background: $axa-fill-light; }
+.axa-tt__seg.is-future { opacity: 0.2; }
+.axa-tt__axis { display: contents; }
+.axa-tt__ticks { position: relative; grid-column: 2; height: 16px; font-size: 0.75rem; line-height: 16px; color: $color-muted; font-variant-numeric: tabular-nums; }
+.axa-tt__tick { position: absolute; top: 0; left: var(--at); transform: translateX(-50%); }
+.axa-tt__tick:first-child { transform: none; }
+.axa-tt__tick:nth-last-child(2) { transform: translateX(-100%); }
+.axa-tt__now { position: absolute; bottom: calc(100% + 6px); left: var(--at); width: 2px; height: 70px; margin-left: -1px; background: $color-ink; pointer-events: none; }
+.axa-tt__scrub { display: grid; grid-template-columns: 52px minmax(0, 1fr); align-items: center; column-gap: 10px; }
+.axa-tt__play { justify-self: start; }
+.axa-tt__range { flex: 1; min-width: 0; }
+.axa-tt__range input { display: block; width: calc(100% + 14px); height: 44px; margin: 0 -7px; padding: 0; background: transparent; cursor: pointer; -webkit-appearance: none; appearance: none; }
+.axa-tt__range input:focus { outline: none; }
+.axa-tt__range input:focus-visible { outline: 2px solid $color-ink; outline-offset: 2px; }
+.axa-tt__range input::-webkit-slider-runnable-track { height: 2px; background: $axa-fill-light; }
+.axa-tt__range input::-webkit-slider-thumb { width: 14px; height: 14px; margin-top: -6px; border: 0; border-radius: 0; background: $color-ink; -webkit-appearance: none; appearance: none; }
+.axa-tt__range input::-moz-range-track { height: 2px; background: $axa-fill-light; }
+.axa-tt__range input::-moz-range-thumb { width: 14px; height: 14px; border: 0; border-radius: 0; background: $color-ink; }
+.axa-tt__events { display: flex; flex-direction: column; margin: 0; padding: 0; list-style: none; }
+.axa-tt__event { display: flex; flex-direction: column; gap: 0; padding: 4px 0 8px; }
+.axa-tt__what { display: flex; align-items: center; gap: 10px; min-height: 36px; font-size: 0.9375rem; line-height: 1.35; cursor: pointer; }
+p.axa-tt__what { cursor: default; }
+.axa-tt__check { flex: none; width: 18px; height: 18px; margin: 0; accent-color: $color-ink; cursor: pointer; }
+.axa-tt__box { flex: none; width: 18px; }
+.axa-tt__day { flex: none; width: 52px; color: $color-muted; font-variant-numeric: tabular-nums; }
+.axa-tt__effect { padding-left: 90px; font-size: 0.8125rem; line-height: 1.4; color: $color-muted; }
+.axa-tt__event.is-off .axa-tt__what { color: $color-muted; }
+.axa-tt__event.is-ignored .axa-tt__effect { color: $color-ink; }
+@include desktop {
+  .axa-tt { gap: 36px; }
+  .axa-tt__nums { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 24px; }
+  .axa-tt__guide { flex-direction: row; align-items: baseline; gap: 24px; }
+  .axa-tt__play { flex: none; min-width: 88px; }
+  .axa-tt__message { font-size: 1rem; }
+  .axa-tt__caption { min-height: 2.9em; }
+  .axa-tt__num dt { font-size: 0.875rem; }
+  .axa-tt__num dd { font-size: 4rem; letter-spacing: -0.035em; }
+  .axa-tt__num--state { grid-column: auto; }
+  .axa-tt__num--state dd { font-size: 1.5rem; line-height: 1.2; letter-spacing: -0.015em; padding-top: 6px; }
+  .axa-tt__chart { grid-template-columns: 88px minmax(0, 1fr); grid-template-rows: 10px 18px 18px auto; gap: 12px 24px; }
+  .axa-tt__marks { height: 10px; }
+  .axa-tt__mark { width: 10px; height: 10px; }
+  .axa-tt__lane-name, .axa-tt__axis-name { font-size: 0.875rem; }
+  .axa-tt__track { height: 18px; }
+  .axa-tt__ticks { height: 18px; font-size: 0.875rem; line-height: 18px; }
+  .axa-tt__now { height: 86px; }
+  .axa-tt__scrub { grid-template-columns: 88px minmax(0, 1fr); column-gap: 24px; }
+  .axa-tt__events { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: repeat(5, auto); grid-auto-flow: column; column-gap: 24px; }
+  .axa-tt__event { flex-direction: row; align-items: center; justify-content: space-between; gap: 16px; padding: 6px 0; }
+  .axa-tt__what { font-size: 1rem; min-height: 32px; }
+  .axa-tt__day { width: 60px; }
+  .axa-tt__effect { padding-left: 0; font-size: 0.9375rem; text-align: right; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .axa-tt__seg, .axa-tt__mark { transition: none; }
+}
+
+.axa-note { color: $color-muted; }

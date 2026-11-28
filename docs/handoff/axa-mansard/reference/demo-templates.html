@@ -1,0 +1,192 @@
+<!--
+  Markup structure of the three demos, from the approved canvas prototype.
+
+  These are templates, not final HTML:
+  - {{ name }} is a value from the demo's view model (see demos.reference.js: trVals, stVals, ttVals).
+  - <sc-for list="{{ items }}" as="item"> repeats its content for each item; <sc-if value="{{ flag }}"> renders it when true.
+  - onClick / onChange name the handler from the view model. In the real page these become event listeners
+    attached by the page module; select elements with data-* hooks, never with these class names.
+  - Classes are the approved ones (reference/axa-mansard.reference.css). Keep them.
+
+  The rendered default state of each demo is in reference/desktop.html and reference/mobile.html.
+-->
+
+<!-- ===================================================== Request translator -->
+<figure class="case-figure axa-demo" aria-labelledby="tr-title">
+  <div class="axa-demo__plate">
+    <div class="axa-demo__bar">
+      <div class="axa-demo__name"><p class="axa-demo__title" id="tr-title">Request translator</p><p class="axa-demo__tag">Reconstruction, fictional data</p></div>
+      <button class="axa-btn axa-demo__reset" type="button" onClick="{{ trReset }}">Reset</button>
+    </div>
+    <div class="axa-tr">
+      <div class="axa-tr__col">
+        <p class="axa-step">The platform sends</p>
+        <div class="axa-opts" role="group" aria-label="Product">
+          <sc-for list="{{ trProducts }}" as="p" hint-placeholder-count="3">
+            <button class="axa-opt{{ p.cls }}" type="button" aria-pressed="{{ p.pressed }}" onClick="{{ p.pick }}">{{ p.label }}</button>
+          </sc-for>
+        </div>
+        <div class="axa-fields">
+          <sc-for list="{{ trFields }}" as="f" hint-placeholder-count="2">
+            <label class="axa-field">
+              <span class="axa-field__label">{{ f.label }}</span>
+              <input class="axa-input{{ f.cls }}" type="text" value="{{ f.value }}" onChange="{{ f.change }}" aria-invalid="{{ f.invalid }}" autocomplete="off"/>
+            </label>
+          </sc-for>
+          <sc-if value="{{ trIsLife }}" hint-placeholder-val="{{ false }}">
+            <div class="axa-bens" role="group" aria-labelledby="tr-bens">
+              <p class="axa-field__label" id="tr-bens">Beneficiaries and shares</p>
+              <sc-for list="{{ trBens }}" as="b" hint-placeholder-count="2">
+                <div class="axa-ben">
+                  <label class="axa-ben__name"><span class="visually-hidden">Beneficiary {{ b.n }} name</span><input class="axa-input{{ b.nameCls }}" type="text" value="{{ b.name }}" onChange="{{ b.changeName }}" aria-invalid="{{ b.nameInvalid }}" autocomplete="off"/></label>
+                  <label class="axa-ben__share"><span class="visually-hidden">Beneficiary {{ b.n }} share, percent</span><input class="axa-input axa-input--num{{ b.shareCls }}" type="text" inputmode="numeric" value="{{ b.share }}" onChange="{{ b.changeShare }}" aria-invalid="{{ b.shareInvalid }}" autocomplete="off"/><span class="axa-ben__unit" aria-hidden="true">%</span></label>
+                  <button class="axa-btn axa-btn--quiet axa-ben__remove" type="button" onClick="{{ b.remove }}" aria-label="Remove beneficiary {{ b.n }}">Remove</button>
+                </div>
+              </sc-for>
+              <button class="axa-btn axa-bens__add" type="button" onClick="{{ trAddBen }}" disabled="{{ trAddDisabled }}">Add beneficiary</button>
+            </div>
+          </sc-if>
+        </div>
+      </div>
+      <p class="axa-tr__arrow" aria-hidden="true"><span class="axa-from-desktop">→</span><span class="axa-below-desktop">↓</span></p>
+      <div class="axa-tr__col">
+        <p class="axa-step">The service checks</p>
+        <ul class="axa-checks">
+          <sc-for list="{{ trChecks }}" as="c" hint-placeholder-count="2">
+            <li class="axa-check{{ c.cls }}">
+              <p class="axa-check__name">{{ c.name }}</p>
+              <p class="axa-check__flow">{{ c.flow }}</p>
+              <p class="axa-check__result">{{ c.result }}</p>
+            </li>
+          </sc-for>
+        </ul>
+      </div>
+      <p class="axa-tr__arrow" aria-hidden="true"><span class="axa-from-desktop">→</span><span class="axa-below-desktop">↓</span></p>
+      <div class="axa-tr__col">
+        <p class="axa-step">The core receives</p>
+        <dl class="axa-rec">
+          <sc-for list="{{ trRecord }}" as="r" hint-placeholder-count="3">
+            <div class="axa-rec__row{{ r.cls }}"><dt>{{ r.key }}</dt><dd>{{ r.value }}</dd></div>
+          </sc-for>
+        </dl>
+        <p class="axa-status{{ trStatusCls }}" role="status">{{ trStatus }}</p>
+      </div>
+    </div>
+    <div class="axa-try" role="group" aria-labelledby="tr-try">
+      <p class="axa-try__label" id="tr-try">Try an edge case</p>
+      <div class="axa-try__list">
+        <sc-for list="{{ trTries }}" as="t" hint-placeholder-count="6">
+          <button class="axa-btn axa-try__btn" type="button" onClick="{{ t.run }}">{{ t.label }}</button>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+  <figcaption class="case-caption">Products, fields, values and IDs are invented. The real contracts and reference data aren’t shown.</figcaption>
+</figure>
+
+<!-- ===================================================== Settlement allocation -->
+<figure class="case-figure axa-demo" aria-labelledby="st-title">
+  <div class="axa-demo__plate">
+    <div class="axa-demo__bar">
+      <div class="axa-demo__name"><p class="axa-demo__title" id="st-title">Settlement allocation</p><p class="axa-demo__tag">Reconstruction, fictional data</p></div>
+      <button class="axa-btn axa-demo__reset" type="button" onClick="{{ stReset }}">Reset</button>
+    </div>
+    <div class="axa-st">
+      <div class="axa-st__top">
+        <label class="axa-field axa-st__amount">
+          <span class="axa-field__label">Settlement, in naira</span>
+          <span class="axa-st__money"><span class="axa-st__cur" aria-hidden="true">₦</span><input class="axa-input axa-input--money{{ stAmountCls }}" type="text" inputmode="decimal" value="{{ stAmount }}" onChange="{{ stChangeAmount }}" readOnly="{{ stAmountLocked }}" aria-invalid="{{ stAmountInvalid }}" autocomplete="off"/></span>
+        </label>
+        <div class="axa-st__tools">
+          <button class="axa-btn" type="button" onClick="{{ stSplit }}" disabled="{{ stSplitDisabled }}">Split equally</button>
+          <button class="axa-btn" type="button" onClick="{{ stAdd }}" disabled="{{ stAddDisabled }}">Add beneficiary</button>
+        </div>
+      </div>
+      <div class="axa-st__head" aria-hidden="true"><span>Beneficiary</span><span>Share</span><span>Amount</span><span></span></div>
+      <ul class="axa-st__rows">
+        <sc-for list="{{ stRows }}" as="r" hint-placeholder-count="3">
+          <li class="axa-st__row{{ r.cls }}">
+            <div class="axa-st__who">
+              <p class="axa-st__name">{{ r.name }}<span class="axa-st__badge">{{ r.badge }}</span></p>
+              <label class="axa-st__acct"><span>Account ending</span><input class="axa-input axa-input--acct{{ r.acctCls }}" type="text" inputmode="numeric" maxlength="4" value="{{ r.acct }}" onChange="{{ r.changeAcct }}" readOnly="{{ r.locked }}" aria-invalid="{{ r.acctInvalid }}" autocomplete="off"/></label>
+            </div>
+            <label class="axa-st__share"><span class="visually-hidden">Share for {{ r.name }}, percent</span><input class="axa-input axa-input--num{{ r.shareCls }}" type="text" inputmode="decimal" value="{{ r.share }}" onChange="{{ r.changeShare }}" readOnly="{{ r.locked }}" aria-invalid="{{ r.shareInvalid }}" autocomplete="off"/><span class="axa-st__unit" aria-hidden="true">%</span></label>
+            <p class="axa-st__amt">{{ r.amount }}</p>
+            <div class="axa-st__acts">
+              <sc-if value="{{ r.canPay }}" hint-placeholder-val="{{ true }}"><button class="axa-btn" type="button" onClick="{{ r.pay }}" disabled="{{ r.payDisabled }}">Mark paid</button></sc-if>
+              <sc-if value="{{ r.canRemove }}" hint-placeholder-val="{{ true }}"><button class="axa-btn axa-btn--quiet" type="button" onClick="{{ r.remove }}">Remove</button></sc-if>
+              <sc-if value="{{ r.removed }}" hint-placeholder-val="{{ false }}"><button class="axa-btn" type="button" onClick="{{ r.restore }}">Restore</button></sc-if>
+              <sc-if value="{{ r.paid }}" hint-placeholder-val="{{ false }}"><p class="axa-st__note">Paid, locked</p></sc-if>
+            </div>
+          </li>
+        </sc-for>
+      </ul>
+      <dl class="axa-st__sum">
+        <div><dt>Allocated</dt><dd>{{ stAllocated }}</dd></div>
+        <div><dt>Settlement</dt><dd>{{ stTotal }}</dd></div>
+        <div><dt>Difference</dt><dd>{{ stDiff }}</dd></div>
+      </dl>
+      <p class="axa-status{{ stStatusCls }}" role="status">{{ stStatus }}</p>
+    </div>
+    <div class="axa-try" role="group" aria-labelledby="st-try">
+      <p class="axa-try__label" id="st-try">Try an edge case</p>
+      <div class="axa-try__list">
+        <sc-for list="{{ stTries }}" as="t" hint-placeholder-count="4">
+          <button class="axa-btn axa-try__btn" type="button" onClick="{{ t.run }}">{{ t.label }}</button>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+  <figcaption class="case-caption">Fictional claim, names and accounts. Amounts are stored as whole kobo to avoid floating-point errors.</figcaption>
+</figure>
+
+<!-- ===================================================== Turnaround clock -->
+<figure class="case-figure axa-demo" aria-labelledby="tt-title">
+  <div class="axa-demo__plate">
+    <div class="axa-demo__bar">
+      <div class="axa-demo__name"><p class="axa-demo__title" id="tt-title">Turnaround clock</p><p class="axa-demo__tag">Reconstruction, fictional data</p></div>
+      <button class="axa-btn axa-demo__reset" type="button" onClick="{{ ttReset }}">Reset</button>
+    </div>
+    <div class="axa-tt">
+      <dl class="axa-tt__nums">
+        <div class="axa-tt__num"><dt>Active</dt><dd>{{ ttActive }}</dd></div>
+        <div class="axa-tt__num"><dt>Paused</dt><dd>{{ ttPaused }}</dd></div>
+        <div class="axa-tt__num"><dt>Elapsed</dt><dd>{{ ttElapsed }}</dd></div>
+        <div class="axa-tt__num axa-tt__num--state"><dt>Viewing day {{ ttNowLabel }}</dt><dd>{{ ttState }}</dd></div>
+      </dl>
+      <div class="axa-tt__chart" aria-hidden="true">
+        <span class="axa-tt__spacer"></span>
+        <div class="axa-tt__marks">
+          <sc-for list="{{ ttMarks }}" as="m" hint-placeholder-count="6">
+            <span class="axa-tt__mark{{ m.cls }}" style="left: {{ m.at }}"></span>
+          </sc-for>
+        </div>
+        <div class="axa-tt__lane"><span class="axa-tt__lane-name">Elapsed</span>
+          <div class="axa-tt__track">
+            <sc-for list="{{ ttElapsedSegs }}" as="s" hint-placeholder-count="1"><span class="axa-tt__seg{{ s.cls }}" style="left: {{ s.from }}; width: {{ s.width }}"></span></sc-for>
+          </div>
+        </div>
+        <div class="axa-tt__lane"><span class="axa-tt__lane-name">Active</span>
+          <div class="axa-tt__track">
+            <sc-for list="{{ ttActiveSegs }}" as="s" hint-placeholder-count="3"><span class="axa-tt__seg{{ s.cls }}" style="left: {{ s.from }}; width: {{ s.width }}"></span></sc-for>
+          </div>
+        </div>
+        <div class="axa-tt__axis"><span class="axa-tt__axis-name">Day</span><div class="axa-tt__ticks"><span class="axa-tt__tick" style="left: 0.0000%">0</span><span class="axa-tt__tick" style="left: 14.2857%">2</span><span class="axa-tt__tick" style="left: 28.5714%">4</span><span class="axa-tt__tick" style="left: 42.8571%">6</span><span class="axa-tt__tick" style="left: 57.1429%">8</span><span class="axa-tt__tick" style="left: 71.4286%">10</span><span class="axa-tt__tick" style="left: 85.7143%">12</span><span class="axa-tt__tick" style="left: 100.0000%">14</span><span class="axa-tt__now" style="left: {{ ttNowAt }}"></span></div></div>
+      </div>
+      <div class="axa-tt__scrub">
+        <button class="axa-btn axa-tt__play" type="button" onClick="{{ ttPlay }}">{{ ttPlayLabel }}</button>
+        <label class="axa-tt__range"><span class="visually-hidden">Day to show</span><input type="range" min="0" max="14" step="0.5" value="{{ ttNow }}" onChange="{{ ttScrub }}" aria-valuetext="Day {{ ttNowLabel }}"/></label>
+      </div>
+      <ul class="axa-tt__events">
+        <sc-for list="{{ ttEvents }}" as="e" hint-placeholder-count="10">
+          <li class="axa-tt__event{{ e.cls }}">
+            <sc-if value="{{ e.fixed }}" hint-placeholder-val="{{ false }}"><p class="axa-tt__what"><span class="axa-tt__box" aria-hidden="true"></span><span class="axa-tt__day">Day {{ e.day }}</span>{{ e.label }}</p></sc-if>
+            <sc-if value="{{ e.toggle }}" hint-placeholder-val="{{ true }}"><label class="axa-tt__what"><input class="axa-tt__check" type="checkbox" checked="{{ e.on }}" onChange="{{ e.flip }}"/><span class="axa-tt__day">Day {{ e.day }}</span>{{ e.label }}</label></sc-if>
+            <p class="axa-tt__effect">{{ e.effect }}</p>
+          </li>
+        </sc-for>
+      </ul>
+    </div>
+  </div>
+  <figcaption class="case-caption">Synthetic events and days. Switch events on and off to see how each one is handled.</figcaption>
+</figure>
